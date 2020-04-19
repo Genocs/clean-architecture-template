@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\source\Genocs.Domain\Genocs.Domain.csproj" />
+    <ProjectReference Include="..\..\source\Genocs.Application\Genocs.Application.csproj" />
+    <ProjectReference Include="..\..\source\Genocs.Infrastructure\Genocs.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\source\Genocs.WebApi\Genocs.WebApi.csproj" />
+  </ItemGroup>
+
+</Project>

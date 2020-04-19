@@ -1,0 +1,182 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Nocco Giovanni Emanuele",
+  "classifications": [
+    "Common",
+    "Library",
+    "Web API"
+  ],
+  "name": "Genocs: Clean Architecture for .NET Core",
+  "identity": "Genocs.CleanArchitecture",
+  "groupIdentity": "Genocs.CleanArchitecture",
+  "shortName": "cleanarchitecture",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "cleanarchitecture",
+  "preferNameDirectory": true,
+  "symbols": {
+    "use-cases": {
+      "type": "parameter",
+      "datatype": "choice",
+      "defaultValue": "full",
+      "choices": [
+        {
+          "choice": "full",
+          "description": "Full Wallet Account Balance Management (Read/Write)"
+        },
+        {
+          "choice": "basic",
+          "description": "Allow Customer to Register and to Get Customer Details (Read/Write)"
+        },
+        {
+          "choice": "readonly",
+          "description": "Read Customer and Account Details (Read Only)"
+        }
+      ],
+      "replaces": "use-cases",
+      "onlyIf": [
+        {
+          "after": "\"use-cases\": \""
+        }
+      ]
+    },
+    "Basic": {
+      "type": "computed",
+      "value": "(use-cases == \"basic\")"
+    },
+    "ReadOnly": {
+      "type": "computed",
+      "value": "(use-cases == \"readonly\")"
+    },
+    "Full": {
+      "type": "computed",
+      "value": "(use-cases == \"full\")"
+    },
+    "CloseAccount": {
+      "type": "computed",
+      "value": "(Full)"
+    },
+    "Deposit": {
+      "type": "computed",
+      "value": "(Full)"
+    },
+    "GetAccountDetails": {
+      "type": "computed",
+      "value": "(Full || ReadOnly)"
+    },
+    "GetCustomerDetails": {
+      "type": "computed",
+      "value": "(Full || ReadOnly || Basic)"
+    },
+    "Register": {
+      "type": "computed",
+      "value": "(Full || Basic)"
+    },
+    "Withdraw": {
+      "type": "computed",
+      "value": "(Full)"
+    },
+    "Transfer": {
+      "type": "computed",
+      "value": "(Full)"
+    }
+  },
+  "sources": [
+    {
+      "source": "./",
+      "modifiers": [
+        {
+          "condition": "(ReadOnly)",
+          "exclude": [
+            "source/Genocs.WebApi/UseCases/V1/CloseAccount/**/*.cs",
+            "source/Genocs.WebApi/UseCases/V1/Deposit/**/*.cs",
+            "source/Genocs.WebApi/UseCases/V1/Register/**/*.cs",
+            "source/Genocs.WebApi/UseCases/V1/Transfer/**/*.cs",
+            "source/Genocs.WebApi/UseCases/V1/Withdraw/**/*.cs",
+            "source/Genocs.Application/Boundaries/CloseAccount/**/*.cs",
+            "source/Genocs.Application/Boundaries/Deposit/**/*.cs",
+            "source/Genocs.Application/Boundaries/Register/**/*.cs",
+            "source/Genocs.Application/Boundaries/Transfer/**/*.cs",
+            "source/Genocs.Application/Boundaries/Withdraw/**/*.cs",
+            "source/Genocs.Application/UseCases/CloseAccount.cs",
+            "source/Genocs.Application/UseCases/Deposit.cs",
+            "source/Genocs.Application/UseCases/Register.cs",
+            "source/Genocs.Application/UseCases/Transfer.cs",
+            "source/Genocs.Application/UseCases/Withdraw.cs",
+            "source/Genocs.Infrastructure/InMemoryDataAccess/Presenters/CloseAccountPresenter.cs",
+            "source/Genocs.Infrastructure/InMemoryDataAccess/Presenters/DepositPresenter.cs",
+            "source/Genocs.Infrastructure/InMemoryDataAccess/Presenters/RegisterPresenter.cs",
+            "source/Genocs.Infrastructure/InMemoryDataAccess/Presenters/TransferPresenter.cs",
+            "source/Genocs.Infrastructure/InMemoryDataAccess/Presenters/WithdrawPresenter.cs",
+            "tests/Genocs.UnitTests/UseCaseTests/CloseAccount/**/*.cs",
+            "tests/Genocs.UnitTests/UseCaseTests/Deposit/**/*.cs",
+            "tests/Genocs.UnitTests/UseCaseTests/Register/**/*.cs",
+            "tests/Genocs.UnitTests/UseCaseTests/Transfer/**/*.cs",
+            "tests/Genocs.UnitTests/UseCaseTests/Withdraw/**/*.cs",
+            "tests/Genocs.UnitTests/InputValidationTests/CloseAccountInputValidationTests.cs",
+            "tests/Genocs.UnitTests/InputValidationTests/DepositInputValidationTests.cs",
+            "tests/Genocs.UnitTests/InputValidationTests/RegisterInputValidationTests.cs",
+            "tests/Genocs.UnitTests/InputValidationTests/TransferInputValidationTests.cs",
+            "tests/Genocs.UnitTests/InputValidationTests/WithdrawInputValidationTests.cs"
+          ]
+        },
+        {
+          "condition": "(Basic)",
+          "exclude": [
+            "source/Genocs.WebApi/UseCases/V1/CloseAccount/**/*.cs",
+            "source/Genocs.WebApi/UseCases/V1/Deposit/**/*.cs",
+            "source/Genocs.WebApi/UseCases/V1/GetAccountDetails/**/*.cs",
+            "source/Genocs.WebApi/UseCases/V1/Transfer/**/*.cs",
+            "source/Genocs.WebApi/UseCases/V1/Withdraw/**/*.cs",
+            "source/Genocs.WebApi/UseCases/V2/GetAccountDetails/**/*.cs",
+            "source/Genocs.Application/Boundaries/CloseAccount/**/*.cs",
+            "source/Genocs.Application/Boundaries/Deposit/**/*.cs",
+            "source/Genocs.Application/Boundaries/GetAccountDetails/**/*.cs",
+            "source/Genocs.Application/Boundaries/Transfer/**/*.cs",
+            "source/Genocs.Application/Boundaries/Withdraw/**/*.cs",
+            "source/Genocs.Application/UseCases/CloseAccount.cs",
+            "source/Genocs.Application/UseCases/Deposit.cs",
+            "source/Genocs.Application/UseCases/GetAccountDetails.cs",
+            "source/Genocs.Application/UseCases/Transfer.cs",
+            "source/Genocs.Application/UseCases/Withdraw.cs",
+            "source/Genocs.Infrastructure/InMemoryDataAccess/Presenters/CloseAccountPresenter.cs",
+            "source/Genocs.Infrastructure/InMemoryDataAccess/Presenters/DepositPresenter.cs",
+            "source/Genocs.Infrastructure/InMemoryDataAccess/Presenters/GetAccountDetailsPresenter.cs",
+            "source/Genocs.Infrastructure/InMemoryDataAccess/Presenters/TransferPresenter.cs",
+            "source/Genocs.Infrastructure/InMemoryDataAccess/Presenters/WithdrawPresenter.cs",
+            "tests/Genocs.UnitTests/UseCaseTests/CloseAccount/**/*.cs",
+            "tests/Genocs.UnitTests/UseCaseTests/Deposit/**/*.cs",
+            "tests/Genocs.UnitTests/UseCaseTests/GetAccountDetails/**/*.cs",
+            "tests/Genocs.UnitTests/UseCaseTests/Transfer/**/*.cs",
+            "tests/Genocs.UnitTests/UseCaseTests/Withdraw/**/*.cs",
+            "tests/Genocs.UnitTests/InputValidationTests/CloseAccountInputValidationTests.cs",
+            "tests/Genocs.UnitTests/InputValidationTests/DepositInputValidationTests.cs",
+            "tests/Genocs.UnitTests/InputValidationTests/GetAccountDetailsInputValidationTests.cs",
+            "tests/Genocs.UnitTests/InputValidationTests/TransferInputValidationTests.cs",
+            "tests/Genocs.UnitTests/InputValidationTests/WithdrawInputValidationTests.cs"
+          ]
+        },
+        {
+          "condition": "(Full)",
+          "exclude": []
+        }
+      ]
+    }
+  ],
+  "primaryOutputs": [
+    {
+      "path": "source/Genocs.Application/Genocs.Application.csproj"
+    },
+    {
+      "path": "source/Genocs.Domain/Genocs.Domain.csproj"
+    },
+    {
+      "path": "source/Genocs.Infrastructure/Genocs.Infrastructure.csproj"
+    },
+    {
+      "path": "source/Genocs.WebApi/Genocs.WebApi.csproj"
+    }
+  ]
+}
