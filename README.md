@@ -10,7 +10,7 @@ This tool increases productivity on developing your next microservices.
 To generate your own awesome .NET Back-end simple run:
 
 ```sh
-dotnet new -i Genocs.CleanArchitectureTemplate:0.1.0
+dotnet new -i Genocs.CleanArchitectureTemplate::0.1.3
 dotnet new cleanarchitecture
 ```
 

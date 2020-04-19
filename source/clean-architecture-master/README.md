@@ -1,29 +1,29 @@
-# Manga: The Clean Architecture Sample Implementation with .NET Core :cyclone:
-[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors)
-[![Build status](https://ci.appveyor.com/api/projects/status/0i6s33kw3y87tkb2?svg=true)](https://ci.appveyor.com/project/ivanpaulovich/clean-architecture-manga)<a href="https://www.nuget.org/packages/Paulovich.Caju/" rel="Paulovich.Caju">![NuGet](https://buildstats.info/nuget/paulovich.caju)</a> [![Build Status](https://travis-ci.org/ivanpaulovich/dotnet-new-caju.svg?branch=master)](https://travis-ci.org/ivanpaulovich/dotnet-new-caju)
+# The Clean Architecture Sample Implementation with .NET Core
+[![All Contributors](https://img.shields.io/badge/all_contributors-12-yellow.svg?style=flat-square)](#contributors)
+[![Build status](https://ci.appveyor.com/api/projects/status/0i6s33kw3y87tkb2?svg=true)](https://ci.appveyor.com/project/genocs/clean-architecture-template)<a href="https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate/" rel="Genocs.CleanArchitectureTemplate">![NuGet](https://buildstats.info/nuget/Genocs.CleanArchitectureTemplate)</a>
+[![Build Status](https://travis-ci.org/genocs/clean-architecture-template.svg?branch=master)](https://travis-ci.org/genocs/clean-architecture-template)
+
 
 Sample implementation of the **Clean Architecture Principles with .NET Core**. Use cases as central organizing structure, decoupled from frameworks and technology details. Built with small components that are developed and tested in isolation.
 
 # Usage
 
 ```sh
-dotnet new -i Paulovich.Caju::0.7.3
-dotnet new manga -n "MyGreatApi"
+dotnet new -i Genocs.CleanArchitecture::0.1.3
+dotnet new cleanarchitecture -n "MyGreatApi"
 ```
 
 **ProTip #1:** To get the Clean Architecture updates hit the `WATCH` button :eyes:.
 
 **Manga** is a virtual Wallet application in which a customer can register an account then manage the balance with `Deposits`, `Withdraws` and `Transfers`.
 
-The Manga's demo is hosted on `Heroku` servers and the `Swagger UI` client is available at [https://clean-architecture-manga.herokuapp.com/swagger/](https://clean-architecture-manga.herokuapp.com/swagger/). It is just beautiful!
-[![Swagger Demo](https://raw.githubusercontent.com/ivanpaulovich/clean-architecture-manga/master/docs/clean-architecture-manga-swagger.png)](https://clean-architecture-manga.herokuapp.com/swagger/index.html)
 
 
 <p align="center">
   Run the Docker container in less than 2 minutes using Play With Docker:
   <br>
   <br>
-  <a href="https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/ivanpaulovich/clean-architecture-manga/master/docker-compose.yml&amp;stack_name=clean-architecture-manga" rel="nofollow"><img src="https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png" alt="Try in PWD" style="max-width:100%;"></a>
+  <a href="https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/genocs/clean-architecture-template/master/docker-compose.yml&amp;stack_name=clean-architecture-template" rel="nofollow"><img src="https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png" alt="Try in PWD" style="max-width:100%;"></a>
 </p>
 
 
@@ -133,7 +133,7 @@ Feel free to submit pull requests to help:
 Application architecture is about usage, a good architecture screams the business use cases to the developer and framework concerns are implementation details. On **Manga** sample the user can `Register` an account then manage the balance by `Deposits`, `Withdrawals` and `Transfers`.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ivanpaulovich/clean-architecture-manga/master/docs/clean-architecture-manga-use-cases.png" alt=Clean Architecture Use Cases" style="max-width:100%;">
+  <img src="https://raw.githubusercontent.com/genocs/clean-architecture/master/docs/clean-architecture-use-cases.png" alt=Clean Architecture Use Cases" style="max-width:100%;">
 </p>
 
 Following the list of Use Cases:
@@ -160,7 +160,7 @@ The flow of control begins in the controller, moves through the use case, and th
 4. The `RegisterPresenter` builds the HTTP Response message.
 5. The `CustomersController` asks the presenter the current response.
 
-![Register Flow of Control](https://github.com/ivanpaulovich/clean-architecture-manga/blob/master/docs/register-flow-of-control.svg)
+![Register Flow of Control](https://github.com/genocs/clean-architecture/blob/master/docs/register-flow-of-control.svg)
 
 ### Get Customer Details Flow of Control
 
@@ -188,7 +188,7 @@ Interfaces like `ICustomerRepository`, `IOutputPort` and `IUnitOfWork` are ports
 
 The interface implementations, they are specific to a technology and bring external capabilities. For instance the `CustomerRepository` inside the `EntityFrameworkDataAccess` folder provides capabilities to consume an SQL Server database.
 
-![Ports and Adapters](https://raw.githubusercontent.com/ivanpaulovich/clean-architecture-manga/master/docs/clean-architecture-manga-ports-and-adapters.png)
+![Ports and Adapters](https://raw.githubusercontent.com/genocs/clean-architecture/master/docs/clean-architecture-ports-and-adapters.png)
 
 #### The Left Side
 
@@ -233,7 +233,7 @@ public sealed class CustomersController : Controller
 
 ### ViewModel
 
-ViewModels are data transfer objects, they will be rendered by the MVC framework so we need to follow the framework guidelines. I suggest that you add comments describing each property and the `[Required]` attribute so swagger generators could know the properties that are not nullable. My personal preference is to avoid getters here because you have total control of response object instantiation, so implement the constructor.
+ViewModels are Data Transfer Objects, they will be rendered by the MVC framework so we need to follow the framework guidelines. I suggest that you add comments describing each property and the `[Required]` attribute so swagger generators could know the properties that are not nullable. My personal preference is to avoid getters here because you have total control of response object instantiation, so implement the constructor.
 
 ```c#
 /// <summary>
@@ -281,7 +281,7 @@ public sealed class RegisterResponse
 
 ### Presenter
 
-Presenters are called by te application Use Cases and build the Response objects.
+Presenters are called by the application Use Cases and build the Response objects.
 
 ```c#
 public sealed class RegisterPresenter : IOutputPort
@@ -339,12 +339,10 @@ public interface IUnitOfWork
 ```c#
 public sealed class UnitOfWork : IUnitOfWork, IDisposable
 {
-    private MangaContext context;
+    private readonly GenocsContext _context;
 
-    public UnitOfWork(MangaContext context)
-    {
-        this.context = context;
-    }
+    public UnitOfWork(GenocsContext context)
+        => _context = context;
 
     public async Task<int> Save()
     {
@@ -352,18 +350,18 @@ public sealed class UnitOfWork : IUnitOfWork, IDisposable
         return affectedRows;
     }
 
-    private bool disposed = false;
+    private bool _disposed = false;
 
     private void Dispose(bool disposing)
     {
-        if (!this.disposed)
+        if (!_disposed)
         {
             if (disposing)
             {
                 context.Dispose();
             }
         }
-        this.disposed = true;
+        _disposed = true;
     }
 
     public void Dispose()
@@ -472,7 +470,7 @@ Describe the tiny domain business rules. Objects that are unique by the has of t
 ```c#
 public sealed class Name : IEquatable<Name>
 {
-    private string _text;
+    private readonly string _text;
 
     private Name() { }
 
@@ -534,11 +532,14 @@ Mutable objects unique identified by their IDs.
 public class Credit : ICredit
 {
     public Guid Id { get; protected set; }
+
     public PositiveAmount Amount { get; protected set; }
+
     public string Description
     {
         get { return "Credit"; }
     }
+
     public DateTime TransactionDate { get; protected set; }
 
     public PositiveAmount Sum(PositiveAmount amount)
@@ -556,7 +557,9 @@ Similar to Entities with the addition that Aggregate Root are responsible to kee
 public class Account : IAccount
 {
     public Guid Id { get; protected set; }
+
     public CreditsCollection Credits { get; protected set; }
+
     public DebitsCollection Debits { get; protected set; }
 
     protected Account()
@@ -608,12 +611,10 @@ public class Account : IAccount
 ```c#
 public sealed class CustomerRepository : ICustomerRepository
 {
-    private readonly MangaContext _context;
+    private readonly GenocsContext _context;
 
-    public CustomerRepository(MangaContext context)
-    {
-        _context = context;
-    }
+    public CustomerRepository(GenocsContext context)
+        => _context = context;
 
     public async Task Add(ICustomer customer)
     {
@@ -682,7 +683,7 @@ public sealed class Withdraw : IUseCase
 ## Separation of Concerns
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ivanpaulovich/clean-architecture-manga/master/docs/clean-architecture-manga-layers.png" alt="Layers" style="max-width:100%;">
+  <img src="https://raw.githubusercontent.com/genocs/clean-architecture-template/master/docs/clean-architecture-manga-layers.png" alt="Layers" style="max-width:100%;">
 </p>
 
 ### Domain
@@ -782,12 +783,12 @@ http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd
 ### Swagger and API Versioning
 
 ```c#
-namespace Manga.WebApi.Extensions
+namespace Genocs.WebApi.Extensions
 {
+    using Genocs.WebApi.Filters;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using Manga.WebApi.Filters;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Mvc.ApiExplorer;
     using Microsoft.AspNetCore.Mvc;
@@ -834,7 +835,8 @@ namespace Manga.WebApi.Extensions
             ApiVersionDescription apiVersion)
         {
             var dictionairy = new Dictionary<string, string>
-                { { "1.0", "This API features several endpoints showing different API features for API version V1" },
+                {
+                    { "1.0", "This API features several endpoints showing different API features for API version V1" },
                     { "2.0", "This API features several endpoints showing different API features for API version V2" }
                 };
 
@@ -842,16 +844,16 @@ namespace Manga.WebApi.Extensions
             options.SwaggerDoc(apiVersion.GroupName,
                 new Info()
                 {
-                    Title = "Clean Architecture Manga",
+                    Title = "Clean Architecture Genocs",
                         Contact = new Contact()
                         {
-                            Name = "@ivanpaulovich",
-                                Email = "ivan@paulovich.net",
-                                Url = "https://github.com/ivanpaulovich"
+                            Name = "@giovanninocco",
+                                Email = "giovanni.nocco@genocs.com",
+                                Url = "https://github.com/genocs"
                         },
                         License = new License()
                         {
-                            Name = "Apache License"
+                            Name = "MIT License"
                         },
                         Version = apiVersionName,
                         Description = dictionairy[apiVersionName]
@@ -1145,9 +1147,9 @@ References: [Designing and Testing Input Validation in .NET Core: The Clean Arch
 ## Entity Framework Core
 
 ```c#
-public sealed class MangaContext : DbContext
+public sealed class GenocsContext : DbContext
 {
-    public MangaContext(DbContextOptions options) : base(options)
+    public GenocsContext(DbContextOptions options) : base(options)
     {
 
     }
@@ -1232,10 +1234,10 @@ public sealed class MangaContext : DbContext
 
 ### Add Migration
 
-Run the EF Tool to add a migration to the `Manga.Infrastructure` project.
+Run the EF Tool to add a migration to the `Genocs.Infrastructure` project.
 
 ```sh
-dotnet ef migrations add "InitialCreate" -o "EntityFrameworkDataAccess/Migrations" --project source/Manga.Infrastructure --startup-project source/Manga.WebApi
+dotnet ef migrations add "InitialCreate" -o "EntityFrameworkDataAccess/Migrations" --project source/Genocs.Infrastructure --startup-project source/Genocs.WebApi
 ```
 
 ### Update Database
@@ -1243,7 +1245,7 @@ dotnet ef migrations add "InitialCreate" -o "EntityFrameworkDataAccess/Migration
 Generate tables and seed the database via Entity Framework Tool:
 
 ```sh
-dotnet ef database update --project source/Manga.Infrastructure --startup-project source/Manga.WebApi
+dotnet ef database update --project source/Genocs.Infrastructure --startup-project source/Genocs.WebApi
 ```
 
 ## Environment Configurations
@@ -1251,7 +1253,7 @@ dotnet ef database update --project source/Manga.Infrastructure --startup-projec
 To run in `Development` mode use:
 
 ```sh
-dotnet run --project "source/Manga.WebApi/Manga.WebApi.csproj" --Environment="Development"
+dotnet run --project "source/Genocs.WebApi/Genocs.WebApi.csproj" --Environment="Development"
 ```
 
 It starts the application and call `ConfigureDevelopmentServices` method which runs the application using in memory persistence.
@@ -1272,14 +1274,14 @@ Manga is a cross-platform application, you can run it from Mac, Windows or Unix.
 
 The single requirement is to install the latest .NET Code SDK.
 
-* [.NET Core SDK 2.2](https://www.microsoft.com/net/download/dotnet-core/2.2)
+* [.NET Core SDK 3.1](https://www.microsoft.com/net/download/dotnet-core/3.1)
 
 We made available scripts to create and seed the database quickly via Docker.
 
 Finally to run it locally use:
 
 ```sh
-dotnet run --project "source/Manga.WebApi/Manga.WebApi.csproj"
+dotnet run --project "source/Genocs.WebApi/Genocs.WebApi.csproj"
 ```
 
 ### Running the Tests Locally
@@ -1318,21 +1320,21 @@ build_script:
   - docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=<YourStrong!Passw0rd>' -p 1433:1433 --name sql1 -d mcr.microsoft.com/mssql/server:2017-latest || true
   - sleep 10
   - docker exec -i sql1 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P '<YourStrong!Passw0rd>' -Q 'ALTER LOGIN SA WITH PASSWORD="<YourNewStrong!Passw0rd>"' || true
-  - dotnet ef database update --project source/Manga.Infrastructure --startup-project source/Manga.WebApi
+  - dotnet ef database update --project source/Genocs.Infrastructure --startup-project source/Genocs.WebApi
   - dotnet build
-  - pushd source/Manga.WebApi/
+  - pushd source/Genocs.WebApi/
   - dotnet pack --configuration Release
   - popd
 test_script:
-  - dotnet test tests/Manga.UnitTests/Manga.UnitTests.csproj
-  - dotnet test tests/Manga.IntegrationTests/Manga.IntegrationTests.csproj
-  - dotnet test tests/Manga.AcceptanceTests/Manga.AcceptanceTests.csproj
+  - dotnet test tests/Genocs.UnitTests/Genocs.UnitTests.csproj
+  - dotnet test tests/Genocs.IntegrationTests/Genocs.IntegrationTests.csproj
+  - dotnet test tests/Genocs.AcceptanceTests/Genocs.AcceptanceTests.csproj
 deploy_script:
-  - docker build -t ivanpaulovich/clean-architecture-manga:github .
+  - docker build -t genocs/clean-architecture:github .
   - docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
-  - docker push ivanpaulovich/clean-architecture-manga:github
+  - docker push genocs/clean-architecture:github
   - docker login --username=$HEROKU_USERNAME --password=$HEROKU_API_KEY registry.heroku.com
-  - docker tag ivanpaulovich/clean-architecture-manga:github registry.heroku.com/$HEROKU_APP_NAME/web
+  - docker tag genocs/clean-architecture:github registry.heroku.com/$HEROKU_APP_NAME/web
   - docker push registry.heroku.com/$HEROKU_APP_NAME/web                
   - curl https://cli-assets.heroku.com/install.sh | sh
   - heroku container:release web -a $HEROKU_APP_NAME
