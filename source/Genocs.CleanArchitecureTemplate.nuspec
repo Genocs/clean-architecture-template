@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata minClientVersion="5.0.0">
     <id>Genocs.CleanArchitectureTemplate</id>
-    <version>0.1.0</version>
+    <version>0.1.3</version>
     <authors>Nocco Giovanni Emanuele</authors>
     <owners>[Genocs] Nocco Giovanni Emanuele</owners>
     <projectUrl>https://github.com/Genocs/clean-architecture-template</projectUrl>
@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <title>The clean code template by Genocs</title>
     <description>
-$ dotnet new -i Genocs.CleanArchitectureTemplate:0.1.0
+$ dotnet new -i Genocs.CleanArchitectureTemplate::0.1.3
 $ dotnet new cleanarchitecture
 
 It generates a .NET Solution following the Clean Architecture Style, DDD and Separation of Concerns in Domain, Application, Infrastructure and UI.
