@@ -10,13 +10,22 @@ This tool increases productivity on developing your next microservices.
 To generate your own awesome .NET Back-end simple run:
 
 ```sh
-dotnet new -i Genocs.CleanArchitectureTemplate:0.1.3
-dotnet new clean
+dotnet new -i Genocs.CleanArchitectureTemplate:0.1.0
+dotnet new cleanarchitecture
 ```
 
 ## Clean Architecture
 
 Based on [Clean Architecture](https://github.com/genocs/clean-architecture).
+
+
+## Build the packages
+
+```sh
+cd .\source
+nuget pack 
+```
+
 
 ## Sample applications
 
@@ -25,17 +34,17 @@ Run `dotnet new -i Genocs.CleanArchitecture` then try the following commands.
 Complete suite of use cases.
 
 ```sh
-dotnet new clean --use-cases full
+dotnet new cleanarchitecture --use-cases full
 ```
 
 Register account and get customer details.
 
 ```sh
-dotnet new clean --use-cases basic
+dotnet new cleanarchitecture --use-cases basic
 ```
 
 Read only use cases
 
 ```sh
-dotnet new clean --use-cases readonly
+dotnet new cleanarchitecture --use-cases readonly
 ```
