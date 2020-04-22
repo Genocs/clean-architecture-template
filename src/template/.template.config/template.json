@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Nocco Giovanni Emanuele",
+  "classifications": [ "Web/ASP.NET" ],
+  "name": "Genocs: Clean Architecture for .NET Core",
+  "identity": "Genocs.CleanArchitecture",  
+  "groupIdentity": "Genocs.CleanArchitecture",
+  "shortName": "cleanarchitecture",
+  "tags": {
+    "language": "C#"                 // Specify that this template is in C#.
+  },
+  "sourceName": "Genocs.MicroserviceLight.Template",      // Will replace the string 'UTU.Platform.Service.Template' with the value provided via -n.
+  "preferNameDirectory":"true"
+}

@@ -5,7 +5,7 @@ It follows the Clean Architecture Principles and built on Domain-Driven Design.
 This tool increases productivity on developing your next microservices.
 
 ## Generate your own awesome Back-end!
-<a href="https://www.nuget.org/packages/Genocs.CleanArchitecture/" rel="Genocs.CleanCode">![NuGet](https://buildstats.info/nuget/genocs.cleanarchitecture)</a> [![Build Status](https://travis-ci.org/genocs/dotnet-new-cleanarchitecture.svg?branch=master)](https://travis-ci.org/genocs/dotnet-new-cleanarchitecture) [![Gitter](https://img.shields.io/badge/chat-on%20gitter-blue.svg)](https://gitter.im/genocs/)
+<a href="https://www.nuget.org/packages/Genocs.CleanArchitecture/" rel="Genocs.CleanCode">![NuGet](https://buildstats.info/nuget/genocs.cleanarchitecture)</a> [![Build Status](https://travis-ci.org/genocs/clean-architecture-template.svg?branch=master)](https://travis-ci.org/genocs/clean-architecture-template) [![Gitter](https://img.shields.io/badge/chat-on%20gitter-blue.svg)](https://gitter.im/genocs/)
 
 To generate your own awesome .NET Back-end simple run:
 
