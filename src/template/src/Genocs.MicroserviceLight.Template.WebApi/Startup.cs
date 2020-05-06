@@ -1,14 +1,14 @@
-using Genocs.MicroserviceLight.Template.WebApi.Extensions;
-using Genocs.MicroserviceLight.Template.WebApi.Extensions.FeatureFlags;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-
 namespace Genocs.MicroserviceLight.Template.WebApi
 {
+    using Genocs.MicroserviceLight.Template.WebApi.Extensions;
+    using Genocs.MicroserviceLight.Template.WebApi.Extensions.FeatureFlags;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc.ApiExplorer;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;	
+	
     public sealed class Startup
     {
         public Startup(IConfiguration configuration)

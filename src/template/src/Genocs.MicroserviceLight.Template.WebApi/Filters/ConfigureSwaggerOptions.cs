@@ -40,8 +40,8 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Filters
                 Title = "Sample API",
                 Version = description.ApiVersion.ToString(),
                 Description = "A sample application with Swagger, Swashbuckle, and API versioning.",
-                Contact = new OpenApiContact() { Name = "Bill Mei", Email = "bill.mei@somewhere.com" },
-                TermsOfService = new Uri("http://Shareware.com"),
+                Contact = new OpenApiContact() { Name = "Nocco Giovanni Emanuele", Email = "giovanni.nocco@gmail.com" },
+                TermsOfService = new Uri("https://genocs.com"),
                 License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
             };
 

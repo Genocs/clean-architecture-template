@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata minClientVersion="5.0.0">
     <id>Genocs.CleanArchitectureTemplate</id>
-    <version>0.1.4</version>
+    <version>0.1.7</version>
     <authors>Nocco Giovanni Emanuele</authors>
     <owners>[Genocs] Nocco Giovanni Emanuele</owners>
     <projectUrl>https://github.com/Genocs/clean-architecture-template</projectUrl>
@@ -11,17 +11,16 @@
     <icon>genocs-icon.png</icon>    
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <title>The clean code template by Genocs</title>
-    <description>
-$ dotnet new -i Genocs.CleanArchitectureTemplate::0.1.4
-$ dotnet new microservice-light
-
-It generates a .NET Solution following the Clean Architecture Style, DDD and Separation of Concerns in Domain, Application, Infrastructure and UI.
-    </description>
     <summary>
-$ dotnet new cleanarchitecture --use-cases full
-$ dotnet new cleanarchitecture --use-cases basic
-$ dotnet new cleanarchitecture --use-cases readonly
-    </summary>
+It generates a .NET Solution following the Clean Architecture Style, DDD and Separation of Concerns in Domain, Application, Infrastructure and UI.	
+    </summary>	
+    <description>
+Install the package:
+$ dotnet new -i Genocs.CleanArchitectureTemplate::0.1.7
+
+The full clean project:
+$ dotnet new cleanarchitecture
+    </description>
     <releaseNotes>
 - Clean Architecture Principles Documentation
 - .NET Core 3.1
