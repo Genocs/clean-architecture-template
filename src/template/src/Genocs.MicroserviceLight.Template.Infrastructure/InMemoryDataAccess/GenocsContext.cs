@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess
 {
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
+    using Domain.ValueObjects;
     using System;
     using System.Collections.ObjectModel;
 

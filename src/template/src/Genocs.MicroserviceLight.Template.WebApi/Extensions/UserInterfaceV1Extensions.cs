@@ -6,20 +6,20 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
     {
         public static IServiceCollection AddPresentersV1(this IServiceCollection services)
         {
-            services.AddScoped<Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.CloseAccount.CloseAccountPresenter, Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.CloseAccount.CloseAccountPresenter>();
-            services.AddScoped<Genocs.MicroserviceLight.Template.Application.Boundaries.CloseAccount.IOutputPort>(x => x.GetRequiredService<Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.CloseAccount.CloseAccountPresenter>());
-            services.AddScoped<Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Deposit.DepositPresenter, Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Deposit.DepositPresenter>();
-            services.AddScoped<Genocs.MicroserviceLight.Template.Application.Boundaries.Deposit.IOutputPort>(x => x.GetRequiredService<Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Deposit.DepositPresenter>());
-            services.AddScoped<Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.GetAccountDetails.GetAccountDetailsPresenter, Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.GetAccountDetails.GetAccountDetailsPresenter>();
-            services.AddScoped<Genocs.MicroserviceLight.Template.Application.Boundaries.GetAccountDetails.IOutputPort>(x => x.GetRequiredService<Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.GetAccountDetails.GetAccountDetailsPresenter>());
-            services.AddScoped<Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.GetCustomerDetails.GetCustomerDetailsPresenter, Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.GetCustomerDetails.GetCustomerDetailsPresenter>();
-            services.AddScoped<Genocs.MicroserviceLight.Template.Application.Boundaries.GetCustomerDetails.IOutputPort>(x => x.GetRequiredService<Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.GetCustomerDetails.GetCustomerDetailsPresenter>());
-            services.AddScoped<Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Register.RegisterPresenter, Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Register.RegisterPresenter>();
-            services.AddScoped<Genocs.MicroserviceLight.Template.Application.Boundaries.Register.IOutputPort>(x => x.GetRequiredService<Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Register.RegisterPresenter>());
-            services.AddScoped<Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Withdraw.WithdrawPresenter, Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Withdraw.WithdrawPresenter>();
-            services.AddScoped<Genocs.MicroserviceLight.Template.Application.Boundaries.Withdraw.IOutputPort>(x => x.GetRequiredService<Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Withdraw.WithdrawPresenter>());
-            services.AddScoped<Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Transfer.TransferPresenter, Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Transfer.TransferPresenter>();
-            services.AddScoped<Genocs.MicroserviceLight.Template.Application.Boundaries.Transfer.IOutputPort>(x => x.GetRequiredService<Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Transfer.TransferPresenter>());
+            services.AddScoped<UseCases.V1.CloseAccount.CloseAccountPresenter, UseCases.V1.CloseAccount.CloseAccountPresenter>();
+            services.AddScoped<Application.Boundaries.CloseAccount.IOutputPort>(x => x.GetRequiredService<UseCases.V1.CloseAccount.CloseAccountPresenter>());
+            services.AddScoped<UseCases.V1.Deposit.DepositPresenter, UseCases.V1.Deposit.DepositPresenter>();
+            services.AddScoped<Application.Boundaries.Deposit.IOutputPort>(x => x.GetRequiredService<UseCases.V1.Deposit.DepositPresenter>());
+            services.AddScoped<UseCases.V1.GetAccountDetails.GetAccountDetailsPresenter, UseCases.V1.GetAccountDetails.GetAccountDetailsPresenter>();
+            services.AddScoped<Application.Boundaries.GetAccountDetails.IOutputPort>(x => x.GetRequiredService<UseCases.V1.GetAccountDetails.GetAccountDetailsPresenter>());
+            services.AddScoped<UseCases.V1.GetCustomerDetails.GetCustomerDetailsPresenter, UseCases.V1.GetCustomerDetails.GetCustomerDetailsPresenter>();
+            services.AddScoped<Application.Boundaries.GetCustomerDetails.IOutputPort>(x => x.GetRequiredService<UseCases.V1.GetCustomerDetails.GetCustomerDetailsPresenter>());
+            services.AddScoped<UseCases.V1.Register.RegisterPresenter, UseCases.V1.Register.RegisterPresenter>();
+            services.AddScoped<Application.Boundaries.Register.IOutputPort>(x => x.GetRequiredService<UseCases.V1.Register.RegisterPresenter>());
+            services.AddScoped<UseCases.V1.Withdraw.WithdrawPresenter, UseCases.V1.Withdraw.WithdrawPresenter>();
+            services.AddScoped<Application.Boundaries.Withdraw.IOutputPort>(x => x.GetRequiredService<UseCases.V1.Withdraw.WithdrawPresenter>());
+            services.AddScoped<UseCases.V1.Transfer.TransferPresenter, UseCases.V1.Transfer.TransferPresenter>();
+            services.AddScoped<Application.Boundaries.Transfer.IOutputPort>(x => x.GetRequiredService<UseCases.V1.Transfer.TransferPresenter>());
             return services;
         }
     }

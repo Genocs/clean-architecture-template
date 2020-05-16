@@ -1,8 +1,8 @@
 namespace Genocs.MicroserviceLight.Template.Domain.Accounts
 {
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using ValueObjects;
 
     public sealed class CreditsCollection
     {

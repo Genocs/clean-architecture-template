@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.CloseAccount
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.CloseAccount;
+    using Application.Boundaries.CloseAccount;
     using Microsoft.AspNetCore.Mvc;
 
     public sealed class CloseAccountPresenter : IOutputPort

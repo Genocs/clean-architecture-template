@@ -1,7 +1,7 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Deposit
 {
-    using System.ComponentModel.DataAnnotations;
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// The request to Deposit

@@ -1,10 +1,10 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.Filters
 {
+    using Microsoft.OpenApi.Models;
+    using Swashbuckle.AspNetCore.SwaggerGen;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System;
-    using Swashbuckle.AspNetCore.SwaggerGen;
-    using Microsoft.OpenApi.Models;
 
     public class SwaggerDocumentFilter : IDocumentFilter
     {

@@ -6,13 +6,13 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
     {
         public static IServiceCollection AddUseCases(this IServiceCollection services)
         {
-            services.AddScoped<Genocs.MicroserviceLight.Template.Application.Boundaries.CloseAccount.IUseCase, Genocs.MicroserviceLight.Template.Application.UseCases.CloseAccount>();
-            services.AddScoped<Genocs.MicroserviceLight.Template.Application.Boundaries.Deposit.IUseCase, Genocs.MicroserviceLight.Template.Application.UseCases.Deposit>();
-            services.AddScoped<Genocs.MicroserviceLight.Template.Application.Boundaries.GetAccountDetails.IUseCase, Genocs.MicroserviceLight.Template.Application.UseCases.GetAccountDetails>();
-            services.AddScoped<Genocs.MicroserviceLight.Template.Application.Boundaries.GetCustomerDetails.IUseCase, Genocs.MicroserviceLight.Template.Application.UseCases.GetCustomerDetails>();
-            services.AddScoped<Genocs.MicroserviceLight.Template.Application.Boundaries.Register.IUseCase, Genocs.MicroserviceLight.Template.Application.UseCases.Register>();
-            services.AddScoped<Genocs.MicroserviceLight.Template.Application.Boundaries.Withdraw.IUseCase, Genocs.MicroserviceLight.Template.Application.UseCases.Withdraw>();
-            services.AddScoped<Genocs.MicroserviceLight.Template.Application.Boundaries.Transfer.IUseCase, Genocs.MicroserviceLight.Template.Application.UseCases.Transfer>();
+            services.AddScoped<Application.Boundaries.CloseAccount.IUseCase, Application.UseCases.CloseAccount>();
+            services.AddScoped<Application.Boundaries.Deposit.IUseCase, Application.UseCases.Deposit>();
+            services.AddScoped<Application.Boundaries.GetAccountDetails.IUseCase, Application.UseCases.GetAccountDetails>();
+            services.AddScoped<Application.Boundaries.GetCustomerDetails.IUseCase, Application.UseCases.GetCustomerDetails>();
+            services.AddScoped<Application.Boundaries.Register.IUseCase, Application.UseCases.Register>();
+            services.AddScoped<Application.Boundaries.Withdraw.IUseCase, Application.UseCases.Withdraw>();
+            services.AddScoped<Application.Boundaries.Transfer.IUseCase, Application.UseCases.Transfer>();
             return services;
         }
     }

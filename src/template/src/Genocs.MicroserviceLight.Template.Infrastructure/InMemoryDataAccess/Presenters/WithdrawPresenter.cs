@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.Withdraw;
+    using Application.Boundaries.Withdraw;
     using System.Collections.ObjectModel;
 
     public sealed class WithdrawPresenter : IOutputPort

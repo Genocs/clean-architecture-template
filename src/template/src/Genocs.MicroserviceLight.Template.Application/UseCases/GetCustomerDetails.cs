@@ -1,9 +1,9 @@
 namespace Genocs.MicroserviceLight.Template.Application.UseCases
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.GetCustomerDetails;
-    using Genocs.MicroserviceLight.Template.Application.Repositories;
-    using Genocs.MicroserviceLight.Template.Domain.Accounts;
-    using Genocs.MicroserviceLight.Template.Domain.Customers;
+    using Application.Boundaries.GetCustomerDetails;
+    using Application.Repositories;
+    using Domain.Accounts;
+    using Domain.Customers;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;

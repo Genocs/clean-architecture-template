@@ -1,7 +1,7 @@
 namespace Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess
 {
+    using Application.Boundaries.Deposit;
     using System.Collections.ObjectModel;
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.Deposit;
 
     public sealed class DepositPresenter : IOutputPort
     {

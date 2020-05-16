@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Transfer
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.Transfer;
+    using Application.Boundaries.Transfer;
     using Microsoft.AspNetCore.Mvc;
 
     public sealed class TransferPresenter : IOutputPort

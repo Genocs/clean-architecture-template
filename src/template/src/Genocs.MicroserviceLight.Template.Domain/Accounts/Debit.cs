@@ -1,7 +1,7 @@
 namespace Genocs.MicroserviceLight.Template.Domain.Accounts
 {
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
     using System;
+    using ValueObjects;
 
     public class Debit : IDebit
     {

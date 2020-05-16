@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.CloseAccount;
+    using Application.Boundaries.CloseAccount;
     using System.Collections.ObjectModel;
 
     public sealed class CloseAccountPresenter : IOutputPort

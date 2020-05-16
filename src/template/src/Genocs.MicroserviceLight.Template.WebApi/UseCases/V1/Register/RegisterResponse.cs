@@ -1,9 +1,9 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Register
 {
-    using Genocs.MicroserviceLight.Template.WebApi.ViewModels;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using WebApi.ViewModels;
 
     /// <summary>
     /// The response for Registration

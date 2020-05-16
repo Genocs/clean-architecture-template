@@ -1,9 +1,9 @@
 namespace Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess
 {
-    using Genocs.MicroserviceLight.Template.Domain;
-    using Genocs.MicroserviceLight.Template.Domain.Accounts;
-    using Genocs.MicroserviceLight.Template.Domain.Customers;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
+    using Domain;
+    using Domain.Accounts;
+    using Domain.Customers;
+    using Domain.ValueObjects;
     using System;
 
     public sealed class EntityFactory : IEntityFactory

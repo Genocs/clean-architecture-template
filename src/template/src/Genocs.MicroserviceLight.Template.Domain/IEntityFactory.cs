@@ -1,9 +1,9 @@
 namespace Genocs.MicroserviceLight.Template.Domain
 {
-    using Genocs.MicroserviceLight.Template.Domain.Accounts;
-    using Genocs.MicroserviceLight.Template.Domain.Customers;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
+    using Accounts;
+    using Customers;
     using System;
+    using ValueObjects;
 
     public interface IEntityFactory
     {

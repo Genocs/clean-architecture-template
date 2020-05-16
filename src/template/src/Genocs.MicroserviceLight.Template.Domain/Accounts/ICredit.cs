@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.Domain.Accounts
 {
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
+    using ValueObjects;
 
     public interface ICredit : IEntity
     {

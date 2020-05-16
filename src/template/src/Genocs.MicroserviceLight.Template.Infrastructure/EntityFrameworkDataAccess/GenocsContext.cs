@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.Infrastructure.EntityFrameworkDataAccess
 {
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
+    using Domain.ValueObjects;
     using Microsoft.EntityFrameworkCore;
     using System;
 

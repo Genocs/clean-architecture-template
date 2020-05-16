@@ -1,7 +1,7 @@
 namespace Genocs.MicroserviceLight.Template.UnitTests.TestFixtures
 {
-    using Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess;
-    using Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess.Repositories;
+    using Infrastructure.InMemoryDataAccess;
+    using Infrastructure.InMemoryDataAccess.Repositories;
 
     public sealed class StandardFixture
     {

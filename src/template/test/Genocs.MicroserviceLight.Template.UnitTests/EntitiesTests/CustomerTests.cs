@@ -1,7 +1,7 @@
 namespace Genocs.MicroserviceLight.Template.UnitTests.EntitiesTests
 {
-    using Genocs.MicroserviceLight.Template.Domain.Customers;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
+    using Domain.Customers;
+    using Domain.ValueObjects;
     using Xunit;
 
     public class CustomerTests

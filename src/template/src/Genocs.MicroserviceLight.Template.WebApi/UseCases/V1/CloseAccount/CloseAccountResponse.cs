@@ -1,8 +1,8 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.CloseAccount
 {
-    using System.ComponentModel.DataAnnotations;
+    using Application.Boundaries.CloseAccount;
     using System;
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.CloseAccount;
+    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// Close Account Response

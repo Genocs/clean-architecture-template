@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.Application.Boundaries.GetAccountDetails
 {
-    using Genocs.MicroserviceLight.Template.Application.Exceptions;
+    using Application.Exceptions;
     using System;
 
     public sealed class GetAccountDetailsInput

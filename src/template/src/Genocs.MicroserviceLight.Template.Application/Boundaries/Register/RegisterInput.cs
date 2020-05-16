@@ -1,7 +1,7 @@
 namespace Genocs.MicroserviceLight.Template.Application.Boundaries.Register
 {
-    using Genocs.MicroserviceLight.Template.Application.Exceptions;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
+    using Application.Exceptions;
+    using Domain.ValueObjects;
 
     public sealed class RegisterInput
     {

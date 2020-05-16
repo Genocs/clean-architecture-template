@@ -1,7 +1,7 @@
 namespace Genocs.MicroserviceLight.Template.Infrastructure.EntityFrameworkDataAccess
 {
-    using Genocs.MicroserviceLight.Template.Domain.Accounts;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
+    using Domain.Accounts;
+    using Domain.ValueObjects;
     using System;
 
     public class Credit : Domain.Accounts.Credit

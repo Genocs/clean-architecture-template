@@ -1,7 +1,7 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Deposit
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.Deposit;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
+    using Application.Boundaries.Deposit;
+    using Domain.ValueObjects;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using System.ComponentModel.DataAnnotations;

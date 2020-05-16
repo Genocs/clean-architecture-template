@@ -1,8 +1,8 @@
 namespace Genocs.MicroserviceLight.Template.Application.UseCases
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.GetAccountDetails;
-    using Genocs.MicroserviceLight.Template.Application.Repositories;
-    using Genocs.MicroserviceLight.Template.Domain.Accounts;
+    using Application.Boundaries.GetAccountDetails;
+    using Application.Repositories;
+    using Domain.Accounts;
     using System.Threading.Tasks;
 
     public sealed class GetAccountDetails : IUseCase

@@ -1,7 +1,7 @@
 namespace Genocs.MicroserviceLight.Template.Infrastructure.EntityFrameworkDataAccess
 {
-    using Genocs.MicroserviceLight.Template.Domain.Accounts;
-    using Genocs.MicroserviceLight.Template.Domain.Customers;
+    using Domain.Accounts;
+    using Domain.Customers;
     using System;
     using System.Collections.Generic;
 

@@ -1,11 +1,11 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V2.GetAccountDetails
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.GetAccountDetails;
-    using Genocs.MicroserviceLight.Template.WebApi.ViewModels;
+    using Application.Boundaries.GetAccountDetails;
     using Microsoft.AspNetCore.Mvc;
     using OfficeOpenXml;
     using System;
     using System.Data;
+    using ViewModels;
 
     public sealed class GetAccountDetailsPresenterV2 : IOutputPort
     {

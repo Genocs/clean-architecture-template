@@ -1,12 +1,12 @@
 namespace Genocs.MicroserviceLight.Template.UnitTests.UseCasesTests.Deposit
 {
     using Application.Boundaries.Deposit;
-    using Genocs.MicroserviceLight.Template.Application.UseCases;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
-    using Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess;
-    using Genocs.MicroserviceLight.Template.UnitTests.TestFixtures;
+    using Application.UseCases;
+    using Domain.ValueObjects;
+    using Infrastructure.InMemoryDataAccess;
     using System.Linq;
     using System.Threading.Tasks;
+    using UnitTests.TestFixtures;
     using Xunit;
 
     public sealed class DepositTests : IClassFixture<StandardFixture>

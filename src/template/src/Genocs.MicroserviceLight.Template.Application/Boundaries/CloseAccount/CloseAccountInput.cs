@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.Application.Boundaries.CloseAccount
 {
-    using Genocs.MicroserviceLight.Template.Application.Exceptions;
+    using Exceptions;
     using System;
 
     public sealed class CloseAccountInput

@@ -1,7 +1,7 @@
 namespace Genocs.MicroserviceLight.Template.UnitTests.InputValidationTests
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.GetCustomerDetails;
-    using Genocs.MicroserviceLight.Template.Application.Exceptions;
+    using Application.Boundaries.GetCustomerDetails;
+    using Application.Exceptions;
     using System;
     using Xunit;
 

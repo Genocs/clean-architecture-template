@@ -1,10 +1,10 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
 {
-    using Genocs.MicroserviceLight.Template.Application.Repositories;
-    using Genocs.MicroserviceLight.Template.Application.Services;
-    using Genocs.MicroserviceLight.Template.Domain;
-    using Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess;
-    using Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess.Repositories;
+    using Application.Repositories;
+    using Application.Services;
+    using Domain;
+    using Infrastructure.InMemoryDataAccess;
+    using Infrastructure.InMemoryDataAccess.Repositories;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class InMemoryInfrastructureExtensions

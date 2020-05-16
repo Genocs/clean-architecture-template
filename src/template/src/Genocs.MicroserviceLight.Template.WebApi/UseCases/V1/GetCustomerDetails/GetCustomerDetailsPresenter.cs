@@ -1,9 +1,9 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.GetCustomerDetails
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.GetCustomerDetails;
-    using Genocs.MicroserviceLight.Template.WebApi.ViewModels;
+    using Application.Boundaries.GetCustomerDetails;
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
+    using ViewModels;
 
     public sealed class GetCustomerDetailsPresenter : IOutputPort
     {

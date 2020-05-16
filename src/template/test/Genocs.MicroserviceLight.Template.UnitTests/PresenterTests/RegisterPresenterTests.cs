@@ -1,10 +1,10 @@
 namespace Genocs.MicroserviceLight.Template.UnitTests.PresenterTests
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.Register;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
-    using Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Register;
+    using Application.Boundaries.Register;
+    using Domain.ValueObjects;
     using Microsoft.AspNetCore.Mvc;
     using System.Net;
+    using WebApi.UseCases.V1.Register;
     using Xunit;
 
     public sealed class RegisterPresenterTests

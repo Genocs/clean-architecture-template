@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess
 {
-    using Genocs.MicroserviceLight.Template.Application.Services;
+    using Application.Services;
     using System.Threading.Tasks;
 
     public sealed class UnitOfWork : IUnitOfWork

@@ -1,10 +1,10 @@
 namespace Genocs.MicroserviceLight.Template.Application.UseCases
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.Transfer;
-    using Genocs.MicroserviceLight.Template.Application.Repositories;
-    using Genocs.MicroserviceLight.Template.Application.Services;
-    using Genocs.MicroserviceLight.Template.Domain;
-    using Genocs.MicroserviceLight.Template.Domain.Accounts;
+    using Application.Boundaries.Transfer;
+    using Application.Repositories;
+    using Application.Services;
+    using Domain;
+    using Domain.Accounts;
     using System.Threading.Tasks;
 
     public sealed class Transfer : IUseCase

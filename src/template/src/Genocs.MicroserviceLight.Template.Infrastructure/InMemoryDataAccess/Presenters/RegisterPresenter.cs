@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.Register;
+    using Application.Boundaries.Register;
     using System.Collections.ObjectModel;
 
     public sealed class RegisterPresenter : IOutputPort

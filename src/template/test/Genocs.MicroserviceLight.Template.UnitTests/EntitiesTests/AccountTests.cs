@@ -1,8 +1,8 @@
 namespace Genocs.MicroserviceLight.Template.UnitTests.EntitiesTests
 {
-    using Genocs.MicroserviceLight.Template.Domain.Accounts;
-    using Genocs.MicroserviceLight.Template.Domain.Customers;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
+    using Domain.Accounts;
+    using Domain.Customers;
+    using Domain.ValueObjects;
     using Xunit;
 
     public class AccountTests
@@ -10,7 +10,7 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.EntitiesTests
         [Fact]
         public void New_Account_Should_Have_100_Credit_After_Deposit()
         {
-            var entityFactory = new Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess.EntityFactory();
+            var entityFactory = new Infrastructure.InMemoryDataAccess.EntityFactory();
             //
             // Arrange
             PositiveMoney amount = new PositiveMoney(100.0M);
@@ -36,7 +36,7 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.EntitiesTests
         {
             //
             // Arrange
-            var entityFactory = new Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess.EntityFactory();
+            var entityFactory = new Infrastructure.InMemoryDataAccess.EntityFactory();
             //
             // Arrange
             ICustomer customer = entityFactory.NewCustomer(
@@ -60,7 +60,7 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.EntitiesTests
         [Fact]
         public void New_Account_Should_Allow_Closing()
         {
-            var entityFactory = new Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess.EntityFactory();
+            var entityFactory = new Infrastructure.InMemoryDataAccess.EntityFactory();
 
             //
             // Arrange
@@ -83,7 +83,7 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.EntitiesTests
         [Fact]
         public void Account_With_200_Balance_Should_Not_Allow_50000_Withdraw()
         {
-            var entityFactory = new Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess.EntityFactory();
+            var entityFactory = new Infrastructure.InMemoryDataAccess.EntityFactory();
 
             //
             // Arrange
@@ -107,7 +107,7 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.EntitiesTests
         [Fact]
         public void Account_With_Three_Transactions_Should_Be_Consistent()
         {
-            var entityFactory = new Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess.EntityFactory();
+            var entityFactory = new Infrastructure.InMemoryDataAccess.EntityFactory();
 
             //
             // Arrange

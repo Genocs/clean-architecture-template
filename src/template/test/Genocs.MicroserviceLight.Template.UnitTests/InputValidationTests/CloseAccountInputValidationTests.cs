@@ -1,7 +1,7 @@
 namespace Genocs.MicroserviceLight.Template.UnitTests.InputValidationTests
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.CloseAccount;
-    using Genocs.MicroserviceLight.Template.Application.Exceptions;
+    using Application.Boundaries.CloseAccount;
+    using Application.Exceptions;
     using System;
     using Xunit;
 

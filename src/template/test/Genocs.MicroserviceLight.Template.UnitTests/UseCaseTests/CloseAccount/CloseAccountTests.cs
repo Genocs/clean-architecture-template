@@ -1,7 +1,7 @@
 namespace Genocs.MicroserviceLight.Template.UnitTests.UseCasesTests.CloseAccount
 {
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
-    using Genocs.MicroserviceLight.Template.UnitTests.TestFixtures;
+    using Domain.ValueObjects;
+    using UnitTests.TestFixtures;
     using Xunit;
 
     public sealed class CloseAccountTests : IClassFixture<StandardFixture>

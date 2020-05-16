@@ -1,9 +1,9 @@
 namespace Genocs.MicroserviceLight.Template.UnitTests.InputValidationTests
 {
     using System;
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.Transfer;
-    using Genocs.MicroserviceLight.Template.Application.Exceptions;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
+    using Application.Boundaries.Transfer;
+    using Application.Exceptions;
+    using Domain.ValueObjects;
     using Xunit;
 
     public sealed class TransferInputValidationTests

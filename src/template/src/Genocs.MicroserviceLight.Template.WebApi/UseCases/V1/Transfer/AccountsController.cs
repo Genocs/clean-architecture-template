@@ -1,8 +1,8 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Transfer
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.Transfer;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
-    using Genocs.MicroserviceLight.Template.WebApi.Extensions.FeatureFlags;
+    using Application.Boundaries.Transfer;
+    using Domain.ValueObjects;
+    using Extensions.FeatureFlags;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.FeatureManagement.Mvc;

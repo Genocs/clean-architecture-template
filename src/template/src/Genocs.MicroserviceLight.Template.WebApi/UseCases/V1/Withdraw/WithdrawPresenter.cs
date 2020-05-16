@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Withdraw
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.Withdraw;
+    using Application.Boundaries.Withdraw;
     using Microsoft.AspNetCore.Mvc;
 
     public sealed class WithdrawPresenter : IOutputPort

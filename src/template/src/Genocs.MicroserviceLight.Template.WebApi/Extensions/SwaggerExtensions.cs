@@ -1,9 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
 {
-    using System;
-    using System.IO;
-    using System.Reflection;
-    using Genocs.MicroserviceLight.Template.WebApi.Filters;
+    using Filters;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Mvc.ApiExplorer;
     using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +8,9 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
     using Microsoft.Extensions.PlatformAbstractions;
     using Swashbuckle.AspNetCore.Swagger;
     using Swashbuckle.AspNetCore.SwaggerGen;
+    using System;
+    using System.IO;
+    using System.Reflection;
 
     public static class SwaggerExtensions
     {

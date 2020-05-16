@@ -1,8 +1,8 @@
 namespace Genocs.MicroserviceLight.Template.IntegrationTests.EntityFrameworkTests
 {
-    using Genocs.MicroserviceLight.Template.Domain.Customers;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
-    using Genocs.MicroserviceLight.Template.Infrastructure.EntityFrameworkDataAccess;
+    using Domain.Customers;
+    using Domain.ValueObjects;
+    using Infrastructure.EntityFrameworkDataAccess;
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.Linq;

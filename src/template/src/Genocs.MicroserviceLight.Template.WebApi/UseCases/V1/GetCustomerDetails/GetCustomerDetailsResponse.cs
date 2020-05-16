@@ -1,9 +1,9 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.GetCustomerDetails
 {
-    using Genocs.MicroserviceLight.Template.WebApi.ViewModels;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using ViewModels;
 
     /// <summary>
     /// The Customer Details

@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.Application.Repositories
 {
-    using Genocs.MicroserviceLight.Template.Domain.Accounts;
+    using Domain.Accounts;
     using System;
     using System.Threading.Tasks;
 

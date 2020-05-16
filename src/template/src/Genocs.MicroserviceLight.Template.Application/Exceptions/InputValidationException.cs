@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.Application.Exceptions
 {
-    using Genocs.MicroserviceLight.Template.Domain;
+    using Domain;
 
     public sealed class InputValidationException : DomainException
     {

@@ -5,9 +5,7 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2BDB0BC2-AF86-459E-8D11-11E1B8ADCED7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6335BAF6-440D-4B7D-8618-DB1B32F4E1DB}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.Application", "src\Genocs.MicroserviceLight.Template.Application\Genocs.MicroserviceLight.Template.Application.csproj", "{34285EAF-DA6D-45D4-BDEF-DDE878B471BE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6335BAF6-440D-4B7D-8618-DB1B32F4E1DB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.Domain", "src\Genocs.MicroserviceLight.Template.Domain\Genocs.MicroserviceLight.Template.Domain.csproj", "{4D2A9497-9C04-40A4-B378-309537FA2220}"
 EndProject
@@ -21,16 +19,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.UnitTests", "test\Genocs.MicroserviceLight.Template.UnitTests\Genocs.MicroserviceLight.Template.UnitTests.csproj", "{D5FDC379-F6F0-427F-9EC1-EC63DBC40183}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.Application", "src\Genocs.MicroserviceLight.Template.Application\Genocs.MicroserviceLight.Template.Application.csproj", "{B3DAF7F3-D632-4252-829B-010BF702BDC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{34285EAF-DA6D-45D4-BDEF-DDE878B471BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34285EAF-DA6D-45D4-BDEF-DDE878B471BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34285EAF-DA6D-45D4-BDEF-DDE878B471BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34285EAF-DA6D-45D4-BDEF-DDE878B471BE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4D2A9497-9C04-40A4-B378-309537FA2220}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4D2A9497-9C04-40A4-B378-309537FA2220}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D2A9497-9C04-40A4-B378-309537FA2220}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,18 +51,22 @@ Global
 		{D5FDC379-F6F0-427F-9EC1-EC63DBC40183}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5FDC379-F6F0-427F-9EC1-EC63DBC40183}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5FDC379-F6F0-427F-9EC1-EC63DBC40183}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3DAF7F3-D632-4252-829B-010BF702BDC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3DAF7F3-D632-4252-829B-010BF702BDC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3DAF7F3-D632-4252-829B-010BF702BDC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3DAF7F3-D632-4252-829B-010BF702BDC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{34285EAF-DA6D-45D4-BDEF-DDE878B471BE} = {2BDB0BC2-AF86-459E-8D11-11E1B8ADCED7}
 		{4D2A9497-9C04-40A4-B378-309537FA2220} = {2BDB0BC2-AF86-459E-8D11-11E1B8ADCED7}
 		{74220BF7-8837-4B8F-B960-9CBDA65B8E68} = {2BDB0BC2-AF86-459E-8D11-11E1B8ADCED7}
 		{DE058D73-748F-4E31-BA5C-48DEF7C6BA41} = {2BDB0BC2-AF86-459E-8D11-11E1B8ADCED7}
 		{FF2A2975-6B15-49D0-982A-4020591FE745} = {6335BAF6-440D-4B7D-8618-DB1B32F4E1DB}
 		{252000C9-DCC7-4222-ACF0-A7DEA1727155} = {6335BAF6-440D-4B7D-8618-DB1B32F4E1DB}
 		{D5FDC379-F6F0-427F-9EC1-EC63DBC40183} = {6335BAF6-440D-4B7D-8618-DB1B32F4E1DB}
+		{B3DAF7F3-D632-4252-829B-010BF702BDC0} = {2BDB0BC2-AF86-459E-8D11-11E1B8ADCED7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7085404A-CC53-42BF-9A9F-C0BC3830CC6C}

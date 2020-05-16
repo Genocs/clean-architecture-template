@@ -1,8 +1,8 @@
 namespace Genocs.MicroserviceLight.Template.UnitTests.InputValidationTests
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.Withdraw;
-    using Genocs.MicroserviceLight.Template.Application.Exceptions;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
+    using Application.Boundaries.Withdraw;
+    using Application.Exceptions;
+    using Domain.ValueObjects;
     using System;
     using Xunit;
 

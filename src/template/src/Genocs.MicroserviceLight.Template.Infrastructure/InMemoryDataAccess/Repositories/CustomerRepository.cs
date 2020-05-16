@@ -1,7 +1,7 @@
 namespace Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess.Repositories
 {
-    using Genocs.MicroserviceLight.Template.Application.Repositories;
-    using Genocs.MicroserviceLight.Template.Domain.Customers;
+    using Application.Repositories;
+    using Domain.Customers;
     using System;
     using System.Linq;
     using System.Threading.Tasks;

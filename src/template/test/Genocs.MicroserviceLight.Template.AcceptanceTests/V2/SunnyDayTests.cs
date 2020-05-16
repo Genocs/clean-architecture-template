@@ -1,6 +1,5 @@
 namespace Genocs.MicroserviceLight.Template.AcceptanceTests.V2
 {
-    using Genocs.MicroserviceLight.Template.WebApi;
     using Microsoft.AspNetCore.Mvc.Testing;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
@@ -8,6 +7,7 @@ namespace Genocs.MicroserviceLight.Template.AcceptanceTests.V2
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
+    using WebApi;
     using Xunit;
 
     public sealed class SunnyDayTests : IClassFixture<WebApplicationFactory<Startup>>

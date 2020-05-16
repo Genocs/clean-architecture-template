@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.Transfer;
+    using Application.Boundaries.Transfer;
     using System.Collections.ObjectModel;
 
     public sealed class TransferPresenter : IOutputPort

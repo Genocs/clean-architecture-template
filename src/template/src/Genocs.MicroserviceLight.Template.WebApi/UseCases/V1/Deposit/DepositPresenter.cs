@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Deposit
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.Deposit;
+    using Application.Boundaries.Deposit;
     using Microsoft.AspNetCore.Mvc;
 
     public sealed class DepositPresenter : IOutputPort

@@ -1,11 +1,11 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Register
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.Threading.Tasks;
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.Register;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
+    using Application.Boundaries.Register;
+    using Domain.ValueObjects;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using System.ComponentModel.DataAnnotations;
+    using System.Threading.Tasks;
 
     [ApiVersion("1.0")]
     [Route("api/v1/[controller]")]

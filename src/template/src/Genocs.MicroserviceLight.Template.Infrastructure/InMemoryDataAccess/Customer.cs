@@ -1,9 +1,9 @@
 namespace Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess
 {
+    using Domain.Customers;
+    using Domain.ValueObjects;
     using System;
     using System.Collections.Generic;
-    using Genocs.MicroserviceLight.Template.Domain.Customers;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
 
     public class Customer : Domain.Customers.Customer
     {

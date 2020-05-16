@@ -1,6 +1,6 @@
 ﻿namespace Genocs.MicroserviceLight.Template.WebApi.Filters
 {
-    using Genocs.MicroserviceLight.Template.Domain;
+    using Domain;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Filters;
 

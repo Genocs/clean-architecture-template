@@ -1,7 +1,7 @@
 namespace Genocs.MicroserviceLight.Template.Application.Boundaries.Deposit
 {
-    using Genocs.MicroserviceLight.Template.Domain.Accounts;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
+    using Domain.Accounts;
+    using Domain.ValueObjects;
 
     public sealed class DepositOutput
     {

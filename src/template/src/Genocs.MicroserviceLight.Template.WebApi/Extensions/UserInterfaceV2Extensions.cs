@@ -6,15 +6,15 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
     {
         public static IServiceCollection AddPresentersV2(this IServiceCollection services)
         {
-            services.AddScoped<Genocs.MicroserviceLight.Template.WebApi.UseCases.V2.GetAccountDetails.GetAccountDetailsPresenterV2, Genocs.MicroserviceLight.Template.WebApi.UseCases.V2.GetAccountDetails.GetAccountDetailsPresenterV2>();
+            services.AddScoped<UseCases.V2.GetAccountDetails.GetAccountDetailsPresenterV2, UseCases.V2.GetAccountDetails.GetAccountDetailsPresenterV2>();
 
             services.AddTransient(ctx =>
                 new UseCases.V2.GetAccountDetails.AccountsV2Controller(
                     new Application.UseCases.GetAccountDetails(
-                        ctx.GetRequiredService<Genocs.MicroserviceLight.Template.WebApi.UseCases.V2.GetAccountDetails.GetAccountDetailsPresenterV2>(),
+                        ctx.GetRequiredService<UseCases.V2.GetAccountDetails.GetAccountDetailsPresenterV2>(),
                         ctx.GetRequiredService<Application.Repositories.IAccountRepository>()
                     ),
-                    ctx.GetRequiredService<Genocs.MicroserviceLight.Template.WebApi.UseCases.V2.GetAccountDetails.GetAccountDetailsPresenterV2>()
+                    ctx.GetRequiredService<UseCases.V2.GetAccountDetails.GetAccountDetailsPresenterV2>()
                 )
             );
 

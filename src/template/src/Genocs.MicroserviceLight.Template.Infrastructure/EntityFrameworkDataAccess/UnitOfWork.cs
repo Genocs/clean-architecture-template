@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.Infrastructure.EntityFrameworkDataAccess
 {
-    using Genocs.MicroserviceLight.Template.Application.Services;
+    using Application.Services;
     using System;
     using System.Threading.Tasks;
 

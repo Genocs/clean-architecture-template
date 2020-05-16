@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.GetCustomerDetails;
+    using Application.Boundaries.GetCustomerDetails;
     using System.Collections.ObjectModel;
 
     public sealed class GetCustomerDetailsPresenter : IOutputPort

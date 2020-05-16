@@ -1,7 +1,7 @@
 namespace Genocs.MicroserviceLight.Template.Application.Boundaries.Register
 {
-    using Genocs.MicroserviceLight.Template.Domain.Accounts;
-    using Genocs.MicroserviceLight.Template.Domain.Customers;
+    using Domain.Accounts;
+    using Domain.Customers;
     using System.Collections.Generic;
 
     public sealed class RegisterOutput

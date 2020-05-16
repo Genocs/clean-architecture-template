@@ -1,14 +1,14 @@
 namespace Genocs.MicroserviceLight.Template.UnitTests.UseCasesTests.Register
 {
+    using Application.Boundaries.Register;
+    using Application.UseCases;
+    using Domain.ValueObjects;
+    using Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess;
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using System;
-    using Application.Boundaries.Register;
-    using Genocs.MicroserviceLight.Template.Application.UseCases;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
-    using Genocs.MicroserviceLight.Template.UnitTests.TestFixtures;
+    using UnitTests.TestFixtures;
     using Xunit;
-    using Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess;
 
     public sealed class RegisterTests : IClassFixture<StandardFixture>
     {

@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.GetAccountDetails
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.GetAccountDetails;
+    using Application.Boundaries.GetAccountDetails;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using System.ComponentModel.DataAnnotations;

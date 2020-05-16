@@ -1,9 +1,9 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Register
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.Register;
-    using Genocs.MicroserviceLight.Template.WebApi.ViewModels;
+    using Application.Boundaries.Register;
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
+    using WebApi.ViewModels;
 
     public sealed class RegisterPresenter : IOutputPort
     {

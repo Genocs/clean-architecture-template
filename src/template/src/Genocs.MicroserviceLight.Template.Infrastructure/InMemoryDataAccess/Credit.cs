@@ -1,8 +1,8 @@
 namespace Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess
 {
+    using Domain.Accounts;
+    using Domain.ValueObjects;
     using System;
-    using Genocs.MicroserviceLight.Template.Domain.Accounts;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
 
     public class Credit : Domain.Accounts.Credit
     {

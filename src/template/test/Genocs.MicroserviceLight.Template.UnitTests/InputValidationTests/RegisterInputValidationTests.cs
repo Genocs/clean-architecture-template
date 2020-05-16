@@ -1,8 +1,8 @@
 namespace Genocs.MicroserviceLight.Template.UnitTests.InputValidationTests
 {
-    using Genocs.MicroserviceLight.Template.Application.Boundaries.Register;
-    using Genocs.MicroserviceLight.Template.Application.Exceptions;
-    using Genocs.MicroserviceLight.Template.Domain.ValueObjects;
+    using Application.Boundaries.Register;
+    using Application.Exceptions;
+    using Domain.ValueObjects;
     using Xunit;
 
     public sealed class RegisterInputValidationTests
