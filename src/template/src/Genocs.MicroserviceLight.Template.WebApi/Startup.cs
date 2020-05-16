@@ -27,7 +27,7 @@ namespace Genocs.MicroserviceLight.Template.WebApi
             services.AddVersioning();
             services.AddSwagger();
             services.AddUseCases();
-            services.AddMongoDBPersistence(Configuration);
+            services.AddInMemoryPersistence();
             services.AddPresentersV1();
             services.AddPresentersV2();
         }

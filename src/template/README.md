@@ -9,7 +9,7 @@ Sample implementation of the **Clean Architecture Principles with .NET Core**. U
 # Usage
 
 ```sh
-dotnet new -i Genocs.CleanArchitecture::0.1.3
+dotnet new -i Genocs.CleanArchitecture::0.1.11
 dotnet new cleanarchitecture -n "MyGreatApi"
 ```
 
@@ -785,7 +785,7 @@ http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd
 ```c#
 namespace Genocs.WebApi.Extensions
 {
-    using Genocs.WebApi.Filters;
+    using Filters;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -1343,18 +1343,21 @@ deploy_script:
 ## Docker
 
 ```sh
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /app
 
 # Copy everything else and build
-COPY . ./
-RUN dotnet publish -c Release -o out
+COPY . .
+RUN dotnet publish src/Genocs.MicroserviceLight.Template.WebApi -c release -o out
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 WORKDIR /app
-COPY --from=build-env /app/source/Manga.WebApi/out .
-CMD export ASPNETCORE_URLS=http://*:$PORT && dotnet Manga.WebApi.dll
+COPY --from=build /app/out .
+ENV ASPNETCORE_URLS http://*:5000
+ENV ASPNETCORE_ENVIRONMENT docker
+EXPOSE 5000
+ENTRYPOINT dotnet Genocs.MicroserviceLight.Template.WebApi.dll
 ```
 
 ## SQL Server

@@ -1,12 +1,12 @@
 namespace Genocs.MicroserviceLight.Template.Infrastructure.EntityFrameworkDataAccess
 {
     using Application.Repositories;
+    using Domain.Accounts;
     using Microsoft.Data.SqlClient;
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using Template.Domain.Accounts;
 
     public sealed class AccountRepository : IAccountRepository
     {
