@@ -10,5 +10,179 @@
     "language": "C#"                 // Specify that this template is in C#.
   },
   "sourceName": "Genocs.MicroserviceLight.Template",      // Will replace the string 'UTU.Platform.Service.Template' with the value provided via -n.
-  "preferNameDirectory":"true"
+  "preferNameDirectory":"true",
+  "symbols": {    
+    "use-cases": {
+      "type": "parameter",
+      "datatype": "choice",
+      "defaultValue": "full",
+      "choices": [
+        {
+          "choice": "full",
+          "description": "Full Wallet Account Balance Management (Read/Write)"
+        },
+        {
+          "choice": "basic",
+          "description": "Allow Customer to Register and to Get Customer Details (Read/Write)"
+        },
+        {
+          "choice": "readonly",
+          "description": "Read Customer and Account Details (Read Only)"
+        }
+      ],
+      "replaces": "use-cases",
+      "onlyIf": [
+        {
+          "after": "\"use-cases\": \""
+        }
+      ]
+    },
+    "Basic": {
+      "type": "computed",
+      "value": "(use-cases == \"basic\")"
+    },
+    "ReadOnly": {
+      "type": "computed",
+      "value": "(use-cases == \"readonly\")"
+    },
+    "Full": {
+      "type": "computed",
+      "value": "(use-cases == \"full\")"
+    },
+    "CloseAccount": {
+      "type": "computed",
+      "value": "(Full)"
+    },
+    "Deposit": {
+      "type": "computed",
+      "value": "(Full)"
+    },
+    "GetAccountDetails": {
+      "type": "computed",
+      "value": "(Full || ReadOnly)"
+    },
+    "GetCustomerDetails": {
+      "type": "computed",
+      "value": "(Full || ReadOnly || Basic)"
+    },
+    "Register": {
+      "type": "computed",
+      "value": "(Full || Basic)"
+    },
+    "Withdraw": {
+      "type": "computed",
+      "value": "(Full)"
+    },
+    "Transfer": {
+      "type": "computed",
+      "value": "(Full)"
+    }
+  },
+  "sources": [
+    {
+      "source": "./",
+      "modifiers": [
+        {
+          "condition": "(ReadOnly)",
+          "exclude": [
+            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/CloseAccount/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Deposit/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Register/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Transfer/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Withdraw/**/*.cs",
+
+            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/CloseAccount/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Deposit/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Register/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Transfer/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Withdraw/**/*.cs",
+
+            "src/Genocs.MicroserviceLight.Template.Application/UseCases/CloseAccount.cs",
+            "src/Genocs.MicroserviceLight.Template.Application/UseCases/Deposit.cs",
+            "src/Genocs.MicroserviceLight.Template.Application/UseCases/Register.cs",
+            "src/Genocs.MicroserviceLight.Template.Application/UseCases/Transfer.cs",
+            "src/Genocs.MicroserviceLight.Template.Application/UseCases/Withdraw.cs",
+
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/CloseAccountPresenter.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/DepositPresenter.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/RegisterPresenter.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/TransferPresenter.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/WithdrawPresenter.cs",
+
+            "test/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/CloseAccount/**/*.cs",
+            "test/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Deposit/**/*.cs",
+            "test/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Register/**/*.cs",
+            "test/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Transfer/**/*.cs",
+            "test/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Withdraw/**/*.cs",
+
+            "test/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/CloseAccountInputValidationTests.cs",
+            "test/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/DepositInputValidationTests.cs",
+            "test/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/RegisterInputValidationTests.cs",
+            "test/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/TransferInputValidationTests.cs",
+            "test/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/WithdrawInputValidationTests.cs"
+          ]
+        },
+        {
+          "condition": "(Basic)",
+          "exclude": [
+            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/CloseAccount/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Deposit/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/GetAccountDetails/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Transfer/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Withdraw/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V2/GetAccountDetails/**/*.cs",
+
+            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/CloseAccount/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Deposit/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/GetAccountDetails/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Transfer/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Withdraw/**/*.cs",
+
+            "src/Genocs.MicroserviceLight.Template.Application/UseCases/CloseAccount.cs",
+            "src/Genocs.MicroserviceLight.Template.Application/UseCases/Deposit.cs",
+            "src/Genocs.MicroserviceLight.Template.Application/UseCases/GetAccountDetails.cs",
+            "src/Genocs.MicroserviceLight.Template.Application/UseCases/Transfer.cs",
+            "src/Genocs.MicroserviceLight.Template.Application/UseCases/Withdraw.cs",
+
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/CloseAccountPresenter.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/DepositPresenter.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/GetAccountDetailsPresenter.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/TransferPresenter.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/WithdrawPresenter.cs",
+
+            "test/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/CloseAccount/**/*.cs",
+            "test/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Deposit/**/*.cs",
+            "test/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/GetAccountDetails/**/*.cs",
+            "test/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Transfer/**/*.cs",
+            "test/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Withdraw/**/*.cs",
+
+            "test/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/CloseAccountInputValidationTests.cs",
+            "test/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/DepositInputValidationTests.cs",
+            "test/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/GetAccountDetailsInputValidationTests.cs",
+            "test/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/TransferInputValidationTests.cs",
+            "test/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/WithdrawInputValidationTests.cs"
+          ]
+        },
+        {
+          "condition": "(Full)",
+          "exclude": [
+          ]
+        }
+      ]
+    }
+  ],
+  "primaryOutputs": [
+    {
+      "path": "src/Genocs.MicroserviceLight.Template.Application/Genocs.MicroserviceLight.Template.Application.csproj"
+    },
+    {
+      "path": "src/Genocs.MicroserviceLight.Template.Domain/Genocs.MicroserviceLight.Template.Domain.csproj"
+    },
+    {
+      "path": "src/Genocs.MicroserviceLight.Template.Infrastructure/Genocs.MicroserviceLight.Template.Infrastructure.csproj"
+    },
+    {
+      "path": "src/Genocs.MicroserviceLight.Template.WebApi/Genocs.MicroserviceLight.Template.WebApi.csproj"
+    }
+  ]
 }
