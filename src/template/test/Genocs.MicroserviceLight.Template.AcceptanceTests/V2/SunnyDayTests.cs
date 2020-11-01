@@ -18,7 +18,7 @@ namespace Genocs.MicroserviceLight.Template.AcceptanceTests.V2
         {
             _factory = factory;
         }
-#if (Full)
+#if Full
         [Fact]
         public async Task Register_Deposit_Withdraw_Close()
         {

@@ -1,8 +1,8 @@
 namespace Genocs.MicroserviceLight.Template.WebApi
 {
-    using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
 
     public class Program
@@ -12,15 +12,14 @@ namespace Genocs.MicroserviceLight.Template.WebApi
             CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
-        {
-            return WebHost.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((hostingContext, config) =>
+        public static IHostBuilder CreateWebHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((context, config) =>
                 {
-                    var env = hostingContext.HostingEnvironment;
+                    var env = context.HostingEnvironment;
 
-                    config.AddJsonFile("appsettings.json", optional : true, reloadOnChange : true)
-                        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional : true, reloadOnChange : true);
+                    config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
                     config.AddEnvironmentVariables();
 
@@ -37,7 +36,10 @@ namespace Genocs.MicroserviceLight.Template.WebApi
                     logging.AddDebug();
                     logging.AddEventSourceLogger();
                 })
-                .UseStartup(typeof(Program).Assembly.FullName);
-        }
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+
     }
 }

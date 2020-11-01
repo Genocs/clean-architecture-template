@@ -17,8 +17,8 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess.Re
 
         public async Task Add(IAccount account, ICredit credit)
         {
-            _context.Accounts.Add((InMemoryDataAccess.Account) account);
-            _context.Credits.Add((InMemoryDataAccess.Credit) credit);
+            _context.Accounts.Add((InMemoryDataAccess.Account)account);
+            _context.Credits.Add((InMemoryDataAccess.Credit)credit);
             await Task.CompletedTask;
         }
 
@@ -48,7 +48,7 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess.Re
                 .Where(e => e.Id == account.Id)
                 .SingleOrDefault();
 
-            accountOld = (Account) account;
+            accountOld = (Account)account;
             await Task.CompletedTask;
         }
 
@@ -58,7 +58,7 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess.Re
                 .Where(e => e.Id == account.Id)
                 .SingleOrDefault();
 
-            accountOld = (Account) account;
+            accountOld = (Account)account;
             await Task.CompletedTask;
         }
     }

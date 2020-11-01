@@ -17,7 +17,7 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess.Re
 
         public async Task Add(ICustomer customer)
         {
-            _context.Customers.Add((InMemoryDataAccess.Customer) customer);
+            _context.Customers.Add((InMemoryDataAccess.Customer)customer);
             await Task.CompletedTask;
         }
 
@@ -36,7 +36,7 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.InMemoryDataAccess.Re
                 .Where(e => e.Id == customer.Id)
                 .SingleOrDefault();
 
-            customerOld = (Customer) customer;
+            customerOld = (Customer)customer;
             await Task.CompletedTask;
         }
     }

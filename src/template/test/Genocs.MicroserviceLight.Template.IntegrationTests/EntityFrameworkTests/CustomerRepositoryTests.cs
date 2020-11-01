@@ -24,7 +24,7 @@ namespace Genocs.MicroserviceLight.Template.IntegrationTests.EntityFrameworkTest
                 new SSN("198608177955"),
                 new Name("Nocco Giovanni Emanuele"));
 
-            using(var context = new GenocsContext(options))
+            using (var context = new GenocsContext(options))
             {
                 context.Database.EnsureCreated();
 
@@ -44,7 +44,7 @@ namespace Genocs.MicroserviceLight.Template.IntegrationTests.EntityFrameworkTest
 
             ICustomer customer = null;
 
-            using(var context = new GenocsContext(options))
+            using (var context = new GenocsContext(options))
             {
                 context.Database.EnsureCreated();
 

@@ -14,7 +14,7 @@ namespace Genocs.MicroserviceLight.Template.WebApi.ViewModels
         /// </summary>
         [Required]
         public Guid AccountId { get; }
-        
+
         /// <summary>
         /// Current Balance
         /// </summary>

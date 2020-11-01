@@ -6,7 +6,6 @@ RUN dotnet publish src/Genocs.MicroserviceLight.Template.WebApi -c release -o ou
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 WORKDIR /app
 COPY --from=build /app/out .
-ENV ASPNETCORE_URLS http://*:5000
+ENV ASPNETCORE_URLS http://*:80
 ENV ASPNETCORE_ENVIRONMENT docker
-EXPOSE 5000
 ENTRYPOINT dotnet Genocs.MicroserviceLight.Template.WebApi.dll

@@ -11,7 +11,7 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
                 {
                     // reporting api versions will return the headers "api-supported-versions" and "api-deprecated-versions"
                     options.ReportApiVersions = true;
-                } );
+                });
             services.AddVersionedApiExplorer(
                 options =>
                 {
@@ -22,7 +22,7 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
                     // note: this option is only necessary when versioning by url segment. the SubstitutionFormat
                     // can also be used to control the format of the API version in route templates
                     options.SubstituteApiVersionInUrl = true;
-                } );
+                });
 
             return services;
         }

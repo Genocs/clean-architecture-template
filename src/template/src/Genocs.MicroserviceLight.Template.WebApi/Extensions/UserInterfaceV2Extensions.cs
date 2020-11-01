@@ -6,7 +6,7 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
     {
         public static IServiceCollection AddPresentersV2(this IServiceCollection services)
         {
-#if (GetAccountDetails)
+#if GetAccountDetails
             services.AddScoped<UseCases.V2.GetAccountDetails.GetAccountDetailsPresenterV2, UseCases.V2.GetAccountDetails.GetAccountDetailsPresenterV2>();
 
             services.AddTransient(ctx =>

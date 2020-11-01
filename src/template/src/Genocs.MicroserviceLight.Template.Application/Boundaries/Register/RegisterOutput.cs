@@ -17,7 +17,7 @@ namespace Genocs.MicroserviceLight.Template.Application.Boundaries.Register
             foreach (ICredit credit in accountEntity.Credits
                     .GetTransactions())
             {
-                Credit creditEntity = (Credit) credit;
+                Credit creditEntity = (Credit)credit;
 
                 Transaction transactionOutput = new Transaction(
                     creditEntity.Description,
@@ -33,7 +33,7 @@ namespace Genocs.MicroserviceLight.Template.Application.Boundaries.Register
             foreach (IDebit debit in accountEntity.Debits
                     .GetTransactions())
             {
-                Debit debitEntity = (Debit) debit;
+                Debit debitEntity = (Debit)debit;
 
                 Transaction transactionOutput = new Transaction(
                     debitEntity.Description,

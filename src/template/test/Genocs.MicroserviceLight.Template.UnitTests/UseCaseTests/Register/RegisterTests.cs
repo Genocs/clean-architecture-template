@@ -22,7 +22,7 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.UseCasesTests.Register
         public void GivenNullInput_ThrowsException()
         {
             var register = new Register(null, null, null, null, null);
-            Assert.ThrowsAsync<Exception>(async() => await register.Execute(null));
+            Assert.ThrowsAsync<Exception>(async () => await register.Execute(null));
         }
 
         [Theory]

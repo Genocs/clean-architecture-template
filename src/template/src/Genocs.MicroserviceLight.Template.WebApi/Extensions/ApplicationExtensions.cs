@@ -6,25 +6,25 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
     {
         public static IServiceCollection AddUseCases(this IServiceCollection services)
         {
-#if (CloseAccount)
+#if CloseAccount
             services.AddScoped<Application.Boundaries.CloseAccount.IUseCase, Application.UseCases.CloseAccount>();
 #endif
-#if (Deposit)
+#if Deposit
             services.AddScoped<Application.Boundaries.Deposit.IUseCase, Application.UseCases.Deposit>();
 #endif
-#if (GetAccountDetails)
+#if GetAccountDetails
             services.AddScoped<Application.Boundaries.GetAccountDetails.IUseCase, Application.UseCases.GetAccountDetails>();
 #endif
-#if (GetCustomerDetails)
+#if GetCustomerDetails
             services.AddScoped<Application.Boundaries.GetCustomerDetails.IUseCase, Application.UseCases.GetCustomerDetails>();
 #endif
-#if (Register)
+#if Register
             services.AddScoped<Application.Boundaries.Register.IUseCase, Application.UseCases.Register>();
 #endif
-#if (Withdraw)
+#if Withdraw
             services.AddScoped<Application.Boundaries.Withdraw.IUseCase, Application.UseCases.Withdraw>();
 #endif
-#if (Transfer)
+#if Transfer
             services.AddScoped<Application.Boundaries.Transfer.IUseCase, Application.UseCases.Transfer>();
 #endif
             return services;

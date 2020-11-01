@@ -37,13 +37,13 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Filters
                 .ToList();
         }
 
-        private OpenApiPaths GetSortedPaths(		
-            OpenApiDocument swaggerDoc)		
-        {		
-            IDictionary<string, OpenApiPathItem> dic = swaggerDoc.Paths.OrderBy(pair => pair.Key)		
+        private OpenApiPaths GetSortedPaths(
+            OpenApiDocument swaggerDoc)
+        {
+            IDictionary<string, OpenApiPathItem> dic = swaggerDoc.Paths.OrderBy(pair => pair.Key)
                 .ToDictionary(pair => pair.Key, pair => pair.Value);
 
-            
+
             return null;
         }
     }

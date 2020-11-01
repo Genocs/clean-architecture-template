@@ -23,9 +23,9 @@ namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Transfer
             var transferResponse = new
             {
                 Amount = transferOutput.Transaction.Amount,
-                    Description = transferOutput.Transaction.Description,
-                    TransactionDate = transferOutput.Transaction.TransactionDate,
-                    UpdatedBalance = transferOutput.UpdatedBalance,
+                Description = transferOutput.Transaction.Description,
+                TransactionDate = transferOutput.Transaction.TransactionDate,
+                UpdatedBalance = transferOutput.UpdatedBalance,
             };
             ViewModel = new ObjectResult(transferResponse);
         }

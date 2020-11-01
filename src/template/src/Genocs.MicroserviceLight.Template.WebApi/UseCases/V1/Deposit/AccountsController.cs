@@ -41,7 +41,7 @@ namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Deposit
                 request.AccountId,
                 new PositiveMoney(request.Amount)
             );
-            
+
             await _depositUseCase.Execute(depositInput);
             return _presenter.ViewModel;
         }

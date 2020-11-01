@@ -30,9 +30,9 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.PresenterTests
             sut.Standard(registerOutput);
 
             var actual = Assert.IsType<CreatedAtRouteResult>(sut.ViewModel);
-            Assert.Equal((int) HttpStatusCode.Created, actual.StatusCode);
+            Assert.Equal((int)HttpStatusCode.Created, actual.StatusCode);
 
-            var actualValue = (RegisterResponse) actual.Value;
+            var actualValue = (RegisterResponse)actual.Value;
             Assert.Equal(customer.Id, actualValue.CustomerId);
         }
     }

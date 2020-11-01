@@ -30,8 +30,8 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions.FeatureFlags
                         var constructorArgument = customAttribute.ConstructorArguments.First();
                         foreach (var argumentValue in constructorArgument.Value as IEnumerable)
                         {
-                            var typedArgument = (CustomAttributeTypedArgument) argumentValue;
-                            var typedArgumentValue = (Features) (int) typedArgument.Value;
+                            var typedArgument = (CustomAttributeTypedArgument)argumentValue;
+                            var typedArgumentValue = (Features)(int)typedArgument.Value;
                             if (!await _featureManager.IsEnabledAsync(typedArgumentValue.ToString()))
                                 feature.Controllers.RemoveAt(i);
                         }
