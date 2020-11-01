@@ -1,5 +1,6 @@
 ﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.MongoDbDataAccess
 {
+    using Genocs.MicroserviceLight.Template.Domain;
     using MongoDB.Driver;
     using System;
     using System.Threading.Tasks;
@@ -8,12 +9,8 @@
     {
         MongoClient MongoClient { get; set; }
         IClientSessionHandle Session { get; set; }
-        Task<int> SaveChanges();
+        Task<int> SaveChangesAsync();
         void AddCommand(Func<Task> func);
-        IMongoCollection<T> GetCollection<T>(string name);
-        IMongoCollection<Customer> Customers { get; }
-        public IMongoCollection<Account> Accounts { get; }
-        public IMongoCollection<Credit> Credits { get; }
-        public IMongoCollection<Debit> Debits { get; }
+        IMongoCollection<T> GetCollection<T>(string name) where T : IEntity;
     }
 }

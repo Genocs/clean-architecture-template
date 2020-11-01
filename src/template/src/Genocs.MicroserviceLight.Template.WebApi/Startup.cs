@@ -38,6 +38,7 @@ namespace Genocs.MicroserviceLight.Template.WebApi
             services.AddUseCases();
 #if DEBUG
             services.AddInMemoryPersistence();
+//            services.AddMongoDBPersistence(Configuration);
 #else
             services.AddSQLServerPersistence(Configuration);
 #endif

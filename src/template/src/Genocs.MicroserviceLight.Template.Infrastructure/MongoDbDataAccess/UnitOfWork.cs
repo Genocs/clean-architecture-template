@@ -3,15 +3,16 @@
     using Application.Services;
     using System;
     using System.Threading.Tasks;
+
     public sealed class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private readonly GenocsContext _context;
+        private readonly IMongoContext _context;
 
-        public UnitOfWork(GenocsContext context)
+        public UnitOfWork(IMongoContext context)
             => _context = context;
 
         public async Task<int> Save()
-            => await _context.SaveChanges();
+            => await _context.SaveChangesAsync();
 
         private bool _disposed = false;
 

@@ -9,27 +9,35 @@
 
     public sealed class CustomerRepository : ICustomerRepository
     {
-        private readonly GenocsContext _context;
+        private readonly IMongoContext _context;
+        private readonly IMongoCollection<MongoDbDataAccess.Customer> _DbSetCustomer;
 
-        public CustomerRepository(GenocsContext context)
+        public CustomerRepository(IMongoContext context)
         {
             _context = context ??
                 throw new ArgumentNullException(nameof(context));
+
+            _DbSetCustomer = _context.GetCollection<MongoDbDataAccess.Customer>("Customers");
         }
 
-        public async Task Add(ICustomer customer)
+        public Task Add(ICustomer customer)
         {
-            await _context.Customers.InsertOneAsync((MongoDbDataAccess.Customer)customer);
+            _context.AddCommand(async () => await _DbSetCustomer.InsertOneAsync((MongoDbDataAccess.Customer)customer));
+            return Task.CompletedTask;
         }
 
         public async Task<ICustomer> Get(Guid id)
         {
-            var customers = await _context.GetCollection<MongoDbDataAccess.Customer>("Customers").FindAsync(f => f.Id == id);
-            MongoDbDataAccess.Customer customer = customers.FirstOrDefault();
-            return customer;
+            var customers = await _DbSetCustomer.FindAsync(f => f.Id == id);
+            if (customers != null)
+            {
+                return customers.FirstOrDefault();
+            }
+
+            return null;
         }
 
         public async Task Update(ICustomer customer)
-            => await _context.Credits.FindOneAndReplaceAsync(f => f.Id == customer.Id, (MongoDbDataAccess.Credit)customer);
+            => await _DbSetCustomer.FindOneAndReplaceAsync(f => f.Id == customer.Id, (MongoDbDataAccess.Customer)customer);
     }
 }

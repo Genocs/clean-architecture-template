@@ -1,5 +1,6 @@
 ﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.MongoDbDataAccess
 {
+    using Genocs.MicroserviceLight.Template.Domain;
     using Microsoft.Extensions.Configuration;
     using MongoDB.Bson;
     using MongoDB.Bson.Serialization.Conventions;
@@ -48,9 +49,12 @@
             ConventionRegistry.Register("Genocs Solution Conventions", pack, t => true);
         }
 
-        public async Task<int> SaveChanges()
+        public async Task<int> SaveChangesAsync()
         {
-            using (Session = await MongoClient.StartSessionAsync())
+            int count = _commands.Count;
+            CancellationToken token = new CancellationToken();
+
+            using (Session = await MongoClient.StartSessionAsync(options: null, cancellationToken: token))
             {
                 Session.StartTransaction();
 
@@ -58,10 +62,15 @@
 
                 await Task.WhenAll(commandTasks);
 
+                //await Session.AbortTransactionAsync(token);
+
                 await Session.CommitTransactionAsync();
+                _commands.Clear();
+                Session.Dispose();
+                Session = null;
             }
 
-            return _commands.Count;
+            return count;
         }
 
         private bool _disposed = false;
@@ -86,45 +95,9 @@
         }
 
         public void AddCommand(Func<Task> func)
-        {
-            _commands.Add(func);
-        }
+            => _commands.Add(func);
 
-        public IMongoCollection<T> GetCollection<T>(string name)
-        {
-            return _database.GetCollection<T>(name);
-        }
-
-
-        public IMongoCollection<Customer> Customers
-        {
-            get
-            {
-                return _database.GetCollection<Customer>("Customers");
-            }
-        }
-
-        public IMongoCollection<Account> Accounts
-        {
-            get
-            {
-                return _database.GetCollection<Account>("Accounts");
-            }
-        }
-
-        public IMongoCollection<Credit> Credits
-        {
-            get
-            {
-                return _database.GetCollection<Credit>("Credits");
-            }
-        }
-        public IMongoCollection<Debit> Debits
-        {
-            get
-            {
-                return _database.GetCollection<Debit>("Debits");
-            }
-        }
+        public IMongoCollection<T> GetCollection<T>(string name) where T : IEntity
+            => _database.GetCollection<T>(name);
     }
 }
