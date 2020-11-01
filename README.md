@@ -7,9 +7,6 @@ This tool increases productivity on developing your next microservices.
 ----
 [![Build Status](https://travis-ci.org/genocs/clean-architecture-template.svg?branch=master)](https://travis-ci.org/genocs/clean-architecture-template) <a href="https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate/" rel="Genocs.CleanCode">![NuGet](https://buildstats.info/nuget/genocs.cleanarchitecturetemplate)</a> [![Gitter](https://img.shields.io/badge/chat-on%20gitter-blue.svg)](https://gitter.im/genocs/)
 
-Based on [Clean Architecture](https://github.com/genocs/clean-architecture).
-
-
 ## How to create a project
 
 To generate your own Back-end project simple run:

@@ -1,30 +1,32 @@
 # The Clean Architecture Sample Implementation with .NET Core
-[![All Contributors](https://img.shields.io/badge/all_contributors-12-yellow.svg?style=flat-square)](#contributors)
-[![Build status](https://ci.appveyor.com/api/projects/status/0i6s33kw3y87tkb2?svg=true)](https://ci.appveyor.com/project/genocs/clean-architecture-template)<a href="https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate/" rel="Genocs.CleanArchitectureTemplate">![NuGet](https://buildstats.info/nuget/Genocs.CleanArchitectureTemplate)</a>
-[![Build Status](https://travis-ci.org/genocs/clean-architecture-template.svg?branch=master)](https://travis-ci.org/genocs/clean-architecture-template)
 
 
 Sample implementation of the **Clean Architecture Principles with .NET Core**. Use cases as central organizing structure, decoupled from frameworks and technology details. Built with small components that are developed and tested in isolation.
 
-# Usage
+----
+
+[![Build Status](https://travis-ci.org/genocs/clean-architecture-template.svg?branch=master)](https://travis-ci.org/genocs/clean-architecture-template)   [![Build status](https://ci.appveyor.com/api/projects/status/0i6s33kw3y87tkb2?svg=true)](https://ci.appveyor.com/project/genocs/clean-architecture-template)   ![NuGet](https://buildstats.info/nuget/Genocs.CleanArchitectureTemplate)   [![All Contributors](https://img.shields.io/badge/all_contributors-12-yellow.svg?style=flat-square)](#contributors)
+<a href="https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate/" rel="Genocs.CleanArchitectureTemplate"></a>
+
+
+## Usage
 
 ```sh
 dotnet new -i Genocs.CleanArchitecture::0.1.11
-dotnet new cleanarchitecture -n "MyGreatApi"
+dotnet new cleanarchitecture -n "MyCompany.MyProject"
 ```
 
-**ProTip #1:** To get the Clean Architecture updates hit the `WATCH` button :eyes:.
+To get the Clean Architecture updates hit the `WATCH` button.
+
+Would you like to show Clean Architecture on your GitHub profile? Hit the `FORK` button.
+
+Really interested in designing modular applications? Support this project with a hit on the `STAR` button. Share with a friend!
 
 **Manga** is a virtual Wallet application in which a customer can register an account then manage the balance with `Deposits`, `Withdraws` and `Transfers`.
 
+Run the Docker container in less than 2 minutes using Play With Docker:
 
-
-<p align="center">
-  Run the Docker container in less than 2 minutes using Play With Docker:
-  <br>
-  <br>
-  <a href="https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/genocs/clean-architecture-template/master/docker-compose.yml&amp;stack_name=clean-architecture-template" rel="nofollow"><img src="https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png" alt="Try in PWD" style="max-width:100%;"></a>
-</p>
+<a href="https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/genocs/clean-architecture-template/master/docker-compose.yml&amp;stack_name=clean-architecture-template" rel="nofollow"><img src="https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png" alt="Try in PWD" style="max-width:100%;"></a>
 
 
 ## Motivation
@@ -122,7 +124,6 @@ Feel free to submit pull requests to help:
 * [SQL Server](#sql-server)
 * [Related Content and Projects](#related-content-and-projects)
 
-**ProTip #2:** Really interested in designing modular applications? Support this project with a hit on the `STAR` button :star:. Share with a friend!
   
 ## Use Cases
 
@@ -1237,7 +1238,7 @@ public sealed class GenocsContext : DbContext
 Run the EF Tool to add a migration to the `Genocs.Infrastructure` project.
 
 ```sh
-dotnet ef migrations add "InitialCreate" -o "EntityFrameworkDataAccess/Migrations" --project source/Genocs.Infrastructure --startup-project source/Genocs.WebApi
+dotnet ef migrations add "InitialCreate" -o "EntityFrameworkDataAccess/Migrations" --project src/{MyCompany.MyProject}.Infrastructure --startup-project src/{MyCompany.MyProject}.WebApi
 ```
 
 ### Update Database
@@ -1245,7 +1246,7 @@ dotnet ef migrations add "InitialCreate" -o "EntityFrameworkDataAccess/Migration
 Generate tables and seed the database via Entity Framework Tool:
 
 ```sh
-dotnet ef database update --project source/Genocs.Infrastructure --startup-project source/Genocs.WebApi
+dotnet ef database update --project src/{MyCompany.MyProject}.Infrastructure --startup-project src/{MyCompany.MyProject}.WebApi
 ```
 
 ## Environment Configurations
@@ -1253,7 +1254,7 @@ dotnet ef database update --project source/Genocs.Infrastructure --startup-proje
 To run in `Development` mode use:
 
 ```sh
-dotnet run --project "source/Genocs.WebApi/Genocs.WebApi.csproj" --Environment="Development"
+dotnet run --project "src/{MyCompany.MyProject}.WebApi/{MyCompany.MyProject}.WebApi.csproj" --Environment="Development"
 ```
 
 It starts the application and call `ConfigureDevelopmentServices` method which runs the application using in memory persistence.
@@ -1261,7 +1262,7 @@ It starts the application and call `ConfigureDevelopmentServices` method which r
 The second option is to run in `Production` mode:
 
 ```sh
-dotnet run --project "source/Manga.WebApi/Manga.WebApi.csproj" --Environment="Production"
+dotnet run --project "src/{MyCompany.MyProject}.WebApi/{MyCompany.MyProject}.WebApi.csproj" --Environment="Production"
 ```
 
 This command will call `ConfigureProductionServices` then use SQL Server repositories.
@@ -1281,7 +1282,7 @@ We made available scripts to create and seed the database quickly via Docker.
 Finally to run it locally use:
 
 ```sh
-dotnet run --project "source/Genocs.WebApi/Genocs.WebApi.csproj"
+dotnet run --project "src/{MyCompany.MyProject}.WebApi/{MyCompany.MyProject}.WebApi.csproj"
 ```
 
 ### Running the Tests Locally
@@ -1320,21 +1321,21 @@ build_script:
   - docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=<YourStrong!Passw0rd>' -p 1433:1433 --name sql1 -d mcr.microsoft.com/mssql/server:2017-latest || true
   - sleep 10
   - docker exec -i sql1 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P '<YourStrong!Passw0rd>' -Q 'ALTER LOGIN SA WITH PASSWORD="<YourNewStrong!Passw0rd>"' || true
-  - dotnet ef database update --project source/Genocs.Infrastructure --startup-project source/Genocs.WebApi
+  - dotnet ef database update --project src/{MyCompany.MyProject}.Infrastructure --startup-project src/{MyCompany.MyProject}.WebApi
   - dotnet build
-  - pushd source/Genocs.WebApi/
+  - pushd src/{MyCompany.MyProject}.WebApi/
   - dotnet pack --configuration Release
   - popd
 test_script:
-  - dotnet test tests/Genocs.UnitTests/Genocs.UnitTests.csproj
-  - dotnet test tests/Genocs.IntegrationTests/Genocs.IntegrationTests.csproj
-  - dotnet test tests/Genocs.AcceptanceTests/Genocs.AcceptanceTests.csproj
+  - dotnet test test/{MyCompany.MyProject}.UnitTests/{MyCompany.MyProject}.UnitTests.csproj
+  - dotnet test test/{MyCompany.MyProject}.IntegrationTests/{MyCompany.MyProject}.IntegrationTests.csproj
+  - dotnet test test/{MyCompany.MyProject}.AcceptanceTests/{MyCompany.MyProject}.AcceptanceTests.csproj
 deploy_script:
-  - docker build -t genocs/clean-architecture:github .
+  - docker build -t {mycompany}/clean-architecture:github .
   - docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
-  - docker push genocs/clean-architecture:github
+  - docker push {mycompany}/clean-architecture:github
   - docker login --username=$HEROKU_USERNAME --password=$HEROKU_API_KEY registry.heroku.com
-  - docker tag genocs/clean-architecture:github registry.heroku.com/$HEROKU_APP_NAME/web
+  - docker tag {mycompany}/clean-architecture:github registry.heroku.com/$HEROKU_APP_NAME/web
   - docker push registry.heroku.com/$HEROKU_APP_NAME/web                
   - curl https://cli-assets.heroku.com/install.sh | sh
   - heroku container:release web -a $HEROKU_APP_NAME
@@ -1348,7 +1349,7 @@ WORKDIR /app
 
 # Copy everything else and build
 COPY . .
-RUN dotnet publish src/Genocs.MicroserviceLight.Template.WebApi -c release -o out
+RUN dotnet publish src/{MyCompany.MyProject}.Template.WebApi -c release -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
@@ -1357,7 +1358,7 @@ COPY --from=build /app/out .
 ENV ASPNETCORE_URLS http://*:5000
 ENV ASPNETCORE_ENVIRONMENT docker
 EXPOSE 5000
-ENTRYPOINT dotnet Genocs.MicroserviceLight.Template.WebApi.dll
+ENTRYPOINT dotnet {MyCompany.MyProject}.WebApi.dll
 ```
 
 ## SQL Server
@@ -1365,7 +1366,7 @@ ENTRYPOINT dotnet Genocs.MicroserviceLight.Template.WebApi.dll
 To spin up a SQL Server in a docker container using the connection string `Server=localhost;User Id=sa;Password=<YourNewStrong!Passw0rd>;` run the following command:
 
 ```sh
-./source/scripts/sql-docker-up.sh
+./src/scripts/sql-docker-up.sh
 ```
 
 ## Related Content and Projects
@@ -1413,4 +1414,4 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
-**ProTip #3:** Would you like to show Clean Architecture on your GitHub profile? Hit the `FORK` button :hearts:.
+
