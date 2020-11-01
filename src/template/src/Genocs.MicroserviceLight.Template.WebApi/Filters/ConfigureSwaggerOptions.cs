@@ -6,6 +6,7 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Filters
     using Microsoft.OpenApi.Models;
     using Swashbuckle.AspNetCore.SwaggerGen;
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Configures the Swagger generation options.
@@ -31,18 +32,57 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Filters
             {
                 options.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(description));
             }
+
+            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+
+                Name = "Authorization",
+                Description =
+                    "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.ApiKey,
+                Scheme = "Bearer"
+            });
+
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header
+                        },
+                        new List<string>()
+                    }
+                });
+
         }
 
         static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
         {
-            var info = new OpenApiInfo()
+            var info = new OpenApiInfo
             {
-                Title = "Sample API",
                 Version = description.ApiVersion.ToString(),
-                Description = "A sample application with Swagger, Swashbuckle, and API versioning.",
-                Contact = new OpenApiContact() { Name = "Nocco Giovanni Emanuele", Email = "giovanni.nocco@gmail.com" },
-                TermsOfService = new Uri("https://genocs.com"),
-                License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
+                Title = "Genocs.MicroserviceLight.Template API",
+                Description = "The Genocs.MicroserviceLight.Template API with versioning.",
+                TermsOfService = new Uri("https://www.genocs.com/sections/terms-of-use.html"),
+                Contact = new OpenApiContact
+                {
+                    Name = "Giovanni Emanuele Nocco",
+                    Email = "giovanni.nocco@gmail.com",
+                    Url = new Uri("https://genocs.com"),
+                },
+                License = new OpenApiLicense
+                {
+                    Name = "Use under MIT",
+                    Url = new Uri("https://www.genocs.com/sections/privacy-policy.html"),
+                }
             };
 
             if (description.IsDeprecated)

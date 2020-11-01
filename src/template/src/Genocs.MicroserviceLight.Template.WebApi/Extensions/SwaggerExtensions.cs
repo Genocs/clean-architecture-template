@@ -67,7 +67,7 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
                 //    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Genocs.MicroserviceLight.Template API V1");
                 //}
 
-                //options.InjectStylesheet("/swagger-ui/custom.css");
+                options.InjectStylesheet("/swagger-ui/custom.css");
                 //options.RoutePrefix = string.Empty;
             });
 

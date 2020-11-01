@@ -20,19 +20,15 @@ namespace Genocs.MicroserviceLight.Template.WebApi
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureDevelopmentServices(IServiceCollection services)
-        {
-            services.AddControllers().AddControllersAsServices();
-            services.AddBusinessExceptionFilter();
-            services.AddFeatureFlags(Configuration);
-            services.AddVersioning();
-            services.AddSwagger();
-            services.AddUseCases();
-            services.AddInMemoryPersistence();
-            services.AddPresentersV1();
-            services.AddPresentersV2();
-        }
+            => InternalConfiguration(services);
 
         public void ConfigureProductionServices(IServiceCollection services)
+            => InternalConfiguration(services);
+        public void ConfigureDockerServices(IServiceCollection services)
+            => InternalConfiguration(services);
+
+
+        private void InternalConfiguration(IServiceCollection services)
         {
             services.AddControllers().AddControllersAsServices();
             services.AddBusinessExceptionFilter();
@@ -40,7 +36,11 @@ namespace Genocs.MicroserviceLight.Template.WebApi
             services.AddVersioning();
             services.AddSwagger();
             services.AddUseCases();
+#if DEBUG
+            services.AddInMemoryPersistence();
+#else
             services.AddSQLServerPersistence(Configuration);
+#endif
             services.AddPresentersV1();
             services.AddPresentersV2();
         }
