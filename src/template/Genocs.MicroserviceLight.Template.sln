@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2BDB0BC2-AF86-459E-8D11-11E1B8ADCED7}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6335BAF6-440D-4B7D-8618-DB1B32F4E1DB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.Domain", "src\Genocs.MicroserviceLight.Template.Domain\Genocs.MicroserviceLight.Template.Domain.csproj", "{4D2A9497-9C04-40A4-B378-309537FA2220}"
@@ -13,13 +11,22 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.WebApi", "src\Genocs.MicroserviceLight.Template.WebApi\Genocs.MicroserviceLight.Template.WebApi.csproj", "{DE058D73-748F-4E31-BA5C-48DEF7C6BA41}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.AcceptanceTests", "test\Genocs.MicroserviceLight.Template.AcceptanceTests\Genocs.MicroserviceLight.Template.AcceptanceTests.csproj", "{FF2A2975-6B15-49D0-982A-4020591FE745}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.AcceptanceTests", "src\Genocs.MicroserviceLight.Template.AcceptanceTests\Genocs.MicroserviceLight.Template.AcceptanceTests.csproj", "{FF2A2975-6B15-49D0-982A-4020591FE745}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.IntegrationTests", "test\Genocs.MicroserviceLight.Template.IntegrationTests\Genocs.MicroserviceLight.Template.IntegrationTests.csproj", "{252000C9-DCC7-4222-ACF0-A7DEA1727155}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.IntegrationTests", "src\Genocs.MicroserviceLight.Template.IntegrationTests\Genocs.MicroserviceLight.Template.IntegrationTests.csproj", "{252000C9-DCC7-4222-ACF0-A7DEA1727155}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.UnitTests", "test\Genocs.MicroserviceLight.Template.UnitTests\Genocs.MicroserviceLight.Template.UnitTests.csproj", "{D5FDC379-F6F0-427F-9EC1-EC63DBC40183}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.UnitTests", "src\Genocs.MicroserviceLight.Template.UnitTests\Genocs.MicroserviceLight.Template.UnitTests.csproj", "{D5FDC379-F6F0-427F-9EC1-EC63DBC40183}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.Application", "src\Genocs.MicroserviceLight.Template.Application\Genocs.MicroserviceLight.Template.Application.csproj", "{B3DAF7F3-D632-4252-829B-010BF702BDC0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.BusHost", "src\Genocs.MicroserviceLight.Template.BusHost\Genocs.MicroserviceLight.Template.BusHost.csproj", "{BDCA6C7C-B27B-45E0-B560-D6B69BD3273B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1BDA405C-FB8F-4259-9A2D-3C5EBFC6855F}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.Shared", "src\Genocs.MicroserviceLight.Template.Shared\Genocs.MicroserviceLight.Template.Shared.csproj", "{DECBE6BD-D669-40C6-8A29-8DEC5EB61ECA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,18 +62,22 @@ Global
 		{B3DAF7F3-D632-4252-829B-010BF702BDC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3DAF7F3-D632-4252-829B-010BF702BDC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3DAF7F3-D632-4252-829B-010BF702BDC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDCA6C7C-B27B-45E0-B560-D6B69BD3273B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDCA6C7C-B27B-45E0-B560-D6B69BD3273B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDCA6C7C-B27B-45E0-B560-D6B69BD3273B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDCA6C7C-B27B-45E0-B560-D6B69BD3273B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DECBE6BD-D669-40C6-8A29-8DEC5EB61ECA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DECBE6BD-D669-40C6-8A29-8DEC5EB61ECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DECBE6BD-D669-40C6-8A29-8DEC5EB61ECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DECBE6BD-D669-40C6-8A29-8DEC5EB61ECA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{4D2A9497-9C04-40A4-B378-309537FA2220} = {2BDB0BC2-AF86-459E-8D11-11E1B8ADCED7}
-		{74220BF7-8837-4B8F-B960-9CBDA65B8E68} = {2BDB0BC2-AF86-459E-8D11-11E1B8ADCED7}
-		{DE058D73-748F-4E31-BA5C-48DEF7C6BA41} = {2BDB0BC2-AF86-459E-8D11-11E1B8ADCED7}
 		{FF2A2975-6B15-49D0-982A-4020591FE745} = {6335BAF6-440D-4B7D-8618-DB1B32F4E1DB}
 		{252000C9-DCC7-4222-ACF0-A7DEA1727155} = {6335BAF6-440D-4B7D-8618-DB1B32F4E1DB}
 		{D5FDC379-F6F0-427F-9EC1-EC63DBC40183} = {6335BAF6-440D-4B7D-8618-DB1B32F4E1DB}
-		{B3DAF7F3-D632-4252-829B-010BF702BDC0} = {2BDB0BC2-AF86-459E-8D11-11E1B8ADCED7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7085404A-CC53-42BF-9A9F-C0BC3830CC6C}

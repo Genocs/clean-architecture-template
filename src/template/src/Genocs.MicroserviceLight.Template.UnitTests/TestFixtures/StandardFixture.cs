@@ -1,5 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.UnitTests.TestFixtures
 {
+    using Genocs.MicroserviceLight.Template.Application.Services;
     using Infrastructure.InMemoryDataAccess;
     using Infrastructure.InMemoryDataAccess.Repositories;
 
@@ -11,6 +12,8 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.TestFixtures
         public CustomerRepository CustomerRepository { get; }
         public UnitOfWork UnitOfWork { get; }
 
+        public IServiceBus ServiceBus { get; }
+
         public StandardFixture()
         {
             Context = new GenocsContext();
@@ -18,6 +21,7 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.TestFixtures
             CustomerRepository = new CustomerRepository(Context);
             UnitOfWork = new UnitOfWork(Context);
             EntityFactory = new EntityFactory();
+            ServiceBus = new FakeServiceBus();
         }
     }
 }

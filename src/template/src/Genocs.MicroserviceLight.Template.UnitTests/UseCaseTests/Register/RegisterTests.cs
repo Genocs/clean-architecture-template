@@ -21,7 +21,7 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.UseCasesTests.Register
         [Fact]
         public void GivenNullInput_ThrowsException()
         {
-            var register = new Register(null, null, null, null, null);
+            var register = new Register(null, null, null, null, null, null);
             Assert.ThrowsAsync<Exception>(async () => await register.Execute(null));
         }
 
@@ -38,7 +38,8 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.UseCasesTests.Register
                 presenter,
                 _fixture.CustomerRepository,
                 _fixture.AccountRepository,
-                _fixture.UnitOfWork
+                _fixture.UnitOfWork,
+                _fixture.ServiceBus
             );
 
             await sut.Execute(new RegisterInput(

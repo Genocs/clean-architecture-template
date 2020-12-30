@@ -42,7 +42,9 @@ namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Register
                 new Name(request.Name),
                 new PositiveMoney(request.InitialAmount)
             );
+
             await _registerUseCase.Execute(registerInput);
+
             return _presenter.ViewModel;
         }
     }

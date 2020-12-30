@@ -14,19 +14,22 @@ namespace Genocs.MicroserviceLight.Template.Application.UseCases
         private readonly ICustomerRepository _customerRepository;
         private readonly IAccountRepository _accountRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IServiceBus _serviceBus;
 
         public Register(
             IEntityFactory entityFactory,
             IOutputPort outputHandler,
             ICustomerRepository customerRepository,
             IAccountRepository accountRepository,
-            IUnitOfWork unityOfWork)
+            IUnitOfWork unityOfWork,
+            IServiceBus serviceBus)
         {
             _entityFactory = entityFactory;
             _outputHandler = outputHandler;
             _customerRepository = customerRepository;
             _accountRepository = accountRepository;
             _unitOfWork = unityOfWork;
+            _serviceBus = serviceBus;
         }
 
         public async Task Execute(RegisterInput input)
@@ -53,8 +56,17 @@ namespace Genocs.MicroserviceLight.Template.Application.UseCases
             await _accountRepository.Add(account, credit);
             await _unitOfWork.Save();
 
+            // Publish the CustomerRegistration message to the bus
+            await _serviceBus.PublishEventAsync(new CustomerRegistration());
+
             RegisterOutput output = new RegisterOutput(customer, account);
             _outputHandler.Standard(output);
         }
+    }
+
+
+    public class CustomerRegistration : Shared.Interfaces.IEvent
+    {
+
     }
 }
