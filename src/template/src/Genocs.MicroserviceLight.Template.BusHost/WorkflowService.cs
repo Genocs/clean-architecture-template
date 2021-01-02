@@ -2,7 +2,6 @@
 using Genocs.MicroserviceLight.Template.Shared.Commands;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
@@ -14,22 +13,36 @@ using System.Threading.Tasks;
 
 namespace Genocs.MicroserviceLight.Template.BusHost
 {
+    using Configurations;
+    using Genocs.MicroserviceLight.Template.BusHost.Handlers;
+    using Genocs.MicroserviceLight.Template.Shared.Events;
+    using Microsoft.Extensions.Logging;
+    using Rebus.Activation;
+    using Rebus.Bus;
+    using Rebus.Config;
+    using Rebus.Routing.TypeBased;
+
     internal class WorkflowService : IHostedService
     {
         private readonly JsonSerializer _serializer;
 
         private readonly ILogger<WorkflowService> _logger;
         private readonly IRequestProcessor _requestProcessor;
-        private readonly Func<IOptions<AzureServiceBusOptions>, IQueueClient> _createQueueClient;
-        private readonly IOptions<AzureServiceBusOptions> _options;
+        private readonly Func<IOptions<AzureServiceBusConfiguration>, IQueueClient> _createQueueClient;
+        private readonly IOptions<AzureServiceBusConfiguration> _options;
         private IQueueClient _receiveClient;
 
-        public WorkflowService(IOptions<AzureServiceBusOptions> options, ILogger<WorkflowService> logger, IRequestProcessor requestProcessor)
+
+        private BuiltinHandlerActivator _activator;
+        private IBus _bus;
+
+
+        public WorkflowService(IOptions<AzureServiceBusConfiguration> options, ILogger<WorkflowService> logger, IRequestProcessor requestProcessor)
             : this(options, logger, requestProcessor, CreateQueueClient)
         { }
 
-        public WorkflowService(IOptions<AzureServiceBusOptions> options, ILogger<WorkflowService> logger, IRequestProcessor requestProcessor,
-            Func<IOptions<AzureServiceBusOptions>, 
+        public WorkflowService(IOptions<AzureServiceBusConfiguration> options, ILogger<WorkflowService> logger, IRequestProcessor requestProcessor,
+            Func<IOptions<AzureServiceBusConfiguration>,
                 IQueueClient> createQueueClient)
         {
             _options = options;
@@ -38,9 +51,22 @@ namespace Genocs.MicroserviceLight.Template.BusHost
             _createQueueClient = createQueueClient;
 
             _serializer = new JsonSerializer();
+
+            _activator = new BuiltinHandlerActivator();
+
+            _activator.Register(() => new Handler());
+
+            _bus = Configure.With(_activator)
+                .Logging(l => l.ColoredConsole(minLevel: Rebus.Logging.LogLevel.Debug))
+                .Transport(t => t.UseRabbitMq("amqp://guest:guest@localhost:5672", "consumer"))
+                .Options(o => o.SetMaxParallelism(1))
+                .Start();
+
+
+            _activator.Bus.Subscribe<EventOccurred>().Wait();
         }
 
-        private static IQueueClient CreateQueueClient(IOptions<AzureServiceBusOptions> options)
+        private static IQueueClient CreateQueueClient(IOptions<AzureServiceBusConfiguration> options)
         {
             ServiceBusConnectionStringBuilder connectionStringBuilder = new ServiceBusConnectionStringBuilder
             {

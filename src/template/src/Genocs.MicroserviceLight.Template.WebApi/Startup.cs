@@ -2,7 +2,6 @@ namespace Genocs.MicroserviceLight.Template.WebApi
 {
     using Extensions;
     using Extensions.FeatureFlags;
-    using Genocs.MicroserviceLight.Template.Infrastructure.RebusServiceBus;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc.ApiExplorer;

@@ -5,6 +5,7 @@ namespace Genocs.MicroserviceLight.Template.Application.UseCases
     using Application.Services;
     using Domain;
     using Domain.Accounts;
+    using Shared.Events;
     using System.Threading.Tasks;
 
     public sealed class Register : IUseCase
@@ -54,19 +55,13 @@ namespace Genocs.MicroserviceLight.Template.Application.UseCases
 
             await _customerRepository.Add(customer);
             await _accountRepository.Add(account, credit);
+            // Publish the CustomerRegistration message to the bus
+            await _serviceBus.PublishEventAsync(new EventOccurred() { EventId = "123456" });
             await _unitOfWork.Save();
 
-            // Publish the CustomerRegistration message to the bus
-            await _serviceBus.PublishEventAsync(new CustomerRegistration());
 
             RegisterOutput output = new RegisterOutput(customer, account);
             _outputHandler.Standard(output);
         }
-    }
-
-
-    public class CustomerRegistration : Shared.Interfaces.IEvent
-    {
-
     }
 }

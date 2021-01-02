@@ -1,8 +1,8 @@
-﻿namespace Genocs.MicroserviceLight.Template.BusHost
+﻿namespace Genocs.MicroserviceLight.Template.BusHost.Configurations
 {
-    internal class AzureServiceBusOptions
+    internal class AzureServiceBusConfiguration
     {
-        public AzureServiceBusOptions()
+        public AzureServiceBusConfiguration()
         {
             MaxConcurrency = 20;
             PrefetchCount = 3000;

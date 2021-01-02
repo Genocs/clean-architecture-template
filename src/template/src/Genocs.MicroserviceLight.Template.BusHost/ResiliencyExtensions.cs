@@ -6,6 +6,8 @@ using Polly;
 
 namespace Genocs.MicroserviceLight.Template.BusHost
 {
+    using Configurations;
+
     internal static class ResiliencyExtensions
     {
         public static IHttpClientBuilder AddResiliencyPolicies(this IHttpClientBuilder builder, IConfiguration configuration)
@@ -25,23 +27,6 @@ namespace Genocs.MicroserviceLight.Template.BusHost
                     p.WaitAndRetryAsync(resiliencyConfiguration.MaxRetries, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt) - 2)));
 
             return builder;
-        }
-
-        private class ResiliencyConfiguration
-        {
-            public int MaxRetries { get; set; }
-
-            public double CircuitBreakerThreshold { get; set; }
-
-            public int CircuitBreakerSamplingPeriodSeconds { get; set; }
-
-            public int CircuitBreakerMinimumThroughput { get; set; }
-
-            public int CircuitBreakerBreakDurationSeconds { get; set; }
-
-            public int MaxBulkheadSize { get; set; }
-
-            public int MaxBulkheadQueueSize { get; set; }
         }
     }
 }

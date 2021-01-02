@@ -27,4 +27,9 @@
     <ProjectReference Include="..\Genocs.MicroserviceLight.Template.Application\Genocs.MicroserviceLight.Template.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AzureServiceBus\" />
+    <Folder Include="ParticularServiceBus\" />
+  </ItemGroup>
+
 </Project>
