@@ -59,6 +59,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
+            _logger.LogInformation("Starting...");
             _receiveClient = _createQueueClient(_options);
 
             _receiveClient.RegisterMessageHandler(
@@ -75,6 +76,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
+            _logger.LogInformation("Stopping...");
             await _receiveClient?.CloseAsync();
 
             _logger.LogInformation("Stopped");

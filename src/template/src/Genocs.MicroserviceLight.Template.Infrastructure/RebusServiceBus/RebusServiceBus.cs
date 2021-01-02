@@ -5,15 +5,16 @@ using Rebus.Activation;
 using Rebus.Bus;
 using Rebus.Config;
 using Rebus.Serialization.Json;
+using System;
 using System.Threading.Tasks;
 
 namespace Genocs.MicroserviceLight.Template.Infrastructure.RebusServiceBus
 {
-    public class RebusServiceBus : IServiceBus
+    public class RebusServiceBus : IServiceBus, IDisposable, IAsyncDisposable
     {
-        private readonly BuiltinHandlerActivator _activator;
+        private BuiltinHandlerActivator _activator;
+        private IBus _bus;
 
-        private readonly IBus _bus;
         const string InputQueueName = "another.queue";
         const string InputTopicName = "some-topic";
 
@@ -40,6 +41,43 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.RebusServiceBus
         public async Task PublishEventAsync<T>(T evt) where T : Shared.Interfaces.IEvent
         {
             await _bus.Advanced.Topics.Publish(InputTopicName, new Job() { JobNumber = 12 });
+        }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        public async ValueTask DisposeAsync()
+        {
+            await DisposeAsyncCore();
+
+            Dispose(disposing: false);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _bus?.Dispose();
+                _activator?.Dispose();
+            }
+            _bus = null;
+            _activator = null;
+        }
+
+        protected virtual async ValueTask DisposeAsyncCore()
+        {
+            //if (_bus is not null)
+            //{
+            //    await _bus.DisposeAsync();
+            //}
+
+            //_bus = null;
+
+            await Task.CompletedTask;
         }
     }
 }
