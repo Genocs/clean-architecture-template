@@ -12,7 +12,7 @@ This tool is usefull to increases productivity on developing your next microserv
 To generate your own Back-end project simple run:
 
 ```sh
-dotnet new -i Genocs.CleanArchitectureTemplate::0.1.13
+dotnet new -i Genocs.CleanArchitectureTemplate::1.0.0
 dotnet new cleanarchitecture -n {MyCompany.MyProject}
 cd {MyCompany.MyProject}
 dotnet build
@@ -24,12 +24,13 @@ dotnet run
 
 ## How to build the package
 
-To build the packagerun the following commands:
+To build the package run the following commands:
 
 ```sh
 cd .\src
 nuget pack 
 ```
+
 
 
 ## Sample application

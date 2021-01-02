@@ -5,6 +5,10 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;Full</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -12,13 +16,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.9" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Genocs.MicroserviceLight.Template.Domain\Genocs.MicroserviceLight.Template.Domain.csproj" />
-    <ProjectReference Include="..\..\src\Genocs.MicroserviceLight.Template.Application\Genocs.MicroserviceLight.Template.Application.csproj" />
-    <ProjectReference Include="..\..\src\Genocs.MicroserviceLight.Template.Infrastructure\Genocs.MicroserviceLight.Template.Infrastructure.csproj" />
     <ProjectReference Include="..\..\src\Genocs.MicroserviceLight.Template.WebApi\Genocs.MicroserviceLight.Template.WebApi.csproj" />
   </ItemGroup>
 

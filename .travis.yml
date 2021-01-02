@@ -1,4 +1,7 @@
 language: csharp
+branches:
+  only:
+    - master
 install:
   - curl -L -o nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
 script:
@@ -6,4 +9,8 @@ script:
   - bash update.sh
   - mono nuget.exe pack ./build/Genocs.CleanArchitectureTemplate.nuspec
   - mono nuget.exe setApiKey $NUGET_API_KEY -Source $NUGET_SOURCE
- # - mono nuget.exe push Genocs.CleanArchitectureTemplate.*.nupkg -Source $NUGET_SOURCE
+  - mono nuget.exe push Genocs.CleanArchitectureTemplate.*.nupkg -Source $NUGET_SOURCE
+notifications:
+  email:
+    on_success: never
+    on_failure: always
