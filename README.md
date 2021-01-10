@@ -5,7 +5,9 @@ It follows the Clean Architecture Principles and built on Domain-Driven-Design.
 This tool is usefull to increases productivity on developing your next microservices.
 
 ----
+
 [![Build Status](https://travis-ci.com/genocs/clean-architecture-template.svg?branch=master)](https://travis-ci.com/genocs/clean-architecture-template) <a href="https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate/" rel="Genocs.CleanCode">![NuGet](https://buildstats.info/nuget/genocs.cleanarchitecturetemplate)</a> [![Gitter](https://img.shields.io/badge/chat-on%20gitter-blue.svg)](https://gitter.im/genocs/)
+
 
 ## How to create a project
 
