@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AzureServiceBus\" />
     <Folder Include="ParticularServiceBus\" />
   </ItemGroup>
 

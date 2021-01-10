@@ -31,6 +31,10 @@ namespace Genocs.MicroserviceLight.Template.BusHost
                         .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                         .AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
+                    // Enable the Secret management
+                    // Please check out this link to have more info https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-5.0&tabs=windows
+                    builder.AddUserSecrets<Program>();
+
                     var buildConfig = builder.Build();
                     if (buildConfig["CONFIGURATION_FOLDER"] is var configurationFolder && !string.IsNullOrEmpty(configurationFolder))
                     {

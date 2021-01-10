@@ -1,6 +1,4 @@
-﻿using Genocs.MicroserviceLight.Template.BusHost.RequestProcessing;
-using Genocs.MicroserviceLight.Template.Shared.Commands;
-using Microsoft.Azure.ServiceBus;
+﻿using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -11,16 +9,17 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Genocs.MicroserviceLight.Template.BusHost
+namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
 {
-    using Configurations;
-    using Genocs.MicroserviceLight.Template.BusHost.Handlers;
-    using Genocs.MicroserviceLight.Template.Shared.Events;
+    using Handlers;
+    using RequestProcessing;
+
     using Microsoft.Extensions.Logging;
     using Rebus.Activation;
     using Rebus.Bus;
     using Rebus.Config;
-    using Rebus.Routing.TypeBased;
+    using Shared.Commands;
+    using Shared.Events;
 
     internal class WorkflowService : IHostedService
     {
@@ -28,8 +27,8 @@ namespace Genocs.MicroserviceLight.Template.BusHost
 
         private readonly ILogger<WorkflowService> _logger;
         private readonly IRequestProcessor _requestProcessor;
-        private readonly Func<IOptions<AzureServiceBusConfiguration>, IQueueClient> _createQueueClient;
-        private readonly IOptions<AzureServiceBusConfiguration> _options;
+        private readonly Func<Infrastructure.AzureServiceBus.AzureServiceBusConfiguration, IQueueClient> _createQueueClient;
+        private readonly Infrastructure.AzureServiceBus.AzureServiceBusConfiguration _options;
         private IQueueClient _receiveClient;
 
 
@@ -37,15 +36,15 @@ namespace Genocs.MicroserviceLight.Template.BusHost
         private IBus _bus;
 
 
-        public WorkflowService(IOptions<AzureServiceBusConfiguration> options, ILogger<WorkflowService> logger, IRequestProcessor requestProcessor)
+        public WorkflowService(IOptions<Infrastructure.AzureServiceBus.AzureServiceBusConfiguration> options, ILogger<WorkflowService> logger, IRequestProcessor requestProcessor)
             : this(options, logger, requestProcessor, CreateQueueClient)
         { }
 
-        public WorkflowService(IOptions<AzureServiceBusConfiguration> options, ILogger<WorkflowService> logger, IRequestProcessor requestProcessor,
-            Func<IOptions<AzureServiceBusConfiguration>,
-                IQueueClient> createQueueClient)
+        public WorkflowService(IOptions<Infrastructure.AzureServiceBus.AzureServiceBusConfiguration> options, ILogger<WorkflowService> logger, IRequestProcessor requestProcessor,
+            Func<Infrastructure.AzureServiceBus.AzureServiceBusConfiguration, IQueueClient> createQueueClient)
         {
-            _options = options;
+            _options = options.Value;
+
             _logger = logger;
             _requestProcessor = requestProcessor;
             _createQueueClient = createQueueClient;
@@ -66,20 +65,20 @@ namespace Genocs.MicroserviceLight.Template.BusHost
             _activator.Bus.Subscribe<EventOccurred>().Wait();
         }
 
-        private static IQueueClient CreateQueueClient(IOptions<AzureServiceBusConfiguration> options)
+        private static IQueueClient CreateQueueClient(Infrastructure.AzureServiceBus.AzureServiceBusConfiguration options)
         {
             ServiceBusConnectionStringBuilder connectionStringBuilder = new ServiceBusConnectionStringBuilder
             {
-                Endpoint = options.Value.QueueEndpoint,
-                EntityPath = options.Value.QueueName,
-                SasKeyName = options.Value.QueueAccessPolicyName,
-                SasKey = options.Value.QueueAccessPolicyKey,
+                Endpoint = options.QueueEndpoint,
+                EntityPath = options.QueueName,
+                SasKeyName = options.QueueAccessPolicyName,
+                SasKey = options.QueueAccessPolicyKey,
                 TransportType = TransportType.Amqp
             };
 
             return new QueueClient(connectionStringBuilder)
             {
-                PrefetchCount = options.Value.PrefetchCount
+                PrefetchCount = options.PrefetchCount
             };
         }
 
@@ -93,7 +92,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost
                 new MessageHandlerOptions(ProcessMessageExceptionAsync)
                 {
                     AutoComplete = false,
-                    MaxConcurrentCalls = _options.Value.MaxConcurrency
+                    MaxConcurrentCalls = _options.MaxConcurrency
                 });
 
             _logger.LogInformation("Started");
