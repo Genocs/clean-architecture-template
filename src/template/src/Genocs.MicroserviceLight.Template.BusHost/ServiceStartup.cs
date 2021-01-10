@@ -6,9 +6,9 @@ using System;
 
 namespace Genocs.MicroserviceLight.Template.BusHost
 {
-    using Configurations;
+
     using ExternalServices;
-    using Genocs.MicroserviceLight.Template.Infrastructure.RebusServiceBus;
+    using BusHost.HostServices;
     using RequestProcessing;
 
     public static class ServiceStartup
@@ -24,10 +24,12 @@ namespace Genocs.MicroserviceLight.Template.BusHost
             services.AddApplicationInsightsKubernetesEnricher();
             services.AddApplicationInsightsTelemetry(context.Configuration);
 
-            services.Configure<AzureServiceBusConfiguration>(context.Configuration.GetSection("AzureServiceBusSettings"));
-            services.Configure<RebusBusOptions>(context.Configuration.GetSection("RebusBusSettings"));
+            services.Configure<Infrastructure.AzureServiceBus.AzureServiceBusConfiguration>(context.Configuration.GetSection("AzureServiceBusSettings"));
+            services.Configure<Infrastructure.RebusServiceBus.RebusBusOptions>(context.Configuration.GetSection("RebusBusSettings"));
 
-            services.AddHostedService<WorkflowService>();
+            // The HostService 
+            // This is the Service entry point management
+            services.AddHostedService<AzureBusService>();
 
             services.AddTransient<IRequestProcessor, RequestProcessor>();
 

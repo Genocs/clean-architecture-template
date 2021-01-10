@@ -1,6 +1,6 @@
-﻿namespace Genocs.MicroserviceLight.Template.BusHost.Configurations
+﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.AzureServiceBus
 {
-    internal class AzureServiceBusConfiguration
+    public class AzureServiceBusConfiguration
     {
         public AzureServiceBusConfiguration()
         {
