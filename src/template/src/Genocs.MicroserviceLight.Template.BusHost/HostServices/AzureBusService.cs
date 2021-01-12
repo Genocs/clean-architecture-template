@@ -10,9 +10,8 @@ using System.Threading.Tasks;
 
 namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
 {
-    using Configurations;
-    using Shared.Commands;
     using Microsoft.Extensions.Logging;
+    using BusHost.Messages;
 
     internal class AzureBusService : IHostedService
     {
@@ -71,7 +70,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
                 new MessageHandlerOptions(ProcessMessageExceptionAsync)
                 {
                     AutoComplete = false,
-                    MaxConcurrentCalls = _options.MaxConcurrency
+                    MaxConcurrentCalls = _options.MaxConcurrency                    
                 });
 
             _logger.LogInformation("Started");
@@ -90,9 +89,12 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
         {
             _logger.LogInformation("Processing message {messageId}", message.MessageId);
 
-            if (TryGetStringMessage(message, out var messageContent))
+            if (TryGetSimpleMessage(message, out var messageContent))
             {
-                _logger.LogInformation($"Received message with id '{message.MessageId}'. The content is '{messageContent}'. The message will be removed from queue");
+                _logger.LogInformation($"Received message with id '{message.MessageId}'. The content is '{messageContent.Title}'. The message will be removed from queue");
+                
+                // Send the ack 
+                await _busClient.CompleteAsync(message.SystemProperties.LockToken);
                 return;
             }
 
@@ -104,8 +106,6 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
             {
                 _logger.LogError(e, "Error moving message {messageId} to dead letter queue", message.MessageId);
             }
-
-            return;
         }
 
         private Task ProcessMessageExceptionAsync(ExceptionReceivedEventArgs exceptionEvent)
@@ -115,19 +115,19 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
             return Task.CompletedTask;
         }
 
-        private bool TryGetSimpleMessage(Message incomingMessage, out SimpleMessage outcomingMessage)
+        private bool TryGetSimpleMessage(Message incomingMessage, out AnsaNews outcomingMessage)
         {
             outcomingMessage = null;
             try
             {
                 if (incomingMessage.Body != null && incomingMessage.Body.Length > 0)
                 {
-                    using (var payloadStream = new MemoryStream(incomingMessage.Body, false))
-                    using (var streamReader = new StreamReader(payloadStream, Encoding.UTF8))
-                    using (var jsonReader = new JsonTextReader(streamReader))
+                    using (MemoryStream payloadStream = new MemoryStream(incomingMessage.Body, false))
+                    using (StreamReader streamReader = new StreamReader(payloadStream, Encoding.UTF8))
+                    using (JsonTextReader jsonReader = new JsonTextReader(streamReader))
                     {
                         // Please change the SimpleMessage objct with your own message type 
-                        outcomingMessage = _serializer.Deserialize<SimpleMessage>(jsonReader);
+                        outcomingMessage = _serializer.Deserialize<AnsaNews>(jsonReader);
                     }
                 }
 
@@ -147,12 +147,11 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
             {
                 if (incomingMessage.Body != null && incomingMessage.Body.Length > 0)
                 {
-                    using (var payloadStream = new MemoryStream(incomingMessage.Body, false))
-                    using (var streamReader = new StreamReader(payloadStream, Encoding.UTF8))
-                    using (var jsonReader = new JsonTextReader(streamReader))
+                    using (MemoryStream payloadStream = new MemoryStream(incomingMessage.Body, false))
+                    using (StreamReader streamReader = new StreamReader(payloadStream, Encoding.UTF8))
                     {
                         // Read the data as string
-                        outcomingMessage = jsonReader.ReadAsString();
+                        outcomingMessage = streamReader.ReadToEnd();
                     }
                 }
 

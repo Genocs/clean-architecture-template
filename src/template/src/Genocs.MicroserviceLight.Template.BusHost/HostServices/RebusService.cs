@@ -16,14 +16,13 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
 
     internal class RebusService : IHostedService
     {
-        private readonly JsonSerializer _serializer;
+
         private readonly ILogger<RebusService> _logger;
         private readonly Infrastructure.RebusServiceBus.RebusBusOptions _options;
 
 
         private BuiltinHandlerActivator _activator;
         private IBus _bus;
-
 
         public RebusService(IOptions<Infrastructure.RebusServiceBus.RebusBusOptions> options, ILogger<RebusService> logger)
         {
@@ -44,6 +43,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
         {
             _logger.LogInformation("Starting...");
 
+            // Start rebus configuration
             _activator = new BuiltinHandlerActivator();
 
             _activator.Register(() => new Handler());
@@ -55,6 +55,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
                 .Start();
 
 
+            // Subscribe the event
             _activator.Bus.Subscribe<EventOccurred>().Wait();
 
             _logger.LogInformation("Started");

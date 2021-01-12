@@ -29,7 +29,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost
 
             // The HostService 
             // This is the Service entry point management
-            services.AddHostedService<AzureBusService>();
+            services.AddHostedService<RebusService>();
 
             services.AddTransient<IRequestProcessor, RequestProcessor>();
 
