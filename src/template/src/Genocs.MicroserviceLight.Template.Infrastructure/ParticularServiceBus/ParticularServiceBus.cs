@@ -25,16 +25,15 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.ParticularServiceBus
 
         private async Task Initialize()
         {
-            if (_instance is null)
+            if (_instance == null)
             {
-                var endpointConfiguration = new EndpointConfiguration(_config.EndpointName);
 
+                var endpointConfiguration = new EndpointConfiguration(_config.EndpointName);
                 var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
-                transport.UseDirectRoutingTopology();
-                transport.ConnectionString("host=localhost");
-                var routing = transport.Routing();
-                // Specify the routing for a specific type
-                routing.RouteToEndpoint(typeof(Shared.Events.NServiceEventOccurred), "NServiceEventOccurred");
+                transport.UseConventionalRoutingTopology();
+                transport.ConnectionString(_config.ConnectionString);
+
+                endpointConfiguration.EnableInstallers();
 
                 _instance = await Endpoint.Start(endpointConfiguration);
             }
@@ -44,7 +43,7 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.ParticularServiceBus
         public async Task PublishEventAsync<T>(T evt) where T : Shared.Interfaces.IEvent
         {
             await Initialize();
-            await _instance.Publish(new Shared.Events.NServiceEventOccurred { EventId = "pippo"});
+            await _instance.Publish(new Shared.Events.NServiceEventOccurred { EventId = "pippo" }).ConfigureAwait(false);
 
             //await _instance.Publish(evt);
         }

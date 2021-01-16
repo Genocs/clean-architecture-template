@@ -25,14 +25,14 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
 
         public RebusService(IOptions<Infrastructure.RebusServiceBus.RebusBusOptions> options, ILogger<RebusService> logger)
         {
+            _logger = logger;
+
             _options = options.Value;
 
             if (_options == null)
             {
                 throw new NullReferenceException("options cannot be null");
             }
-
-            _logger = logger;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -52,17 +52,17 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
 
 
             // Subscribe the event
-            _activator.Bus.Subscribe<EventOccurred>().Wait();
+            await _activator.Bus.Subscribe<EventOccurred>();
 
             _logger.LogInformation("Started");
-            await Task.CompletedTask;
+
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("Stopping...");
-            await Task.CompletedTask;
             _logger.LogInformation("Stopped");
+            await Task.CompletedTask;
         }
     }
 }

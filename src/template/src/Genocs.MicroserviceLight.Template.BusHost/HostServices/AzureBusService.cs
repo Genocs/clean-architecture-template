@@ -17,18 +17,18 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
     {
         private readonly JsonSerializer _serializer;
         private readonly ILogger<AzureBusService> _logger;
-        private readonly Infrastructure.AzureServiceBus.AzureServiceBusConfiguration _options;
+        private readonly Infrastructure.AzureServiceBus.AzureServiceBusOptions _options;
 
-        private readonly Func<Infrastructure.AzureServiceBus.AzureServiceBusConfiguration, IQueueClient> _createQueueClient;
+        private readonly Func<Infrastructure.AzureServiceBus.AzureServiceBusOptions, IQueueClient> _createQueueClient;
 
         private IQueueClient _busClient;
 
-        public AzureBusService(IOptions<Infrastructure.AzureServiceBus.AzureServiceBusConfiguration> options, ILogger<AzureBusService> logger)
+        public AzureBusService(IOptions<Infrastructure.AzureServiceBus.AzureServiceBusOptions> options, ILogger<AzureBusService> logger)
             : this(options, logger, CreateQueueClient)
         { }
 
-        public AzureBusService(IOptions<Infrastructure.AzureServiceBus.AzureServiceBusConfiguration> options, ILogger<AzureBusService> logger,
-            Func<Infrastructure.AzureServiceBus.AzureServiceBusConfiguration, IQueueClient> createQueueClient)
+        public AzureBusService(IOptions<Infrastructure.AzureServiceBus.AzureServiceBusOptions> options, ILogger<AzureBusService> logger,
+            Func<Infrastructure.AzureServiceBus.AzureServiceBusOptions, IQueueClient> createQueueClient)
         {
             _options = options.Value;
 
@@ -43,7 +43,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
             _serializer = new JsonSerializer();
         }
 
-        private static IQueueClient CreateQueueClient(Infrastructure.AzureServiceBus.AzureServiceBusConfiguration options)
+        private static IQueueClient CreateQueueClient(Infrastructure.AzureServiceBus.AzureServiceBusOptions options)
         {
             ServiceBusConnectionStringBuilder connectionStringBuilder = new ServiceBusConnectionStringBuilder
             {
@@ -60,7 +60,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
             };
         }
 
-        public Task StartAsync(CancellationToken cancellationToken)
+        public async Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("Starting...");
             _busClient = _createQueueClient(_options);
@@ -70,11 +70,11 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
                 new MessageHandlerOptions(ProcessMessageExceptionAsync)
                 {
                     AutoComplete = false,
-                    MaxConcurrentCalls = _options.MaxConcurrency                    
+                    MaxConcurrentCalls = _options.MaxConcurrency
                 });
 
             _logger.LogInformation("Started");
-            return Task.CompletedTask;
+            await Task.CompletedTask;
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
@@ -92,7 +92,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
             if (TryGetSimpleMessage(message, out var messageContent))
             {
                 _logger.LogInformation($"Received message with id '{message.MessageId}'. The content is '{messageContent.Title}'. The message will be removed from queue");
-                
+
                 // Send the ack 
                 await _busClient.CompleteAsync(message.SystemProperties.LockToken);
                 return;
