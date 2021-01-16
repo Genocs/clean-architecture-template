@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -34,9 +33,6 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
             }
 
             _logger = logger;
-
-            _serializer = new JsonSerializer();
-
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)

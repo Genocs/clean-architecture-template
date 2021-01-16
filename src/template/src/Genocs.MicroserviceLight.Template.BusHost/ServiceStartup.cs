@@ -26,10 +26,11 @@ namespace Genocs.MicroserviceLight.Template.BusHost
 
             services.Configure<Infrastructure.AzureServiceBus.AzureServiceBusConfiguration>(context.Configuration.GetSection("AzureServiceBusSettings"));
             services.Configure<Infrastructure.RebusServiceBus.RebusBusOptions>(context.Configuration.GetSection("RebusBusSettings"));
+            services.Configure<Infrastructure.ParticularServiceBus.ParticularServiceBusOptions>(context.Configuration.GetSection("ParticularServiceBusSettings"));
 
             // The HostService 
             // This is the Service entry point management
-            services.AddHostedService<RebusService>();
+            services.AddHostedService<ParticularService>();
 
             services.AddTransient<IRequestProcessor, RequestProcessor>();
 
