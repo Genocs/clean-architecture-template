@@ -33,6 +33,16 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.ParticularServiceBus
                 transport.UseConventionalRoutingTopology();
                 transport.ConnectionString(_config.ConnectionString);
 
+                // Unobtrusive mode. 
+                var conventions = endpointConfiguration.Conventions();
+
+                conventions.DefiningEventsAs(type => type.Namespace == "Genocs.MicroserviceLight.Template.Shared.Events");
+
+                //conventions.DefiningEventsAs(type =>
+                //    type.Namespace == "Genocs.MicroserviceLight.Template.Shared.Events"
+                //    || typeof(IEvent).IsAssignableFrom(typeof(Shared.Events.EventOccurred))
+                //);
+
                 endpointConfiguration.EnableInstallers();
 
                 _instance = await Endpoint.Start(endpointConfiguration);
@@ -43,9 +53,7 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.ParticularServiceBus
         public async Task PublishEventAsync<T>(T evt) where T : Shared.Interfaces.IEvent
         {
             await Initialize();
-            await _instance.Publish(new Shared.Events.NServiceEventOccurred { EventId = "pippo" }).ConfigureAwait(false);
-
-            //await _instance.Publish(evt);
+            await _instance.Publish(evt);
         }
 
         public async Task SendCommandAsync<T>(T cmd) where T : Shared.Interfaces.ICommand

@@ -35,16 +35,24 @@
             var transport = _configuration.UseTransport<RabbitMQTransport>();
             transport.UseConventionalRoutingTopology();
             transport.ConnectionString(_options.ConnectionString);
+
+            // Unobtrusive mode. 
+            var conventions = _configuration.Conventions();
+
+            conventions.DefiningEventsAs(type => type.Namespace == "Genocs.MicroserviceLight.Template.Shared.Events");
+
+            //conventions.DefiningEventsAs(type =>
+            //    type.Namespace == "Genocs.MicroserviceLight.Template.Shared.Events"
+            //    || typeof(IEvent).IsAssignableFrom(typeof(Shared.Events.EventOccurred))
+            //);
+
             _configuration.EnableInstallers();
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("Starting...");
-
             _instance = await Endpoint.Start(_configuration);
-
-
             _logger.LogInformation("Started");
         }
 

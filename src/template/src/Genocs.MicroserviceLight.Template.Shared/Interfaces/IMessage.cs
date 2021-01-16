@@ -1,9 +1,9 @@
 ﻿namespace Genocs.MicroserviceLight.Template.Shared.Interfaces
 {
     /// <summary>
-    /// Event definition
+    /// Generic message
     /// </summary>
-    public interface IEvent : IMessage
+    public interface IMessage
     {
     }
 }
