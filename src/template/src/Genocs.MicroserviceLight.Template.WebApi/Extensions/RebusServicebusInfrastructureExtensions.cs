@@ -5,9 +5,9 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
-    public static class ServicebusInfrastructureExtensions
+    public static class RebusServicebusInfrastructureExtensions
     {
-        public static IServiceCollection AddServiceBus(this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection AddRebusServiceBus(this IServiceCollection services, IConfiguration config)
         {
             // Add Rebus Service Bus 
             services.AddSingleton<IServiceBus, RebusServiceBus>();

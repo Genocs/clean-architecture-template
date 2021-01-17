@@ -10,26 +10,25 @@ using System.Threading.Tasks;
 
 namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
 {
-    using Configurations;
-    using Shared.Commands;
     using Microsoft.Extensions.Logging;
+    using BusHost.Messages;
 
     internal class AzureBusService : IHostedService
     {
         private readonly JsonSerializer _serializer;
         private readonly ILogger<AzureBusService> _logger;
-        private readonly Infrastructure.AzureServiceBus.AzureServiceBusConfiguration _options;
+        private readonly Infrastructure.AzureServiceBus.AzureServiceBusOptions _options;
 
-        private readonly Func<Infrastructure.AzureServiceBus.AzureServiceBusConfiguration, IQueueClient> _createQueueClient;
+        private readonly Func<Infrastructure.AzureServiceBus.AzureServiceBusOptions, IQueueClient> _createQueueClient;
 
         private IQueueClient _busClient;
 
-        public AzureBusService(IOptions<Infrastructure.AzureServiceBus.AzureServiceBusConfiguration> options, ILogger<AzureBusService> logger)
+        public AzureBusService(IOptions<Infrastructure.AzureServiceBus.AzureServiceBusOptions> options, ILogger<AzureBusService> logger)
             : this(options, logger, CreateQueueClient)
         { }
 
-        public AzureBusService(IOptions<Infrastructure.AzureServiceBus.AzureServiceBusConfiguration> options, ILogger<AzureBusService> logger,
-            Func<Infrastructure.AzureServiceBus.AzureServiceBusConfiguration, IQueueClient> createQueueClient)
+        public AzureBusService(IOptions<Infrastructure.AzureServiceBus.AzureServiceBusOptions> options, ILogger<AzureBusService> logger,
+            Func<Infrastructure.AzureServiceBus.AzureServiceBusOptions, IQueueClient> createQueueClient)
         {
             _options = options.Value;
 
@@ -44,7 +43,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
             _serializer = new JsonSerializer();
         }
 
-        private static IQueueClient CreateQueueClient(Infrastructure.AzureServiceBus.AzureServiceBusConfiguration options)
+        private static IQueueClient CreateQueueClient(Infrastructure.AzureServiceBus.AzureServiceBusOptions options)
         {
             ServiceBusConnectionStringBuilder connectionStringBuilder = new ServiceBusConnectionStringBuilder
             {
@@ -61,7 +60,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
             };
         }
 
-        public Task StartAsync(CancellationToken cancellationToken)
+        public async Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("Starting...");
             _busClient = _createQueueClient(_options);
@@ -75,7 +74,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
                 });
 
             _logger.LogInformation("Started");
-            return Task.CompletedTask;
+            await Task.CompletedTask;
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
@@ -90,9 +89,12 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
         {
             _logger.LogInformation("Processing message {messageId}", message.MessageId);
 
-            if (TryGetStringMessage(message, out var messageContent))
+            if (TryGetSimpleMessage(message, out var messageContent))
             {
-                _logger.LogInformation($"Received message with id '{message.MessageId}'. The content is '{messageContent}'. The message will be removed from queue");
+                _logger.LogInformation($"Received message with id '{message.MessageId}'. The content is '{messageContent.Title}'. The message will be removed from queue");
+
+                // Send the ack 
+                await _busClient.CompleteAsync(message.SystemProperties.LockToken);
                 return;
             }
 
@@ -104,8 +106,6 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
             {
                 _logger.LogError(e, "Error moving message {messageId} to dead letter queue", message.MessageId);
             }
-
-            return;
         }
 
         private Task ProcessMessageExceptionAsync(ExceptionReceivedEventArgs exceptionEvent)
@@ -115,19 +115,19 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
             return Task.CompletedTask;
         }
 
-        private bool TryGetSimpleMessage(Message incomingMessage, out SimpleMessage outcomingMessage)
+        private bool TryGetSimpleMessage(Message incomingMessage, out AnsaNews outcomingMessage)
         {
             outcomingMessage = null;
             try
             {
                 if (incomingMessage.Body != null && incomingMessage.Body.Length > 0)
                 {
-                    using (var payloadStream = new MemoryStream(incomingMessage.Body, false))
-                    using (var streamReader = new StreamReader(payloadStream, Encoding.UTF8))
-                    using (var jsonReader = new JsonTextReader(streamReader))
+                    using (MemoryStream payloadStream = new MemoryStream(incomingMessage.Body, false))
+                    using (StreamReader streamReader = new StreamReader(payloadStream, Encoding.UTF8))
+                    using (JsonTextReader jsonReader = new JsonTextReader(streamReader))
                     {
                         // Please change the SimpleMessage objct with your own message type 
-                        outcomingMessage = _serializer.Deserialize<SimpleMessage>(jsonReader);
+                        outcomingMessage = _serializer.Deserialize<AnsaNews>(jsonReader);
                     }
                 }
 
@@ -147,12 +147,11 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
             {
                 if (incomingMessage.Body != null && incomingMessage.Body.Length > 0)
                 {
-                    using (var payloadStream = new MemoryStream(incomingMessage.Body, false))
-                    using (var streamReader = new StreamReader(payloadStream, Encoding.UTF8))
-                    using (var jsonReader = new JsonTextReader(streamReader))
+                    using (MemoryStream payloadStream = new MemoryStream(incomingMessage.Body, false))
+                    using (StreamReader streamReader = new StreamReader(payloadStream, Encoding.UTF8))
                     {
                         // Read the data as string
-                        outcomingMessage = jsonReader.ReadAsString();
+                        outcomingMessage = streamReader.ReadToEnd();
                     }
                 }
 

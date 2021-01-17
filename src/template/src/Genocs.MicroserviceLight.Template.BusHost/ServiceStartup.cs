@@ -10,6 +10,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost
     using ExternalServices;
     using BusHost.HostServices;
     using RequestProcessing;
+    using Infrastructure.WebApiClient;
 
     public static class ServiceStartup
     {
@@ -24,12 +25,13 @@ namespace Genocs.MicroserviceLight.Template.BusHost
             services.AddApplicationInsightsKubernetesEnricher();
             services.AddApplicationInsightsTelemetry(context.Configuration);
 
-            services.Configure<Infrastructure.AzureServiceBus.AzureServiceBusConfiguration>(context.Configuration.GetSection("AzureServiceBusSettings"));
+            services.Configure<Infrastructure.AzureServiceBus.AzureServiceBusOptions>(context.Configuration.GetSection("AzureServiceBusSettings"));
             services.Configure<Infrastructure.RebusServiceBus.RebusBusOptions>(context.Configuration.GetSection("RebusBusSettings"));
+            services.Configure<Infrastructure.ParticularServiceBus.ParticularServiceBusOptions>(context.Configuration.GetSection("ParticularServiceBusSettings"));
 
             // The HostService 
             // This is the Service entry point management
-            services.AddHostedService<AzureBusService>();
+            services.AddHostedService<ParticularService>();
 
             services.AddTransient<IRequestProcessor, RequestProcessor>();
 

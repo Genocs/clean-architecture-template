@@ -1,9 +1,9 @@
 ﻿namespace Genocs.MicroserviceLight.Template.Shared.Interfaces
 {
     /// <summary>
-    /// Placeholder interface for the commands
+    /// Command definition
     /// </summary>
-    public interface ICommand
+    public interface ICommand : IMessage
     {
     }
 }

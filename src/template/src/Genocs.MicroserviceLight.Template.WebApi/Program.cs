@@ -27,6 +27,11 @@ namespace Genocs.MicroserviceLight.Template.WebApi
                     {
                         config.AddCommandLine(args);
                     }
+
+                    if (context.HostingEnvironment.IsDevelopment())
+                    {
+                        config.AddUserSecrets<Program>();
+                    }
                 })
                 .ConfigureLogging((hostingContext, logging) =>
                 {

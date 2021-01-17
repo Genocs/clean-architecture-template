@@ -55,8 +55,8 @@ namespace Genocs.MicroserviceLight.Template.Application.UseCases
 
             await _customerRepository.Add(customer);
             await _accountRepository.Add(account, credit);
-            // Publish the CustomerRegistration message to the bus
-            await _serviceBus.PublishEventAsync(new EventOccurred() { EventId = "123456" });
+            // Publish the EventOccurred message to the bus
+            await _serviceBus.PublishEventAsync(new EventOccurred() { EventId = account.Id.ToString() });
             await _unitOfWork.Save();
 
 
