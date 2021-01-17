@@ -33,7 +33,7 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.EntityFrameworkDataAc
 
             var id = new SqlParameter("@Id", account.Id);
 
-            int affectedRows = await _context.Database.ExecuteSqlCommandAsync(deleteSQL, id);
+            int affectedRows = await _context.Database.ExecuteSqlRawAsync(deleteSQL, id);
         }
 
         public async Task<IAccount> Get(Guid id)
