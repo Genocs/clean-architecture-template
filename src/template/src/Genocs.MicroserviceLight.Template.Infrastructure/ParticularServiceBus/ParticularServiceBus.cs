@@ -43,6 +43,8 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.ParticularServiceBus
                 //    || typeof(IEvent).IsAssignableFrom(typeof(Shared.Events.EventOccurred))
                 //);
 
+                // https://docs.particular.net/nservicebus/serialization/
+                endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
                 endpointConfiguration.EnableInstallers();
 
                 _instance = await Endpoint.Start(endpointConfiguration);

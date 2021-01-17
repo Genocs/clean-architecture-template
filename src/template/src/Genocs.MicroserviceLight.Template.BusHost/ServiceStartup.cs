@@ -10,6 +10,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost
     using ExternalServices;
     using BusHost.HostServices;
     using RequestProcessing;
+    using Infrastructure.WebApiClient;
 
     public static class ServiceStartup
     {

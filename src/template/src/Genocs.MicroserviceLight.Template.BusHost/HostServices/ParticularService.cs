@@ -46,6 +46,9 @@
             //    || typeof(IEvent).IsAssignableFrom(typeof(Shared.Events.EventOccurred))
             //);
 
+            // https://docs.particular.net/nservicebus/serialization/
+            _configuration.UseSerialization<NewtonsoftSerializer>();
+
             _configuration.EnableInstallers();
         }
 
