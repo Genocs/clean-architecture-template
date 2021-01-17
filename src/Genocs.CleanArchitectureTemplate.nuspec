@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata minClientVersion="5.0.0">
     <id>Genocs.CleanArchitectureTemplate</id>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
     <authors>Nocco Giovanni Emanuele</authors>
     <owners>[Genocs] Nocco Giovanni Emanuele</owners>
     <projectUrl>https://github.com/Genocs/clean-architecture-template</projectUrl>
@@ -16,7 +16,7 @@ A .NET template following the Clean Architecture Style, DDD and Separation of Co
     </summary>	
     <description>
 Install the package:
-$ dotnet new -i Genocs.CleanArchitectureTemplate::1.1.1
+$ dotnet new -i Genocs.CleanArchitectureTemplate::1.2.0
 
 The full clean project:
 $ dotnet new cleanarchitecture
@@ -26,6 +26,7 @@ $ dotnet new cleanarchitecture
 - .NET Core 5.0
 - Swashbuckle 5 
 - Entity Framework Core 3
+- Enterprice Service Bus
     </releaseNotes>
     <tags>
       aggregate
