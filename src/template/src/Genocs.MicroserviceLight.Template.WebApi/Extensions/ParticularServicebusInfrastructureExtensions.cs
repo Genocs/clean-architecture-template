@@ -9,8 +9,8 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
     {
         public static IServiceCollection AddParticularServiceBus(this IServiceCollection services, IConfiguration config)
         {
-            // Add Rebus Service Bus 
-            services.AddSingleton<IServiceBus, ParticularServiceBus>();
+            // Add Particular NService Bus 
+            services.AddSingleton<IServiceBusClient, ParticularServiceBusClient>();
 
             // Setup registration
             services.Configure<ParticularServiceBusOptions>(config.GetSection("ParticularServiceBusSettings"));

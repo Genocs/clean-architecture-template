@@ -14,7 +14,7 @@ This tool is usefull to increases productivity on developing your next microserv
 To generate your own Back-end project simple run:
 
 ```sh
-dotnet new -i Genocs.CleanArchitectureTemplate::1.2.0
+dotnet new -i Genocs.CleanArchitectureTemplate::1.3.0
 dotnet new cleanarchitecture -n {MyCompany.MyProject}
 cd {MyCompany.MyProject}
 dotnet build

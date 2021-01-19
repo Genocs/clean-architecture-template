@@ -3,7 +3,6 @@
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
-    using Newtonsoft.Json;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -19,8 +18,6 @@
             _logger = logger;
             _options = options.Value;
         }
-
-
 
         public Task StartAsync(CancellationToken cancellationToken)
         {

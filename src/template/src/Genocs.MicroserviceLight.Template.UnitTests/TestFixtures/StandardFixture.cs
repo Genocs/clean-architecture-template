@@ -12,7 +12,7 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.TestFixtures
         public CustomerRepository CustomerRepository { get; }
         public UnitOfWork UnitOfWork { get; }
 
-        public IServiceBus ServiceBus { get; }
+        public IServiceBusClient ServiceBus { get; }
 
         public StandardFixture()
         {

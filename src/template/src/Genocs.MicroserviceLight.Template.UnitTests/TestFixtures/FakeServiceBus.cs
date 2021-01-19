@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Genocs.MicroserviceLight.Template.UnitTests.TestFixtures
 {
-    public class FakeServiceBus : IServiceBus
+    public class FakeServiceBus : IServiceBusClient
     {
         public async Task PublishEventAsync<T>(T evt) where T : IEvent
         {

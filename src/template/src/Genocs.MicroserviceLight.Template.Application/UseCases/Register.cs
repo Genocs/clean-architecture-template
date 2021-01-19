@@ -15,7 +15,7 @@ namespace Genocs.MicroserviceLight.Template.Application.UseCases
         private readonly ICustomerRepository _customerRepository;
         private readonly IAccountRepository _accountRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IServiceBus _serviceBus;
+        private readonly IServiceBusClient _serviceBus;
 
         public Register(
             IEntityFactory entityFactory,
@@ -23,7 +23,7 @@ namespace Genocs.MicroserviceLight.Template.Application.UseCases
             ICustomerRepository customerRepository,
             IAccountRepository accountRepository,
             IUnitOfWork unityOfWork,
-            IServiceBus serviceBus)
+            IServiceBusClient serviceBus)
         {
             _entityFactory = entityFactory;
             _outputHandler = outputHandler;

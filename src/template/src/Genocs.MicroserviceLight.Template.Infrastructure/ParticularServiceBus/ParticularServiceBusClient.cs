@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Genocs.MicroserviceLight.Template.Infrastructure.ParticularServiceBus
 {
-    public class ParticularServiceBus : IServiceBus, IDisposable, IAsyncDisposable
+    public class ParticularServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
     {
 
         private readonly ParticularServiceBusOptions _config;
         private IEndpointInstance _instance;
 
-        public ParticularServiceBus(IOptions<ParticularServiceBusOptions> configuration)
+        public ParticularServiceBusClient(IOptions<ParticularServiceBusOptions> configuration)
         {
             _config = configuration.Value;
 
@@ -22,12 +22,10 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.ParticularServiceBus
             }
         }
 
-
         private async Task Initialize()
         {
             if (_instance == null)
             {
-
                 var endpointConfiguration = new EndpointConfiguration(_config.EndpointName);
                 var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
                 transport.UseConventionalRoutingTopology();

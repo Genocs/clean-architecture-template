@@ -10,7 +10,7 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
         public static IServiceCollection AddRebusServiceBus(this IServiceCollection services, IConfiguration config)
         {
             // Add Rebus Service Bus 
-            services.AddSingleton<IServiceBus, RebusServiceBus>();
+            services.AddSingleton<IServiceBusClient, RebusServiceBusClient>();
 
             // Setup registration
             services.Configure<RebusBusOptions>(config.GetSection("RebusBusSettings"));

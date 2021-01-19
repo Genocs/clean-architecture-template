@@ -38,7 +38,7 @@ namespace Genocs.MicroserviceLight.Template.WebApi
             services.AddUseCases();
 #if DEBUG
             services.AddInMemoryPersistence();
-//            services.AddMongoDBPersistence(Configuration);
+            //            services.AddMongoDBPersistence(Configuration);
 #else
             services.AddSQLServerPersistence(Configuration);
 #endif
@@ -46,6 +46,8 @@ namespace Genocs.MicroserviceLight.Template.WebApi
             services.AddPresentersV2();
 
             services.AddParticularServiceBus(Configuration);
+            //services.AddAzureServiceBus(Configuration);
+            //services.AddRebusServiceBus(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

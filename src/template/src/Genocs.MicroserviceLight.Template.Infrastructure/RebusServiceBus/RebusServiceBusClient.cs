@@ -8,10 +8,10 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.RebusServiceBus
 {
     using Application.Services;
 
-    public class RebusServiceBus : IServiceBus, IDisposable, IAsyncDisposable
+    public class RebusServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
     {
         private BuiltinHandlerActivator _activator;
-        public RebusServiceBus(IOptions<RebusBusOptions> configuration)
+        public RebusServiceBusClient(IOptions<RebusBusOptions> configuration)
         {
             RebusBusOptions optionsInstance = configuration?.Value;
 
