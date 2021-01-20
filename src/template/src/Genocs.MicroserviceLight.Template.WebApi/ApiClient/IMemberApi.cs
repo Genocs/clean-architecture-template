@@ -8,11 +8,6 @@ namespace Genocs.MicroserviceLight.Template.WebApi.ApiClient
     public interface IMemberApi
     {
         [Get("/memberquery")]
-
         Task<HttpResponseMessage> GetMemberAsync([AliasAs("attachImages")] bool attachImages, [AliasAs("memberId")] string memberId);
-        
-        //[Get("/api/SentenzePolisweb/RicercaAvanzata")]
-
-        //Task<HttpResponseMessage> GetMember2Async();
     }
 }
