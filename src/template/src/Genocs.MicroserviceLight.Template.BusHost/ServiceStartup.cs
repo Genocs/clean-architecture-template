@@ -10,7 +10,6 @@ namespace Genocs.MicroserviceLight.Template.BusHost
     using ExternalServices;
     using Infrastructure.WebApiClient.ExternalServices;
     using Infrastructure.WebApiClient.Resiliency;
-    using RequestProcessing;
 
     public static class ServiceStartup
     {
@@ -34,8 +33,6 @@ namespace Genocs.MicroserviceLight.Template.BusHost
             services.AddHostedService<ParticularService>();
 //            services.AddHostedService<AzureBusService>();
 //            services.AddHostedService<RebusService>();
-
-            services.AddTransient<IRequestProcessor, RequestProcessor>();
 
             // Add health check                                                                                                                                                                                                                     │
             services.AddHealthChecks().AddCheck(

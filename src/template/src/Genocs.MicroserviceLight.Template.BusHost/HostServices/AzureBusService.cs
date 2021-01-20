@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
 {
     using Microsoft.Extensions.Logging;
-    using BusHost.Messages;
+    using Shared.ReadModels;
 
     internal class AzureBusService : IHostedService
     {
