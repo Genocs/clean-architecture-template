@@ -4,10 +4,10 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Genocs.MicroserviceLight.Template.BusHost.ExternalServices
+namespace Genocs.MicroserviceLight.Template.Infrastructure.WebApiClient.ExternalServices
 {
-    using Models;
-    using Exceptions;
+    using BusHost.Exceptions;
+    using Shared.ReadModels;
 
     public class SimpleAuthServiceCaller : ISimpleAuthServiceCaller
     {

@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace Genocs.MicroserviceLight.Template.BusHost.Handlers
 {
-    public class ParticularEventHandler : IHandleMessages<Shared.Events.EventOccurred>
+    public class ParticularEventOccurredHandler : IHandleMessages<Shared.Events.EventOccurred>
     {
-        static ILog _logger = LogManager.GetLogger<ParticularEventHandler>();
+        static ILog _logger = LogManager.GetLogger<ParticularEventOccurredHandler>();
 
         public Task Handle(Shared.Events.EventOccurred message, IMessageHandlerContext context)
         {

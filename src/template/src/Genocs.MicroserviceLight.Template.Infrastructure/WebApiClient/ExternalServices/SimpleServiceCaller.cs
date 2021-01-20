@@ -1,11 +1,10 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-
-namespace Genocs.MicroserviceLight.Template.BusHost.ExternalServices
+﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.WebApiClient.ExternalServices
 {
-    using Exceptions;
-    using Models;
+    using BusHost.Exceptions;
+    using Shared.ReadModels;
+    using System;
+    using System.Net.Http;
+    using System.Threading.Tasks;
 
     public class SimpleServiceCaller : ISimpleServiceCaller
     {

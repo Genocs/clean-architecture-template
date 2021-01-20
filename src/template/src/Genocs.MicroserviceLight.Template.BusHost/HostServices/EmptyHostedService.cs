@@ -6,14 +6,16 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-
-    internal class WorkflowService : IHostedService
+    /// <summary>
+    /// Empty Hosted Service
+    /// </summary>
+    internal class EmptyHostedService : IHostedService
     {
-        private readonly ILogger<WorkflowService> _logger;
+        private readonly ILogger<EmptyHostedService> _logger;
 
         private readonly Infrastructure.Generic.GenericOptions _options;
 
-        public WorkflowService(IOptions<Infrastructure.Generic.GenericOptions> options, ILogger<WorkflowService> logger)
+        public EmptyHostedService(IOptions<Infrastructure.Generic.GenericOptions> options, ILogger<EmptyHostedService> logger)
         {
             _logger = logger;
             _options = options.Value;
@@ -30,9 +32,7 @@
         {
             _logger.LogInformation("Stopping...");
             _logger.LogInformation("Stopped");
-
             await Task.CompletedTask;
-
         }
     }
 }

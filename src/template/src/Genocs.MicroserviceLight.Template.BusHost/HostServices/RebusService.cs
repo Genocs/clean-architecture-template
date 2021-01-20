@@ -15,10 +15,8 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
 
     internal class RebusService : IHostedService
     {
-
         private readonly ILogger<RebusService> _logger;
         private readonly Infrastructure.RebusServiceBus.RebusBusOptions _options;
-
 
         private BuiltinHandlerActivator _activator;
         private IBus _bus;
@@ -42,7 +40,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
             // Start rebus configuration
             _activator = new BuiltinHandlerActivator();
 
-            _activator.Register(() => new Handler());
+            _activator.Register((r) => new RebusEventOccurredHandler());
 
             _bus = Configure.With(_activator)
                 .Logging(l => l.ColoredConsole(minLevel: Rebus.Logging.LogLevel.Debug))

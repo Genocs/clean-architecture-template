@@ -48,8 +48,8 @@ namespace Genocs.MicroserviceLight.Template.WebApi
             services.AddPresentersV1();
             services.AddPresentersV2();
 
-            //services.AddParticularServiceBus(Configuration);
-            services.AddAzureServiceBus(Configuration);
+            services.AddParticularServiceBus(Configuration);
+            //services.AddAzureServiceBus(Configuration);
             //services.AddRebusServiceBus(Configuration);
 
             //refit apis

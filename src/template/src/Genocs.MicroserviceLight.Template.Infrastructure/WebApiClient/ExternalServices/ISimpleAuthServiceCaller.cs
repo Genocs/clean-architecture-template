@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace Genocs.MicroserviceLight.Template.BusHost.ExternalServices
+namespace Genocs.MicroserviceLight.Template.Infrastructure.WebApiClient.ExternalServices
 {
-    using Models;
+    using Shared.ReadModels;
 
     public interface ISimpleAuthServiceCaller
     {

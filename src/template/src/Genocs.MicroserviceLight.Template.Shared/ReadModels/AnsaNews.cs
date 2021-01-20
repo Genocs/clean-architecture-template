@@ -1,4 +1,4 @@
-﻿namespace Genocs.MicroserviceLight.Template.BusHost.Messages
+﻿namespace Genocs.MicroserviceLight.Template.Shared.ReadModels
 {
     public class AnsaNews
     {

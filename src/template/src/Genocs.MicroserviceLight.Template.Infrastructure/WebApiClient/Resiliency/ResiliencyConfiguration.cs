@@ -1,4 +1,4 @@
-﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.WebApiClient
+﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.WebApiClient.Resiliency
 {
     public class ResiliencyConfiguration
     {

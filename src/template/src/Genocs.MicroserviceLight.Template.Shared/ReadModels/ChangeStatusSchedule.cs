@@ -1,4 +1,4 @@
-﻿namespace Genocs.MicroserviceLight.Template.BusHost.Models
+﻿namespace Genocs.MicroserviceLight.Template.Shared.ReadModels
 {
     public class ChangeStatusSchedule
     {
