@@ -53,10 +53,14 @@ namespace Genocs.MicroserviceLight.Template.Application.UseCases
 
             customer.Register(account);
 
+            // Call to an external Web Api
+
             await _customerRepository.Add(customer);
             await _accountRepository.Add(account, credit);
-            // Publish the EventOccurred message to the bus
-            await _serviceBus.PublishEventAsync(new EventOccurred() { EventId = account.Id.ToString() });
+
+            // Publish the event to the enterprice service bus
+            await _serviceBus.PublishEventAsync(new RegistrationCompleted() { CustomerId = customer.Id, AccountId = account.Id, CreditId = credit.Id });
+
             await _unitOfWork.Save();
 
 

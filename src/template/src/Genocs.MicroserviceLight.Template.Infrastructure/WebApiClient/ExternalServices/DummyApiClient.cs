@@ -1,17 +1,15 @@
 ﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.WebApiClient.ExternalServices
 {
+    using Application.Services;
     using BusHost.Exceptions;
     using Shared.ReadModels;
     using System;
     using System.Net.Http;
     using System.Threading.Tasks;
 
-    public class SimpleServiceCaller : ISimpleServiceCaller
+    public class DummyApiClient : ApiClient, IDummyApiClient
     {
-        private readonly HttpClient _httpClient;
-
-        public SimpleServiceCaller(HttpClient httpClient)
-            => _httpClient = httpClient;
+        public DummyApiClient(HttpClient httpClient) : base(httpClient) { }
 
         public async Task<SimpleResult> GetSimpleModelAsync(string id)
         {

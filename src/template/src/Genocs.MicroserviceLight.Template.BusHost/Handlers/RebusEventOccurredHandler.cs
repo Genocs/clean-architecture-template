@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Genocs.MicroserviceLight.Template.BusHost.Handlers
 {
-    class RebusEventOccurredHandler : IHandleMessages<EventOccurred>
+    class RebusEventOccurredHandler : IHandleMessages<RegistrationCompleted>
     {
 
         private readonly ILogger<RebusEventOccurredHandler> _logger;
@@ -20,7 +20,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost.Handlers
             this._logger = logger;
         }
 
-        public async Task Handle(EventOccurred message)
+        public async Task Handle(RegistrationCompleted message)
         {
             // Add Logger
             //_logger.LogInformation("Got string: {0}", message.EventId);

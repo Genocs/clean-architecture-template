@@ -28,7 +28,8 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.UseCasesTests.Withdraw
                 _fixture.EntityFactory,
                 presenter,
                 _fixture.AccountRepository,
-                _fixture.UnitOfWork
+                _fixture.UnitOfWork,
+                _fixture.ServiceBus
             );
 
             await sut.Execute(new WithdrawInput(

@@ -1,20 +1,16 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-
-namespace Genocs.MicroserviceLight.Template.Infrastructure.WebApiClient.ExternalServices
+﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.WebApiClient.ExternalServices
 {
+    using Application.Services;
     using BusHost.Exceptions;
     using Shared.ReadModels;
+    using System;
+    using System.Net;
+    using System.Net.Http;
+    using System.Threading.Tasks;
 
-    public class SimpleAuthServiceCaller : ISimpleAuthServiceCaller
+    public class AuthApiClient : ApiClient, IAuthApiClient
     {
-        private readonly HttpClient _httpClient;
-
-        public SimpleAuthServiceCaller(HttpClient httpClient)
-            => _httpClient = httpClient;
+        public AuthApiClient(HttpClient httpClient) : base(httpClient) { }
 
         public async Task<SimpleResult> GetSimpleAuthModelAsync(string id)
         {
@@ -80,13 +76,6 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.WebApiClient.External
             };
 
             return changeStatus;
-        }
-
-        private HttpContent PackageContent<T>(T transactionRequest) where T : class
-        {
-            var content = new StringContent(JsonConvert.SerializeObject(transactionRequest));
-            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-            return content;
         }
     }
 }

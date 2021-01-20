@@ -26,7 +26,8 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.UseCasesTests.Deposit
                 _fixture.EntityFactory,
                 presenter,
                 _fixture.AccountRepository,
-                _fixture.UnitOfWork
+                _fixture.UnitOfWork,
+                _fixture.ServiceBus
             );
 
             await sut.Execute(
@@ -47,7 +48,8 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.UseCasesTests.Deposit
                 _fixture.EntityFactory,
                 presenter,
                 _fixture.AccountRepository,
-                _fixture.UnitOfWork
+                _fixture.UnitOfWork,
+                _fixture.ServiceBus
             );
 
             await Assert.ThrowsAsync<MoneyShouldBePositiveException>(() =>

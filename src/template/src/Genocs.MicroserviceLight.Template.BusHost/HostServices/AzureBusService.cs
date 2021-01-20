@@ -1,17 +1,16 @@
-﻿using Microsoft.Azure.ServiceBus;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
+﻿namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
 {
+    using Microsoft.Azure.ServiceBus;
+    using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Options;
+    using Newtonsoft.Json;
     using Shared.ReadModels;
+    using System;
+    using System.IO;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     internal class AzureBusService : IHostedService
     {

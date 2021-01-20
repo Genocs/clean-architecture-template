@@ -5,14 +5,14 @@ Sample implementation of the **Clean Architecture Principles with .NET Core**. U
 
 ----
 
-[![Build Status](https://travis-ci.org/genocs/clean-architecture-template.svg?branch=master)](https://travis-ci.org/genocs/clean-architecture-template)   [![Build status](https://ci.appveyor.com/api/projects/status/0i6s33kw3y87tkb2?svg=true)](https://ci.appveyor.com/project/genocs/clean-architecture-template)   ![NuGet](https://buildstats.info/nuget/Genocs.CleanArchitectureTemplate)   [![All Contributors](https://img.shields.io/badge/all_contributors-12-yellow.svg?style=flat-square)](#contributors)
+[![Build Status](https://travis-ci.com/genocs/clean-architecture-template.svg?branch=master)](https://travis-ci.com/genocs/clean-architecture-template)   [![Build status](https://ci.appveyor.com/api/projects/status/0i6s33kw3y87tkb2?svg=true)](https://ci.appveyor.com/project/genocs/clean-architecture-template)   ![NuGet](https://buildstats.info/nuget/Genocs.CleanArchitectureTemplate)   [![All Contributors](https://img.shields.io/badge/all_contributors-12-yellow.svg?style=flat-square)](#contributors)
 <a href="https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate/" rel="Genocs.CleanArchitectureTemplate"></a>
 
 
 ## Usage
 
 ```sh
-dotnet new -i Genocs.CleanArchitecture::1.3.0
+dotnet new -i Genocs.CleanArchitecture::1.4.0
 dotnet new cleanarchitecture -n "MyCompany.MyProject"
 ```
 
@@ -60,7 +60,7 @@ Feel free to submit pull requests to help:
 * Add new sections
 * Submit questions and bugs
 
-## Index of Clean Architecture Manga
+## Index of Clean Architecture Template
 
 * [Use Cases](#use-cases)
 * [Flow of Control](#register-flow-of-control)
@@ -1275,7 +1275,7 @@ Manga is a cross-platform application, you can run it from Mac, Windows or Unix.
 
 The single requirement is to install the latest .NET Code SDK.
 
-* [.NET Core SDK 3.1](https://www.microsoft.com/net/download/dotnet-core/3.1)
+* [.NET Core SDK 5.0](https://dotnet.microsoft.com/download/dotnet/5.0)
 
 We made available scripts to create and seed the database quickly via Docker.
 
@@ -1344,20 +1344,19 @@ deploy_script:
 ## Docker
 
 ```sh
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /app
 
 # Copy everything else and build
 COPY . .
-RUN dotnet publish src/{MyCompany.MyProject}.Template.WebApi -c release -o out
+RUN dotnet publish src/{MyCompany.MyProject}.WebApi -c release -o out
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
+FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /app
 COPY --from=build /app/out .
-ENV ASPNETCORE_URLS http://*:5000
-ENV ASPNETCORE_ENVIRONMENT docker
-EXPOSE 5000
+ENV ASPNETCORE_URLS http://*:80
+ENV ASPNETCORE_ENVIRONMENT Docker
 ENTRYPOINT dotnet {MyCompany.MyProject}.WebApi.dll
 ```
 

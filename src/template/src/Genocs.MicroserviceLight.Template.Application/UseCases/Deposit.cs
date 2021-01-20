@@ -13,17 +13,20 @@ namespace Genocs.MicroserviceLight.Template.Application.UseCases
         private readonly IOutputPort _outputHandler;
         private readonly IAccountRepository _accountRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IServiceBusClient _serviceBus;
 
         public Deposit(
             IEntityFactory entityFactory,
             IOutputPort outputHandler,
             IAccountRepository accountRepository,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IServiceBusClient serviceBus)
         {
             _entityFactory = entityFactory;
             _outputHandler = outputHandler;
             _accountRepository = accountRepository;
             _unitOfWork = unitOfWork;
+            _serviceBus = serviceBus;
         }
 
         public async Task Execute(DepositInput input)
@@ -38,6 +41,10 @@ namespace Genocs.MicroserviceLight.Template.Application.UseCases
             ICredit credit = account.Deposit(_entityFactory, input.Amount);
 
             await _accountRepository.Update(account, credit);
+
+            // Publish the event to the enterprice service bus
+            await _serviceBus.PublishEventAsync(new Shared.Events.DepositCompleted() { AccountId = input.AccountId, Amount = input.Amount.ToMoney().ToDecimal() });
+
             await _unitOfWork.Save();
 
             DepositOutput output = new DepositOutput(

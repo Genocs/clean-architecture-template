@@ -13,17 +13,20 @@ namespace Genocs.MicroserviceLight.Template.Application.UseCases
         private readonly IOutputPort _outputHandler;
         private readonly IAccountRepository _accountRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IServiceBusClient _serviceBus;
 
         public Withdraw(
             IEntityFactory entityFactory,
             IOutputPort outputHandler,
             IAccountRepository accountRepository,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IServiceBusClient serviceBus)
         {
             _entityFactory = entityFactory;
             _outputHandler = outputHandler;
             _accountRepository = accountRepository;
             _unitOfWork = unitOfWork;
+            _serviceBus = serviceBus;
         }
 
         public async Task Execute(WithdrawInput input)
@@ -44,6 +47,10 @@ namespace Genocs.MicroserviceLight.Template.Application.UseCases
             }
 
             await _accountRepository.Update(account, debit);
+
+            // Publish the event to the enterprice service bus
+            await _serviceBus.PublishEventAsync(new Shared.Events.WithdrawCompleted() { AccountId = input.AccountId, Amount = input.Amount.ToMoney().ToDecimal() });
+
             await _unitOfWork.Save();
 
             WithdrawOutput output = new WithdrawOutput(

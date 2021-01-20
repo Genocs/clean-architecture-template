@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 
 namespace Genocs.MicroserviceLight.Template.BusHost.Handlers
 {
-    public class ParticularEventOccurredHandler : IHandleMessages<Shared.Events.EventOccurred>
+    public class ParticularEventOccurredHandler : IHandleMessages<Shared.Events.RegistrationCompleted>
     {
         static ILog _logger = LogManager.GetLogger<ParticularEventOccurredHandler>();
 
-        public Task Handle(Shared.Events.EventOccurred message, IMessageHandlerContext context)
+        public Task Handle(Shared.Events.RegistrationCompleted message, IMessageHandlerContext context)
         {
 
-            _logger.Info($"NServiceEventOccurred. Received message with EventId: '{message.EventId}'");
+            _logger.Info($"RegistrationCompleted on AccountId: '{message.AccountId}'");
 
             // Do something with the message here
             return Task.CompletedTask;

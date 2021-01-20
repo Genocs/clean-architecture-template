@@ -50,7 +50,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
 
 
             // Subscribe the event
-            await _activator.Bus.Subscribe<EventOccurred>();
+            await _activator.Bus.Subscribe<RegistrationCompleted>();
 
             _logger.LogInformation("Started");
 
