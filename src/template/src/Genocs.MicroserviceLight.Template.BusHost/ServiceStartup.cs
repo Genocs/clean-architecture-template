@@ -31,8 +31,8 @@ namespace Genocs.MicroserviceLight.Template.BusHost
 
             // The HostService 
             // This is the Service entry point management
-            services.AddHostedService<ParticularService>();
-//            services.AddHostedService<AzureBusService>();
+//            services.AddHostedService<ParticularService>();
+            services.AddHostedService<AzureBusService>();
 //            services.AddHostedService<RebusService>();
 
             services.AddTransient<IRequestProcessor, RequestProcessor>();
@@ -42,7 +42,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost
                     HealthCheckName,
                     () => HealthCheckResult.Healthy("OK"));
 
-            if (context.Configuration["HEALTHCHECK_INITIAL_DELAY"] is var configuredDelay &&
+            if (context.Configuration["HealthCheckInitialDelay"] is var configuredDelay &&
                 double.TryParse(configuredDelay, out double delay))
             {
                 services.Configure<HealthCheckPublisherOptions>(options =>
@@ -55,7 +55,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost
             services
                 .AddHttpClient<ISimpleServiceCaller, SimpleServiceCaller>(c =>
                 {
-                    c.BaseAddress = new Uri(context.Configuration["SERVICE_URI_SIMPLE"]);
+                    c.BaseAddress = new Uri(context.Configuration["ExternalWebService:Dummy"]);
                 })
                 .AddResiliencyPolicies(context.Configuration);
 
@@ -63,7 +63,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost
             services
                 .AddHttpClient<ISimpleAuthServiceCaller, SimpleAuthServiceCaller>(c =>
                 {
-                    c.BaseAddress = new Uri(context.Configuration["SERVICE_URI_AUTHORIZED"]);
+                    c.BaseAddress = new Uri(context.Configuration["ExternalWebService:Member"]);
                     c.DefaultRequestHeaders.Add("Authorization", "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6InN2YiJ9.eyJzdWIiOjEsImlhdCI6MTYwNDY1MzIzNiwiZXhwIjoxNjA0NzM5NjM2LCJlbWFpbCI6ImFkbWluQHV0dS5nbG9iYWwiLCJnaXZlbl9uYW1lIjoiQWRtaW4iLCJmYW1pbHlfbmFtZSI6IkFkbWluIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiYWRtaW4iLCJyb2xlcyI6WyJBZG1pbiIsIk1hbmFnZXIiLCJNZW1iZXIiXX0.WV4wEQxyp7tFTFMO-udiVgMrWLx48bDIQ5eZNR85AcPU57GxszUgSkHlTQqAC4GVtGj53ZAyMKPBZn1qt_WCpYrF9DSX5qRVMgflx7e3ZBtzqrDfbINUZQOF5KnNH5pEKUehXG4kLVLz0q7XhtNIkBchmrOAYXIU-rX9lej4Zbc");
                 })
                 .AddResiliencyPolicies(context.Configuration);
