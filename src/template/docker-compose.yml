@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+
+  mongo:
+    image: mongo
+
+#  redis:
+#    image: redis:alpine
+
+  seq:
+    image: datalust/seq:latest
+
+  sqlserver:
+    image: "mcr.microsoft.com/mssql/server"

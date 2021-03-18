@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.BusHost", "src\Genocs.MicroserviceLight.Template.BusHost\Genocs.MicroserviceLight.Template.BusHost.csproj", "{BDCA6C7C-B27B-45E0-B560-D6B69BD3273B}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{250B824E-6A72-4D6E-8287-CC73F40410E9}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1BDA405C-FB8F-4259-9A2D-3C5EBFC6855F}"
 	ProjectSection(SolutionItems) = preProject
 		Dockerfile = Dockerfile
@@ -68,6 +70,10 @@ Global
 		{BDCA6C7C-B27B-45E0-B560-D6B69BD3273B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDCA6C7C-B27B-45E0-B560-D6B69BD3273B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDCA6C7C-B27B-45E0-B560-D6B69BD3273B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{250B824E-6A72-4D6E-8287-CC73F40410E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{250B824E-6A72-4D6E-8287-CC73F40410E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{250B824E-6A72-4D6E-8287-CC73F40410E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{250B824E-6A72-4D6E-8287-CC73F40410E9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DECBE6BD-D669-40C6-8A29-8DEC5EB61ECA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DECBE6BD-D669-40C6-8A29-8DEC5EB61ECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DECBE6BD-D669-40C6-8A29-8DEC5EB61ECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
