@@ -25,9 +25,9 @@ namespace Genocs.MicroserviceLight.Template.BusHost
             services.AddApplicationInsightsKubernetesEnricher();
             services.AddApplicationInsightsTelemetry(context.Configuration);
 
-            services.Configure<Infrastructure.ServiceBus.AzureServiceBusOptions>(context.Configuration.GetSection("AzureServiceBusSettings"));
-            services.Configure<Infrastructure.ServiceBus.RebusBusOptions>(context.Configuration.GetSection("RebusBusSettings"));
             services.Configure<Infrastructure.ServiceBus.ParticularServiceBusOptions>(context.Configuration.GetSection("ParticularServiceBusSettings"));
+            //services.Configure<Infrastructure.ServiceBus.AzureServiceBusOptions>(context.Configuration.GetSection("AzureServiceBusSettings"));
+            //services.Configure<Infrastructure.ServiceBus.RebusBusOptions>(context.Configuration.GetSection("RebusBusSettings"));
 
             // The HostService 
             // This is the Service entry point management

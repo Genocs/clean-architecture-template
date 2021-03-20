@@ -1,17 +1,19 @@
 {
   "$schema": "http://json.schemastore.org/template",
   "author": "Nocco Giovanni Emanuele",
-  "classifications": [ "Web/ASP.NET" ],
+  "classifications": [
+    "Web/ASP.NET"
+  ],
   "name": "Genocs: Clean Architecture for .NET Core",
-  "identity": "Genocs.CleanArchitecture",  
+  "identity": "Genocs.CleanArchitecture",
   "groupIdentity": "Genocs.CleanArchitecture",
   "shortName": "cleanarchitecture",
   "tags": {
-    "language": "C#"                 // Specify that this template is in C#.
+    "language": "C#" // Specify that this template is in C#.
   },
-  "sourceName": "Genocs.MicroserviceLight.Template",      // Will replace the string 'Genocs.MicroserviceLight.Template' with the value provided via -n.
-  "preferNameDirectory":"true",
-  "symbols": {    
+  "sourceName": "Genocs.MicroserviceLight.Template", // Will replace the string 'Genocs.MicroserviceLight.Template' with the value provided via -n.
+  "preferNameDirectory": "true",
+  "symbols": {
     "use-cases": {
       "type": "parameter",
       "datatype": "choice",
@@ -37,6 +39,48 @@
         }
       ]
     },
+    "service-bus": {
+      "type": "parameter",
+      "datatype": "choice",
+      "defaultValue": "particular",
+      "choices": [
+        {
+          "choice": "particular",
+          "description": "Particular Software Service Bus (NServiceBus)"
+        },
+        {
+          "choice": "masstransit",
+          "description": "Mass Transit Service Bus (MassTransit)"
+        },
+        {
+          "choice": "rebus",
+          "description": "Rebus Service Bus (Rebus)"
+        },
+        {
+          "choice": "azure",
+          "description": "Azure Service Bus (AzureServicebus)"
+        }
+      ]
+    },
+    "database": {
+      "type": "parameter",
+      "datatype": "choice",
+      "defaultValue": "mongodb",
+      "choices": [
+        {
+          "choice": "mongodb",
+          "description": "MongoDB Database (MongoDb)"
+        },
+        {
+          "choice": "sqlserver",
+          "description": "Microsoft Sql Server Database (SqlServer)"
+        },
+        {
+          "choice": "inmemory",
+          "description": "In Memory datbase for internal test (InMemory)"
+        }
+      ]
+    },
     "Basic": {
       "type": "computed",
       "value": "(use-cases == \"basic\")"
@@ -47,7 +91,15 @@
     },
     "Full": {
       "type": "computed",
-      "value": "(use-cases == \"full\")"
+      "value": "(use-cases == \"full\" && service-bus == \"particular\" && database == \"mongodb\")"
+    },
+    "NServiceBus": {
+      "type": "computed",
+      "value": "(service-bus == \"particular\")"
+    },
+    "Particular": {
+      "type": "computed",
+      "value": "(NServiceBus)"
     },
     "CloseAccount": {
       "type": "computed",
@@ -90,31 +142,26 @@
             "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Register/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Transfer/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Withdraw/**/*.cs",
-
             "src/Genocs.MicroserviceLight.Template.Application/Boundaries/CloseAccount/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Deposit/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Register/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Transfer/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Withdraw/**/*.cs",
-
             "src/Genocs.MicroserviceLight.Template.Application/UseCases/CloseAccount.cs",
             "src/Genocs.MicroserviceLight.Template.Application/UseCases/Deposit.cs",
             "src/Genocs.MicroserviceLight.Template.Application/UseCases/Register.cs",
             "src/Genocs.MicroserviceLight.Template.Application/UseCases/Transfer.cs",
             "src/Genocs.MicroserviceLight.Template.Application/UseCases/Withdraw.cs",
-
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/CloseAccountPresenter.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/DepositPresenter.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/RegisterPresenter.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/TransferPresenter.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/WithdrawPresenter.cs",
-
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/CloseAccountPresenter.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/DepositPresenter.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/RegisterPresenter.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/TransferPresenter.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/WithdrawPresenter.cs",
             "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/CloseAccount/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Deposit/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Register/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Transfer/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Withdraw/**/*.cs",
-
             "src/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/CloseAccountInputValidationTests.cs",
             "src/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/DepositInputValidationTests.cs",
             "src/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/RegisterInputValidationTests.cs",
@@ -131,31 +178,26 @@
             "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Transfer/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Withdraw/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V2/GetAccountDetails/**/*.cs",
-
             "src/Genocs.MicroserviceLight.Template.Application/Boundaries/CloseAccount/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Deposit/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.Application/Boundaries/GetAccountDetails/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Transfer/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Withdraw/**/*.cs",
-
             "src/Genocs.MicroserviceLight.Template.Application/UseCases/CloseAccount.cs",
             "src/Genocs.MicroserviceLight.Template.Application/UseCases/Deposit.cs",
             "src/Genocs.MicroserviceLight.Template.Application/UseCases/GetAccountDetails.cs",
             "src/Genocs.MicroserviceLight.Template.Application/UseCases/Transfer.cs",
             "src/Genocs.MicroserviceLight.Template.Application/UseCases/Withdraw.cs",
-
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/CloseAccountPresenter.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/DepositPresenter.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/GetAccountDetailsPresenter.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/TransferPresenter.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/InMemoryDataAccess/Presenters/WithdrawPresenter.cs",
-
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/CloseAccountPresenter.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/DepositPresenter.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/GetAccountDetailsPresenter.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/TransferPresenter.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/WithdrawPresenter.cs",
             "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/CloseAccount/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Deposit/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/GetAccountDetails/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Transfer/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Withdraw/**/*.cs",
-
             "src/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/CloseAccountInputValidationTests.cs",
             "src/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/DepositInputValidationTests.cs",
             "src/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/GetAccountDetailsInputValidationTests.cs",
@@ -164,9 +206,34 @@
           ]
         },
         {
-          "condition": "(Full)",
+          "condition": "(NServiceBus)",
           "exclude": [
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Azure/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Rebus/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Rebus/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.WebApi/Extensions/RebusServicebusInfrastructureExtensions.cs",
+            "src/Genocs.MicroserviceLight.Template.WebApi/Extensions/AzureServicebusInfrastructureExtensions.cs",
+            "src/Genocs.MicroserviceLight.Template.BusHost/HostServices/RebusService.cs",
+            "src/Genocs.MicroserviceLight.Template.BusHost/HostServices/AzureBusService.cs"
           ]
+        },
+        {
+          "condition": "(Rebus)",
+          "exclude": [
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Azure/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Particular/**/*.cs"
+          ]
+        },
+        {
+          "condition": "(Azure)",
+          "exclude": [
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Rebus/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Particular/**/*.cs"
+          ]
+        },
+        {
+          "condition": "(Full)",
+          "exclude": []
         }
       ]
     }
