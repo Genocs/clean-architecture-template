@@ -9,7 +9,7 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.EntitiesTests
         [Fact]
         public void Customer_Should_Be_Registered_With_1_Account()
         {
-            var entityFactory = new Infrastructure.InMemoryDataAccess.EntityFactory();
+            var entityFactory = new Infrastructure.PersistenceLayer.InMemory.EntityFactory();
             //
             // Arrange
             ICustomer sut = entityFactory.NewCustomer(

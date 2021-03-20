@@ -1,7 +1,7 @@
 namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
 {
     using Application.Services;
-    using Infrastructure.ParticularServiceBus;
+    using Infrastructure.ServiceBus;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 

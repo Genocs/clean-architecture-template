@@ -12,12 +12,12 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.PresenterTests
         [Fact]
         public void GivenValidData_Handle_WritesOkObjectResult()
         {
-            var customer = new Infrastructure.InMemoryDataAccess.Customer(
+            var customer = new Infrastructure.PersistenceLayer.InMemory.Customer(
                 new SSN("198608178888"),
                 new Name("Nocco Giovanni Emanuele")
             );
 
-            var account = new Infrastructure.InMemoryDataAccess.Account(
+            var account = new Infrastructure.PersistenceLayer.InMemory.Account(
                 customer
             );
 

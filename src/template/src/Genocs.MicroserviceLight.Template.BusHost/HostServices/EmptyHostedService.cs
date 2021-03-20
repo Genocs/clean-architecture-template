@@ -13,9 +13,9 @@
     {
         private readonly ILogger<EmptyHostedService> _logger;
 
-        private readonly Infrastructure.Generic.GenericOptions _options;
+        private readonly Infrastructure.Generic.NullOptions _options;
 
-        public EmptyHostedService(IOptions<Infrastructure.Generic.GenericOptions> options, ILogger<EmptyHostedService> logger)
+        public EmptyHostedService(IOptions<Infrastructure.Generic.NullOptions> options, ILogger<EmptyHostedService> logger)
         {
             _logger = logger;
             _options = options.Value;

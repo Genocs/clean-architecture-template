@@ -3,7 +3,7 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
     using Application.Repositories;
     using Application.Services;
     using Domain;
-    using Infrastructure.EntityFrameworkDataAccess;
+    using Infrastructure.PersistenceLayer.EntityFramework;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;

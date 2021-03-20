@@ -16,18 +16,18 @@
     {
         private readonly JsonSerializer _serializer;
         private readonly ILogger<AzureBusService> _logger;
-        private readonly Infrastructure.AzureServiceBus.AzureServiceBusOptions _options;
+        private readonly Infrastructure.ServiceBus.AzureServiceBusOptions _options;
 
-        private readonly Func<Infrastructure.AzureServiceBus.AzureServiceBusOptions, IQueueClient> _createQueueClient;
+        private readonly Func<Infrastructure.ServiceBus.AzureServiceBusOptions, IQueueClient> _createQueueClient;
 
         private IQueueClient _busClient;
 
-        public AzureBusService(IOptions<Infrastructure.AzureServiceBus.AzureServiceBusOptions> options, ILogger<AzureBusService> logger)
+        public AzureBusService(IOptions<Infrastructure.ServiceBus.AzureServiceBusOptions> options, ILogger<AzureBusService> logger)
             : this(options, logger, CreateQueueClient)
         { }
 
-        public AzureBusService(IOptions<Infrastructure.AzureServiceBus.AzureServiceBusOptions> options, ILogger<AzureBusService> logger,
-            Func<Infrastructure.AzureServiceBus.AzureServiceBusOptions, IQueueClient> createQueueClient)
+        public AzureBusService(IOptions<Infrastructure.ServiceBus.AzureServiceBusOptions> options, ILogger<AzureBusService> logger,
+            Func<Infrastructure.ServiceBus.AzureServiceBusOptions, IQueueClient> createQueueClient)
         {
             _options = options.Value;
 
@@ -42,7 +42,7 @@
             _serializer = new JsonSerializer();
         }
 
-        private static IQueueClient CreateQueueClient(Infrastructure.AzureServiceBus.AzureServiceBusOptions options)
+        private static IQueueClient CreateQueueClient(Infrastructure.ServiceBus.AzureServiceBusOptions options)
         {
             ServiceBusConnectionStringBuilder connectionStringBuilder = new ServiceBusConnectionStringBuilder
             {

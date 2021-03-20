@@ -12,14 +12,14 @@
     {
 
         private readonly ILogger<ParticularService> _logger;
-        private readonly Infrastructure.ParticularServiceBus.ParticularServiceBusOptions _options;
+        private readonly Infrastructure.ServiceBus.ParticularServiceBusOptions _options;
 
         private readonly EndpointConfiguration _configuration;
 
         private IEndpointInstance _instance;
 
 
-        public ParticularService(IOptions<Infrastructure.ParticularServiceBus.ParticularServiceBusOptions> options, ILogger<ParticularService> logger)
+        public ParticularService(IOptions<Infrastructure.ServiceBus.ParticularServiceBusOptions> options, ILogger<ParticularService> logger)
         {
             _logger = logger;
 

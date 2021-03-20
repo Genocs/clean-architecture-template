@@ -3,8 +3,8 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
     using Application.Repositories;
     using Application.Services;
     using Domain;
-    using Infrastructure.MongoDbDataAccess;
-    using Infrastructure.MongoDbDataAccess.Repositories;
+    using Infrastructure.PersistenceLayer.MongoDb;
+    using Infrastructure.PersistenceLayer.MongoDb.Repositories;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 

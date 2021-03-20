@@ -16,12 +16,12 @@ namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
     internal class RebusService : IHostedService
     {
         private readonly ILogger<RebusService> _logger;
-        private readonly Infrastructure.RebusServiceBus.RebusBusOptions _options;
+        private readonly Infrastructure.ServiceBus.RebusBusOptions _options;
 
         private BuiltinHandlerActivator _activator;
         private IBus _bus;
 
-        public RebusService(IOptions<Infrastructure.RebusServiceBus.RebusBusOptions> options, ILogger<RebusService> logger)
+        public RebusService(IOptions<Infrastructure.ServiceBus.RebusBusOptions> options, ILogger<RebusService> logger)
         {
             _logger = logger;
 

@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <title>The clean code template by Genocs</title>
     <summary>
-A .NET template following the Clean Architecture Style, DDD and Separation of Concerns in Domain, Application, Infrastructure and UI. Separated WebApi host and enterprice service bus host 
+      A .NET template following the Clean Architecture Style, DDD and Separation of Concerns in Domain, Application, Infrastructure and UI. Separated host for WebApi and ServiceBus. Docker compose debugging support provided as well.
     </summary>	
     <description>
 Install the package:
@@ -55,6 +55,7 @@ $ dotnet new cleanarchitecture
       microservice
       microservices
       onion
+      service bus
       solid
       solid-principles
       templating

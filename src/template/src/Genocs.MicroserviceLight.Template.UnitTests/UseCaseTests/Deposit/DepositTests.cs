@@ -3,7 +3,7 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.UseCasesTests.Deposit
     using Application.Boundaries.Deposit;
     using Application.UseCases;
     using Domain.ValueObjects;
-    using Infrastructure.InMemoryDataAccess;
+    using Infrastructure.PersistenceLayer.InMemory;
     using System.Linq;
     using System.Threading.Tasks;
     using UnitTests.TestFixtures;

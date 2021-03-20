@@ -3,8 +3,8 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
     using Application.Repositories;
     using Application.Services;
     using Domain;
-    using Infrastructure.InMemoryDataAccess;
-    using Infrastructure.InMemoryDataAccess.Repositories;
+    using Infrastructure.PersistenceLayer.InMemory;
+    using Infrastructure.PersistenceLayer.InMemory.Repositories;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class InMemoryInfrastructureExtensions
