@@ -23,13 +23,15 @@ namespace Genocs.MicroserviceLight.Template.BusHost
 
         private static IHostBuilder CreateHostBuilder(string[] args)
         {
+            string environment = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            
             return new HostBuilder()
                 .ConfigureHostConfiguration(configHost => configHost.AddEnvironmentVariables())
                 .ConfigureAppConfiguration((context, builder) =>
                 {
                     builder
                         .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                        .AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                        .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true);
 
                     // Enable the Secret management
                     // Please check out this link to have more info https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-5.0&tabs=windows
