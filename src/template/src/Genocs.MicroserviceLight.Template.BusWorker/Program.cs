@@ -7,7 +7,7 @@ using Serilog.Formatting.Compact;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Genocs.MicroserviceLight.Template.BusHost
+namespace Genocs.MicroserviceLight.Template.BusWorker
 {
     class Program
     {

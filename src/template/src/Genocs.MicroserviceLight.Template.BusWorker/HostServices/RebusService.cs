@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Genocs.MicroserviceLight.Template.BusHost.HostServices
+namespace Genocs.MicroserviceLight.Template.BusWorker.HostServices
 {
     using Handlers;
     using Microsoft.Extensions.Logging;

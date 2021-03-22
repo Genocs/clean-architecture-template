@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Rebus.Handlers;
 using System.Threading.Tasks;
 
-namespace Genocs.MicroserviceLight.Template.BusHost.Handlers
+namespace Genocs.MicroserviceLight.Template.BusWorker.Handlers
 {
     class RebusEventOccurredHandler : IHandleMessages<RegistrationCompleted>
     {

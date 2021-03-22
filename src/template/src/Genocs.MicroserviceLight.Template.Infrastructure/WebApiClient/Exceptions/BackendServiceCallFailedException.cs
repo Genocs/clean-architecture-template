@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Genocs.MicroserviceLight.Template.BusHost.Exceptions
+namespace Genocs.MicroserviceLight.Template.BusWorker.Exceptions
 {
     public class BackendServiceCallFailedException : Exception
     {

@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.Application", "src\Genocs.MicroserviceLight.Template.Application\Genocs.MicroserviceLight.Template.Application.csproj", "{B3DAF7F3-D632-4252-829B-010BF702BDC0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.BusHost", "src\Genocs.MicroserviceLight.Template.BusHost\Genocs.MicroserviceLight.Template.BusHost.csproj", "{BDCA6C7C-B27B-45E0-B560-D6B69BD3273B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.BusWorker", "src\Genocs.MicroserviceLight.Template.BusWorker\Genocs.MicroserviceLight.Template.BusWorker.csproj", "{BDCA6C7C-B27B-45E0-B560-D6B69BD3273B}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{250B824E-6A72-4D6E-8287-CC73F40410E9}"
 EndProject

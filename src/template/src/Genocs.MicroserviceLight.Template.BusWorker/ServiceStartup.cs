@@ -4,9 +4,9 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using System;
 
-namespace Genocs.MicroserviceLight.Template.BusHost
+namespace Genocs.MicroserviceLight.Template.BusWorker
 {
-    using BusHost.HostServices;
+    using BusWorker.HostServices;
     using ExternalServices;
     using Application.Services;
     using Infrastructure.WebApiClient.ExternalServices;
@@ -39,7 +39,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost
             services
                 .AddHttpClient<IDummyApiClient, DummyApiClient>(c =>
                 {
-                    c.BaseAddress = new Uri(context.Configuration["ExternalWebService:Dummy"]);
+                    c.BaseAddress = new Uri(context.Configuration["ExternalWebServices:Order"]);
                 })
                 .AddResiliencyPolicies(context.Configuration);
 
@@ -47,7 +47,7 @@ namespace Genocs.MicroserviceLight.Template.BusHost
             services
                 .AddHttpClient<IAuthApiClient, AuthApiClient>(c =>
                 {
-                    c.BaseAddress = new Uri(context.Configuration["ExternalWebService:Member"]);
+                    c.BaseAddress = new Uri(context.Configuration["ExternalWebServices:Basket"]);
                     c.DefaultRequestHeaders.Add("Authorization", "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6InN2YiJ9.eyJzdWIiOjEsImlhdCI6MTYwNDY1MzIzNiwiZXhwIjoxNjA0NzM5NjM2LCJlbWFpbCI6ImFkbWluQHV0dS5nbG9iYWwiLCJnaXZlbl9uYW1lIjoiQWRtaW4iLCJmYW1pbHlfbmFtZSI6IkFkbWluIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiYWRtaW4iLCJyb2xlcyI6WyJBZG1pbiIsIk1hbmFnZXIiLCJNZW1iZXIiXX0.WV4wEQxyp7tFTFMO-udiVgMrWLx48bDIQ5eZNR85AcPU57GxszUgSkHlTQqAC4GVtGj53ZAyMKPBZn1qt_WCpYrF9DSX5qRVMgflx7e3ZBtzqrDfbINUZQOF5KnNH5pEKUehXG4kLVLz0q7XhtNIkBchmrOAYXIU-rX9lej4Zbc");
                 })
                 .AddResiliencyPolicies(context.Configuration);

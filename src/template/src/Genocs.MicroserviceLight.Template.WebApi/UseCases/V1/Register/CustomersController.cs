@@ -15,14 +15,11 @@ namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Register
     {
         private readonly IUseCase _registerUseCase;
         private readonly RegisterPresenter _presenter;
-        private readonly IMemberApi _memberApiClient;
 
         public CustomersController(
-            IMemberApi memberApiClient,
             IUseCase registerUseCase,
             RegisterPresenter presenter)
         {
-            _memberApiClient = memberApiClient;
             _registerUseCase = registerUseCase;
             _presenter = presenter;
         }
@@ -47,20 +44,9 @@ namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Register
                 new PositiveMoney(request.InitialAmount)
             );
 
-            // Move IApiClient to 
-            var response = await _memberApiClient.GetMemberAsync(true, "LU4U8TBWS");
-
-            if(response.StatusCode != System.Net.HttpStatusCode.NotFound)
-            {
-                response.EnsureSuccessStatusCode();
-            }
-
-            //Root root = await response.Content.ReadFromJsonAsync<Root>();
-
             await _registerUseCase.Execute(registerInput);
 
             return _presenter.ViewModel;
         }
     }
-
 }

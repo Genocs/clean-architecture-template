@@ -53,9 +53,9 @@ namespace Genocs.MicroserviceLight.Template.WebApi
             //services.AddRebusServiceBus(Configuration);
 
             //refit apis
-            services.AddRefitClient<IMemberApi>()
+            services.AddRefitClient<IOrderApi>()
             //.AddHttpMessageHandler<AuthorizationMessageHandler>()
-              .ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration["ExternalWebService:Member"]));
+              .ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration["ExternalWebServices:Order"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

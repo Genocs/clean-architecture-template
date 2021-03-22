@@ -12,17 +12,21 @@ namespace Genocs.MicroserviceLight.Template.Application.UseCases
         private readonly IAccountRepository _accountRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IServiceBusClient _serviceBus;
+        private readonly IApiClient _orderApiClient;
+
 
         public CloseAccount(
             IOutputPort outputHandler,
             IAccountRepository accountRepository,
             IUnitOfWork unitOfWork,
-            IServiceBusClient serviceBus)
+            IServiceBusClient serviceBus,
+            IApiClient orderApiClient)
         {
             _outputHandler = outputHandler;
             _accountRepository = accountRepository;
             _unitOfWork = unitOfWork;
             _serviceBus = serviceBus;
+            _orderApiClient = orderApiClient;
         }
 
         public async Task Execute(CloseAccountInput closeAccountInput)

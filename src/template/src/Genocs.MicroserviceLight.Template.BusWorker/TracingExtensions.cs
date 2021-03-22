@@ -14,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
-namespace Genocs.MicroserviceLight.Template.BusHost
+namespace Genocs.MicroserviceLight.Template.BusWorker
 {
     /// <summary>
     /// Application Insights setup class based on https://docs.microsoft.com/en-us/azure/azure-monitor/app/console

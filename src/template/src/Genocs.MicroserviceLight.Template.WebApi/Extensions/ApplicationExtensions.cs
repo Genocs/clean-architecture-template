@@ -6,6 +6,9 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
     {
         public static IServiceCollection AddUseCases(this IServiceCollection services)
         {
+
+            services.AddScoped<Application.Services.IApiClient, Infrastructure.WebApiClient.ExternalServices.AuthApiClient>();
+
 #if CloseAccount
             services.AddScoped<Application.Boundaries.CloseAccount.IUseCase, Application.UseCases.CloseAccount>();
 #endif

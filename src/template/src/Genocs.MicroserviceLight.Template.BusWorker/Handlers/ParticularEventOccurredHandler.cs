@@ -2,7 +2,7 @@
 using NServiceBus.Logging;
 using System.Threading.Tasks;
 
-namespace Genocs.MicroserviceLight.Template.BusHost.Handlers
+namespace Genocs.MicroserviceLight.Template.BusWorker.Handlers
 {
     public class ParticularEventOccurredHandler : IHandleMessages<Shared.Events.RegistrationCompleted>
     {

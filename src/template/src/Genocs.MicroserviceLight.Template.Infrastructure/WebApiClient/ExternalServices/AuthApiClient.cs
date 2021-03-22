@@ -1,7 +1,7 @@
 ﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.WebApiClient.ExternalServices
 {
     using Application.Services;
-    using BusHost.Exceptions;
+    using BusWorker.Exceptions;
     using Shared.ReadModels;
     using System;
     using System.Net;
