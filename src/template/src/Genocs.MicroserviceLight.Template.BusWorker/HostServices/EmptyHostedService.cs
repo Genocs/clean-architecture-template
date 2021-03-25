@@ -17,7 +17,12 @@
 
         public EmptyHostedService(IOptions<Infrastructure.Generic.NullOptions> options, ILogger<EmptyHostedService> logger)
         {
-            _logger = logger;
+            if (options is null)
+            {
+                throw new System.ArgumentNullException(nameof(options));
+            }
+
+            _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
             _options = options.Value;
         }
 

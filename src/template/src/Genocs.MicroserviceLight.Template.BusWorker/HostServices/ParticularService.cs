@@ -21,20 +21,23 @@
 
         public ParticularService(IOptions<Infrastructure.ServiceBus.ParticularServiceBusOptions> options, ILogger<ParticularService> logger)
         {
-            _logger = logger;
+            if (options is null)
+            {
+                throw new ArgumentNullException(nameof(options));
+            }
+
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
             _options = options.Value;
 
-            if (_options == null)
-            {
-                throw new NullReferenceException("options cannot be null");
-            }
 
             // Start NServiceBus configuration
             _configuration = new EndpointConfiguration(_options.EndpointName);
+            _logger.LogInformation($"Start endpoint name: '{_options.EndpointName}'");
             var transport = _configuration.UseTransport<RabbitMQTransport>();
             transport.UseConventionalRoutingTopology();
             transport.ConnectionString(_options.ConnectionString);
+            _logger.LogInformation($"Endpoint connection string: '{_options.ConnectionString}'");
 
             // Unobtrusive mode. 
             var conventions = _configuration.Conventions();

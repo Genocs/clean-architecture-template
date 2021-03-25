@@ -5,7 +5,6 @@
 **/.gitignore
 **/.project
 **/.settings
-**/.sonarqube
 **/.toolstarget
 **/.vs
 **/.vscode
@@ -15,11 +14,12 @@
 **/azds.yaml
 **/bin
 **/charts
-**/docker-compose*.yml
+**/docker-compose*
 **/Dockerfile*
 **/node_modules
 **/npm-debug.log
 **/obj
 **/secrets.dev.yaml
+**/values.dev.yaml
 LICENSE
-**/README*.md
+README.md

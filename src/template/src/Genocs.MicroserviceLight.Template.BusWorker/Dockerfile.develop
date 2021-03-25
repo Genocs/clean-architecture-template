@@ -1,0 +1,22 @@
+FROM mcr.microsoft.com/dotnet/sdk:5.0
+ARG BUILD_CONFIGURATION=Debug
+ENV ASPNETCORE_ENVIRONMENT=Development
+ENV ASPNETCORE_URLS=http://+:80
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true
+EXPOSE 80
+
+WORKDIR /src
+COPY ["src/Genocs.MicroserviceLight.Template.Application/Genocs.MicroserviceLight.Template.Application.csproj", "src/Genocs.MicroserviceLight.Template.Application/"]
+COPY ["src/Genocs.MicroserviceLight.Template.BusWorker/Genocs.MicroserviceLight.Template.BusWorker.csproj", "src/Genocs.MicroserviceLight.Template.BusWorker/"]
+COPY ["src/Genocs.MicroserviceLight.Template.Domain/Genocs.MicroserviceLight.Template.Domain.csproj", "src/Genocs.MicroserviceLight.Template.Domain/"]
+COPY ["src/Genocs.MicroserviceLight.Template.Infrastructure/Genocs.MicroserviceLight.Template.Infrastructure.csproj", "src/Genocs.MicroserviceLight.Template.Infrastructure/"]
+COPY ["src/Genocs.MicroserviceLight.Template.Shared/Genocs.MicroserviceLight.Template.Shared.csproj", "src/Genocs.MicroserviceLight.Template.Shared/"]
+
+RUN dotnet restore "src/Genocs.MicroserviceLight.Template.BusWorker/Genocs.MicroserviceLight.Template.BusWorker.csproj"
+COPY . .
+WORKDIR "/src/src/Genocs.MicroserviceLight.Template.BusWorker"
+RUN dotnet build --no-restore "Genocs.MicroserviceLight.Template.BusWorker.csproj" -c $BUILD_CONFIGURATION
+
+RUN echo "exec dotnet run --no-build --no-launch-profile -c $BUILD_CONFIGURATION --" > /entrypoint.sh
+
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]

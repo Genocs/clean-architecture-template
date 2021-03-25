@@ -15,15 +15,11 @@ namespace Genocs.MicroserviceLight.Template.BusWorker.Handlers
 
         }
 
-        public RebusEventOccurredHandler(ILogger<RebusEventOccurredHandler> logger)
-        {
-            this._logger = logger;
-        }
+        public RebusEventOccurredHandler(ILogger<RebusEventOccurredHandler> logger) => _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
 
         public async Task Handle(RegistrationCompleted message)
         {
-            // Add Logger
-            //_logger.LogInformation("Got string: {0}", message.EventId);
+            _logger.LogInformation("Got string: {0}", message.CreditId);
             await Task.CompletedTask;
         }
     }

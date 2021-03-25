@@ -1,18 +1,15 @@
-version: '3.8'
+version: '3.4'
 
 services:
+  genocs.microservicelight.template.busworker:
+    image: ${DOCKER_REGISTRY-}genocs.microservicelight.template.busworker
+    build:
+      context: .
+      dockerfile: src/Genocs.MicroserviceLight.Template.BusWorker/Dockerfile
 
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
+  genocs.microservicelight.template.webapi:
+    image: ${DOCKER_REGISTRY-}genocs.microservicelight.template.webapi
+    build:
+      context: .
+      dockerfile: src/Genocs.MicroserviceLight.Template.WebApi/Dockerfile
 
-  mongo:
-    image: mongo
-
-#  redis:
-#    image: redis:alpine
-
-  seq:
-    image: datalust/seq:latest
-
-  sqlserver:
-    image: "mcr.microsoft.com/mssql/server"
