@@ -14,7 +14,7 @@ This tool is usefull to increases productivity on developing your next microserv
 To generate your own Back-end project simple run:
 
 ```sh
-dotnet new -i Genocs.CleanArchitectureTemplate::1.5.0
+dotnet new -i Genocs.CleanArchitectureTemplate::1.6.0
 dotnet new cleanarchitecture -n {MyCompany.MyProject}
 cd {MyCompany.MyProject}
 dotnet build
@@ -28,11 +28,18 @@ dotnet run
 
 To build the package run the following commands:
 
+[Official Link](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates)
+
+
 ```sh
 cd .\src
-nuget pack 
+nuget pack
 ```
 
+How to install the template with local file
+```sh
+dotnet new -i Genocs.CleanArchitectureTemplate.1.6.0.nupkg
+```
 
 
 ## Sample application

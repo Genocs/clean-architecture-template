@@ -45,21 +45,22 @@
       "defaultValue": "particular",
       "choices": [
         {
-          "choice": "particular",
-          "description": "Particular Software Service Bus (NServiceBus)"
+          "choice": "azure",
+          "description": "Azure Service Bus (AzureServicebus)"
         },
         {
           "choice": "masstransit",
           "description": "Mass Transit Service Bus (MassTransit)"
         },
         {
-          "choice": "rebus",
-          "description": "Rebus Service Bus (Rebus)"
+          "choice": "particular",
+          "description": "Particular Software Service Bus (NServiceBus)"
         },
         {
-          "choice": "azure",
-          "description": "Azure Service Bus (AzureServicebus)"
+          "choice": "rebus",
+          "description": "Rebus Service Bus (Rebus)"
         }
+
       ]
     },
     "database": {
@@ -210,11 +211,10 @@
           "exclude": [
             "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Azure/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Rebus/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Rebus/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.WebApi/Extensions/RebusServicebusInfrastructureExtensions.cs",
             "src/Genocs.MicroserviceLight.Template.WebApi/Extensions/AzureServicebusInfrastructureExtensions.cs",
-            "src/Genocs.MicroserviceLight.Template.BusHost/HostServices/RebusService.cs",
-            "src/Genocs.MicroserviceLight.Template.BusHost/HostServices/AzureBusService.cs"
+            "src/Genocs.MicroserviceLight.Template.WebApi/Extensions/RebusServicebusInfrastructureExtensions.cs",
+            "src/Genocs.MicroserviceLight.Template.BusWorker/HostServices/AzureBusService.cs",
+            "src/Genocs.MicroserviceLight.Template.BusWorker/HostServices/RebusService.cs"		
           ]
         },
         {
@@ -222,13 +222,21 @@
           "exclude": [
             "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Azure/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Particular/**/*.cs"
+            "src/Genocs.MicroserviceLight.Template.WebApi/Extensions/AzureServicebusInfrastructureExtensions.cs",
+            "src/Genocs.MicroserviceLight.Template.WebApi/Extensions/ParticularServicebusInfrastructureExtensions.cs",
+            "src/Genocs.MicroserviceLight.Template.BusWorker/HostServices/AzureBusService.cs",
+            "src/Genocs.MicroserviceLight.Template.BusWorker/HostServices/ParticularService.cs"
           ]
         },
         {
           "condition": "(Azure)",
           "exclude": [
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Rebus/**/*.cs",
             "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Particular/**/*.cs"
+            "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Rebus/**/*.cs",
+            "src/Genocs.MicroserviceLight.Template.WebApi/Extensions/ParticularServicebusInfrastructureExtensions.cs",
+            "src/Genocs.MicroserviceLight.Template.WebApi/Extensions/RebusServicebusInfrastructureExtensions.cs",
+            "src/Genocs.MicroserviceLight.Template.BusWorker/HostServices/ParticularService.cs",
+            "src/Genocs.MicroserviceLight.Template.BusWorker/HostServices/RebusService.cs"
           ]
         },
         {
@@ -252,7 +260,7 @@
       "path": "src/Genocs.MicroserviceLight.Template.WebApi/Genocs.MicroserviceLight.Template.WebApi.csproj"
     },
     {
-      "path": "src/Genocs.MicroserviceLight.Template.BusHost/Genocs.MicroserviceLight.Template.BusHost.csproj"
+      "path": "src/Genocs.MicroserviceLight.Template.BusWorker/Genocs.MicroserviceLight.Template.BusWorker.csproj"
     },
     {
       "path": "src/Genocs.MicroserviceLight.Template.Shared/Genocs.MicroserviceLight.Template.Shared.csproj"

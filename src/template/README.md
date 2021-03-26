@@ -12,7 +12,7 @@ Sample implementation of the **Clean Architecture Principles with .NET Core**. U
 ## Usage
 
 ```sh
-dotnet new -i Genocs.CleanArchitecture::1.5.0
+dotnet new -i Genocs.CleanArchitecture::1.6.0
 dotnet new cleanarchitecture -n "MyCompany.MyProject"
 ```
 

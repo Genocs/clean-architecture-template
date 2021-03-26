@@ -3,7 +3,9 @@
     using Genocs.MicroserviceLight.Template.Domain;
     using Microsoft.Extensions.Configuration;
     using MongoDB.Bson;
+    using MongoDB.Bson.Serialization;
     using MongoDB.Bson.Serialization.Conventions;
+    using MongoDB.Bson.Serialization.Serializers;
     using MongoDB.Driver;
     using System;
     using System.Collections.Generic;
@@ -23,9 +25,6 @@
 
         public GenocsContext(IConfiguration configuration)
         {
-            // Set Guid to CSharp style (with dash -)
-            BsonDefaults.GuidRepresentation = GuidRepresentation.CSharpLegacy;
-
             // Every command will be stored and it'll be processed at SaveChanges
             _commands = new List<Func<Task>>();
 
@@ -40,10 +39,13 @@
 
         private void RegisterConventions()
         {
+             // Set Guid to CSharp style (with dash -)
+            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy)); 
+
             var pack = new ConventionPack
             {
                 new IgnoreExtraElementsConvention(true),
-                new IgnoreIfDefaultConvention(true)
+                new IgnoreIfDefaultConvention(true)                
             };
 
             ConventionRegistry.Register("Genocs Solution Conventions", pack, t => true);
