@@ -12,7 +12,7 @@ Sample implementation of the **Clean Architecture Principles with .NET Core**. U
 ## Usage
 
 ```sh
-dotnet new -i Genocs.CleanArchitecture::1.6.0
+dotnet new -i Genocs.CleanArchitecture::1.7.0
 dotnet new cleanarchitecture -n "MyCompany.MyProject"
 ```
 
@@ -1343,6 +1343,8 @@ deploy_script:
 
 ## Docker
 
+The project build two different images. One for the the Web API and one for the bus worker.   
+
 ```sh
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /app
@@ -1359,6 +1361,14 @@ ENV ASPNETCORE_URLS http://*:80
 ENV ASPNETCORE_ENVIRONMENT Docker
 ENTRYPOINT dotnet {MyCompany.MyProject}.WebApi.dll
 ```
+
+To build the docker images
+
+```sh
+docker build -t mycompany/myproject.webapi -f .\src\Genocs.MicroserviceLight.Template.WebApi\Dockerfile .
+docker build -t mycompany/myproject.worker -f .\src\Genocs.MicroserviceLight.Template.BusWorker\Dockerfile .
+```
+
 
 ## SQL Server
 

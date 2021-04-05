@@ -14,13 +14,15 @@ This tool is usefull to increases productivity on developing your next microserv
 To generate your own Back-end project simple run:
 
 ```sh
-dotnet new -i Genocs.CleanArchitectureTemplate::1.6.0
+dotnet new -i Genocs.CleanArchitectureTemplate::1.7.0
 dotnet new cleanarchitecture -n {MyCompany.MyProject}
 cd {MyCompany.MyProject}
-dotnet build
+dotnet build src\Genocs.MicroserviceLight.Template.WebApi
+dotnet build src\Genocs.MicroserviceLight.Template.BusWorker
+
 dotnet test
 cd src\{MyCompany.MyProject}.WebApi
-dotnet run
+dotnet run src\Genocs.MicroserviceLight.Template.WebApi
 ```
 
 
@@ -34,12 +36,12 @@ To build the package run the following commands:
 ```sh
 cd .\src
 nuget pack
+dotnet new -u Genocs.CleanArchitectureTemplate
+dotnet new -i Genocs.CleanArchitectureTemplate.1.7.0.nupkg
+dotnet new cleanarchitecture --help
+dotnet new cleanarchitecture --name Genocs.HelloWorld -d mongodb -sb particular
 ```
 
-How to install the template with local file
-```sh
-dotnet new -i Genocs.CleanArchitectureTemplate.1.6.0.nupkg
-```
 
 
 ## Sample application
