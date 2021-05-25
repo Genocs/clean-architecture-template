@@ -3,7 +3,7 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.UseCasesTests.Register
     using Application.Boundaries.Register;
     using Application.UseCases;
     using Domain.ValueObjects;
-    using Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.InMemory;
+    using Infrastructure.PersistenceLayer.InMemory;
     using System;
     using System.Linq;
     using System.Threading.Tasks;

@@ -1,6 +1,6 @@
 ﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.MongoDb
 {
-    using Genocs.MicroserviceLight.Template.Domain;
+    using Domain;
     using MongoDB.Driver;
     using System;
     using System.Threading.Tasks;

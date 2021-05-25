@@ -1,9 +1,9 @@
-﻿using Genocs.MicroserviceLight.Template.Application.Services;
-using Genocs.MicroserviceLight.Template.Shared.Interfaces;
-using System.Threading.Tasks;
-
-namespace Genocs.MicroserviceLight.Template.UnitTests.TestFixtures
+﻿namespace Genocs.MicroserviceLight.Template.UnitTests.TestFixtures
 {
+    using Application.Services;
+    using Shared.Interfaces;
+    using System.Threading.Tasks;
+
     public class FakeServiceBus : IServiceBusClient
     {
         public async Task PublishEventAsync<T>(T evt) where T : IEvent

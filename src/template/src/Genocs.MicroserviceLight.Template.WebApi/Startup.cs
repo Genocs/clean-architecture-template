@@ -2,7 +2,6 @@ namespace Genocs.MicroserviceLight.Template.WebApi
 {
     using Extensions;
     using Extensions.FeatureFlags;
-    using Genocs.MicroserviceLight.Template.WebApi.ApiClient;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -11,6 +10,7 @@ namespace Genocs.MicroserviceLight.Template.WebApi
     using Microsoft.Extensions.Hosting;
     using Refit;
     using System;
+    using WebApi.ApiClient;
 
     public sealed class Startup
     {
@@ -27,6 +27,7 @@ namespace Genocs.MicroserviceLight.Template.WebApi
 
         public void ConfigureProductionServices(IServiceCollection services)
             => InternalConfiguration(services);
+
         public void ConfigureDockerServices(IServiceCollection services)
             => InternalConfiguration(services);
 
@@ -45,12 +46,30 @@ namespace Genocs.MicroserviceLight.Template.WebApi
 #else
             services.AddSQLServerPersistence(Configuration);
 #endif
+            // Select your Database
+
+            // services.AddInMemoryPersistence();
+            // services.AddMongoDBPersistence(Configuration);
+            // services.AddSQLServerPersistence(Configuration);
+
+
             services.AddPresentersV1();
             services.AddPresentersV2();
 
+
+            // Select your Enterprise service bus library
+
+#if AzureServiceBus
             services.AddParticularServiceBus(Configuration);
-            //services.AddAzureServiceBus(Configuration);
-            //services.AddRebusServiceBus(Configuration);
+#endif
+
+#if NServiceBus
+            services.AddAzureServiceBus(Configuration);
+#endif
+
+#if Rebus
+            services.AddRebusServiceBus(Configuration);
+#endif
 
             //refit apis
             services.AddRefitClient<IOrderApi>()

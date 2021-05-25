@@ -1,6 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.UnitTests.TestFixtures
 {
-    using Genocs.MicroserviceLight.Template.Application.Services;
+    using Application.Services;
     using Infrastructure.PersistenceLayer.InMemory;
     using Infrastructure.PersistenceLayer.InMemory.Repositories;
 

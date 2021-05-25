@@ -1,10 +1,10 @@
-﻿using Genocs.MicroserviceLight.Template.Shared.Events;
-using Microsoft.Extensions.Logging;
-using Rebus.Handlers;
-using System.Threading.Tasks;
-
-namespace Genocs.MicroserviceLight.Template.BusWorker.Handlers
+﻿namespace Genocs.MicroserviceLight.Template.BusWorker.Handlers
 {
+    using Microsoft.Extensions.Logging;
+    using Rebus.Handlers;
+    using Shared.Events;
+    using System.Threading.Tasks;
+
     class RebusEventOccurredHandler : IHandleMessages<RegistrationCompleted>
     {
 

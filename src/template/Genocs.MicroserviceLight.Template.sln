@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6335BAF6-440D-4B7D-8618-DB1B32F4E1DB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6335BAF6-440D-4B7D-8618-DB1B32F4E1DB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.Domain", "src\Genocs.MicroserviceLight.Template.Domain\Genocs.MicroserviceLight.Template.Domain.csproj", "{4D2A9497-9C04-40A4-B378-309537FA2220}"
 EndProject
@@ -20,11 +20,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.Application", "src\Genocs.MicroserviceLight.Template.Application\Genocs.MicroserviceLight.Template.Application.csproj", "{B3DAF7F3-D632-4252-829B-010BF702BDC0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.BusWorker", "src\Genocs.MicroserviceLight.Template.BusWorker\Genocs.MicroserviceLight.Template.BusWorker.csproj", "{BDCA6C7C-B27B-45E0-B560-D6B69BD3273B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1BDA405C-FB8F-4259-9A2D-3C5EBFC6855F}"
-	ProjectSection(SolutionItems) = preProject
-		..\Genocs.CleanArchitectureTemplate.nuspec = ..\Genocs.CleanArchitectureTemplate.nuspec
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.Shared", "src\Genocs.MicroserviceLight.Template.Shared\Genocs.MicroserviceLight.Template.Shared.csproj", "{DECBE6BD-D669-40C6-8A29-8DEC5EB61ECA}"
 EndProject

@@ -1,6 +1,6 @@
 ﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.MongoDb
 {
-    using Genocs.MicroserviceLight.Template.Domain;
+    using Domain;
     using Microsoft.Extensions.Configuration;
     using MongoDB.Bson;
     using MongoDB.Bson.Serialization;
@@ -28,8 +28,6 @@
             // Every command will be stored and it'll be processed at SaveChanges
             _commands = new List<Func<Task>>();
 
-            RegisterConventions();
-
             // Configure mongo (You can inject the config, just to simplify)
             MongoClient = new MongoClient(Environment.GetEnvironmentVariable("MONGOCONNECTION") ?? configuration.GetSection("MongoSettings").GetSection("Connection").Value);
 
@@ -37,7 +35,7 @@
 
         }
 
-        private void RegisterConventions()
+        public static void RegisterConventions()
         {
              // Set Guid to CSharp style (with dash -)
             BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy)); 

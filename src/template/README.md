@@ -49,6 +49,29 @@ This is continually updated, open source project.
 
 [Contributions](#contributors-) are welcome!
 
+
+## Persistance layer
+
+This example contains the implementation related to three different storage type:
+
+- InMemoryDataAccess (usefull only for development) 
+- Microsoft SQL Server (The popular Relational database developed by Microsoft) 
+- MongoDB (The popular Document DB) 
+
+## Enterprise service bus
+
+This example implement the interprise service bus using three different library
+ 
+- NService Bus
+- Rebus
+- Bare implementation with Azure Service bus 
+
+
+## Containers and orchestrators
+
+The example is ready to create the docker images for both Web.Api and BusWorker
+
+
 ## Contributing
 
 > Learn from the community.

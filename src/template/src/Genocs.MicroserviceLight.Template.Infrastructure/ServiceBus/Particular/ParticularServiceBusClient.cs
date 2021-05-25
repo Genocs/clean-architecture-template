@@ -1,11 +1,11 @@
-﻿using Genocs.MicroserviceLight.Template.Application.Services;
-using Microsoft.Extensions.Options;
-using NServiceBus;
-using System;
-using System.Threading.Tasks;
-
-namespace Genocs.MicroserviceLight.Template.Infrastructure.ServiceBus
+﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.ServiceBus
 {
+    using Application.Services;
+    using Microsoft.Extensions.Options;
+    using NServiceBus;
+    using System;
+    using System.Threading.Tasks;
+
     public class ParticularServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
     {
 

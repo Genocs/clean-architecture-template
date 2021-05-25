@@ -12,6 +12,9 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
     {
         public static IServiceCollection AddMongoDBPersistence(this IServiceCollection services, IConfiguration configuration)
         {
+            // Initialize the static conventions
+            GenocsContext.RegisterConventions();
+
             services.AddScoped<IEntityFactory, EntityFactory>();
             services.AddScoped<IMongoContext, GenocsContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();

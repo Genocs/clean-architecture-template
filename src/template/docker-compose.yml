@@ -12,4 +12,3 @@ services:
     build:
       context: .
       dockerfile: src/Genocs.MicroserviceLight.Template.WebApi/Dockerfile
-
