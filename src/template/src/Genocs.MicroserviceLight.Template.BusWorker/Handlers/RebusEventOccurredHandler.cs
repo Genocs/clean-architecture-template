@@ -15,7 +15,8 @@
 
         }
 
-        public RebusEventOccurredHandler(ILogger<RebusEventOccurredHandler> logger) => _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
+        public RebusEventOccurredHandler(ILogger<RebusEventOccurredHandler> logger)
+            => _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
 
         public async Task Handle(RegistrationCompleted message)
         {

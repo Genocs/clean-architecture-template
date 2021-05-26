@@ -58,15 +58,15 @@ namespace Genocs.MicroserviceLight.Template.WebApi
 
 
 #if AzureServiceBus
-            services.AddAzureServiceBus(Configuration);
+//            services.AddAzureServiceBus(Configuration);
 #endif
 
 #if NServiceBus
-            services.AddParticularServiceBus(Configuration);
+//            services.AddParticularServiceBus(Configuration);
 #endif
 
 #if Rebus
-            services.AddRebusServiceBus(Configuration);
+//            services.AddRebusServiceBus(Configuration);
 #endif
 
             // Select your Enterprise service bus library

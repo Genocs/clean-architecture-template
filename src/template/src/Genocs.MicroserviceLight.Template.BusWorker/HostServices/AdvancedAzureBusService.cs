@@ -49,11 +49,10 @@
             _createQueueClient = createQueueClient;
 
             // Register Handlers
-            // Register the 
             RegisterMessage<IntegrationEventIssued, IMessageEventHandler<IntegrationEventIssued>>();
         }
 
-        public void RegisterMessage<T, TH>() where T : IIntegrationEvent where TH : IMessageEventHandler<T>
+        private void RegisterMessage<T, TH>() where T : IIntegrationEvent where TH : IMessageEventHandler<T>
         {
             var eventName = typeof(T).Name;
             if (!_handlers.ContainsKey(eventName))
