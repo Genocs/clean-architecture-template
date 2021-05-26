@@ -57,19 +57,23 @@ namespace Genocs.MicroserviceLight.Template.WebApi
             services.AddPresentersV2();
 
 
-            // Select your Enterprise service bus library
-
 #if AzureServiceBus
-            services.AddParticularServiceBus(Configuration);
+            services.AddAzureServiceBus(Configuration);
 #endif
 
 #if NServiceBus
-            services.AddAzureServiceBus(Configuration);
+            services.AddParticularServiceBus(Configuration);
 #endif
 
 #if Rebus
             services.AddRebusServiceBus(Configuration);
 #endif
+
+            // Select your Enterprise service bus library
+            
+            // services.AddAzureServiceBus(Configuration);
+            // services.AddParticularServiceBus(Configuration);
+            // services.AddRebusServiceBus(Configuration);
 
             //refit apis
             services.AddRefitClient<IOrderApi>()

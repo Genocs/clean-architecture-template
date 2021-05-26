@@ -78,7 +78,7 @@
         },
         {
           "choice": "inmemory",
-          "description": "In Memory datbase for internal test (InMemory)"
+          "description": "In Memory database for Debug (InMemory)"
         }
       ]
     },
@@ -92,15 +92,7 @@
     },
     "Full": {
       "type": "computed",
-      "value": "(use-cases == \"full\" && service-bus == \"particular\" && database == \"mongodb\")"
-    },
-    "NServiceBus": {
-      "type": "computed",
-      "value": "(service-bus == \"particular\")"
-    },
-    "Particular": {
-      "type": "computed",
-      "value": "(NServiceBus)"
+      "value": "(use-cases == \"full\")"
     },
     "CloseAccount": {
       "type": "computed",
