@@ -1,5 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.Domain.ValueObjects
 {
+    using Exceptions;
     using System;
 
     public sealed class PositiveMoney : IEquatable<PositiveMoney>
@@ -18,7 +19,7 @@ namespace Genocs.MicroserviceLight.Template.Domain.ValueObjects
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj))
+            if (obj is null)
             {
                 return false;
             }
@@ -28,9 +29,9 @@ namespace Genocs.MicroserviceLight.Template.Domain.ValueObjects
                 return true;
             }
 
-            if (obj is decimal)
+            if (obj is decimal @decimal)
             {
-                return (decimal)obj == _value.ToDecimal();
+                return @decimal == _value.ToDecimal();
             }
 
             return ((PositiveMoney)obj)._value == _value;

@@ -1,5 +1,6 @@
 namespace Genocs.MicroserviceLight.Template.Domain.ValueObjects
 {
+    using Exceptions;
     using System;
     using System.Text.RegularExpressions;
 

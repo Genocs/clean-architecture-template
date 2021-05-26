@@ -1,16 +1,18 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Hosting;
-using System;
-
-namespace Genocs.MicroserviceLight.Template.BusWorker
+﻿namespace Genocs.MicroserviceLight.Template.BusWorker
 {
+    using Application.Services;
+    using BusWorker.Handlers;
     using BusWorker.HostServices;
     using ExternalServices;
-    using Application.Services;
+    using Infrastructure.ServiceBus.Azure;
     using Infrastructure.WebApiClient.ExternalServices;
     using Infrastructure.WebApiClient.Resiliency;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.DependencyInjection.Extensions;
+    using Microsoft.Extensions.Diagnostics.HealthChecks;
+    using Microsoft.Extensions.Hosting;
+    using Shared.ReadModels;
+    using System;
 
     public static class ServiceStartup
     {
@@ -34,6 +36,10 @@ namespace Genocs.MicroserviceLight.Template.BusWorker
             services.AddHostedService<ParticularService>();
             //            services.AddHostedService<AzureBusService>();
             //            services.AddHostedService<RebusService>();
+
+
+            // Register the Event handler
+            services.AddScoped<IMessageEventHandler<IntegrationEventIssued>, AzureEventOccurredHandler>();
 
             // Register API client 
             services

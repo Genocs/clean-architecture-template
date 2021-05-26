@@ -1,5 +1,7 @@
 ﻿namespace Genocs.MicroserviceLight.Template.BusWorker.HostServices
 {
+    using Infrastructure.ServiceBus.Azure;
+    using Shared.Interfaces;
     using Microsoft.Azure.ServiceBus;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
@@ -7,27 +9,33 @@
     using Newtonsoft.Json;
     using Shared.ReadModels;
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using Genocs.MicroserviceLight.Template.BusWorker.Handlers;
 
-    internal class AzureBusService : IHostedService
+    internal class AdvancedAzureBusService : IHostedService
     {
-        private readonly JsonSerializer _serializer;
-        private readonly ILogger<AzureBusService> _logger;
+        private const string INTEGRATION_EVENT_SUFFIX = "IntegrationEvent";
+
+        private readonly ILogger<AdvancedAzureBusService> _logger;
         private readonly Infrastructure.ServiceBus.AzureServiceBusOptions _options;
 
         private readonly Func<Infrastructure.ServiceBus.AzureServiceBusOptions, IQueueClient> _createQueueClient;
 
-        private IQueueClient _busClient;
+        private readonly IServiceProvider _serviceProvider;
 
-        public AzureBusService(IOptions<Infrastructure.ServiceBus.AzureServiceBusOptions> options, ILogger<AzureBusService> logger)
-            : this(options, logger, CreateQueueClient)
+        private IQueueClient _busClient;
+        private Dictionary<string, KeyValuePair<Type, Type>> _handlers = new Dictionary<string, KeyValuePair<Type, Type>>();
+
+        public AdvancedAzureBusService(IOptions<Infrastructure.ServiceBus.AzureServiceBusOptions> options, ILogger<AdvancedAzureBusService> logger, IServiceProvider serviceProvider)
+            : this(options, logger, CreateQueueClient, serviceProvider)
         { }
 
-        public AzureBusService(IOptions<Infrastructure.ServiceBus.AzureServiceBusOptions> options, ILogger<AzureBusService> logger,
-            Func<Infrastructure.ServiceBus.AzureServiceBusOptions, IQueueClient> createQueueClient)
+        public AdvancedAzureBusService(IOptions<Infrastructure.ServiceBus.AzureServiceBusOptions> options, ILogger<AdvancedAzureBusService> logger,
+            Func<Infrastructure.ServiceBus.AzureServiceBusOptions, IQueueClient> createQueueClient, IServiceProvider serviceProvider)
         {
             _options = options.Value;
 
@@ -36,10 +44,22 @@
                 throw new NullReferenceException("options cannot be null");
             }
 
+            _serviceProvider = serviceProvider;
             _logger = logger;
             _createQueueClient = createQueueClient;
 
-            _serializer = new JsonSerializer();
+            // Register Handlers
+            // Register the 
+            RegisterMessage<IntegrationEventIssued, IMessageEventHandler<IntegrationEventIssued>>();
+        }
+
+        public void RegisterMessage<T, TH>() where T : IIntegrationEvent where TH : IMessageEventHandler<T>
+        {
+            var eventName = typeof(T).Name;
+            if (!_handlers.ContainsKey(eventName))
+            {
+                _handlers.Add(eventName, new KeyValuePair<Type, Type>(typeof(T), typeof(TH)));
+            }
         }
 
         private static IQueueClient CreateQueueClient(Infrastructure.ServiceBus.AzureServiceBusOptions options)
@@ -88,13 +108,29 @@
         {
             _logger.LogInformation("Processing message {messageId}", message.MessageId);
 
-            if (TryGetSimpleMessage(message, out var messageContent))
+            var eventName = $"{message.Label}";
+            if (_handlers.ContainsKey(eventName) && _serviceProvider != null)
             {
-                _logger.LogInformation($"Received message with id '{message.MessageId}'. The content is '{messageContent.Title}'. The message will be removed from queue");
-
-                // Send the ack 
-                await _busClient.CompleteAsync(message.SystemProperties.LockToken);
-                return;
+                //using (var scope = _services.CreateScope())
+                //{
+                var type = _handlers[eventName];
+                if (type.Key != null && type.Value != null)
+                {
+                    var handler = _serviceProvider.GetService(type.Value);
+                    if (handler != null)
+                    {
+                        var evt = TryGenericMessage(message, type.Key);
+                        if (evt is not null)
+                        {
+                            var concreteType = typeof(IMessageEventHandler<>).MakeGenericType(type.Key);
+                            await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { evt });
+                            await _busClient.CompleteAsync(message.SystemProperties.LockToken); // Send the ack 
+                            _logger.LogInformation("Processed message {messageId}", message.MessageId);
+                            return;
+                        }
+                    }
+                }
+                //}
             }
 
             try
@@ -114,53 +150,22 @@
             return Task.CompletedTask;
         }
 
-        private bool TryGetSimpleMessage(Message incomingMessage, out IntegrationEventIssued outcomingMessage)
+        private object TryGenericMessage(Message incomingMessage, Type type)
         {
-            outcomingMessage = null;
             try
             {
                 if (incomingMessage.Body != null && incomingMessage.Body.Length > 0)
                 {
-                    using (MemoryStream payloadStream = new MemoryStream(incomingMessage.Body, false))
-                    using (StreamReader streamReader = new StreamReader(payloadStream, Encoding.UTF8))
-                    using (JsonTextReader jsonReader = new JsonTextReader(streamReader))
-                    {
-                        // Please change the SimpleMessage objct with your own message type 
-                        outcomingMessage = _serializer.Deserialize<IntegrationEventIssued>(jsonReader);
-                    }
+                    using MemoryStream payloadStream = new MemoryStream(incomingMessage.Body, false);
+                    using StreamReader streamReader = new StreamReader(payloadStream, Encoding.UTF8);
+                    return JsonConvert.DeserializeObject(streamReader.ReadToEnd(), type);
                 }
-
-                return true;
             }
             catch (Exception e)
             {
                 _logger.LogError(e, "Cannot parse payload from message {messageId}", incomingMessage.MessageId);
             }
-            return false;
-        }
-
-        private bool TryGetStringMessage(Message incomingMessage, out string outcomingMessage)
-        {
-            outcomingMessage = null;
-            try
-            {
-                if (incomingMessage.Body != null && incomingMessage.Body.Length > 0)
-                {
-                    using (MemoryStream payloadStream = new MemoryStream(incomingMessage.Body, false))
-                    using (StreamReader streamReader = new StreamReader(payloadStream, Encoding.UTF8))
-                    {
-                        // Read the data as string
-                        outcomingMessage = streamReader.ReadToEnd();
-                    }
-                }
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, "Cannot parse payload from message {messageId}", incomingMessage.MessageId);
-            }
-            return false;
+            return null;
         }
     }
 }

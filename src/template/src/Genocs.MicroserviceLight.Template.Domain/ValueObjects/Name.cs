@@ -1,10 +1,11 @@
 namespace Genocs.MicroserviceLight.Template.Domain.ValueObjects
 {
+    using Exceptions;
     using System;
 
     public sealed class Name : IEquatable<Name>
     {
-        private string _text;
+        private readonly string _text;
 
         private Name() { }
 

@@ -2,6 +2,7 @@ namespace Genocs.MicroserviceLight.Template.UnitTests.UseCasesTests.Deposit
 {
     using Application.Boundaries.Deposit;
     using Application.UseCases;
+    using Domain.Exceptions;
     using Domain.ValueObjects;
     using Infrastructure.PersistenceLayer.InMemory;
     using System.Linq;
