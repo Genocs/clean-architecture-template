@@ -61,6 +61,8 @@ services:
       - mongodb_data1:/data/db
     networks:
       - genocs
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]      
+
 
   mongodb_node_2:
     image: "mongo"
@@ -72,6 +74,7 @@ services:
       - mongodb_data2:/data/db
     networks:
       - genocs
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]      
       
   mongodb_node_3:
     image: "mongo"
@@ -83,6 +86,7 @@ services:
       - mongodb_data3:/data/db
     networks:
       - genocs
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]      
       
 volumes:
   rabbit1:
