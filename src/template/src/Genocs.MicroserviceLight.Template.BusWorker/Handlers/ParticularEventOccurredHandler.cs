@@ -1,22 +1,22 @@
-﻿using Microsoft.Extensions.Logging;
-using NServiceBus;
+﻿using NServiceBus;
+using NServiceBus.Logging;
 using System.Threading.Tasks;
 
 namespace Genocs.MicroserviceLight.Template.BusWorker.Handlers
 {
     public class ParticularEventOccurredHandler : IHandleMessages<Shared.Events.RegistrationCompleted>
     {
-        private readonly ILogger<ParticularEventOccurredHandler> _logger;
+//        private readonly ILog  _logger = LogManager.GetLogger<ParticularEventOccurredHandler>();
 
         //static int counter = 0;
 
-        public ParticularEventOccurredHandler(ILogger<ParticularEventOccurredHandler> logger)
-            => _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
+//        public ParticularEventOccurredHandler(ILog logger)
+//            => _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
 
         public Task Handle(Shared.Events.RegistrationCompleted message, IMessageHandlerContext context)
         {
 
-            _logger.LogInformation($"RegistrationCompleted on AccountId: '{message.AccountId}'");
+//            _logger.($"RegistrationCompleted on AccountId: '{message.AccountId}'");
 
             // Remove the comments to simulate some exception
             //if(counter++ < 10 )

@@ -125,6 +125,10 @@
                 }
                 //}
             }
+            else
+            {
+                _logger.LogError("handlers do not cointains dato for message with label: '{Label}', messageId: {MessageId}", message.Label, message.MessageId);
+            }
 
             try
             {

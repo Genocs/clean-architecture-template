@@ -27,16 +27,16 @@
             services.AddApplicationInsightsKubernetesEnricher();
             services.AddApplicationInsightsTelemetry(context.Configuration);
 
-            //services.Configure<Infrastructure.ServiceBus.ParticularServiceBusSettings>(context.Configuration.GetSection("ParticularServiceBusSettings"));
-            services.Configure<Infrastructure.ServiceBus.MassTransitSetting>(context.Configuration.GetSection("MassTransitSetting"));
+            services.Configure<Infrastructure.ServiceBus.ParticularServiceBusSettings>(context.Configuration.GetSection("ParticularServiceBusSettings"));
+            //services.Configure<Infrastructure.ServiceBus.MassTransitSetting>(context.Configuration.GetSection("MassTransitSetting"));
             //services.Configure<Infrastructure.ServiceBus.AzureServiceBusSettings>(context.Configuration.GetSection("AzureServiceBusSettings"));
             //services.Configure<Infrastructure.ServiceBus.RebusBusSettings>(context.Configuration.GetSection("RebusBusSettings"));
 
             // The HostService 
             // This is the Service entry point management
-            //services.AddHostedService<ParticularService>();
-            services.AddHostedService<MassTransitBusService>();
-            //services.AddHostedService<AzureBusService>();
+            services.AddHostedService<ParticularService>();
+            //services.AddHostedService<MassTransitBusService>();
+            //services.AddHostedService<AzureBusHostService>();
             //services.AddHostedService<RebusService>();
 
 

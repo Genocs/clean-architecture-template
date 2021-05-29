@@ -56,9 +56,6 @@ namespace Genocs.MicroserviceLight.Template.WebApi
             services.AddPresentersV1();
             services.AddPresentersV2();
 
-            services.AddMassTransitServiceBus(Configuration);
-
-
 #if AzureServiceBus
             //            services.AddAzureServiceBus(Configuration);
 #endif
@@ -73,10 +70,9 @@ namespace Genocs.MicroserviceLight.Template.WebApi
 
             // Select your Enterprise service bus library
 
-            // services.AddAzureServiceBus(Configuration);
-            // services.AddMassTransitServiceBus(Configuration);
-
-            // services.AddParticularServiceBus(Configuration);
+            //services.AddAzureServiceBus(Configuration);
+            //services.AddMassTransitServiceBus(Configuration);
+            services.AddParticularServiceBus(Configuration);
             // services.AddRebusServiceBus(Configuration);
 
             //refit apis

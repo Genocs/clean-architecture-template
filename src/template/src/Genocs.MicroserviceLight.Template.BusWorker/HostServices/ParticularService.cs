@@ -12,8 +12,6 @@
     {
 
         private readonly ILogger<ParticularService> _logger;
-        private readonly Infrastructure.ServiceBus.ParticularServiceBusSettings _settings;
-
         private readonly EndpointConfiguration _configuration;
 
         private IEndpointInstance _instance;
@@ -28,16 +26,13 @@
 
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-            _settings = settings.Value;
-
-
             // Start NServiceBus configuration
-            _configuration = new EndpointConfiguration(_settings.EndpointName);
-            _logger.LogInformation($"Start endpoint name: '{_settings.EndpointName}'");
+            _configuration = new EndpointConfiguration(settings.Value.EndpointName);
+            _logger.LogInformation($"Start endpoint name: '{settings.Value.EndpointName}'");
             var transport = _configuration.UseTransport<RabbitMQTransport>();
             transport.UseConventionalRoutingTopology();
-            transport.ConnectionString(_settings.ConnectionString);
-            _logger.LogInformation($"Endpoint connection string: '{_settings.ConnectionString}'");
+            transport.ConnectionString(settings.Value.ConnectionString);
+            _logger.LogInformation($"Endpoint connection string: '{settings.Value.ConnectionString}'");
 
             // Unobtrusive mode. 
             var conventions = _configuration.Conventions();
