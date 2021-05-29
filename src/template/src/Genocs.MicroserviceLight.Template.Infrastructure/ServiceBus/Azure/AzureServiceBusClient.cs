@@ -6,39 +6,37 @@
     using Newtonsoft.Json;
     using Shared.Interfaces;
     using System;
-    using System.IO;
-    using System.Runtime.Serialization.Formatters.Binary;
     using System.Text;
     using System.Threading.Tasks;
 
     public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
     {
 
-        private readonly AzureServiceBusOptions _config;
+        private readonly AzureServiceBusSettings _settings;
 
         private IQueueClient _queueClient;
 
-        public AzureServiceBusClient(IOptions<AzureServiceBusOptions> configuration)
+        public AzureServiceBusClient(IOptions<AzureServiceBusSettings> settings)
         {
-            _config = configuration.Value;
+            _settings = settings.Value;
 
-            if (_config is null)
+            if (_settings is null)
             {
-                throw new NullReferenceException("configuration.Value.cannot be null");
+                throw new NullReferenceException("settings.Value.cannot be null");
             }
 
             ServiceBusConnectionStringBuilder connectionStringBuilder = new ServiceBusConnectionStringBuilder
             {
-                Endpoint = _config.QueueEndpoint,
-                EntityPath = _config.QueueName,
-                SasKeyName = _config.QueueAccessPolicyName,
-                SasKey = _config.QueueAccessPolicyKey,
+                Endpoint = _settings.QueueEndpoint,
+                EntityPath = _settings.QueueName,
+                SasKeyName = _settings.QueueAccessPolicyName,
+                SasKey = _settings.QueueAccessPolicyKey,
                 TransportType = TransportType.Amqp
             };
 
             _queueClient = new QueueClient(connectionStringBuilder)
             {
-                PrefetchCount = _config.PrefetchCount
+                PrefetchCount = _settings.PrefetchCount
             };
         }
 

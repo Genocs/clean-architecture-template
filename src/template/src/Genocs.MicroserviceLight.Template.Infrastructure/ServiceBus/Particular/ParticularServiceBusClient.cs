@@ -9,16 +9,16 @@
     public class ParticularServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
     {
 
-        private readonly ParticularServiceBusOptions _config;
+        private readonly ParticularServiceBusSettings _settings;
         private IEndpointInstance _instance;
 
-        public ParticularServiceBusClient(IOptions<ParticularServiceBusOptions> configuration)
+        public ParticularServiceBusClient(IOptions<ParticularServiceBusSettings> settings)
         {
-            _config = configuration.Value;
+            _settings = settings.Value;
 
-            if (_config is null)
+            if (_settings is null)
             {
-                throw new NullReferenceException("configuration.Value.cannot be null");
+                throw new NullReferenceException("settings.Value.cannot be null");
             }
         }
 
@@ -26,10 +26,10 @@
         {
             if (_instance == null)
             {
-                var endpointConfiguration = new EndpointConfiguration(_config.EndpointName);
+                var endpointConfiguration = new EndpointConfiguration(_settings.EndpointName);
                 var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
                 transport.UseConventionalRoutingTopology();
-                transport.ConnectionString(_config.ConnectionString);
+                transport.ConnectionString(_settings.ConnectionString);
 
                 // Unobtrusive mode. 
                 var conventions = endpointConfiguration.Conventions();

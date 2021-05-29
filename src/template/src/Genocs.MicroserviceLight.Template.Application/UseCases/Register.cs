@@ -61,6 +61,7 @@ namespace Genocs.MicroserviceLight.Template.Application.UseCases
             // Publish the event to the enterprice service bus
             await _serviceBus.PublishEventAsync(new RegistrationCompleted() { CustomerId = customer.Id, AccountId = account.Id, CreditId = credit.Id });
 
+
             await _unitOfWork.Save();
 
 

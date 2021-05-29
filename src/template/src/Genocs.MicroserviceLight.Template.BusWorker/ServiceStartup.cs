@@ -4,7 +4,7 @@
     using BusWorker.Handlers;
     using BusWorker.HostServices;
     using ExternalServices;
-    using Infrastructure.ServiceBus.Azure;
+    using Infrastructure.ServiceBus;
     using Infrastructure.WebApiClient.ExternalServices;
     using Infrastructure.WebApiClient.Resiliency;
     using Microsoft.Extensions.DependencyInjection;
@@ -27,15 +27,17 @@
             services.AddApplicationInsightsKubernetesEnricher();
             services.AddApplicationInsightsTelemetry(context.Configuration);
 
-            services.Configure<Infrastructure.ServiceBus.ParticularServiceBusOptions>(context.Configuration.GetSection("ParticularServiceBusSettings"));
-            //services.Configure<Infrastructure.ServiceBus.AzureServiceBusOptions>(context.Configuration.GetSection("AzureServiceBusSettings"));
-            //services.Configure<Infrastructure.ServiceBus.RebusBusOptions>(context.Configuration.GetSection("RebusBusSettings"));
+            //services.Configure<Infrastructure.ServiceBus.ParticularServiceBusSettings>(context.Configuration.GetSection("ParticularServiceBusSettings"));
+            services.Configure<Infrastructure.ServiceBus.MassTransitSetting>(context.Configuration.GetSection("MassTransitSetting"));
+            //services.Configure<Infrastructure.ServiceBus.AzureServiceBusSettings>(context.Configuration.GetSection("AzureServiceBusSettings"));
+            //services.Configure<Infrastructure.ServiceBus.RebusBusSettings>(context.Configuration.GetSection("RebusBusSettings"));
 
             // The HostService 
             // This is the Service entry point management
-            services.AddHostedService<ParticularService>();
-            //            services.AddHostedService<AzureBusService>();
-            //            services.AddHostedService<RebusService>();
+            //services.AddHostedService<ParticularService>();
+            services.AddHostedService<MassTransitBusService>();
+            //services.AddHostedService<AzureBusService>();
+            //services.AddHostedService<RebusService>();
 
 
             // Register the Event handler

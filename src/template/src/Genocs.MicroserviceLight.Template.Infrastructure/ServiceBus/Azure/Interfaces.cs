@@ -1,4 +1,4 @@
-﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.ServiceBus.Azure
+﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.ServiceBus
 {
     using Genocs.MicroserviceLight.Template.Shared.Interfaces;
     using System.Threading.Tasks;

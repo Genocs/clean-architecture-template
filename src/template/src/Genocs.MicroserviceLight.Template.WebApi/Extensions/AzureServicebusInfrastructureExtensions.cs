@@ -13,7 +13,7 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
             services.AddSingleton<IServiceBusClient, AzureServiceBusClient>();
 
             // Setup registration
-            services.Configure<AzureServiceBusOptions>(config.GetSection("AzureServiceBusSettings"));
+            services.Configure<AzureServiceBusSettings>(config.GetSection("AzureServiceBusSettings"));
 
             return services;
         }

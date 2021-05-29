@@ -12,32 +12,32 @@
     {
 
         private readonly ILogger<ParticularService> _logger;
-        private readonly Infrastructure.ServiceBus.ParticularServiceBusOptions _options;
+        private readonly Infrastructure.ServiceBus.ParticularServiceBusSettings _settings;
 
         private readonly EndpointConfiguration _configuration;
 
         private IEndpointInstance _instance;
 
 
-        public ParticularService(IOptions<Infrastructure.ServiceBus.ParticularServiceBusOptions> options, ILogger<ParticularService> logger)
+        public ParticularService(IOptions<Infrastructure.ServiceBus.ParticularServiceBusSettings> settings, ILogger<ParticularService> logger)
         {
-            if (options is null)
+            if (settings is null)
             {
-                throw new ArgumentNullException(nameof(options));
+                throw new ArgumentNullException(nameof(settings));
             }
 
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-            _options = options.Value;
+            _settings = settings.Value;
 
 
             // Start NServiceBus configuration
-            _configuration = new EndpointConfiguration(_options.EndpointName);
-            _logger.LogInformation($"Start endpoint name: '{_options.EndpointName}'");
+            _configuration = new EndpointConfiguration(_settings.EndpointName);
+            _logger.LogInformation($"Start endpoint name: '{_settings.EndpointName}'");
             var transport = _configuration.UseTransport<RabbitMQTransport>();
             transport.UseConventionalRoutingTopology();
-            transport.ConnectionString(_options.ConnectionString);
-            _logger.LogInformation($"Endpoint connection string: '{_options.ConnectionString}'");
+            transport.ConnectionString(_settings.ConnectionString);
+            _logger.LogInformation($"Endpoint connection string: '{_settings.ConnectionString}'");
 
             // Unobtrusive mode. 
             var conventions = _configuration.Conventions();

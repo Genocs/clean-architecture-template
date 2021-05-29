@@ -5,11 +5,11 @@
     using Infrastructure.ServiceBus;
     using Microsoft.Extensions.Logging;
 
-    public class AzureEventOccurredHandler : IMessageEventHandler<IntegrationEventIssued>
+    public class MassTransitEventOccurredHandler : IMessageEventHandler<IntegrationEventIssued>
     {
-        private readonly ILogger<AzureEventOccurredHandler> _logger;
+        private readonly ILogger<MassTransitEventOccurredHandler> _logger;
 
-        public AzureEventOccurredHandler(ILogger<AzureEventOccurredHandler> logger)
+        public MassTransitEventOccurredHandler(ILogger<MassTransitEventOccurredHandler> logger)
             => _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
 
         public Task Handle(IntegrationEventIssued @event)

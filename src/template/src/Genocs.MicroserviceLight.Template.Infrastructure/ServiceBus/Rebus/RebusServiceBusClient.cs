@@ -1,19 +1,19 @@
-﻿using Microsoft.Extensions.Options;
-using Rebus.Activation;
-using Rebus.Config;
-using System;
-using System.Threading.Tasks;
-
-namespace Genocs.MicroserviceLight.Template.Infrastructure.ServiceBus
+﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.ServiceBus
 {
+    using Microsoft.Extensions.Options;
+    using Rebus.Activation;
+    using Rebus.Config;
+    using System;
+    using System.Threading.Tasks;
+
     using Application.Services;
 
     public class RebusServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
     {
         private BuiltinHandlerActivator _activator;
-        public RebusServiceBusClient(IOptions<RebusBusOptions> configuration)
+        public RebusServiceBusClient(IOptions<RebusBusSettings> settings)
         {
-            RebusBusOptions optionsInstance = configuration?.Value;
+            RebusBusSettings optionsInstance = settings?.Value;
 
             _activator = new BuiltinHandlerActivator();
 
