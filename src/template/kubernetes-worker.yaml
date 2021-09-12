@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nservicebus
+  labels:
+    app: nservicebus-busworker
+spec:
+  selector:
+    matchLabels:
+      app: nservicebus-busworker
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nservicebus-busworker
+    spec:
+      containers:
+        - name: nservicebus-busworker
+          image: genocsacr.azurecr.io/nservicebusworker:1.1.370
+          env:
+            - name: ParticularOptions__TransportConnectionString
+              value: "<<fill_with-your_data>>"
+            - name: ParticularOptions__PersistenceConnectionString
+              value: "<<fill_with-your_data>>"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 250m
+              memory: 1024Mi
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nservicebus
+spec:
+  # type: LoadBalancer
+  ports:
+    - port: 80
+  selector:
+    app: nservicebus-busworker
