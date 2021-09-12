@@ -18,7 +18,7 @@ Managed Enterprise service bus are:
 
 ----
 
-[![Build Status](https://travis-ci.com/genocs/clean-architecture-template.svg?branch=master)](https://travis-ci.com/genocs/clean-architecture-template) <a href="https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate/" rel="Genocs.CleanCode">![NuGet](https://buildstats.info/nuget/genocs.cleanarchitecturetemplate)</a> [![Gitter](https://img.shields.io/badge/chat-on%20gitter-blue.svg)](https://gitter.im/genocs/)
+[![Build Status](https://app.travis-ci.com/Genocs/clean-architecture-template.svg?branch=master)](https://app.travis-ci.com/Genocs/clean-architecture-template) <a href="https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate/" rel="Genocs.CleanCode">![NuGet](https://buildstats.info/nuget/genocs.cleanarchitecturetemplate)</a> [![Gitter](https://img.shields.io/badge/chat-on%20gitter-blue.svg)](https://gitter.im/genocs/)
 
 
 ## How to create a project
