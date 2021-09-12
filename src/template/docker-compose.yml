@@ -1,14 +1,8 @@
 version: '3.4'
 
 services:
-  genocs.microservicelight.template.busworker:
-    image: ${DOCKER_REGISTRY-}genocs.microservicelight.template.busworker
-    build:
-      context: .
-      dockerfile: src/Genocs.MicroserviceLight.Template.BusWorker/Dockerfile
-
   genocs.microservicelight.template.webapi:
-    image: ${DOCKER_REGISTRY-}genocs.microservicelight.template.webapi
+    image: ${DOCKER_REGISTRY-}genocsmicroservicelighttemplatewebapi
     build:
       context: .
       dockerfile: src/Genocs.MicroserviceLight.Template.WebApi/Dockerfile

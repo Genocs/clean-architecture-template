@@ -1,11 +1,6 @@
 version: '3.4'
-services:
-  genocs.microservicelight.template.busworker:
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-    networks:
-      - genocs
 
+services:
   genocs.microservicelight.template.webapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -23,4 +18,3 @@ networks:
   genocs:
     name: genocs-network
     external: true
-  

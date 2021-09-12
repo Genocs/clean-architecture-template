@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>5621c363-debc-496e-abd2-10892bd7d649</ProjectGuid>
+    <ProjectGuid>0db314b3-916f-41c8-8f82-9ba947f03541</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>genocs.microservicelight.template.webapi</DockerServiceName>
