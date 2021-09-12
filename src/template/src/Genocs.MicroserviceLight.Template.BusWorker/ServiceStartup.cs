@@ -29,10 +29,10 @@
             services.AddApplicationInsightsTelemetry(context.Configuration);
 
             // Setup config services
-            AzureServiceBusConfigurator.ConfigureServices(context, services);
-            MassTransitServiceBusConfigurator.ConfigureServices(context, services);
+            // AzureServiceBusConfigurator.ConfigureServices(context, services);
+            // MassTransitServiceBusConfigurator.ConfigureServices(context, services);
             ParticularServiceBusConfigurator.ConfigureServices(context, services);
-            RebusServiceBusConfigurator.ConfigureServices(context, services);
+            // RebusServiceBusConfigurator.ConfigureServices(context, services);
 
             // Register the Event handler
             services.AddScoped<IMessageEventHandler<IntegrationEventIssued>, AzureEventOccurredHandler>();
