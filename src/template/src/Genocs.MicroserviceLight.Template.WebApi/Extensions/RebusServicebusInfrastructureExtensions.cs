@@ -13,7 +13,7 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
             services.AddSingleton<IServiceBusClient, RebusServiceBusClient>();
 
             // Setup registration
-            services.Configure<RebusBusOptions>(config.GetSection("RebusBusSettings"));
+            services.Configure<RebusBusSettings>(config.GetSection("RebusBusSettings"));
 
             return services;
         }

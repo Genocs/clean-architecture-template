@@ -3,6 +3,7 @@
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
+    using MongoDB.Driver;
     using NServiceBus;
     using System;
     using System.Threading;
@@ -12,32 +13,60 @@
     {
 
         private readonly ILogger<ParticularService> _logger;
-        private readonly Infrastructure.ServiceBus.ParticularServiceBusOptions _options;
-
         private readonly EndpointConfiguration _configuration;
 
         private IEndpointInstance _instance;
 
 
-        public ParticularService(IOptions<Infrastructure.ServiceBus.ParticularServiceBusOptions> options, ILogger<ParticularService> logger)
+        public ParticularService(IOptions<Infrastructure.ServiceBus.ParticularServiceBusSettings> settings, ILogger<ParticularService> logger)
         {
-            if (options is null)
+            if (settings is null)
             {
-                throw new ArgumentNullException(nameof(options));
+                throw new ArgumentNullException(nameof(settings));
             }
 
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-            _options = options.Value;
-
 
             // Start NServiceBus configuration
-            _configuration = new EndpointConfiguration(_options.EndpointName);
-            _logger.LogInformation($"Start endpoint name: '{_options.EndpointName}'");
+            #region ConfigureLicense
+
+
+            #endregion
+
+            #region ConfigureMetrics and Monitoring
+            //endpointConfiguration.SendFailedMessagesTo("error");
+            //endpointConfiguration.AuditProcessedMessagesTo("audit");
+            //endpointConfiguration.SendHeartbeatTo("Particular.ServiceControl");
+            //var metrics = endpointConfiguration.EnableMetrics();
+            //metrics.SendMetricDataToServiceControl("Particular.Monitoring", TimeSpan.FromMilliseconds(500));
+            #endregion
+
+
+            _configuration = new EndpointConfiguration(settings.Value.EndpointName);
+            _logger.LogInformation($"Start endpoint name: '{settings.Value.EndpointName}'");
+
+            #region Configure Transport with Rabbit
             var transport = _configuration.UseTransport<RabbitMQTransport>();
             transport.UseConventionalRoutingTopology();
-            transport.ConnectionString(_options.ConnectionString);
-            _logger.LogInformation($"Endpoint connection string: '{_options.ConnectionString}'");
+            transport.ConnectionString(settings.Value.TransportConnectionString);
+            _logger.LogInformation($"Transport connection string: '{settings.Value.TransportConnectionString}'");
+            #endregion
+
+            #region Configure Persistance with MongoDb
+
+            var persistence = _configuration.UsePersistence<MongoPersistence>();
+            persistence.MongoClient(new MongoClient(settings.Value.PersistenceConnectionString));
+            persistence.DatabaseName(settings.Value.PersistenceDatabase);
+            persistence.UseTransactions(true); // Set replicaset and enable it
+            #endregion
+
+            #region Register commands
+
+            //transport.Routing().RouteToEndpoint(typeof(MyCommand), "Sample.SimpleSender");
+
+            #endregion
+            
 
             // Unobtrusive mode. 
             var conventions = _configuration.Conventions();

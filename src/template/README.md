@@ -12,7 +12,7 @@ Sample implementation of the **Clean Architecture Principles with .NET Core**. U
 ## Usage
 
 ```sh
-dotnet new -i Genocs.CleanArchitecture::1.7.0
+dotnet new -i Genocs.CleanArchitecture::1.7.2
 dotnet new cleanarchitecture -n "MyCompany.MyProject"
 ```
 
@@ -58,9 +58,43 @@ This example contains the implementation related to three different storage type
 - Microsoft SQL Server (The popular Relational database developed by Microsoft) 
 - MongoDB (The popular Document DB) 
 
+
+### MongoDB Replicaset
+
+To set Mongodb as a replicaset
+
+1. Run Docker compose with 3 mongo container
+2. Connect to Mongo Shell
+```sh
+docker exec -it mongo_db2 /bin/bash
+mongo
+```
+
+3. Initialize the replicaset and check the status
+
+```ts
+rs.initiate(
+  {
+    _id : 'rs0',
+    members: [
+      { _id : 0, host : "mongo_db1:27017" },
+      { _id : 1, host : "mongo_db2:27017" },
+      { _id : 2, host : "mongo_db3:27017" }
+    ]
+  }
+)
+
+rs.slaveOk().ok
+rs.status()
+```
+
 ## Enterprise service bus
 
-This example implement the interprise service bus using three different library
+### RabbitMQ cluster
+
+The folder docker-infrastructure contains the docker-compose file and everything required to run a two node RabbitMQ cluster.   
+
+This example implement the enterprise service bus through three different library.
  
 - NService Bus
 - Rebus
@@ -69,7 +103,7 @@ This example implement the interprise service bus using three different library
 
 ## Containers and orchestrators
 
-The example is ready to create the docker images for both Web.Api and BusWorker
+The example is ready to create the docker images for both WebApi and BusWorker
 
 
 ## Contributing
@@ -241,7 +275,7 @@ Controllers receive Requests, build the Input message then call the Use Case, yo
 ```c#
 public sealed class CustomersController : Controller
 {
-    // code omitted to simplify
+    // Code omitted to simplify...
 
     public async Task<IActionResult> Post([FromBody][Required] RegisterRequest request)
     {
@@ -325,7 +359,7 @@ public sealed class RegisterPresenter : IOutputPort
 
     public void Standard(RegisterOutput output)
     {
-        /// long object creation omitted
+        /// Long object creation omitted...
 
         ViewModel = new CreatedAtRouteResult("GetCustomer",
             new
@@ -672,7 +706,7 @@ public sealed class CustomerRepository : ICustomerRepository
 ```c#
 public sealed class Withdraw : IUseCase
 {
-    // properties and constructor omitted
+    // Properties and constructor omitted
 
     public async Task Execute(WithdrawInput input)
     {
@@ -906,7 +940,7 @@ namespace Genocs.WebApi.Extensions
 
             app.UseSwaggerUI(options =>
             {
-                // build a swagger endpoint for each discovered API version
+                // Build a swagger endpoint for each discovered API version
                 foreach (var description in provider.ApiVersionDescriptions)
                 {
                     options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
@@ -944,7 +978,9 @@ public sealed class Startup
         services.AddVersionedSwagger();
 
         services.AddUseCases();
+
         services.AddInMemoryPersistence();
+
         services.AddPresentersV1();
         services.AddPresentersV2();
     }
@@ -961,7 +997,9 @@ public sealed class Startup
         services.AddVersionedSwagger();
 
         services.AddUseCases();
+
         services.AddSQLServerPersistence(Configuration);
+
         services.AddPresentersV1();
         services.AddPresentersV2();
     }

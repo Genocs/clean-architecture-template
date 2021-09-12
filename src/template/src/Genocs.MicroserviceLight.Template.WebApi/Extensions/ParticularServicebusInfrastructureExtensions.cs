@@ -13,7 +13,7 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
             services.AddSingleton<IServiceBusClient, ParticularServiceBusClient>();
 
             // Setup registration
-            services.Configure<ParticularServiceBusOptions>(config.GetSection("ParticularServiceBusSettings"));
+            services.Configure<ParticularServiceBusSettings>(config.GetSection("ParticularServiceBusSettings"));
 
             return services;
         }

@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.Domain.ValueObjects
+namespace Genocs.MicroserviceLight.Template.Domain.Exceptions
 {
     internal sealed class InvalidSSNException : DomainException
     {

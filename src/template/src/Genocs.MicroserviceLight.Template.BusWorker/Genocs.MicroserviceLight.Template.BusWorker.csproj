@@ -1,9 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <OutputType>Exe</OutputType>
-    <UserSecretsId>c04df8e7-f76d-4c77-b49a-dd5d18db453e</UserSecretsId>
+    <UserSecretsId>7199e9ef-ebc4-4f04-8204-0a98eee2beed</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
@@ -33,10 +32,14 @@
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="5.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Kubernetes.Tools.Targets" Version="1.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="NServiceBus" Version="7.4.7" />
     <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="2.2.0" />
+    <PackageReference Include="NServiceBus.RabbitMQ" Version="6.1.0" />
+    <PackageReference Include="NServiceBus.Storage.MongoDB" Version="2.2.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />    
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
     <PackageReference Include="Serilog.Formatting.Compact" Version="1.1.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
@@ -45,7 +48,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Genocs.MicroserviceLight.Template.Infrastructure\Genocs.MicroserviceLight.Template.Infrastructure.csproj" />
+    <ProjectReference Include="..\Genocs.MicroserviceLight.Template.Shared.Particular\Genocs.MicroserviceLight.Template.Shared.Particular.csproj" />
     <ProjectReference Include="..\Genocs.MicroserviceLight.Template.Shared\Genocs.MicroserviceLight.Template.Shared.csproj" />
+    <ProjectReference Include="..\Genocs.MicroserviceLight.Template.ParticularShared\Genocs.MicroserviceLight.Template.ParticularShared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,6 +63,8 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="License.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
-
 </Project>

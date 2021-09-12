@@ -1,6 +1,8 @@
 ﻿namespace Genocs.MicroserviceLight.Template.Shared.ReadModels
 {
-    public class AnsaNews
+    using Interfaces;
+
+    public class IntegrationEventIssued : IIntegrationEvent
     {
         public string Title { get; set; }
     }

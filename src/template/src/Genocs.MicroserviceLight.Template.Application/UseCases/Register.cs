@@ -5,6 +5,7 @@ namespace Genocs.MicroserviceLight.Template.Application.UseCases
     using Application.Services;
     using Domain;
     using Domain.Accounts;
+    using Shared;
     using Shared.Events;
     using System.Threading.Tasks;
 

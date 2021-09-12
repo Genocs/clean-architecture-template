@@ -4,7 +4,7 @@ namespace Genocs.MicroserviceLight.Template.Domain.ValueObjects
 
     public sealed class Money : IEquatable<Money>
     {
-        private decimal _money;
+        private readonly decimal _money;
 
         private Money() { }
 

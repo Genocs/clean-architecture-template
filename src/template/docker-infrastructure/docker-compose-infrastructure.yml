@@ -1,0 +1,124 @@
+version: "2"
+services:
+  rabbit_node_1:
+    image: "rabbitmq:3-management"
+    hostname: rabbit_node_1
+    container_name: rabbit1
+    environment:
+      - RABBITMQ_ERLANG_COOKIE='secret_cookie'
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - rabbit1:/var/lib/rabbitmq
+      - ./conf/:/etc/rabbitmq/
+    networks:
+      - genocs
+    tty: true
+    command:  bash -c "sleep 10; rabbitmq-server;"
+
+  rabbit_node_2:
+    image: "rabbitmq:3-management"  
+    hostname: rabbit_node_2
+    container_name: rabbit2     
+    environment:
+      - RABBITMQ_ERLANG_COOKIE='secret_cookie'
+    depends_on:
+      - rabbit_node_1
+    ports:
+      - "15673:15672"
+      - "5673:5672"
+    volumes:
+      - rabbit2:/var/lib/rabbitmq
+      - ./conf/:/etc/rabbitmq/
+    networks:
+      - genocs
+    tty: true
+    command:  bash -c "sleep 10; rabbitmq-server;"
+
+
+  mongodb_node_1:
+    image: "mongo"
+    hostname: mongo_db1    
+    container_name: mongo_db1
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data1:/data/db
+    networks:
+      - genocs
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+
+  mongodb_node_2:
+    image: "mongo"
+    hostname: mongo_db2
+    container_name: mongo_db2
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongodb_data2:/data/db
+    networks:
+      - genocs
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+
+  mongodb_node_3:
+    image: "mongo"
+    hostname: mongo_db3
+    container_name: mongo_db3
+    ports:
+      - "27019:27017"
+    volumes:
+      - mongodb_data3:/data/db
+    networks:
+      - genocs
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+
+
+  sqlserver:
+    image: "mcr.microsoft.com/mssql/server"
+    hostname: sql_server
+    container_name: sql_server
+    environment:
+      SA_PASSWORD: "Password01!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssqlsystem:/var/opt/mssql
+      - mssqluser:/var/opt/sqlserver
+    networks:
+      - genocs
+
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - genocs
+    # network_mode: host
+    volumes: 
+      - redis_data:/data
+
+volumes:
+  rabbit1:
+    driver: local
+  rabbit2:
+    driver: local
+  mongodb_data1:
+    driver: local
+  mongodb_data2:
+    driver: local
+  mongodb_data3:
+    driver: local
+  redis_data:
+    driver: local
+  mssqlsystem:
+    driver: local
+  mssqluser:
+    driver: local
+
+networks:
+  genocs:
+    driver: bridge
+    name: genocs_network

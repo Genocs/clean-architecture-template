@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6335BAF6-440D-4B7D-8618-DB1B32F4E1DB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.Domain", "src\Genocs.MicroserviceLight.Template.Domain\Genocs.MicroserviceLight.Template.Domain.csproj", "{4D2A9497-9C04-40A4-B378-309537FA2220}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.Infrastructure", "src\Genocs.MicroserviceLight.Template.Infrastructure\Genocs.MicroserviceLight.Template.Infrastructure.csproj", "{74220BF7-8837-4B8F-B960-9CBDA65B8E68}"
@@ -23,7 +21,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.Shared", "src\Genocs.MicroserviceLight.Template.Shared\Genocs.MicroserviceLight.Template.Shared.csproj", "{DECBE6BD-D669-40C6-8A29-8DEC5EB61ECA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.BusWorker.MassTransit", "src\Genocs.MicroserviceLight.Template.BusWorker.MassTransit\Genocs.MicroserviceLight.Template.BusWorker.MassTransit.csproj", "{B326E1D2-0FC8-45F5-B653-BD26FBDACCE3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6335BAF6-440D-4B7D-8618-DB1B32F4E1DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1250CDBC-9DDA-447F-97E6-FCBF98F82BAC}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{5621C363-DEBC-496E-ABD2-10892BD7D649}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.Shared.Particular", "src\Genocs.MicroserviceLight.Template.Shared.Particular\Genocs.MicroserviceLight.Template.Shared.Particular.csproj", "{6CA0C8A1-36C1-47DB-83BD-CF8DE7AC8358}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,10 +76,18 @@ Global
 		{DECBE6BD-D669-40C6-8A29-8DEC5EB61ECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DECBE6BD-D669-40C6-8A29-8DEC5EB61ECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DECBE6BD-D669-40C6-8A29-8DEC5EB61ECA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B326E1D2-0FC8-45F5-B653-BD26FBDACCE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B326E1D2-0FC8-45F5-B653-BD26FBDACCE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B326E1D2-0FC8-45F5-B653-BD26FBDACCE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B326E1D2-0FC8-45F5-B653-BD26FBDACCE3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5621C363-DEBC-496E-ABD2-10892BD7D649}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5621C363-DEBC-496E-ABD2-10892BD7D649}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5621C363-DEBC-496E-ABD2-10892BD7D649}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5621C363-DEBC-496E-ABD2-10892BD7D649}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CA0C8A1-36C1-47DB-83BD-CF8DE7AC8358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CA0C8A1-36C1-47DB-83BD-CF8DE7AC8358}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CA0C8A1-36C1-47DB-83BD-CF8DE7AC8358}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CA0C8A1-36C1-47DB-83BD-CF8DE7AC8358}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

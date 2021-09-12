@@ -7,15 +7,10 @@
 
     class RebusEventOccurredHandler : IHandleMessages<RegistrationCompleted>
     {
+        private readonly ILogger _logger;
 
-        private readonly ILogger<RebusEventOccurredHandler> _logger;
-
-        public RebusEventOccurredHandler()
-        {
-
-        }
-
-        public RebusEventOccurredHandler(ILogger<RebusEventOccurredHandler> logger) => _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
+        public RebusEventOccurredHandler(ILogger logger)
+            => _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
 
         public async Task Handle(RegistrationCompleted message)
         {

@@ -1,16 +1,19 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Hosting;
-using System;
-
-namespace Genocs.MicroserviceLight.Template.BusWorker
+﻿namespace Genocs.MicroserviceLight.Template.BusWorker
 {
-    using BusWorker.HostServices;
-    using ExternalServices;
     using Application.Services;
+    using BusWorker.Handlers;
+    using BusWorker.HostServices;
+    using BusWorker.Options;
+    using ExternalServices;
+    using Infrastructure.ServiceBus;
     using Infrastructure.WebApiClient.ExternalServices;
     using Infrastructure.WebApiClient.Resiliency;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.DependencyInjection.Extensions;
+    using Microsoft.Extensions.Diagnostics.HealthChecks;
+    using Microsoft.Extensions.Hosting;
+    using Shared.ReadModels;
+    using System;
 
     public static class ServiceStartup
     {
@@ -25,15 +28,21 @@ namespace Genocs.MicroserviceLight.Template.BusWorker
             services.AddApplicationInsightsKubernetesEnricher();
             services.AddApplicationInsightsTelemetry(context.Configuration);
 
-            services.Configure<Infrastructure.ServiceBus.ParticularServiceBusOptions>(context.Configuration.GetSection("ParticularServiceBusSettings"));
-            //services.Configure<Infrastructure.ServiceBus.AzureServiceBusOptions>(context.Configuration.GetSection("AzureServiceBusSettings"));
-            //services.Configure<Infrastructure.ServiceBus.RebusBusOptions>(context.Configuration.GetSection("RebusBusSettings"));
+            services.Configure<Infrastructure.ServiceBus.ParticularServiceBusSettings>(context.Configuration.GetSection("ParticularServiceBusSettings"));
+            //services.Configure<Infrastructure.ServiceBus.MassTransitSetting>(context.Configuration.GetSection("MassTransitSetting"));
+            //services.Configure<Infrastructure.ServiceBus.AzureServiceBusSettings>(context.Configuration.GetSection("AzureServiceBusSettings"));
+            //services.Configure<Infrastructure.ServiceBus.RebusBusSettings>(context.Configuration.GetSection("RebusBusSettings"));
 
             // The HostService 
             // This is the Service entry point management
             services.AddHostedService<ParticularService>();
-            //            services.AddHostedService<AzureBusService>();
-            //            services.AddHostedService<RebusService>();
+            //services.AddHostedService<MassTransitBusService>();
+            //services.AddHostedService<AzureBusHostService>();
+            //services.AddHostedService<RebusService>();
+
+
+            // Register the Event handler
+            services.AddScoped<IMessageEventHandler<IntegrationEventIssued>, AzureEventOccurredHandler>();
 
             // Register API client 
             services
@@ -65,6 +74,8 @@ namespace Genocs.MicroserviceLight.Template.BusWorker
                         options.Delay = TimeSpan.FromMilliseconds(delay);
                     });
             }
+
+            services.Configure<ParticularOptions>(context.Configuration.GetSection(nameof(ParticularOptions)));
 
 
             // workaround .NET Core 2.2: for more info https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/health-checks/samples/2.x/HealthChecksSample/LivenessProbeStartup.cs#L51

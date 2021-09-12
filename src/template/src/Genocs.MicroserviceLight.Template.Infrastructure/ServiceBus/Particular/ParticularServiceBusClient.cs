@@ -2,23 +2,23 @@
 {
     using Application.Services;
     using Microsoft.Extensions.Options;
+    using MongoDB.Driver;
     using NServiceBus;
     using System;
     using System.Threading.Tasks;
 
     public class ParticularServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
     {
-
-        private readonly ParticularServiceBusOptions _config;
+        private readonly ParticularServiceBusSettings _settings;
         private IEndpointInstance _instance;
 
-        public ParticularServiceBusClient(IOptions<ParticularServiceBusOptions> configuration)
+        public ParticularServiceBusClient(IOptions<ParticularServiceBusSettings> settings)
         {
-            _config = configuration.Value;
+            _settings = settings.Value;
 
-            if (_config is null)
+            if (_settings is null)
             {
-                throw new NullReferenceException("configuration.Value.cannot be null");
+                throw new NullReferenceException("settings.Value.cannot be null");
             }
         }
 
@@ -26,10 +26,42 @@
         {
             if (_instance == null)
             {
-                var endpointConfiguration = new EndpointConfiguration(_config.EndpointName);
+                #region ConfigureLicense
+
+
+                #endregion
+
+                #region ConfigureMetrics and Monitoring
+                //endpointConfiguration.SendFailedMessagesTo("error");
+                //endpointConfiguration.AuditProcessedMessagesTo("audit");
+                //endpointConfiguration.SendHeartbeatTo("Particular.ServiceControl");
+                //var metrics = endpointConfiguration.EnableMetrics();
+                //metrics.SendMetricDataToServiceControl("Particular.Monitoring", TimeSpan.FromMilliseconds(500));
+                #endregion
+
+
+                var endpointConfiguration = new EndpointConfiguration(_settings.EndpointName);
+
+                #region Configure Transport with Rabbit
                 var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
                 transport.UseConventionalRoutingTopology();
-                transport.ConnectionString(_config.ConnectionString);
+                transport.ConnectionString(_settings.TransportConnectionString);
+                #endregion
+
+                #region Configure Persistance with MongoDb
+
+                var persistence = endpointConfiguration.UsePersistence<MongoPersistence>();
+                persistence.MongoClient(new MongoClient(_settings.PersistenceConnectionString));
+                persistence.DatabaseName(_settings.PersistenceDatabase);
+                persistence.UseTransactions(false); // Set replicaset and enable it
+                #endregion
+
+                #region Register commands
+
+                //transport.Routing().RouteToEndpoint(typeof(MyCommand), "Sample.SimpleSender");
+
+                #endregion
+
 
                 // Unobtrusive mode. 
                 var conventions = endpointConfiguration.Conventions();
@@ -45,7 +77,7 @@
                 endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
                 endpointConfiguration.EnableInstallers();
 
-                _instance = await Endpoint.Start(endpointConfiguration);
+                _instance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
             }
         }
 
