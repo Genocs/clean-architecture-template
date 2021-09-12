@@ -1,9 +1,8 @@
 ﻿namespace Genocs.MicroserviceLight.Template.BusWorker
 {
     using Application.Services;
+    using BusWorker.ConfigServices;
     using BusWorker.Handlers;
-    using BusWorker.HostServices;
-    using BusWorker.Options;
     using ExternalServices;
     using Infrastructure.ServiceBus;
     using Infrastructure.WebApiClient.ExternalServices;
@@ -12,6 +11,7 @@
     using Microsoft.Extensions.DependencyInjection.Extensions;
     using Microsoft.Extensions.Diagnostics.HealthChecks;
     using Microsoft.Extensions.Hosting;
+    using Shared.Options;
     using Shared.ReadModels;
     using System;
 
@@ -28,18 +28,11 @@
             services.AddApplicationInsightsKubernetesEnricher();
             services.AddApplicationInsightsTelemetry(context.Configuration);
 
-            services.Configure<Infrastructure.ServiceBus.ParticularServiceBusSettings>(context.Configuration.GetSection("ParticularServiceBusSettings"));
-            //services.Configure<Infrastructure.ServiceBus.MassTransitSetting>(context.Configuration.GetSection("MassTransitSetting"));
-            //services.Configure<Infrastructure.ServiceBus.AzureServiceBusSettings>(context.Configuration.GetSection("AzureServiceBusSettings"));
-            //services.Configure<Infrastructure.ServiceBus.RebusBusSettings>(context.Configuration.GetSection("RebusBusSettings"));
-
-            // The HostService 
-            // This is the Service entry point management
-            services.AddHostedService<ParticularService>();
-            //services.AddHostedService<MassTransitBusService>();
-            //services.AddHostedService<AzureBusHostService>();
-            //services.AddHostedService<RebusService>();
-
+            // Setup config services
+            AzureServiceBusConfigurator.ConfigureServices(context, services);
+            MassTransitServiceBusConfigurator.ConfigureServices(context, services);
+            ParticularServiceBusConfigurator.ConfigureServices(context, services);
+            RebusServiceBusConfigurator.ConfigureServices(context, services);
 
             // Register the Event handler
             services.AddScoped<IMessageEventHandler<IntegrationEventIssued>, AzureEventOccurredHandler>();

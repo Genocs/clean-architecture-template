@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<license type="Non-Production Development" Applications="All" expiration="2021-12-03" id="08e85f5b-ac20-43a5-9229-fc4fb7edcbf6">
+  <name>giovanni.nocco@gmail.com</name>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+      <Reference URI="">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <DigestValue>SkkrGt+VXA95AQ6it64wVDTao/s=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>w088QYuaG4IhBsTaDKmCFF4ufMliMLPT9Tr9gr5dvCogdv/Uu6mPN4vIW3LcZ+jYx40bOXzZZNVXDekqF6+4mNW23O/qAHaCfkiWp4xQ8g4qea5fFmjfIflOGpH+I389OeX9GL1U3nyRW2eJIwTwXiAVmzRbzk0cIinOpu4658U=</SignatureValue>
+  </Signature>
+</license>

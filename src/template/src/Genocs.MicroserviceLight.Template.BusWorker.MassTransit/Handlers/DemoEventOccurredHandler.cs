@@ -1,4 +1,4 @@
-﻿namespace Genocs.MicroserviceLight.Template.MassTransitBusWorker.Handlers
+﻿namespace Genocs.MicroserviceLight.Template.BusWorker_MassTransit.Handlers
 {
     using Genocs.MicroserviceLight.Template.Shared.Events;
     using MassTransit;

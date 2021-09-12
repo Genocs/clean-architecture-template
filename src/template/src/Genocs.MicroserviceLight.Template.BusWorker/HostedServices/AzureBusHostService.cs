@@ -1,4 +1,4 @@
-﻿namespace Genocs.MicroserviceLight.Template.BusWorker.HostServices
+﻿namespace Genocs.MicroserviceLight.Template.BusWorker.HostedServices
 {
     using Infrastructure.ServiceBus;
     using Template.Shared.ReadModels;

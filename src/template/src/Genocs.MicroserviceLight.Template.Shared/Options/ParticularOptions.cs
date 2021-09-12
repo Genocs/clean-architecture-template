@@ -1,4 +1,4 @@
-﻿namespace Genocs.MicroserviceLight.Template.BusWorker.Options
+﻿namespace Genocs.MicroserviceLight.Template.Shared.Options
 {
     public class ParticularOptions
     {
