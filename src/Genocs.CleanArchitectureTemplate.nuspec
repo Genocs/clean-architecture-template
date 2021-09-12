@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata minClientVersion="5.0.0">
     <id>Genocs.CleanArchitectureTemplate</id>
-    <version>1.7.3</version>
+    <version>1.8.0</version>
     <authors>Nocco Giovanni Emanuele</authors>
     <owners>[Genocs] Nocco Giovanni Emanuele</owners>
     <projectUrl>https://github.com/Genocs/clean-architecture-template</projectUrl>
@@ -16,13 +16,13 @@
     </summary>	
     <description>
 Install the package:
-$ dotnet new -i Genocs.CleanArchitectureTemplate::1.7.3
+$ dotnet new -i Genocs.CleanArchitectureTemplate::1.8.0
 
 The full clean project:
 $ dotnet new cleanarchitecture
     </description>
     <releaseNotes>
-- Relesase 1.7.3:
+- Relesase 1.8.0:
   Added list of events
   
 - Clean Architecture Principles Documentation
@@ -52,9 +52,12 @@ $ dotnet new cleanarchitecture
       generator
       hexagonal-architecture
       layered
+      masstransit
       microservice
       microservices
+      nservicebus
       onion
+      rabbitmq
       service bus
       solid
       solid-principles

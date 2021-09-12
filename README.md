@@ -1,8 +1,20 @@
 ![Clean Architecture Template](https://raw.githubusercontent.com/genocs/clean-architecture-template/master/images/genocs-icon.png) .NET Microservice Template by Genocs
 =========
-This is a Service Template to help you build evolvable and maintainable applications.
+This is a Application Template to help you build LOB applications.
 It follows the Clean Architecture Principles and built on Domain-Driven-Design.
 This tool is usefull to increases productivity on developing your next microservices.
+
+The template allow you to use different storage and enterprice service bus.
+
+Allowed storage are:
+- InMemmoryDB (for development pourpose)
+- SqlServer
+- MongoDB
+
+Managed Enterprise service bus are:
+- Particular NServiceBus
+- MassTransit
+- Rebus
 
 ----
 
@@ -11,18 +23,18 @@ This tool is usefull to increases productivity on developing your next microserv
 
 ## How to create a project
 
-To generate your own Back-end project simple run:
+To generate your own Back-end project run:
 
 ```sh
-dotnet new -i Genocs.CleanArchitectureTemplate::1.7.0
+dotnet new -i Genocs.CleanArchitectureTemplate::1.8.0
 dotnet new cleanarchitecture -n {MyCompany.MyProject}
 cd {MyCompany.MyProject}
-dotnet build src\Genocs.MicroserviceLight.Template.WebApi
-dotnet build src\Genocs.MicroserviceLight.Template.BusWorker
+dotnet build src\{MyCompany.MyProject}.WebApi
+dotnet build src\{MyCompany.MyProject}.BusWorker
 
 dotnet test
 cd src\{MyCompany.MyProject}.WebApi
-dotnet run src\Genocs.MicroserviceLight.Template.WebApi
+dotnet run src\{MyCompany.MyProject}.WebApi
 ```
 
 
@@ -37,11 +49,10 @@ To build the package run the following commands:
 cd .\src
 nuget pack
 dotnet new -u Genocs.CleanArchitectureTemplate
-dotnet new -i Genocs.CleanArchitectureTemplate.1.7.0.nupkg
+dotnet new -i Genocs.CleanArchitectureTemplate.1.8.0.nupkg
 dotnet new cleanarchitecture --help
-dotnet new cleanarchitecture --name Genocs.HelloWorld -d mongodb -sb particular
+dotnet new cleanarchitecture --name {MyCompany.MyProject} -d mongodb -sb particular
 ```
-
 
 
 ## Sample application
@@ -67,7 +78,6 @@ dotnet new cleanarchitecture --use-cases readonly
 ```
 
 
-
 ## Miscellaneous
 
 How to get the list of installed templates
@@ -75,3 +85,17 @@ How to get the list of installed templates
 ```sh
 dotnet new -u
 ```
+
+### Before push on Github
+
+The templete is built using [Travis CI](https://www.travis-ci.com/)
+
+The CI is triggered on `master` branch
+
+Check the `./src/Genocs.CleanArchitectureTemplate.nuspec` and update the node with the correct version. 
+
+Keep in mind: NuGet fail to deploy the package in case of version mistake.
+``` xml
+<version>1.8.0</version>
+```
+
