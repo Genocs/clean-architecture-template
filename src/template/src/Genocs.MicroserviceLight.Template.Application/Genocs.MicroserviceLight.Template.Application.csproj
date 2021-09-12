@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Genocs.MicroserviceLight.Template.Domain\Genocs.MicroserviceLight.Template.Domain.csproj" />
-    <ProjectReference Include="..\Genocs.MicroserviceLight.Template.ParticularShared\Genocs.MicroserviceLight.Template.ParticularShared.csproj" />
     <ProjectReference Include="..\Genocs.MicroserviceLight.Template.Shared\Genocs.MicroserviceLight.Template.Shared.csproj" />
   </ItemGroup>
 
