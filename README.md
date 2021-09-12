@@ -18,7 +18,7 @@ Managed Enterprise service bus are:
 
 ----
 
-[![Build Status](https://travis-ci.com/genocs/clean-architecture-template.svg?branch=master)](https://travis-ci.com/genocs/clean-architecture-template) <a href="https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate/" rel="Genocs.CleanCode">![NuGet](https://buildstats.info/nuget/genocs.cleanarchitecturetemplate)</a> [![Gitter](https://img.shields.io/badge/chat-on%20gitter-blue.svg)](https://gitter.im/genocs/)
+[![Build Status](https://app.travis-ci.com/Genocs/clean-architecture-template.svg?branch=master)](https://app.travis-ci.com/Genocs/clean-architecture-template) <a href="https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate/" rel="Genocs.CleanCode">![NuGet](https://buildstats.info/nuget/genocs.cleanarchitecturetemplate)</a> [![Gitter](https://img.shields.io/badge/chat-on%20gitter-blue.svg)](https://gitter.im/genocs/)
 
 
 ## How to create a project
@@ -26,7 +26,7 @@ Managed Enterprise service bus are:
 To generate your own Back-end project run:
 
 ```sh
-dotnet new -i Genocs.CleanArchitectureTemplate::1.8.0
+dotnet new -i Genocs.CleanArchitectureTemplate::1.8.2
 dotnet new cleanarchitecture -n {MyCompany.MyProject}
 cd {MyCompany.MyProject}
 dotnet build src\{MyCompany.MyProject}.WebApi
@@ -49,7 +49,7 @@ To build the package run the following commands:
 cd .\src
 nuget pack
 dotnet new -u Genocs.CleanArchitectureTemplate
-dotnet new -i Genocs.CleanArchitectureTemplate.1.8.0.nupkg
+dotnet new -i Genocs.CleanArchitectureTemplate.1.8.2.nupkg
 dotnet new cleanarchitecture --help
 dotnet new cleanarchitecture --name {MyCompany.MyProject} -d mongodb -sb particular
 ```
@@ -96,6 +96,6 @@ Check the `./src/Genocs.CleanArchitectureTemplate.nuspec` and update the node wi
 
 Keep in mind: NuGet fail to deploy the package in case of version mistake.
 ``` xml
-<version>1.8.0</version>
+<version>1.8.2</version>
 ```
 

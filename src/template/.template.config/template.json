@@ -121,6 +121,10 @@
     "Transfer": {
       "type": "computed",
       "value": "(Full)"
+    },
+    "Refund": {
+      "type": "computed",
+      "value": "(Full)"
     }
   },
   "sources": [
