@@ -7,6 +7,7 @@ namespace Genocs.MicroserviceLight.Template.WebApi
     using Microsoft.AspNetCore.Mvc.ApiExplorer;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Diagnostics.HealthChecks;
     using Microsoft.Extensions.Hosting;
     using Refit;
     using System;
@@ -79,6 +80,8 @@ namespace Genocs.MicroserviceLight.Template.WebApi
             services.AddRefitClient<IOrderApi>()
             //.AddHttpMessageHandler<AuthorizationMessageHandler>()
               .ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration["ExternalWebServices:Order"]));
+
+            //HealthChecks(services, Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -98,6 +101,15 @@ namespace Genocs.MicroserviceLight.Template.WebApi
             {
                 endpoints.MapControllers();
             });
+        }
+
+        public void HealthChecks(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddHealthChecks().AddMongoDb(
+                mongodbConnectionString: "mongodb://localhost:27017",
+                name: "MongoDB",
+                failureStatus: HealthStatus.Unhealthy,
+                tags: new string[] { "db", "mongoDB" });
         }
     }
 }

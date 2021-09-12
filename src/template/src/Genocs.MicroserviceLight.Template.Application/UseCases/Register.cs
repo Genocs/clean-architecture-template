@@ -5,6 +5,7 @@ namespace Genocs.MicroserviceLight.Template.Application.UseCases
     using Application.Services;
     using Domain;
     using Domain.Accounts;
+    using Shared;
     using Shared.Events;
     using System.Threading.Tasks;
 
@@ -60,7 +61,6 @@ namespace Genocs.MicroserviceLight.Template.Application.UseCases
 
             // Publish the event to the enterprice service bus
             await _serviceBus.PublishEventAsync(new RegistrationCompleted() { CustomerId = customer.Id, AccountId = account.Id, CreditId = credit.Id });
-
 
             await _unitOfWork.Save();
 

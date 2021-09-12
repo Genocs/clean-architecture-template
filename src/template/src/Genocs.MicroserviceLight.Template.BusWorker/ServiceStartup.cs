@@ -3,6 +3,7 @@
     using Application.Services;
     using BusWorker.Handlers;
     using BusWorker.HostServices;
+    using BusWorker.Options;
     using ExternalServices;
     using Infrastructure.ServiceBus;
     using Infrastructure.WebApiClient.ExternalServices;
@@ -73,6 +74,8 @@
                         options.Delay = TimeSpan.FromMilliseconds(delay);
                     });
             }
+
+            services.Configure<ParticularOptions>(context.Configuration.GetSection(nameof(ParticularOptions)));
 
 
             // workaround .NET Core 2.2: for more info https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/health-checks/samples/2.x/HealthChecksSample/LivenessProbeStartup.cs#L51

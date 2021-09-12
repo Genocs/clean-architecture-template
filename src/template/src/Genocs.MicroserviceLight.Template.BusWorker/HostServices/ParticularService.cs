@@ -3,6 +3,7 @@
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
+    using MongoDB.Driver;
     using NServiceBus;
     using System;
     using System.Threading;
@@ -26,13 +27,46 @@
 
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
+
             // Start NServiceBus configuration
+            #region ConfigureLicense
+
+
+            #endregion
+
+            #region ConfigureMetrics and Monitoring
+            //endpointConfiguration.SendFailedMessagesTo("error");
+            //endpointConfiguration.AuditProcessedMessagesTo("audit");
+            //endpointConfiguration.SendHeartbeatTo("Particular.ServiceControl");
+            //var metrics = endpointConfiguration.EnableMetrics();
+            //metrics.SendMetricDataToServiceControl("Particular.Monitoring", TimeSpan.FromMilliseconds(500));
+            #endregion
+
+
             _configuration = new EndpointConfiguration(settings.Value.EndpointName);
             _logger.LogInformation($"Start endpoint name: '{settings.Value.EndpointName}'");
+
+            #region Configure Transport with Rabbit
             var transport = _configuration.UseTransport<RabbitMQTransport>();
             transport.UseConventionalRoutingTopology();
-            transport.ConnectionString(settings.Value.ConnectionString);
-            _logger.LogInformation($"Endpoint connection string: '{settings.Value.ConnectionString}'");
+            transport.ConnectionString(settings.Value.TransportConnectionString);
+            _logger.LogInformation($"Transport connection string: '{settings.Value.TransportConnectionString}'");
+            #endregion
+
+            #region Configure Persistance with MongoDb
+
+            var persistence = _configuration.UsePersistence<MongoPersistence>();
+            persistence.MongoClient(new MongoClient(settings.Value.PersistenceConnectionString));
+            persistence.DatabaseName(settings.Value.PersistenceDatabase);
+            persistence.UseTransactions(true); // Set replicaset and enable it
+            #endregion
+
+            #region Register commands
+
+            //transport.Routing().RouteToEndpoint(typeof(MyCommand), "Sample.SimpleSender");
+
+            #endregion
+            
 
             // Unobtrusive mode. 
             var conventions = _configuration.Conventions();

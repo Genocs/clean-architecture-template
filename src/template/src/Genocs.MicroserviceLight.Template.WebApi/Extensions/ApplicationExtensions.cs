@@ -18,6 +18,10 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
 #if GetAccountDetails
             services.AddScoped<Application.Boundaries.GetAccountDetails.IUseCase, Application.UseCases.GetAccountDetails>();
 #endif
+#if Refund
+            services.AddScoped<Application.Boundaries.Refund.IUseCase, Application.UseCases.Refund>();
+#endif
+
 #if GetCustomerDetails
             services.AddScoped<Application.Boundaries.GetCustomerDetails.IUseCase, Application.UseCases.GetCustomerDetails>();
 #endif

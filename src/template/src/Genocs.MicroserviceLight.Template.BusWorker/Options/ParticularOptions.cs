@@ -1,12 +1,9 @@
-﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.ServiceBus
+﻿namespace Genocs.MicroserviceLight.Template.BusWorker.Options
 {
-    public class ParticularServiceBusSettings
+    public class ParticularOptions
     {
-        public string EndpointName { get; set; }
         public string TransportConnectionString { get; set; }
-
         public string PersistenceConnectionString { get; set; }
         public string PersistenceDatabase { get; set; }
-
     }
 }

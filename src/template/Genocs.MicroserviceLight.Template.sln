@@ -27,6 +27,13 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.MassTransitBusWorker", "src\Genocs.MicroserviceLight.Template.MassTransitBusWorker\Genocs.MicroserviceLight.Template.MassTransitBusWorker.csproj", "{B326E1D2-0FC8-45F5-B653-BD26FBDACCE3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1250CDBC-9DDA-447F-97E6-FCBF98F82BAC}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.ParticularShared", "src\Genocs.MicroserviceLight.Template.ParticularShared\Genocs.MicroserviceLight.Template.ParticularShared.csproj", "{696AD41C-8C1F-4036-AF92-470B29FAE147}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +84,10 @@ Global
 		{B326E1D2-0FC8-45F5-B653-BD26FBDACCE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B326E1D2-0FC8-45F5-B653-BD26FBDACCE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B326E1D2-0FC8-45F5-B653-BD26FBDACCE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{696AD41C-8C1F-4036-AF92-470B29FAE147}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{696AD41C-8C1F-4036-AF92-470B29FAE147}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{696AD41C-8C1F-4036-AF92-470B29FAE147}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{696AD41C-8C1F-4036-AF92-470B29FAE147}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

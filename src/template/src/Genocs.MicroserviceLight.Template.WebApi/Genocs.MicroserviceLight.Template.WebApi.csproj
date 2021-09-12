@@ -17,14 +17,15 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE;CloseAccount;Deposit;GetAccountDetails;GetCustomerDetails;Register;Withdraw;Transfer;AzureServiceBus;NServiceBus;Rebus;MongoDB;SqlServer;InMemory</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;CloseAccount;Deposit;GetAccountDetails;GetCustomerDetails;Register;Withdraw;Refund;Transfer;AzureServiceBus;NServiceBus;Rebus;MongoDB;SqlServer;InMemory</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>TRACE;CloseAccount;Deposit;GetAccountDetails;GetCustomerDetails;Register;Withdraw;Transfer;AzureServiceBus;NServiceBus;Rebus;MongoDB;SqlServer;InMemory</DefineConstants>
+    <DefineConstants>TRACE;CloseAccount;Deposit;GetAccountDetails;GetCustomerDetails;Register;Withdraw;Refund;Transfer;AzureServiceBus;NServiceBus;Rebus;MongoDB;SqlServer;InMemory</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.MongoDb" Version="5.0.1" />
     <PackageReference Include="EPPlus" Version="5.6.1" />
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.2.0" />

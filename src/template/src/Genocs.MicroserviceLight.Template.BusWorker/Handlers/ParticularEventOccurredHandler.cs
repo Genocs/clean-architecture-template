@@ -6,17 +6,17 @@ namespace Genocs.MicroserviceLight.Template.BusWorker.Handlers
 {
     public class ParticularEventOccurredHandler : IHandleMessages<Shared.Events.RegistrationCompleted>
     {
-//        private readonly ILog  _logger = LogManager.GetLogger<ParticularEventOccurredHandler>();
+        private readonly ILog _logger = LogManager.GetLogger<ParticularEventOccurredHandler>();
 
         //static int counter = 0;
 
-//        public ParticularEventOccurredHandler(ILog logger)
-//            => _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
+        //public ParticularEventOccurredHandler(ILog logger)
+        //    => _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
 
         public Task Handle(Shared.Events.RegistrationCompleted message, IMessageHandlerContext context)
         {
 
-//            _logger.($"RegistrationCompleted on AccountId: '{message.AccountId}'");
+            _logger.Info($"RegistrationCompleted on CustomerId: '{message.CustomerId}', AccountId: '{message.AccountId}', ");
 
             // Remove the comments to simulate some exception
             //if(counter++ < 10 )
@@ -27,6 +27,6 @@ namespace Genocs.MicroserviceLight.Template.BusWorker.Handlers
             // Do something with the message here
             return Task.CompletedTask;
         }
-    }
 
+    }
 }
