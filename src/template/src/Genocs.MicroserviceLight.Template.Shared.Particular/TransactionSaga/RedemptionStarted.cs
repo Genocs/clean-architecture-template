@@ -1,6 +1,6 @@
 ﻿using NServiceBus;
 
-namespace Genocs.MicroservicesLight.Template.ParticularShared.TransactionSaga
+namespace Genocs.MicroserviceLight.Template.ParticularShared.TransactionSaga
 {
     /// <summary>
     /// This event happen when the system start processing the redemption
@@ -8,5 +8,6 @@ namespace Genocs.MicroservicesLight.Template.ParticularShared.TransactionSaga
     public class RedemptionStarted : IEvent
     {
         public string RequestId { get; set; }
+        public string TransactionId { get; set; }
     }
 }

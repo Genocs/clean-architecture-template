@@ -1,6 +1,6 @@
 ﻿using NServiceBus;
 
-namespace Genocs.MicroservicesLight.Template.ParticularShared.TransactionSaga
+namespace Genocs.MicroserviceLight.Template.ParticularShared.TransactionSaga
 {
     /// <summary>
     /// This event happend when the system receive an Unload
@@ -8,5 +8,6 @@ namespace Genocs.MicroservicesLight.Template.ParticularShared.TransactionSaga
     public class RedemptionCompleted : IEvent
     {
         public string RequestId { get; set; }
+        public string TransactionId { get; set; }
     }
 }

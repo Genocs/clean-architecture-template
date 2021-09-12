@@ -25,8 +25,4 @@
     <ProjectReference Include="..\Genocs.MicroserviceLight.Template.Infrastructure\Genocs.MicroserviceLight.Template.Infrastructure.csproj" />
     <ProjectReference Include="..\Genocs.MicroserviceLight.Template.Shared\Genocs.MicroserviceLight.Template.Shared.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Settings\" />
-  </ItemGroup>
 </Project>

@@ -1,11 +1,11 @@
-﻿using Genocs.MicroservicesLight.Template.ParticularShared.TransactionSaga;
-using NServiceBus;
-using NServiceBus.Logging;
-using NServiceBus.Sagas;
-using System.Threading.Tasks;
-
-namespace WorkerService.Handlers
+﻿namespace Genocs.MicroserviceLight.Template.BusWorker.Handlers.Sagas
 {
+    using NServiceBus;
+    using NServiceBus.Logging;
+    using NServiceBus.Sagas;
+    using ParticularShared.TransactionSaga;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// This is the TransactionSagaPolicy body
     /// </summary>
@@ -52,6 +52,7 @@ namespace WorkerService.Handlers
 
             if (Data.TransactionStatus != "TransactionLoaded")
             {
+                Data.Property2 = "INVALID STATUS";
                 _log.Error($"TransactionUnloaded INVALID STATUS, RequestId: '{message.RequestId}'.");
                 return Task.CompletedTask;
             }
@@ -66,6 +67,7 @@ namespace WorkerService.Handlers
 
             if (Data.TransactionStatus != "TransactionUnloaded")
             {
+                Data.Property2 = "INVALID STATUS";
                 _log.Error($"TransactionUnloaded INVALID STATUS, RequestId: '{message.RequestId}'.");
                 return Task.CompletedTask;
             }
@@ -80,6 +82,7 @@ namespace WorkerService.Handlers
 
             if (Data.TransactionStatus != "RedemptionStarted")
             {
+                Data.Property2 = "INVALID STATUS";
                 _log.Error($"TransactionUnloaded INVALID STATUS, RequestId: '{message.RequestId}'.");
                 return Task.CompletedTask;
             }
@@ -93,8 +96,6 @@ namespace WorkerService.Handlers
             Data.TransactionStatus = "RedemptionRejected";
             return Task.CompletedTask;
         }
-
-
 
         /// <summary>
         /// This handle IHandleSagaNotFound 
@@ -122,7 +123,5 @@ namespace WorkerService.Handlers
 
             return Task.CompletedTask;
         }
-
-
     }
 }

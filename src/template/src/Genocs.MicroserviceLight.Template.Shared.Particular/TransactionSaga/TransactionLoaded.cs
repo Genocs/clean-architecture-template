@@ -1,6 +1,6 @@
 ﻿using NServiceBus;
 
-namespace Genocs.MicroservicesLight.Template.ParticularShared.TransactionSaga
+namespace Genocs.MicroserviceLight.Template.ParticularShared.TransactionSaga
 {
     /// <summary>
     /// This event happen whenever the system receive a Load
@@ -8,5 +8,6 @@ namespace Genocs.MicroservicesLight.Template.ParticularShared.TransactionSaga
     public class TransactionLoaded : IEvent
     {
         public string RequestId { get; set; }
+        public string TransactionId { get; set; }
     }
 }

@@ -45,4 +45,10 @@
     <ProjectReference Include="..\Genocs.MicroserviceLight.Template.Infrastructure\Genocs.MicroserviceLight.Template.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="License.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

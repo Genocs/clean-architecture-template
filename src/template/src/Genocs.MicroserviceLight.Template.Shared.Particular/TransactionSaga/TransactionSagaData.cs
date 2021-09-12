@@ -1,13 +1,14 @@
 ﻿using NServiceBus;
 
-namespace Genocs.MicroservicesLight.Template.ParticularShared.TransactionSaga
+namespace Genocs.MicroserviceLight.Template.ParticularShared.TransactionSaga
 {
     /// <summary>
-    /// This is my simple SagaDataObject
+    /// This is the SagaData Object
     /// </summary>
     public class TransactionSagaData : ContainSagaData
     {
         public string RequestId { get; set; }
+        public string TransactionId { get; set; }
         public string TransactionStatus { get; set; }
 
         public string Property1 { get; set; }

@@ -8,4 +8,8 @@
   <ItemGroup>
     <PackageReference Include="NServiceBus" Version="7.4.7" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\" />
+  </ItemGroup>
 </Project>

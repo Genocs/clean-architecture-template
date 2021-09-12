@@ -1,11 +1,11 @@
-namespace Genocs.MicroserviceLight.Template.MassTransitBusWorker
+namespace Genocs.MicroserviceLight.Template.BusWorker_MassTransit
 {
+    using BusWorker_MassTransit.Handlers;
+    using Infrastructure.ServiceBus;
     using MassTransit;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using MassTransitBusWorker.Handlers;
-    using Infrastructure.ServiceBus;
 
     public class Program
     {
@@ -57,8 +57,5 @@ namespace Genocs.MicroserviceLight.Template.MassTransitBusWorker
                     });
                     services.AddMassTransitHostedService();
                 });
-
-
-
     }
 }

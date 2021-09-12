@@ -1,6 +1,4 @@
-﻿
-
-namespace Genocs.MicroserviceLight.Template.BusWorker.HostServices
+﻿namespace Genocs.MicroserviceLight.Template.BusWorker.HostedServices
 {
     using Handlers;
     using Microsoft.Extensions.Hosting;
