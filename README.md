@@ -7,7 +7,7 @@ This tool is usefull to increases productivity on developing your next microserv
 The template allow you to use different storage and enterprice service bus.
 
 Allowed storage are:
-- InMemmoryDB (for development pourpose)
+- InMemoryDB (for development pourpose)
 - SqlServer
 - MongoDB
 
