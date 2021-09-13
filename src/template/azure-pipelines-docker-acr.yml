@@ -14,7 +14,7 @@ pool:
 
 variables:
   buildConfiguration: "Release"
-  imageName: "genocsacr.azurecr.io/keyvaultreader"
+  imageName: "$(DockerRegistry).azurecr.io/$(DockerImageName)"
 
 stages:
   - stage: Build
@@ -27,10 +27,10 @@ stages:
             displayName: "Build the Docker image"
             inputs:
               containerRegistryType: "Container Registry"
-              dockerRegistryEndpoint: "genocsacr"
+              dockerRegistryEndpoint: "$(DockerRegistry)"
               command: "Build an image"
               dockerFile: "Dockerfile"
-              arguments: "--build-arg BuildId=$(Build.BuildId) --build-arg PAT=$(PatNugetsFeed)"
+              arguments: "--build-arg BuildId=$(Build.BuildId)"
               includeLatestTag: true
               imageName: "$(ImageName)"
 
@@ -38,7 +38,7 @@ stages:
             displayName: "Push the Docker image to AzureContainerRegistry"
             inputs:
               containerRegistryType: "Container Registry"
-              dockerRegistryEndpoint: "genocsacr"
+              dockerRegistryEndpoint: "$(DockerRegistry)"
               command: "Push an image"
               imageName: "$(ImageName)"
             condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
@@ -47,17 +47,17 @@ stages:
             displayName: "Tag-Latest Build the Docker image"
             inputs:
               containerRegistryType: "Container Registry"
-              dockerRegistryEndpoint: "genocsacr"
+              dockerRegistryEndpoint: "$(DockerRegistry)"
               command: "Build an image"
               dockerFile: "Dockerfile"
-              arguments: "--build-arg BuildId=$(Build.BuildId) --build-arg PAT=$(PatNugetsFeed)"
+              arguments: "--build-arg BuildId=$(Build.BuildId)"
               imageName: "$(ImageName):$(MajorVer).$(MinorVer).$(Build.BuildId)"
 
           - task: Docker@1
             displayName: "Tag-Latest Push the Docker image to AzureContainerRegistry"
             inputs:
               containerRegistryType: "Container Registry"
-              dockerRegistryEndpoint: "genocsacr"
+              dockerRegistryEndpoint: "$(DockerRegistry)"
               command: "Push an image"
               imageName: "$(ImageName):$(MajorVer).$(MinorVer).$(Build.BuildId)"
 
