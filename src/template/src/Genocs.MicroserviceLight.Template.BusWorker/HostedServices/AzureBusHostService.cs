@@ -1,9 +1,9 @@
 ﻿namespace Genocs.MicroserviceLight.Template.BusWorker.HostedServices
 {
     using Infrastructure.ServiceBus;
-    using Template.Shared.ReadModels;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
+    using Shared.ReadModels;
     using System;
 
     internal class AzureBusHostService:  AzureBusService
