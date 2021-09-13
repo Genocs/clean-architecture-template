@@ -14,7 +14,7 @@ pool:
 
 variables:
   buildConfiguration: "Release"
-  imageName: "genocs/keyvaultreader"
+  imageName: "$(DockerRegistry)/$(DockerImageName)"
 
 stages:
   - stage: Build
@@ -30,7 +30,7 @@ stages:
               dockerRegistryEndpoint: "DockerHub"
               command: "Build an image"
               dockerFile: "Dockerfile"
-              arguments: "--build-arg BuildId=$(Build.BuildId) --build-arg PAT=$(PatNugetsFeed)"
+              arguments: "--build-arg BuildId=$(Build.BuildId)"
               includeLatestTag: true
               imageName: "$(ImageName)"
 
@@ -50,11 +50,11 @@ stages:
               dockerRegistryEndpoint: "DockerHub"
               command: "Build an image"
               dockerFile: "Dockerfile"
-              arguments: "--build-arg BuildId=$(Build.BuildId) --build-arg PAT=$(PatNugetsFeed)"
+              arguments: "--build-arg BuildId=$(Build.BuildId)"
               imageName: "$(ImageName):$(MajorVer).$(MinorVer).$(Build.BuildId)"
 
           - task: Docker@1
-            displayName: "Tag-Latest Push the Docker image to AzureContainerRegistry"
+            displayName: "Tag-Latest Push the Docker image to Docker Hub"
             inputs:
               containerRegistryType: "Container Registry"
               dockerRegistryEndpoint: "DockerHub"

@@ -7,7 +7,7 @@ This tool is usefull to increases productivity on developing your next microserv
 The template allow you to use different storage and enterprice service bus.
 
 Allowed storage are:
-- InMemmoryDB (for development pourpose)
+- InMemoryDB (for development pourpose)
 - SqlServer
 - MongoDB
 
@@ -26,7 +26,7 @@ Managed Enterprise service bus are:
 To generate your own Back-end project run:
 
 ```sh
-dotnet new -i Genocs.CleanArchitectureTemplate::1.8.2
+dotnet new -i Genocs.CleanArchitectureTemplate::1.8.3
 dotnet new cleanarchitecture -n {MyCompany.MyProject}
 cd {MyCompany.MyProject}
 dotnet build src\{MyCompany.MyProject}.WebApi
@@ -49,7 +49,7 @@ To build the package run the following commands:
 cd .\src
 nuget pack
 dotnet new -u Genocs.CleanArchitectureTemplate
-dotnet new -i Genocs.CleanArchitectureTemplate.1.8.2.nupkg
+dotnet new -i Genocs.CleanArchitectureTemplate.1.8.3.nupkg
 dotnet new cleanarchitecture --help
 dotnet new cleanarchitecture --name {MyCompany.MyProject} -d mongodb -sb particular
 ```
@@ -77,7 +77,6 @@ Read only use cases
 dotnet new cleanarchitecture --use-cases readonly
 ```
 
-
 ## Miscellaneous
 
 How to get the list of installed templates
@@ -95,7 +94,7 @@ The CI is triggered on `master` branch
 Check the `./src/Genocs.CleanArchitectureTemplate.nuspec` and update the node with the correct version. 
 
 Keep in mind: NuGet fail to deploy the package in case of version mistake.
-``` xml
-<version>1.8.2</version>
-```
 
+```xml
+<version>1.8.3</version>
+```
