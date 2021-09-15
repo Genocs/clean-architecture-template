@@ -12,7 +12,7 @@ Sample implementation of the **Clean Architecture Principles with .NET Core**. U
 ## Usage
 
 ```sh
-dotnet new -i Genocs.CleanArchitecture::1.7.2
+dotnet new -i Genocs.CleanArchitecture::1.8.4
 dotnet new cleanarchitecture -n "MyCompany.MyProject"
 ```
 
@@ -54,14 +54,14 @@ This is continually updated, open source project.
 
 This example contains the implementation related to three different storage type:
 
-- InMemoryDataAccess (usefull only for development) 
-- Microsoft SQL Server (The popular Relational database developed by Microsoft) 
-- MongoDB (The popular Document DB) 
+- InMemoryDataAccess (only for development) 
+- Entity Framework (can be used with Microsoft SQL Server or Oracle) 
+- MongoDB (the popular Document DB) 
 
 
 ### MongoDB Replicaset
 
-To set Mongodb as a replicaset
+To set MongoDB as a replicaset
 
 1. Run Docker compose with 3 mongo container
 2. Connect to Mongo Shell

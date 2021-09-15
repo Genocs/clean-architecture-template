@@ -6,3 +6,8 @@ services:
     build:
       context: .
       dockerfile: src/Genocs.MicroserviceLight.Template.WebApi/Dockerfile
+  genocs.microservicelight.template.busworker:
+    image: ${DOCKER_REGISTRY-}genocsmicroservicelighttemplatebusworker
+    build:
+      context: .
+      dockerfile: src/Genocs.MicroserviceLight.Template.BusWorker/Dockerfile
