@@ -1,31 +1,33 @@
-namespace Genocs.MicroserviceLight.Template.ParticularBusWorker
+namespace Genocs.MicroserviceLight.Template.BusWorkerParticular
 {
+    using BusWorkerParticular.Messages;
+    using BusWorkerParticular.Services;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
     using MongoDB.Driver;
     using NServiceBus;
-    using ParticularBusWorker.Messages;
-    using ParticularBusWorker.Services;
     using System.Threading.Tasks;
 
     public class Program
     {
         public static async Task Main(string[] args)
         {
-            await CreateHostBuilder(args).Build().RunAsync();
+            var host = CreateHostBuilder(args).Build();
+
+            var logger = host.Services.GetRequiredService<ILogger<Program>>();
+            logger.LogInformation("Genocs.MicroserviceLight.Template Bus is starting.");
+
+            await host.RunAsync();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
-            IHostBuilder builder = Host.CreateDefaultBuilder(args);
+            var builder = Host.CreateDefaultBuilder(args);
             builder.UseConsoleLifetime();
 
             builder.UseMicrosoftLogFactoryLogging();
 
-            SetUpNServiceBusBasic(builder);
-
-            // Setup with RabbitMQ and MongoDB
-            //SetUpNServiceBus(builder);
 
             builder.ConfigureServices((hostContext, services) =>
                 {
@@ -35,6 +37,11 @@ namespace Genocs.MicroserviceLight.Template.ParticularBusWorker
                     services.AddSingleton<ICalculateStuff, CalculateStuff>();
 
                 });
+
+            SetUpNServiceBusBasic(builder);
+
+            // Setup with RabbitMQ and MongoDB
+            //SetUpNServiceBus(builder);
 
             return builder;
         }
@@ -49,6 +56,12 @@ namespace Genocs.MicroserviceLight.Template.ParticularBusWorker
                 var transport = endpointConfiguration.UseTransport<LearningTransport>();
                 transport.StorageDirectory(".");
                 transport.Routing().RouteToEndpoint(typeof(DemoMessage), "Sample.BackEnd");
+
+                endpointConfiguration.RegisterComponents(
+                    registration: configureComponents =>
+                    {
+                        configureComponents.ConfigureComponent<CalculateStuff>(DependencyLifecycle.SingleInstance);
+                    });
 
 
                 // Unobtrusive mode. 
@@ -108,6 +121,5 @@ namespace Genocs.MicroserviceLight.Template.ParticularBusWorker
 
             return builder;
         }
-
     }
 }

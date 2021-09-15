@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <UserSecretsId>Genocs.MicroserviceLight.Template.MassTransitBusWorker-60D69F93-D91B-44D9-9BDC-F9FDE9155E92</UserSecretsId>
+    <UserSecretsId>Genocs.MicroserviceLight.Template.BusWorkerMassTransit</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

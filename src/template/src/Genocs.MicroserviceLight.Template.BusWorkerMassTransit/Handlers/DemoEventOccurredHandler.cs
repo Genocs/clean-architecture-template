@@ -1,8 +1,8 @@
-﻿namespace Genocs.MicroserviceLight.Template.BusWorker_MassTransit.Handlers
+﻿namespace Genocs.MicroserviceLight.Template.BusWorkerMassTransit.Handlers
 {
-    using Genocs.MicroserviceLight.Template.Shared.Events;
     using MassTransit;
     using Microsoft.Extensions.Logging;
+    using Shared.Events;
     using System.Threading.Tasks;
 
     public class DemoEventOccurredHandler : IConsumer<DemoEventOccurred>

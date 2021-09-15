@@ -1,9 +1,9 @@
-namespace Genocs.MicroserviceLight.Template.ParticularBusWorker
+namespace Genocs.MicroserviceLight.Template.BusWorkerParticular
 {
+    using Messages;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using NServiceBus;
-    using ParticularBusWorker.Messages;
     using System;
     using System.Threading;
     using System.Threading.Tasks;
@@ -26,9 +26,9 @@ namespace Genocs.MicroserviceLight.Template.ParticularBusWorker
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
                 // Simple send the command
-                await _messageSession
-                        .Send(new DemoMessage { Payload = DateTimeOffset.Now.ToString() })
-                        .ConfigureAwait(false);
+                //await _messageSession
+                //        .Send(new DemoMessage { Payload = DateTimeOffset.Now.ToString() })
+                //        .ConfigureAwait(false);
 
                 await Task.Delay(1000, stoppingToken);
             }

@@ -1,14 +1,14 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Serilog;
-using Serilog.Formatting.Compact;
-using System.IO;
-using System.Threading.Tasks;
-
-namespace Genocs.MicroserviceLight.Template.BusWorker
+﻿namespace Genocs.MicroserviceLight.Template.BusWorker
 {
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
+    using Serilog;
+    using Serilog.Formatting.Compact;
+    using System.IO;
+    using System.Threading.Tasks;
+
     class Program
     {
         static async Task Main(string[] args)
@@ -24,7 +24,7 @@ namespace Genocs.MicroserviceLight.Template.BusWorker
         private static IHostBuilder CreateHostBuilder(string[] args)
         {
             string environment = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            
+
             return new HostBuilder()
                 .ConfigureHostConfiguration(configHost => configHost.AddEnvironmentVariables())
                 .ConfigureAppConfiguration((context, builder) =>

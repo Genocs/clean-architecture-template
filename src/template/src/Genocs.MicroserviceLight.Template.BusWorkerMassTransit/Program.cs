@@ -1,16 +1,25 @@
-namespace Genocs.MicroserviceLight.Template.BusWorker_MassTransit
+namespace Genocs.MicroserviceLight.Template.BusWorkerMassTransit
 {
-    using BusWorker_MassTransit.Handlers;
+    using BusWorkerMassTransit.Handlers;
     using Infrastructure.ServiceBus;
     using MassTransit;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
+    using System.Threading.Tasks;
 
     public class Program
     {
-        public static void Main(string[] args)
+        static async Task Main(string[] args)
         {
+            var host = CreateHostBuilder(args).Build();
+
+            var logger = host.Services.GetRequiredService<ILogger<Program>>();
+            logger.LogInformation("Genocs.MicroserviceLight.Template Bus is starting.");
+
+            await host.RunAsync();
+
             CreateHostBuilder(args).Build().Run();
         }
 

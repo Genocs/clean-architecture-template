@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
-using NServiceBus;
-using System.Threading.Tasks;
-
-namespace Genocs.MicroserviceLight.Template.ParticularBusWorker.Services
+﻿namespace Genocs.MicroserviceLight.Template.BusWorkerParticular.Services
 {
+    using Microsoft.Extensions.Logging;
+    using NServiceBus;
+    using System.Threading.Tasks;
+
     public interface ICalculateStuff
     {
         Task Calculate(int number);
