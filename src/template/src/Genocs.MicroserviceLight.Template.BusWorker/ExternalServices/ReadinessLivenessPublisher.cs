@@ -1,9 +1,9 @@
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Logging;
 
 namespace Genocs.MicroserviceLight.Template.BusWorker.ExternalServices
 {
@@ -15,7 +15,7 @@ namespace Genocs.MicroserviceLight.Template.BusWorker.ExternalServices
 
         public ReadinessLivenessPublisher(ILogger<ReadinessLivenessPublisher> logger)
         {
-            this._logger = logger;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public Task PublishAsync(HealthReport report,
@@ -25,7 +25,7 @@ namespace Genocs.MicroserviceLight.Template.BusWorker.ExternalServices
             {
                 case HealthStatus.Healthy:
                 {
-                    this._logger.LogInformation(
+                    _logger.LogInformation(
                             "{Timestamp} Readiness/Liveness Probe Status: {Result}",
                             DateTime.UtcNow,
                             report.Status);
@@ -37,7 +37,7 @@ namespace Genocs.MicroserviceLight.Template.BusWorker.ExternalServices
 
                 case HealthStatus.Degraded:
                 {
-                    this._logger.LogWarning(
+                    _logger.LogWarning(
                             "{Timestamp} Readiness/Liveness Probe Status: {Result}",
                             DateTime.UtcNow,
                             report.Status);
@@ -47,7 +47,7 @@ namespace Genocs.MicroserviceLight.Template.BusWorker.ExternalServices
 
                 case HealthStatus.Unhealthy:
                 {
-                    this._logger.LogError(
+                    _logger.LogError(
                             "{Timestamp} Readiness Probe/Liveness Status: {Result}",
                             DateTime.UtcNow,
                             report.Status);

@@ -14,14 +14,8 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.InMe
             ClosedAccounts = new Collection<CloseAccountOutput>();
         }
 
-        public void Error(string message)
-        {
-            Errors.Add(message);
-        }
+        public void Error(string message) => Errors.Add(message);
 
-        public void Default(CloseAccountOutput output)
-        {
-            ClosedAccounts.Add(output);
-        }
+        public void Default(CloseAccountOutput output) => ClosedAccounts.Add(output);
     }
 }

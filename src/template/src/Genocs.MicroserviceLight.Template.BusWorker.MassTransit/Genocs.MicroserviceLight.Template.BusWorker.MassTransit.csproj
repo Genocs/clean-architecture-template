@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk.Worker">
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <UserSecretsId>Genocs.MicroserviceLight.Template.MassTransitBusWorker-60D69F93-D91B-44D9-9BDC-F9FDE9155E92</UserSecretsId>
   </PropertyGroup>
 
@@ -13,11 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MassTransit" Version="7.1.8" />
-    <PackageReference Include="MassTransit.AspNetCore" Version="7.1.8" />
-    <PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="7.1.8" />
-    <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.1.8" />
-    <PackageReference Include="MassTransit.RabbitMQ" Version="7.1.8" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
   </ItemGroup>
 

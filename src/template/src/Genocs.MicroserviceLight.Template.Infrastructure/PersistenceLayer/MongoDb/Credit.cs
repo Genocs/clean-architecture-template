@@ -12,9 +12,9 @@
 
         public Credit(IAccount account, PositiveMoney amountToDeposit, DateTime transactionDate)
         {
-            this.AccountId = account.Id;
-            this.Amount = amountToDeposit;
-            this.TransactionDate = transactionDate;
+            AccountId = account.Id;
+            Amount = amountToDeposit;
+            TransactionDate = transactionDate;
         }
     }
 }

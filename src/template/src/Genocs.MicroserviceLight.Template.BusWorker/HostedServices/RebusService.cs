@@ -22,7 +22,7 @@
 
         public RebusService(IOptions<Infrastructure.ServiceBus.RebusBusSettings> settings, ILogger<RebusService> logger)
         {
-            _logger = logger;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
             _settings = settings.Value;
 

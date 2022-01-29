@@ -25,14 +25,16 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.Enti
 
         public async Task<ICustomer> Get(Guid id)
         {
-            Customer customer = await _context.Customers
+            var customer = await _context.Customers
                 .Where(c => c.Id == id)
                 .SingleOrDefaultAsync();
 
             if (customer == null)
+            {
                 return null;
+            }
 
-            var accounts = _context.Accounts
+            System.Collections.Generic.List<Guid> accounts = _context.Accounts
                 .Where(e => e.CustomerId == id)
                 .Select(e => e.Id)
                 .ToList();
