@@ -31,26 +31,27 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.Enti
                       DELETE FROM Debit WHERE AccountId = @Id;
                       DELETE FROM Account WHERE Id = @Id;";
 
-            var id = new SqlParameter("@Id", account.Id);
-
-            int affectedRows = await _context.Database.ExecuteSqlRawAsync(deleteSQL, id);
+            SqlParameter id = new("@Id", account.Id);
+            _ = await _context.Database.ExecuteSqlRawAsync(deleteSQL, id);
         }
 
         public async Task<IAccount> Get(Guid id)
         {
-            Account account = await _context
+            var account = await _context
                 .Accounts
                 .Where(a => a.Id == id)
                 .SingleOrDefaultAsync();
 
             if (account == null)
+            {
                 return null;
+            }
 
-            var credits = _context.Credits
+            System.Collections.Generic.List<Credit> credits = _context.Credits
                 .Where(e => e.AccountId == id)
                 .ToList();
 
-            var debits = _context.Debits
+            System.Collections.Generic.List<Debit> debits = _context.Debits
                 .Where(e => e.AccountId == id)
                 .ToList();
 

@@ -1,29 +1,27 @@
 ![Clean Architecture Template](https://raw.githubusercontent.com/genocs/clean-architecture-template/master/images/genocs-icon.png) .NET Microservice Template by Genocs
 =========
-This is a Application Template to help you build LOB applications.
-It follows the Clean Architecture Principles and built on Domain-Driven-Design.
-This tool is usefull to increases productivity on developing your next microservices.
 
-The template allow you to use different storage and enterprice service bus.
+[![Build Status](https://app.travis-ci.com/Genocs/clean-architecture-template.svg?branch=master)](https://app.travis-ci.com/Genocs/clean-architecture-template) <a href="https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate/" rel="Genocs.CleanCode">![NuGet](https://buildstats.info/nuget/genocs.cleanarchitecturetemplate)</a> [![Gitter](https://img.shields.io/badge/chat-on%20gitter-blue.svg)](https://gitter.im/genocs/)
 
-Allowed storage are:
-- InMemoryDB (for development pourpose)
+----
+
+This is an Application Template built to help you create LOB applications. It follows the Clean Architecture Principles and built on Domain-Driven-Design. This tool is useful to increases productivity on developing your next microservices.
+The template allows you to use different storage and enterprise service bus.
+Storage:
+- InMemoryDB (for development purpose)
 - SqlServer
 - MongoDB
 
-Managed Enterprise service bus are:
+
+Enterprise Service libraries:
 - Particular NServiceBus
 - MassTransit
 - Rebus
 
-----
-
-[![Build Status](https://app.travis-ci.com/Genocs/clean-architecture-template.svg?branch=master)](https://app.travis-ci.com/Genocs/clean-architecture-template) <a href="https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate/" rel="Genocs.CleanCode">![NuGet](https://buildstats.info/nuget/genocs.cleanarchitecturetemplate)</a> [![Gitter](https://img.shields.io/badge/chat-on%20gitter-blue.svg)](https://gitter.im/genocs/)
-
 
 ## How to create a project
 
-To generate your own Back-end project run:
+Create, build, test and run:
 
 ```sh
 dotnet new -i Genocs.CleanArchitectureTemplate::1.8.3
@@ -59,23 +57,19 @@ dotnet new cleanarchitecture --name {MyCompany.MyProject} -d mongodb -sb particu
 
 Run `dotnet new -i Genocs.CleanArchitecture` then try the following commands.
 
-Complete suite of use cases.
+
 
 ```sh
+# Complete suite of use cases.
 dotnet new cleanarchitecture --use-cases full
-```
 
-Register account and get customer details.
-
-```sh
+# Register account and get customer details.
 dotnet new cleanarchitecture --use-cases basic
-```
 
-Read only use cases
-
-```sh
+# Read only use cases
 dotnet new cleanarchitecture --use-cases readonly
 ```
+
 
 ## Miscellaneous
 
@@ -83,6 +77,8 @@ How to get the list of installed templates
 
 ```sh
 dotnet new -u
+
+dotnet --list
 ```
 
 ### Before push on Github

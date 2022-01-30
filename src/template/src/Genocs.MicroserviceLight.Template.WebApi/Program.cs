@@ -1,50 +1,98 @@
-namespace Genocs.MicroserviceLight.Template.WebApi
+using Genocs.MicroserviceLight.Template.WebApi.ApiClient;
+using Genocs.MicroserviceLight.Template.WebApi.Extensions;
+using Microsoft.ApplicationInsights.DependencyCollector;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Refit;
+using Serilog;
+using Serilog.Events;
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .CreateLogger();
+
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((ctx, lc) => lc
+    .WriteTo.Console());
+
+builder.Services.AddApplicationInsightsTelemetry();
+
+builder.Services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, o) =>
 {
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.Hosting;
-    using Microsoft.Extensions.Logging;
+    module.IncludeDiagnosticSourceActivities.Add("MassTransit");
+});
 
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((context, config) =>
-                {
-                    var env = context.HostingEnvironment;
+builder.Services.Configure<HealthCheckPublisherOptions>(options =>
+{
+    options.Delay = TimeSpan.FromSeconds(2);
+    options.Predicate = check => check.Tags.Contains("ready");
+});
 
-                    config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+#if DEBUG
+builder.Services.AddInMemoryPersistence();
+//            builder.Services.AddMongoDBPersistence(Configuration);
+#else
+            builder.Services.AddSQLServerPersistence(Configuration);
+#endif
 
-                    config.AddEnvironmentVariables();
+// Select your Database
 
-                    if (args != null)
-                    {
-                        config.AddCommandLine(args);
-                    }
+// builder.Services.AddInMemoryPersistence();
+// builder.Services.AddMongoDBPersistence(Configuration);
+// builder.Services.AddSQLServerPersistence(Configuration);
+builder.Services.AddUseCases();
 
-                    if (context.HostingEnvironment.IsDevelopment())
-                    {
-                        config.AddUserSecrets<Program>();
-                    }
-                })
-                .ConfigureLogging((hostingContext, logging) =>
-                {
-                    // Requires `using Microsoft.Extensions.Logging;`
-                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.AddConsole();
-                    logging.AddDebug();
-                    logging.AddEventSourceLogger();
-                })
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+builder.Services.AddPresentersV1();
+builder.Services.AddPresentersV2();
 
-    }
+
+// Select your Enterprise service bus library
+
+//builder.Services.AddAzureServiceBus(Configuration);
+builder.Services.AddMassTransitServiceBus(builder.Configuration);
+//builder.Services.AddParticularServiceBus(builder.Configuration);
+// builder.Services.AddRebusServiceBus(builder.Configuration);
+
+//refit apis
+builder.Services.AddRefitClient<IOrderApi>()
+  //.AddHttpMessageHandler<AuthorizationMessageHandler>()
+  .ConfigureHttpClient(c => c.BaseAddress = new Uri(builder.Configuration["ExternalWebServices:Order"]));
+
+var app = builder.Build();
+
+app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+app.UseCookiePolicy();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+app.MapControllers();
+
+app.UseRouting();
+app.UseAuthorization();
+
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+
+app.Run();
+
+
+Log.CloseAndFlush();

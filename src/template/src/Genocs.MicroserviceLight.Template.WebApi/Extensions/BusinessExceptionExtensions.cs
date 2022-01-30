@@ -1,18 +1,17 @@
-﻿namespace Genocs.MicroserviceLight.Template.WebApi.Extensions
+﻿namespace Genocs.MicroserviceLight.Template.WebApi.Extensions;
+
+using Microsoft.Extensions.DependencyInjection;
+using WebApi.Filters;
+
+public static class BusinessExceptionExtensions
 {
-    using WebApi.Filters;
-    using Microsoft.Extensions.DependencyInjection;
-
-    public static class BusinessExceptionExtensions
+    public static IServiceCollection AddBusinessExceptionFilter(this IServiceCollection services)
     {
-        public static IServiceCollection AddBusinessExceptionFilter(this IServiceCollection services)
+        services.AddMvc(options =>
         {
-            services.AddMvc(options =>
-            {
-                options.Filters.Add(typeof(BusinessExceptionFilter));
-            });
+            options.Filters.Add(typeof(BusinessExceptionFilter));
+        });
 
-            return services;
-        }
+        return services;
     }
 }

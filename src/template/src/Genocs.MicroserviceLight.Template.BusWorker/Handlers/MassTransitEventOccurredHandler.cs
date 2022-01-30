@@ -1,9 +1,9 @@
 ﻿namespace Genocs.MicroserviceLight.Template.BusWorker.Handlers
 {
-    using Shared.ReadModels;
-    using System.Threading.Tasks;
     using Infrastructure.ServiceBus;
     using Microsoft.Extensions.Logging;
+    using Shared.ReadModels;
+    using System.Threading.Tasks;
 
     public class MassTransitEventOccurredHandler : IMessageEventHandler<IntegrationEventIssued>
     {

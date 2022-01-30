@@ -1,14 +1,11 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.Filters
-{
-    using Microsoft.OpenApi.Models;
-    using Swashbuckle.AspNetCore.SwaggerGen;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
-    public class SwaggerDocumentFilter : IDocumentFilter
-    {
-        private readonly List<OpenApiTag> _tags = new List<OpenApiTag>
+namespace Genocs.MicroserviceLight.Template.WebApi.Filters;
+
+public class SwaggerDocumentFilter : IDocumentFilter
+{
+    private readonly List<OpenApiTag> _tags = new List<OpenApiTag>
         {
             new OpenApiTag
             {
@@ -17,34 +14,33 @@ namespace Genocs.MicroserviceLight.Template.WebApi.Filters
             }
         };
 
-        public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
+    public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
+    {
+        if (swaggerDoc == null)
         {
-            if (swaggerDoc == null)
-            {
-                throw new ArgumentNullException(nameof(swaggerDoc));
-            }
-
-            swaggerDoc.Tags = GetFilteredTagDefinitions(context);
-            swaggerDoc.Paths = GetSortedPaths(swaggerDoc);
+            throw new ArgumentNullException(nameof(swaggerDoc));
         }
 
-        private List<OpenApiTag> GetFilteredTagDefinitions(DocumentFilterContext context)
-        {
-            //Filtering ensures route for tag is present
-            var currentGroupNames = context.ApiDescriptions
-                .Select(description => description.GroupName);
-            return _tags.Where(tag => currentGroupNames.Contains(tag.Name))
-                .ToList();
-        }
+        swaggerDoc.Tags = GetFilteredTagDefinitions(context);
+        swaggerDoc.Paths = GetSortedPaths(swaggerDoc);
+    }
 
-        private OpenApiPaths GetSortedPaths(
-            OpenApiDocument swaggerDoc)
-        {
-            IDictionary<string, OpenApiPathItem> dic = swaggerDoc.Paths.OrderBy(pair => pair.Key)
-                .ToDictionary(pair => pair.Key, pair => pair.Value);
+    private List<OpenApiTag> GetFilteredTagDefinitions(DocumentFilterContext context)
+    {
+        //Filtering ensures route for tag is present
+        var currentGroupNames = context.ApiDescriptions
+            .Select(description => description.GroupName);
+        return _tags.Where(tag => currentGroupNames.Contains(tag.Name))
+            .ToList();
+    }
+
+    private OpenApiPaths GetSortedPaths(
+        OpenApiDocument swaggerDoc)
+    {
+        IDictionary<string, OpenApiPathItem> dic = swaggerDoc.Paths.OrderBy(pair => pair.Key)
+            .ToDictionary(pair => pair.Key, pair => pair.Value);
 
 
-            return null;
-        }
+        return null;
     }
 }

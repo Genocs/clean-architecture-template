@@ -44,7 +44,7 @@ namespace Genocs.MicroserviceLight.Template.AcceptanceTests.V2
         private async Task GetAccount(string accountId)
         {
             var client = _factory.CreateClient();
-            string result = await client.GetStringAsync($"/api/v2/AccountsV2/{accountId}/?api-version=2");
+            string result = await client.GetStringAsync($"/api/v1/Accounts/{accountId}/?api-version=1");
         }
 
         private async Task<Tuple<string, string>> Register(decimal initialAmount)

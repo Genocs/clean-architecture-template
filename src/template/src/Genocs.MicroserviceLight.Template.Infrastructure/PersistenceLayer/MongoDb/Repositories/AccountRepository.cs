@@ -31,18 +31,17 @@
             return Task.CompletedTask;
         }
 
-        public async Task Delete(IAccount account)
-        {
-            await _DbSetAccount.DeleteOneAsync(d => d.Id == account.Id);
-        }
+        public async Task Delete(IAccount account) => _ = await _DbSetAccount.DeleteOneAsync(d => d.Id == account.Id);
 
         public async Task<IAccount> Get(Guid id)
         {
             var accounts = await _DbSetAccount.FindAsync(f => f.Id == id);
-            MongoDb.Account account = accounts.FirstOrDefault();
+            var account = accounts.FirstOrDefault();
 
             if (account == null)
+            {
                 return null;
+            }
 
             var credits = await _DbSetCredit.FindAsync(f => f.AccountId == account.Id);
             var debits = await _DbSetDebit.FindAsync(f => f.AccountId == account.Id);

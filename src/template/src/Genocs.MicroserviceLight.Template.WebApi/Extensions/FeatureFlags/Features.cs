@@ -1,8 +1,7 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.Extensions.FeatureFlags
+namespace Genocs.MicroserviceLight.Template.WebApi.Extensions.FeatureFlags;
+
+public enum Features
 {
-    public enum Features
-    {
-        Transfer,
-        GetAccountDetailsV2
-    }
+    Transfer,
+    GetAccountDetailsV2
 }

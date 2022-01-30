@@ -16,19 +16,10 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.InMe
             NotFounds = new Collection<string>();
         }
 
-        public void Error(string message)
-        {
-            Errors.Add(message);
-        }
+        public void Error(string message) => Errors.Add(message);
 
-        public void Default(GetCustomerDetailsOutput output)
-        {
-            GetCustomerDetails.Add(output);
-        }
+        public void Default(GetCustomerDetailsOutput output) => GetCustomerDetails.Add(output);
 
-        public void NotFound(string message)
-        {
-            NotFounds.Add(message);
-        }
+        public void NotFound(string message) => NotFounds.Add(message);
     }
 }

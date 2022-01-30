@@ -6,11 +6,11 @@
     using Shared.ReadModels;
     using System;
 
-    internal class AzureBusHostService:  AzureBusService
+    internal class AzureBusHostService : AzureBusService
     {
-        public AzureBusHostService(IOptions<AzureServiceBusSettings> options, 
-                                    ILogger<AzureBusService> logger, 
-                                    IServiceProvider serviceProvider): base(options, logger, serviceProvider)
+        public AzureBusHostService(IOptions<AzureServiceBusSettings> options,
+                                    ILogger<AzureBusService> logger,
+                                    IServiceProvider serviceProvider) : base(options, logger, serviceProvider)
         {
             RegisterMessage<IntegrationEventIssued, IMessageEventHandler<IntegrationEventIssued>>();
         }

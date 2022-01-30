@@ -1,25 +1,22 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.Extensions.FeatureFlags
+namespace Genocs.MicroserviceLight.Template.WebApi.Extensions.FeatureFlags;
+
+using Microsoft.FeatureManagement;
+
+public static class FeatureFlagsExtensions
 {
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.FeatureManagement;
-
-    public static class FeatureFlagsExtensions
+    public static IServiceCollection AddFeatureFlags(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddFeatureFlags(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddFeatureManagement(configuration);
+        services.AddFeatureManagement(configuration);
 
-            var featureManager = services.BuildServiceProvider()
-                .GetRequiredService<IFeatureManager>();
+        var featureManager = services.BuildServiceProvider()
+            .GetRequiredService<IFeatureManager>();
 
-            services.AddMvc()
-                .ConfigureApplicationPartManager(apm =>
-                    apm.FeatureProviders.Add(
-                        new CustomControllerFeatureProvider(featureManager)
-                    ));
+        services.AddMvc()
+            .ConfigureApplicationPartManager(apm =>
+                apm.FeatureProviders.Add(
+                    new CustomControllerFeatureProvider(featureManager)
+                ));
 
-            return services;
-        }
+        return services;
     }
 }

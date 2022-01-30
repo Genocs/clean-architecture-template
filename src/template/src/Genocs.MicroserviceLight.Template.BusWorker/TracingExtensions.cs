@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.ApplicationInsights;
+﻿using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.AspNetCore.TelemetryInitializers;
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DependencyCollector;
@@ -13,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Genocs.MicroserviceLight.Template.BusWorker
 {
@@ -113,11 +113,11 @@ namespace Genocs.MicroserviceLight.Template.BusWorker
                 ITelemetryChannel telemetryChannel,
                 IConfiguration configuration)
             {
-                this._serviceProvider = serviceProvider;
-                this._initializers = initializers;
-                this._modules = modules;
-                this._telemetryChannel = telemetryChannel;
-                this._configuration = configuration;
+                _serviceProvider = serviceProvider;
+                _initializers = initializers;
+                _modules = modules;
+                _telemetryChannel = telemetryChannel;
+                _configuration = configuration;
             }
 
             public void Configure(TelemetryConfiguration telemetryConfig)
@@ -132,11 +132,11 @@ namespace Genocs.MicroserviceLight.Template.BusWorker
 
                 // Fallback to default channel (InMemoryChannel) created by base sdk if no channel is found in DI
                 telemetryConfig.TelemetryChannel =
-                    this._telemetryChannel
+                    _telemetryChannel
                     ?? telemetryConfig.TelemetryChannel;
 
                 if (bool.TryParse(_configuration[AppInsightsDeveloperMode], out bool developerMode))
-                    this._telemetryChannel.DeveloperMode = developerMode;
+                    _telemetryChannel.DeveloperMode = developerMode;
 
                 (telemetryConfig.TelemetryChannel as ITelemetryModule)
                     ?.Initialize(telemetryConfig);
@@ -185,7 +185,7 @@ namespace Genocs.MicroserviceLight.Template.BusWorker
         {
             public TelemetryConfigurationOptions(IEnumerable<IConfigureOptions<TelemetryConfiguration>> configureOptions)
             {
-                this.Value = TelemetryConfiguration.CreateDefault();
+                Value = TelemetryConfiguration.CreateDefault();
 
                 var configureOptionsArray = configureOptions.ToArray();
                 foreach (var c in configureOptionsArray)

@@ -1,8 +1,8 @@
 ﻿namespace Genocs.MicroserviceLight.Template.BusWorker.Handlers
 {
-    using ParticularShared.TransactionSaga;
     using NServiceBus;
     using NServiceBus.Logging;
+    using ParticularShared.TransactionSaga;
     using System;
     using System.Threading.Tasks;
 
@@ -36,6 +36,5 @@
             //    throw new InvalidOperationException($"exception number: '{counter}'");
             //}
         }
-
     }
 }
