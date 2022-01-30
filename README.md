@@ -1,4 +1,4 @@
-![Clean Architecture Template](https://raw.githubusercontent.com/genocs/clean-architecture-template/master/images/genocs-icon.png) .NET Microservice Template by Genocs
+![Clean Architecture Template](https://raw.githubusercontent.com/Genocs/clean-architecture-template/master/icon.png) .NET Microservice Template by Genocs
 =========
 
 [![Build Status](https://app.travis-ci.com/Genocs/clean-architecture-template.svg?branch=master)](https://app.travis-ci.com/Genocs/clean-architecture-template) <a href="https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate/" rel="Genocs.CleanCode">![NuGet](https://buildstats.info/nuget/genocs.cleanarchitecturetemplate)</a> [![Gitter](https://img.shields.io/badge/chat-on%20gitter-blue.svg)](https://gitter.im/genocs/)
@@ -7,6 +7,7 @@
 
 This is an Application Template built to help you create LOB applications. It follows the Clean Architecture Principles and built on Domain-Driven-Design. This tool is useful to increases productivity on developing your next microservices.
 The template allows you to use different storage and enterprise service bus.
+
 Storage:
 - InMemoryDB (for development purpose)
 - SqlServer
@@ -24,7 +25,7 @@ Enterprise Service libraries:
 Create, build, test and run:
 
 ```sh
-dotnet new -i Genocs.CleanArchitectureTemplate::1.8.3
+dotnet new -i Genocs.CleanArchitectureTemplate::{version]
 dotnet new cleanarchitecture -n {MyCompany.MyProject}
 cd {MyCompany.MyProject}
 dotnet build src\{MyCompany.MyProject}.WebApi
@@ -47,7 +48,7 @@ To build the package run the following commands:
 cd .\src
 nuget pack
 dotnet new -u Genocs.CleanArchitectureTemplate
-dotnet new -i Genocs.CleanArchitectureTemplate.1.8.3.nupkg
+dotnet new -i Genocs.CleanArchitectureTemplate.2.0.{version}.nupkg
 dotnet new cleanarchitecture --help
 dotnet new cleanarchitecture --name {MyCompany.MyProject} -d mongodb -sb particular
 ```
@@ -87,10 +88,3 @@ The templete is built using [Travis CI](https://www.travis-ci.com/)
 
 The CI is triggered on `master` branch
 
-Check the `./src/Genocs.CleanArchitectureTemplate.nuspec` and update the node with the correct version. 
-
-Keep in mind: NuGet fail to deploy the package in case of version mistake.
-
-```xml
-<version>1.8.3</version>
-```
