@@ -32,8 +32,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.MicroserviceLight.Template.Shared.Particular", "src\Genocs.MicroserviceLight.Template.Shared.Particular\Genocs.MicroserviceLight.Template.Shared.Particular.csproj", "{6CA0C8A1-36C1-47DB-83BD-CF8DE7AC8358}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Genocs.MicroserviceLight.Template.WebApi6", "Genocs.MicroserviceLight.Template.WebApi6\Genocs.MicroserviceLight.Template.WebApi6.csproj", "{A54499CF-7B4B-469A-A056-984D39777C59}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,10 +82,6 @@ Global
 		{6CA0C8A1-36C1-47DB-83BD-CF8DE7AC8358}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CA0C8A1-36C1-47DB-83BD-CF8DE7AC8358}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CA0C8A1-36C1-47DB-83BD-CF8DE7AC8358}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A54499CF-7B4B-469A-A056-984D39777C59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A54499CF-7B4B-469A-A056-984D39777C59}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A54499CF-7B4B-469A-A056-984D39777C59}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A54499CF-7B4B-469A-A056-984D39777C59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

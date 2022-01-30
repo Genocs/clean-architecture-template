@@ -1,26 +1,25 @@
-﻿namespace Genocs.MicroserviceLight.Template.WebApi.Filters
+﻿using Genocs.MicroserviceLight.Template.Domain;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+
+namespace Genocs.MicroserviceLight.Template.WebApi.Filters;
+
+public sealed class BusinessExceptionFilter : IExceptionFilter
 {
-    using Domain;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Filters;
-
-    public sealed class BusinessExceptionFilter : IExceptionFilter
+    public void OnException(ExceptionContext context)
     {
-        public void OnException(ExceptionContext context)
+        DomainException domainException = context.Exception as DomainException;
+        if (domainException != null)
         {
-            DomainException domainException = context.Exception as DomainException;
-            if (domainException != null)
+            var problemDetails = new ProblemDetails
             {
-                var problemDetails = new ProblemDetails
-                {
-                    Status = 400,
-                    Title = "Bad Request",
-                    Detail = domainException.Message
-                };
+                Status = 400,
+                Title = "Bad Request",
+                Detail = domainException.Message
+            };
 
-                context.Result = new BadRequestObjectResult(problemDetails);
-                context.Exception = null;
-            }
+            context.Result = new BadRequestObjectResult(problemDetails);
+            context.Exception = null;
         }
     }
 }
