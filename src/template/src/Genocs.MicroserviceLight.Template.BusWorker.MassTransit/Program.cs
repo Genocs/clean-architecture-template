@@ -44,7 +44,7 @@ namespace Genocs.MicroserviceLight.Template.BusWorker_MassTransit
                             //    e.Consumer<MerchantStatusChangedConsumer>(context);
                             //});
 
-                            cfg.UseHealthCheck(context);
+                            //cfg.UseHealthCheck(context);
                             cfg.ConfigureEndpoints(context);
                             cfg.Host(settings.HostName, settings.VirtualHost,
                                 h =>
@@ -55,7 +55,7 @@ namespace Genocs.MicroserviceLight.Template.BusWorker_MassTransit
                             );
                         });
                     });
-                    services.AddMassTransitHostedService();
+                    //services.AddMassTransitHostedService();
                 });
     }
 }

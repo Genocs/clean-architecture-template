@@ -8,13 +8,13 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.2.0" />
 
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<TreatAsUsed>true</TreatAsUsed>
 		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.1">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.4">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 			<TreatAsUsed>true</TreatAsUsed>
@@ -24,13 +24,13 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
 
-		<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="6.0.1" />
-		<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
-		<PackageReference Include="MongoDB.Driver" Version="2.14.1" />
+		<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="6.0.4" />
+		<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.8" />
+		<PackageReference Include="MongoDB.Driver" Version="2.15.0" />
 
 		<!-- Rebus -->
-		<PackageReference Include="Rebus" Version="6.6.2" />
-		<PackageReference Include="Rebus.RabbitMq" Version="7.3.4" />
+		<PackageReference Include="Rebus" Version="6.6.4" />
+		<PackageReference Include="Rebus.RabbitMq" Version="7.3.5" />
 
 		<!-- Particular NService Bus -->
 		<PackageReference Include="NServiceBus" Version="7.*" />
@@ -39,10 +39,10 @@
 		<PackageReference Include="NServiceBus.Newtonsoft.Json" Version="2.3.0" />
 
 		<!-- Mass transit -->
-		<PackageReference Include="MassTransit" Version="7.3.1" />
+		<PackageReference Include="MassTransit" Version="8.0.1" />
 		<PackageReference Include="MassTransit.AspNetCore" Version="7.3.1" />
 		<PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.3.1" />
-		<PackageReference Include="MassTransit.RabbitMQ" Version="7.3.1" />
+		<PackageReference Include="MassTransit.RabbitMQ" Version="8.0.1" />
 		<!-- END -->
 
 	</ItemGroup>
