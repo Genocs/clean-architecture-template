@@ -1,8 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-		<Company>[Genocs] Nocco Giovanni Emanuele</Company>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<IsPublishable>false</IsPublishable>
+		<IsPackable>false</IsPackable>
+		<RootNamespace>Genocs.CleanArchitecture.Template.Infrastructure</RootNamespace>
+		<AssemblyName>Genocs.CleanArchitecture.Template.Infrastructure</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -51,6 +56,13 @@
 		<ProjectReference Include="..\Shared\Shared.csproj" />
 		<ProjectReference Include="..\Domain\Domain.csproj" />
 		<ProjectReference Include="..\Application\Application.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Update="Roslynator.Analyzers" Version="4.5.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 </Project>

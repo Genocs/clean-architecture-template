@@ -6,12 +6,8 @@
 		<Nullable>enable</Nullable>
 		<IsPublishable>false</IsPublishable>
 		<IsPackable>false</IsPackable>
-		<RootNamespace>Genocs.CleanArchitecture.Template.AcceptanceTests</RootNamespace>
-		<AssemblyName>Genocs.CleanArchitecture.Template.AcceptanceTests</AssemblyName>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DefineConstants>TRACE;Full</DefineConstants>
+		<RootNamespace>Genocs.CleanArchitecture.Template.UnitTests</RootNamespace>
+		<AssemblyName>Genocs.CleanArchitecture.Template.UnitTests</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -21,13 +17,16 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.1" />
+		<DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\src\Shared\Shared.csproj" />
+		<ProjectReference Include="..\..\src\Domain\Domain.csproj" />
+		<ProjectReference Include="..\..\src\Application\Application.csproj" />
+		<ProjectReference Include="..\..\src\Infrastructure\Infrastructure.csproj" />
 		<ProjectReference Include="..\..\src\WebApi\WebApi.csproj" />
 	</ItemGroup>
-
 
 	<ItemGroup>
 		<PackageReference Update="Roslynator.Analyzers" Version="4.5.0">

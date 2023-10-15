@@ -1,15 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-		<Nullable>enable</Nullable>
+		<TargetFramework>net7.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<UserSecretsId>4343defe-2941-47fb-9310-e19b9af6af0b</UserSecretsId>
+		<Nullable>enable</Nullable>
+		<IsPublishable>false</IsPublishable>
+		<IsPackable>false</IsPackable>
+		<UserSecretsId>Genocs</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerfileContext>..\..</DockerfileContext>
-		<DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
-		<Authors>[Genocs] Nocco Giovanni Emanuele</Authors>
-		<Company>Nocco Giovanni Emanuele</Company>
-		<Description>The Web API project</Description>
+		<RootNamespace>Genocs.CleanArchitecture.Template.WebApi</RootNamespace>
+		<AssemblyName>Genocs.CleanArchitecture.Template.WebApi</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -50,6 +51,13 @@
 		<None Update="License.xml">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Update="Roslynator.Analyzers" Version="4.5.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 </Project>
