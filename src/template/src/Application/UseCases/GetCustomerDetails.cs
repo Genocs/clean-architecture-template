@@ -1,54 +1,48 @@
-namespace Genocs.MicroserviceLight.Template.Application.UseCases
+using Genocs.CleanArchitecture.Template.Application.Boundaries.GetCustomerDetails;
+using Genocs.CleanArchitecture.Template.Application.Repositories;
+
+namespace Genocs.CleanArchitecture.Template.Application.UseCases;
+
+public sealed class GetCustomerDetails : IUseCase
 {
-    using Application.Boundaries.GetCustomerDetails;
-    using Application.Repositories;
-    using Domain.Accounts;
-    using Domain.Customers;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+    private readonly IOutputPort _outputHandler;
+    private readonly ICustomerRepository _customerRepository;
+    private readonly IAccountRepository _accountRepository;
 
-    public sealed class GetCustomerDetails : IUseCase
+    public GetCustomerDetails(
+        IOutputPort outputHandler,
+        ICustomerRepository customerRepository,
+        IAccountRepository accountRepository)
     {
-        private readonly IOutputPort _outputHandler;
-        private readonly ICustomerRepository _customerRepository;
-        private readonly IAccountRepository _accountRepository;
+        _outputHandler = outputHandler;
+        _customerRepository = customerRepository;
+        _accountRepository = accountRepository;
+    }
 
-        public GetCustomerDetails(
-            IOutputPort outputHandler,
-            ICustomerRepository customerRepository,
-            IAccountRepository accountRepository)
+    public async Task Execute(GetCustomerDetailsInput input)
+    {
+        var customer = await _customerRepository.Get(input.CustomerId);
+
+        if (customer == null)
         {
-            _outputHandler = outputHandler;
-            _customerRepository = customerRepository;
-            _accountRepository = accountRepository;
+            _outputHandler.NotFound($"The customer {input.CustomerId} does not exist or is not processed yet.");
+            return;
         }
 
-        public async Task Execute(GetCustomerDetailsInput input)
+        List<Account> accounts = new List<Account>();
+
+        foreach (var accountId in customer.Accounts.GetAccountIds())
         {
-            ICustomer customer = await _customerRepository.Get(input.CustomerId);
+            var account = await _accountRepository.Get(accountId);
 
-            if (customer == null)
+            if (account != null)
             {
-                _outputHandler.NotFound($"The customer {input.CustomerId} does not exist or is not processed yet.");
-                return;
+                Account accountOutput = new Account(account);
+                accounts.Add(accountOutput);
             }
-
-            List<Boundaries.GetCustomerDetails.Account> accounts = new List<Boundaries.GetCustomerDetails.Account>();
-
-            foreach (Guid accountId in customer.Accounts.GetAccountIds())
-            {
-                IAccount account = await _accountRepository.Get(accountId);
-
-                if (account != null)
-                {
-                    Boundaries.GetCustomerDetails.Account accountOutput = new Boundaries.GetCustomerDetails.Account(account);
-                    accounts.Add(accountOutput);
-                }
-            }
-
-            GetCustomerDetailsOutput output = new GetCustomerDetailsOutput(customer, accounts);
-            _outputHandler.Default(output);
         }
+
+        GetCustomerDetailsOutput output = new GetCustomerDetailsOutput(customer, accounts);
+        _outputHandler.Default(output);
     }
 }

@@ -1,54 +1,51 @@
-namespace Genocs.MicroserviceLight.Template.Application.UseCases
+using Genocs.CleanArchitecture.Template.Application.Boundaries.CloseAccount;
+using Genocs.CleanArchitecture.Template.Application.Repositories;
+using Genocs.CleanArchitecture.Template.Application.Services;
+
+namespace Genocs.CleanArchitecture.Template.Application.UseCases;
+
+public sealed class CloseAccount : IUseCase
 {
-    using Application.Boundaries.CloseAccount;
-    using Application.Repositories;
-    using Domain.Accounts;
-    using Application.Services;
-    using System.Threading.Tasks;
+    private readonly IOutputPort _outputHandler;
+    private readonly IAccountRepository _accountRepository;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IServiceBusClient _serviceBus;
+    private readonly IApiClient _orderApiClient;
 
-    public sealed class CloseAccount : IUseCase
+
+    public CloseAccount(
+        IOutputPort outputHandler,
+        IAccountRepository accountRepository,
+        IUnitOfWork unitOfWork,
+        IServiceBusClient serviceBus,
+        IApiClient orderApiClient)
     {
-        private readonly IOutputPort _outputHandler;
-        private readonly IAccountRepository _accountRepository;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IServiceBusClient _serviceBus;
-        private readonly IApiClient _orderApiClient;
+        _outputHandler = outputHandler;
+        _accountRepository = accountRepository;
+        _unitOfWork = unitOfWork;
+        _serviceBus = serviceBus;
+        _orderApiClient = orderApiClient;
+    }
 
-
-        public CloseAccount(
-            IOutputPort outputHandler,
-            IAccountRepository accountRepository,
-            IUnitOfWork unitOfWork,
-            IServiceBusClient serviceBus,
-            IApiClient orderApiClient)
+    public async Task Execute(CloseAccountInput closeAccountInput)
+    {
+        var account = await _accountRepository.Get(closeAccountInput.AccountId);
+        if (account == null)
         {
-            _outputHandler = outputHandler;
-            _accountRepository = accountRepository;
-            _unitOfWork = unitOfWork;
-            _serviceBus = serviceBus;
-            _orderApiClient = orderApiClient;
+            _outputHandler.Error($"The account '{closeAccountInput.AccountId}' does not exist or is already closed.");
+            return;
         }
 
-        public async Task Execute(CloseAccountInput closeAccountInput)
+        if (account.IsClosingAllowed())
         {
-            IAccount account = await _accountRepository.Get(closeAccountInput.AccountId);
-            if (account == null)
-            {
-                _outputHandler.Error($"The account '{closeAccountInput.AccountId}' does not exist or is already closed.");
-                return;
-            }
+            await _accountRepository.Delete(account);
+            // Publish the event to the enterprice service bus
+            await _serviceBus.PublishEventAsync(new Shared.Events.CloseAccountCompleted() { AccountId = account.Id });
 
-            if (account.IsClosingAllowed())
-            {
-                await _accountRepository.Delete(account);
-                // Publish the event to the enterprice service bus
-                await _serviceBus.PublishEventAsync(new Shared.Events.CloseAccountCompleted() { AccountId = account.Id });
-
-                await _unitOfWork.Save();
-            }
-
-            var closeAccountOutput = new CloseAccountOutput(account);
-            _outputHandler.Default(closeAccountOutput);
+            await _unitOfWork.Save();
         }
+
+        var closeAccountOutput = new CloseAccountOutput(account);
+        _outputHandler.Default(closeAccountOutput);
     }
 }

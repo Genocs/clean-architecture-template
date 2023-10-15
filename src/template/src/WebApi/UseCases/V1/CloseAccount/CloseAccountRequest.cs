@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.CloseAccount
+namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.CloseAccount
 {
     using System;
     using System.ComponentModel.DataAnnotations;

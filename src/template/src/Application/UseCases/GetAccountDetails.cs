@@ -1,35 +1,32 @@
-namespace Genocs.MicroserviceLight.Template.Application.UseCases
+using Genocs.CleanArchitecture.Template.Application.Boundaries.GetAccountDetails;
+using Genocs.CleanArchitecture.Template.Application.Repositories;
+
+namespace Genocs.CleanArchitecture.Template.Application.UseCases;
+
+public sealed class GetAccountDetails : IUseCase
 {
-    using Application.Boundaries.GetAccountDetails;
-    using Application.Repositories;
-    using Domain.Accounts;
-    using System.Threading.Tasks;
+    private readonly IOutputPort _outputHandler;
+    private readonly IAccountRepository _accountRepository;
 
-    public sealed class GetAccountDetails : IUseCase
+    public GetAccountDetails(
+        IOutputPort outputHandler,
+        IAccountRepository accountRepository)
     {
-        private readonly IOutputPort _outputHandler;
-        private readonly IAccountRepository _accountRepository;
+        _outputHandler = outputHandler;
+        _accountRepository = accountRepository;
+    }
 
-        public GetAccountDetails(
-            IOutputPort outputHandler,
-            IAccountRepository accountRepository)
+    public async Task Execute(GetAccountDetailsInput input)
+    {
+        var account = await _accountRepository.Get(input.AccountId);
+
+        if (account == null)
         {
-            _outputHandler = outputHandler;
-            _accountRepository = accountRepository;
+            _outputHandler.NotFound($"The account {input.AccountId} does not exist or is not processed yet.");
+            return;
         }
 
-        public async Task Execute(GetAccountDetailsInput input)
-        {
-            IAccount account = await _accountRepository.Get(input.AccountId);
-
-            if (account == null)
-            {
-                _outputHandler.NotFound($"The account {input.AccountId} does not exist or is not processed yet.");
-                return;
-            }
-
-            GetAccountDetailsOutput output = new GetAccountDetailsOutput(account);
-            _outputHandler.Default(output);
-        }
+        GetAccountDetailsOutput output = new GetAccountDetailsOutput(account);
+        _outputHandler.Default(output);
     }
 }

@@ -1,20 +1,16 @@
-namespace Genocs.MicroserviceLight.Template.AcceptanceTests
+namespace Genocs.CleanArchitecture.Template.AcceptanceTests;
+
+public static class HttpClientExtensions
 {
-    using System.Net.Http;
-    using System.Threading.Tasks;
-
-    public static class HttpClientExtensions
+    public static async Task<HttpResponseMessage> PatchAsync(this HttpClient client, string requestUri, HttpContent content)
     {
-        public static async Task<HttpResponseMessage> PatchAsync(this HttpClient client, string requestUri, HttpContent content)
+        var method = new HttpMethod("PATCH");
+        var request = new HttpRequestMessage(method, requestUri)
         {
-            var method = new HttpMethod("PATCH");
-            var request = new HttpRequestMessage(method, requestUri)
-            {
-                Content = content
-            };
+            Content = content
+        };
 
-            var response = await client.SendAsync(request);
-            return response;
-        }
+        var response = await client.SendAsync(request);
+        return response;
     }
 }

@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.Domain
+namespace Genocs.CleanArchitecture.Template.Domain
 {
     using Accounts;
     using Customers;

@@ -1,16 +1,14 @@
-namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.InMemory
+using Genocs.CleanArchitecture.Template.Application.Services;
+
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.InMemory;
+
+public sealed class UnitOfWork : IUnitOfWork
 {
-    using Application.Services;
-    using System.Threading.Tasks;
+    private readonly GenocsContext _context;
 
-    public sealed class UnitOfWork : IUnitOfWork
-    {
-        private readonly GenocsContext _context;
+    public UnitOfWork(GenocsContext context)
+        => _context = context;
 
-        public UnitOfWork(GenocsContext context)
-            => _context = context;
-
-        public async Task<int> Save()
-            => await Task.FromResult<int>(0);
-    }
+    public async Task<int> Save()
+        => await Task.FromResult(0);
 }

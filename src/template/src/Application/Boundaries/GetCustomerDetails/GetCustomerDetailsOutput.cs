@@ -1,25 +1,22 @@
-namespace Genocs.MicroserviceLight.Template.Application.Boundaries.GetCustomerDetails
+using Genocs.CleanArchitecture.Template.Domain.Customers;
+
+namespace Genocs.CleanArchitecture.Template.Application.Boundaries.GetCustomerDetails;
+
+public sealed class GetCustomerDetailsOutput
 {
-    using Domain.Customers;
-    using System;
-    using System.Collections.Generic;
+    public Guid CustomerId { get; }
+    public string SSN { get; }
+    public string Name { get; }
+    public IReadOnlyList<Account> Accounts { get; }
 
-    public sealed class GetCustomerDetailsOutput
+    public GetCustomerDetailsOutput(
+        ICustomer customer,
+        List<Account> accounts)
     {
-        public Guid CustomerId { get; }
-        public string SSN { get; }
-        public string Name { get; }
-        public IReadOnlyList<Account> Accounts { get; }
-
-        public GetCustomerDetailsOutput(
-            ICustomer customer,
-            List<Account> accounts)
-        {
-            Customer customerEntity = (Customer)customer;
-            CustomerId = customerEntity.Id;
-            SSN = customerEntity.SSN.ToString();
-            Name = customerEntity.Name.ToString();
-            Accounts = accounts;
-        }
+        Customer customerEntity = (Customer)customer;
+        CustomerId = customerEntity.Id;
+        SSN = customerEntity.SSN.ToString();
+        Name = customerEntity.Name.ToString();
+        Accounts = accounts;
     }
 }

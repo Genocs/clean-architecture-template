@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.Domain.Customers
+namespace Genocs.CleanArchitecture.Template.Domain.Customers
 {
     using System;
     using System.Collections.Generic;

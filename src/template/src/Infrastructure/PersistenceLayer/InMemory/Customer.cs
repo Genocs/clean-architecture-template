@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.InMemory
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.InMemory
 {
     using Domain.Customers;
     using Domain.ValueObjects;

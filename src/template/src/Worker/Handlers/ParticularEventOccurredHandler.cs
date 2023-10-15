@@ -1,40 +1,39 @@
-﻿namespace Genocs.MicroserviceLight.Template.BusWorker.Handlers
+﻿using Genocs.CleanArchitecture.Template.Shared.Events;
+using Genocs.CleanArchitecture.Template.Shared.Particular.TransactionSaga;
+using NServiceBus;
+using NServiceBus.Logging;
+
+namespace Genocs.CleanArchitecture.Template.Worker.Handlers;
+
+
+/// <summary>
+/// This event handler will be registered automatically. It do not need any action to be up and running 
+/// </summary>
+public class ParticularEventOccurredHandler : IHandleMessages<RegistrationCompleted>
 {
-    using NServiceBus;
-    using NServiceBus.Logging;
-    using ParticularShared.TransactionSaga;
-    using System;
-    using System.Threading.Tasks;
+    private readonly ILog _logger = LogManager.GetLogger<ParticularEventOccurredHandler>();
 
-    /// <summary>
-    /// This event handler will be registerd automatcally. It do not need any action to be up and running 
-    /// </summary>
-    public class ParticularEventOccurredHandler : IHandleMessages<Shared.Events.RegistrationCompleted>
+    //static int counter = 0;
+
+    //public ParticularEventOccurredHandler(ILog logger)
+    //    => _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
+
+    public async Task Handle(RegistrationCompleted message, IMessageHandlerContext context)
     {
-        private readonly ILog _logger = LogManager.GetLogger<ParticularEventOccurredHandler>();
 
-        //static int counter = 0;
+        _logger.Info($"RegistrationCompleted on CustomerId: '{message.CustomerId}', AccountId: '{message.AccountId}', ");
 
-        //public ParticularEventOccurredHandler(ILog logger)
-        //    => _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
-
-        public async Task Handle(Shared.Events.RegistrationCompleted message, IMessageHandlerContext context)
+        // Start the saga
+        await context.SendLocal(new TransactionLoaded()
         {
+            RequestId = Guid.NewGuid().ToString(),
+            TransactionId = Guid.NewGuid().ToString()
+        });
 
-            _logger.Info($"RegistrationCompleted on CustomerId: '{message.CustomerId}', AccountId: '{message.AccountId}', ");
-
-            // Start the saga
-            await context.SendLocal(new TransactionLoaded()
-            {
-                RequestId = Guid.NewGuid().ToString(),
-                TransactionId = Guid.NewGuid().ToString()
-            });
-
-            // Remove the comments to simulate some exception
-            //if(counter++ < 10 )
-            //{
-            //    throw new InvalidOperationException($"exception number: '{counter}'");
-            //}
-        }
+        // Remove the comments to simulate some exception
+        //if(counter++ < 10 )
+        //{
+        //    throw new InvalidOperationException($"exception number: '{counter}'");
+        //}
     }
 }

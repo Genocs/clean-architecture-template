@@ -1,4 +1,4 @@
-﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.ServiceBus
+﻿namespace Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.MassTransit
 {
     public class MassTransitSetting
     {

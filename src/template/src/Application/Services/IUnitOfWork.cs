@@ -1,9 +1,6 @@
-namespace Genocs.MicroserviceLight.Template.Application.Services
-{
-    using System.Threading.Tasks;
+namespace Genocs.CleanArchitecture.Template.Application.Services;
 
-    public interface IUnitOfWork
-    {
-        Task<int> Save();
-    }
+public interface IUnitOfWork
+{
+    Task<int> Save();
 }

@@ -1,5 +1,6 @@
-﻿namespace Genocs.MicroserviceLight.Template.BusWorker.HostedServices
+﻿namespace Genocs.CleanArchitecture.Template.Worker.HostedServices
 {
+    using Genocs.CleanArchitecture.Template.Infrastructure.Generic;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
@@ -13,16 +14,16 @@
     {
         private readonly ILogger<EmptyHostedService> _logger;
 
-        private readonly Infrastructure.Generic.NullOptions _options;
+        private readonly NullOptions _options;
 
-        public EmptyHostedService(IOptions<Infrastructure.Generic.NullOptions> options, ILogger<EmptyHostedService> logger)
+        public EmptyHostedService(IOptions<NullOptions> options, ILogger<EmptyHostedService> logger)
         {
             if (options is null)
             {
-                throw new System.ArgumentNullException(nameof(options));
+                throw new ArgumentNullException(nameof(options));
             }
 
-            _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _options = options.Value;
         }
 

@@ -1,12 +1,11 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.Extensions;
-
-using Application.Repositories;
-using Application.Services;
-using Domain;
-using Infrastructure.PersistenceLayer.EntityFramework;
+using Genocs.CleanArchitecture.Template.Application.Repositories;
+using Genocs.CleanArchitecture.Template.Application.Services;
+using Genocs.CleanArchitecture.Template.Domain;
+using Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.EntityFramework;
+using Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.EntityFramework.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+
+namespace Genocs.CleanArchitecture.Template.WebApi.Extensions;
 
 public static class SQLServerInfrastructureExtensions
 {

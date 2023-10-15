@@ -1,8 +1,8 @@
-﻿using Genocs.MicroserviceLight.Template.Domain;
+﻿using Genocs.CleanArchitecture.Template.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Genocs.MicroserviceLight.Template.WebApi.Filters;
+namespace Genocs.CleanArchitecture.Template.WebApi.Filters;
 
 public sealed class BusinessExceptionFilter : IExceptionFilter
 {

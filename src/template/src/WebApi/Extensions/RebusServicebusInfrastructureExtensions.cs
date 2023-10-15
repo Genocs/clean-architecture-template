@@ -1,9 +1,8 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.Extensions;
+using Genocs.CleanArchitecture.Template.Application.Services;
+using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Rebus;
 
-using Application.Services;
-using Infrastructure.ServiceBus;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+namespace Genocs.CleanArchitecture.Template.WebApi.Extensions;
+
 
 public static class RebusServicebusInfrastructureExtensions
 {

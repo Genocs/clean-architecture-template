@@ -1,16 +1,18 @@
-﻿namespace Genocs.MicroserviceLight.Template.BusWorker.Handlers
+﻿namespace Genocs.CleanArchitecture.Template.Worker.Handlers
 {
     using Shared.ReadModels;
     using System.Threading.Tasks;
     using Infrastructure.ServiceBus;
     using Microsoft.Extensions.Logging;
+    using Genocs.CleanArchitecture.Template.Shared.Events;
+    using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
 
     public class AzureEventOccurredHandler : IMessageEventHandler<IntegrationEventIssued>
     {
         private readonly ILogger<AzureEventOccurredHandler> _logger;
 
         public AzureEventOccurredHandler(ILogger<AzureEventOccurredHandler> logger)
-            => _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
+            => _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
         public Task Handle(IntegrationEventIssued @event)
         {

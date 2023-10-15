@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.EntityFramework
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.EntityFramework
 {
     using Domain.Accounts;
     using Domain.Customers;

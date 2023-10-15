@@ -1,9 +1,8 @@
-﻿namespace Genocs.MicroserviceLight.Template.Shared.Interfaces
+﻿namespace Genocs.CleanArchitecture.Template.Shared.Interfaces;
+
+/// <summary>
+/// Generic message.
+/// </summary>
+public interface IMessage
 {
-    /// <summary>
-    /// Generic message
-    /// </summary>
-    public interface IMessage
-    {
-    }
 }

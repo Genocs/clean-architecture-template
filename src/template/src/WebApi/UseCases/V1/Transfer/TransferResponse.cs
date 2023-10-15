@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Transfer
+namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Transfer
 {
     using System;
     using System.ComponentModel.DataAnnotations;

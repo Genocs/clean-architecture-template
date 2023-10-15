@@ -1,4 +1,4 @@
-﻿namespace Genocs.MicroserviceLight.Template.WebApi.ApiClient;
+﻿namespace Genocs.CleanArchitecture.Template.WebApi.ApiClient;
 
 public class AuthorizationMessageHandler
 {

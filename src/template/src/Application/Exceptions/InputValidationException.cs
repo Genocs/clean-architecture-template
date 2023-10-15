@@ -1,9 +1,8 @@
-namespace Genocs.MicroserviceLight.Template.Application.Exceptions
-{
-    using Domain;
+using Genocs.CleanArchitecture.Template.Domain;
 
-    public sealed class InputValidationException : DomainException
-    {
-        public InputValidationException(string message) : base(message) { }
-    }
+namespace Genocs.CleanArchitecture.Template.Application.Exceptions;
+
+public sealed class InputValidationException : DomainException
+{
+    public InputValidationException(string message) : base(message) { }
 }

@@ -1,10 +1,9 @@
-﻿namespace Genocs.MicroserviceLight.Template.Application.Services
-{
-    using Shared.ReadModels;
-    using System.Threading.Tasks;
+﻿using Genocs.CleanArchitecture.Template.Shared.ReadModels;
 
-    public interface IDummyApiClient : IApiClient
-    {
-        Task<SimpleResult> GetSimpleModelAsync(string id);
-    }
+namespace Genocs.CleanArchitecture.Template.Application.Services;
+
+
+public interface IDummyApiClient : IApiClient
+{
+    Task<SimpleResult> GetSimpleModelAsync(string id);
 }

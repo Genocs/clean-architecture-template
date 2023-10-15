@@ -1,5 +1,6 @@
-namespace Genocs.MicroserviceLight.Template.Domain.Accounts
+namespace Genocs.CleanArchitecture.Template.Domain.Accounts
 {
+    using Genocs.CleanArchitecture.Template.Domain;
     using ValueObjects;
 
     public interface IAccount : IAggregateRoot

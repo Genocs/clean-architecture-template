@@ -1,5 +1,7 @@
-﻿namespace Genocs.MicroserviceLight.Template.BusWorker.HostedServices
+﻿namespace Genocs.CleanArchitecture.Template.Worker.HostedServices
 {
+    using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Rebus;
+    using Genocs.CleanArchitecture.Template.Shared.Events;
     using Handlers;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
@@ -15,12 +17,12 @@
     internal class RebusService : IHostedService
     {
         private readonly ILogger<RebusService> _logger;
-        private readonly Infrastructure.ServiceBus.RebusBusSettings _settings;
+        private readonly RebusBusSettings _settings;
 
         private BuiltinHandlerActivator _activator;
         private IBus _bus;
 
-        public RebusService(IOptions<Infrastructure.ServiceBus.RebusBusSettings> settings, ILogger<RebusService> logger)
+        public RebusService(IOptions<RebusBusSettings> settings, ILogger<RebusService> logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 

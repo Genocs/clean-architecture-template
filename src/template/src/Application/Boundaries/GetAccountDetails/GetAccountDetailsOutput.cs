@@ -1,68 +1,65 @@
-namespace Genocs.MicroserviceLight.Template.Application.Boundaries.GetAccountDetails
+using Genocs.CleanArchitecture.Template.Domain.Accounts;
+
+namespace Genocs.CleanArchitecture.Template.Application.Boundaries.GetAccountDetails;
+
+public sealed class GetAccountDetailsOutput
 {
-    using Domain.Accounts;
-    using System;
-    using System.Collections.Generic;
+    public Guid AccountId { get; }
+    public decimal CurrentBalance { get; }
+    public List<Transaction> Transactions { get; }
 
-    public sealed class GetAccountDetailsOutput
+    public GetAccountDetailsOutput(
+        Guid accountId,
+        decimal currentBalance,
+        List<Transaction> transactions)
     {
-        public Guid AccountId { get; }
-        public decimal CurrentBalance { get; }
-        public List<Transaction> Transactions { get; }
+        AccountId = accountId;
+        CurrentBalance = currentBalance;
+        Transactions = transactions;
+    }
 
-        public GetAccountDetailsOutput(
-            Guid accountId,
-            decimal currentBalance,
-            List<Transaction> transactions)
+    public GetAccountDetailsOutput(IAccount account)
+    {
+        var accountEntity = (Account)account;
+
+        AccountId = accountEntity.Id;
+        CurrentBalance = accountEntity
+            .GetCurrentBalance()
+            .ToDecimal();
+
+        List<Transaction> transactionResults = new List<Transaction>();
+        foreach (var credit in accountEntity.Credits
+                .GetTransactions())
         {
-            AccountId = accountId;
-            CurrentBalance = currentBalance;
-            Transactions = transactions;
+            Credit creditEntity = (Credit)credit;
+
+            Transaction transactionOutput = new Transaction(
+                creditEntity.Description,
+                creditEntity
+                .Amount
+                .ToMoney()
+                .ToDecimal(),
+                creditEntity.TransactionDate);
+
+            transactionResults.Add(transactionOutput);
         }
 
-        public GetAccountDetailsOutput(IAccount account)
+        foreach (var debit in accountEntity.Debits
+                .GetTransactions())
         {
-            var accountEntity = (Account)account;
+            Debit debitEntity = (Debit)debit;
 
-            AccountId = accountEntity.Id;
-            CurrentBalance = accountEntity
-                .GetCurrentBalance()
-                .ToDecimal();
+            Transaction transactionOutput = new Transaction(
+                debitEntity.Description,
+                debitEntity
+                .Amount
+                .ToMoney()
+                .ToDecimal(),
+                debitEntity.TransactionDate);
 
-            List<Transaction> transactionResults = new List<Transaction>();
-            foreach (var credit in accountEntity.Credits
-                    .GetTransactions())
-            {
-                Credit creditEntity = (Credit)credit;
-
-                Transaction transactionOutput = new Transaction(
-                    creditEntity.Description,
-                    creditEntity
-                    .Amount
-                    .ToMoney()
-                    .ToDecimal(),
-                    creditEntity.TransactionDate);
-
-                transactionResults.Add(transactionOutput);
-            }
-
-            foreach (var debit in accountEntity.Debits
-                    .GetTransactions())
-            {
-                Debit debitEntity = (Debit)debit;
-
-                Transaction transactionOutput = new Transaction(
-                    debitEntity.Description,
-                    debitEntity
-                    .Amount
-                    .ToMoney()
-                    .ToDecimal(),
-                    debitEntity.TransactionDate);
-
-                transactionResults.Add(transactionOutput);
-            }
-
-            Transactions = transactionResults;
+            transactionResults.Add(transactionOutput);
         }
+
+        Transactions = transactionResults;
     }
 }

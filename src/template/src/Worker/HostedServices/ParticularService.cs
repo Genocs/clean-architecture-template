@@ -1,5 +1,6 @@
-﻿namespace Genocs.MicroserviceLight.Template.BusWorker.HostedServices
+﻿namespace Genocs.CleanArchitecture.Template.Worker.HostedServices
 {
+    using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Particular;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
@@ -18,7 +19,7 @@
         private IEndpointInstance _instance;
 
 
-        public ParticularService(IOptions<Infrastructure.ServiceBus.ParticularServiceBusSettings> settings, ILogger<ParticularService> logger)
+        public ParticularService(IOptions<ParticularServiceBusSettings> settings, ILogger<ParticularService> logger)
         {
             if (settings is null)
             {
@@ -66,7 +67,7 @@
             //transport.Routing().RouteToEndpoint(typeof(MyCommand), "Sample.SimpleSender");
 
             #endregion
-            
+
 
             // Unobtrusive mode. 
             var conventions = _configuration.Conventions();

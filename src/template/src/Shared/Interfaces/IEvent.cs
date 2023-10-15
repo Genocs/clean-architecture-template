@@ -1,9 +1,8 @@
-﻿namespace Genocs.MicroserviceLight.Template.Shared.Interfaces
+﻿namespace Genocs.CleanArchitecture.Template.Shared.Interfaces;
+
+/// <summary>
+/// Event definition.
+/// </summary>
+public interface IEvent : IMessage
 {
-    /// <summary>
-    /// Event definition
-    /// </summary>
-    public interface IEvent : IMessage
-    {
-    }
 }

@@ -1,11 +1,8 @@
-﻿using System;
+﻿namespace Genocs.CleanArchitecture.Template.Shared.Events;
 
-namespace Genocs.MicroserviceLight.Template.Shared.Events
+public class RegistrationCompleted : Interfaces.IEvent
 {
-    public class RegistrationCompleted : Interfaces.IEvent
-    {
-        public Guid CustomerId { get; set; }
-        public Guid AccountId { get; set; }
-        public Guid CreditId { get; set; }
-    }
+    public Guid CustomerId { get; set; }
+    public Guid AccountId { get; set; }
+    public Guid CreditId { get; set; }
 }

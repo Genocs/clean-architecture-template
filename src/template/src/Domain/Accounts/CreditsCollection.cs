@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.Domain.Accounts
+namespace Genocs.CleanArchitecture.Template.Domain.Accounts
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -35,7 +35,7 @@ namespace Genocs.MicroserviceLight.Template.Domain.Accounts
         {
             PositiveMoney total = new PositiveMoney(0);
 
-            foreach (ICredit credit in _credits)
+            foreach (var credit in _credits)
             {
                 total = credit.Sum(total);
             }

@@ -1,23 +1,22 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.CloseAccount
+using Genocs.CleanArchitecture.Template.Application.Boundaries.CloseAccount;
+using System.ComponentModel.DataAnnotations;
+
+namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.CloseAccount;
+
+
+/// <summary>
+/// Close Account Response
+/// </summary>
+public sealed class CloseAccountResponse
 {
-    using Application.Boundaries.CloseAccount;
-    using System;
-    using System.ComponentModel.DataAnnotations;
-
     /// <summary>
-    /// Close Account Response
+    /// Account ID
     /// </summary>
-    public sealed class CloseAccountResponse
-    {
-        /// <summary>
-        /// Account ID
-        /// </summary>
-        [Required]
-        public Guid AccountId { get; }
+    [Required]
+    public Guid AccountId { get; }
 
-        public CloseAccountResponse(CloseAccountOutput output)
-        {
-            AccountId = output.AccountId;
-        }
+    public CloseAccountResponse(CloseAccountOutput output)
+    {
+        AccountId = output.AccountId;
     }
 }

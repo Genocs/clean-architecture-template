@@ -1,6 +1,8 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.Extensions;
+namespace Genocs.CleanArchitecture.Template.WebApi.Extensions;
 
 using Filters;
+using Genocs.CleanArchitecture.Template.WebApi;
+using Genocs.CleanArchitecture.Template.WebApi.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;

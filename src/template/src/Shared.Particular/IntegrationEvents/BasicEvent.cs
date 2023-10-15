@@ -1,8 +1,7 @@
 ﻿using NServiceBus;
 
-namespace Genocs.MicroserviceLight.Template.Shared.Particular.IntegrationEvents
+namespace Genocs.CleanArchitecture.Template.Shared.Particular.IntegrationEvents;
+
+public class BasicEvent : IEvent
 {
-    public class BasicEvent : IEvent
-    {
-    }
 }

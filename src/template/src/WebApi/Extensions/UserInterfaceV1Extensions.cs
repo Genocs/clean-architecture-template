@@ -1,6 +1,13 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.Extensions;
+using Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.CloseAccount;
+using Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Deposit;
+using Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.GetAccountDetails;
+using Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.GetCustomerDetails;
+using Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Refund;
+using Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Register;
+using Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Transfer;
+using Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Withdraw;
 
-using Microsoft.Extensions.DependencyInjection;
+namespace Genocs.CleanArchitecture.Template.WebApi.Extensions;
 
 public static class UserInterfaceV1Extensions
 {
@@ -8,36 +15,36 @@ public static class UserInterfaceV1Extensions
     {
 
 #if CloseAccount
-        services.AddScoped<UseCases.V1.CloseAccount.CloseAccountPresenter, UseCases.V1.CloseAccount.CloseAccountPresenter>();
-        services.AddScoped<Application.Boundaries.CloseAccount.IOutputPort>(x => x.GetRequiredService<UseCases.V1.CloseAccount.CloseAccountPresenter>());
+        services.AddScoped<CloseAccountPresenter, CloseAccountPresenter>();
+        services.AddScoped<Application.Boundaries.CloseAccount.IOutputPort>(x => x.GetRequiredService<CloseAccountPresenter>());
 #endif
 #if Deposit
-        services.AddScoped<UseCases.V1.Deposit.DepositPresenter, UseCases.V1.Deposit.DepositPresenter>();
-        services.AddScoped<Application.Boundaries.Deposit.IOutputPort>(x => x.GetRequiredService<UseCases.V1.Deposit.DepositPresenter>());
+        services.AddScoped<DepositPresenter, DepositPresenter>();
+        services.AddScoped<Application.Boundaries.Deposits.IOutputPort>(x => x.GetRequiredService<DepositPresenter>());
 #endif
 #if GetAccountDetails
-        services.AddScoped<UseCases.V1.GetAccountDetails.GetAccountDetailsPresenter, UseCases.V1.GetAccountDetails.GetAccountDetailsPresenter>();
-        services.AddScoped<Application.Boundaries.GetAccountDetails.IOutputPort>(x => x.GetRequiredService<UseCases.V1.GetAccountDetails.GetAccountDetailsPresenter>());
+        services.AddScoped<GetAccountDetailsPresenter, GetAccountDetailsPresenter>();
+        services.AddScoped<Application.Boundaries.GetAccountDetails.IOutputPort>(x => x.GetRequiredService<GetAccountDetailsPresenter>());
 #endif
 #if GetCustomerDetails
-        services.AddScoped<UseCases.V1.GetCustomerDetails.GetCustomerDetailsPresenter, UseCases.V1.GetCustomerDetails.GetCustomerDetailsPresenter>();
-        services.AddScoped<Application.Boundaries.GetCustomerDetails.IOutputPort>(x => x.GetRequiredService<UseCases.V1.GetCustomerDetails.GetCustomerDetailsPresenter>());
+        services.AddScoped<GetCustomerDetailsPresenter, GetCustomerDetailsPresenter>();
+        services.AddScoped<Application.Boundaries.GetCustomerDetails.IOutputPort>(x => x.GetRequiredService<GetCustomerDetailsPresenter>());
 #endif
 #if Register
-        services.AddScoped<UseCases.V1.Register.RegisterPresenter, UseCases.V1.Register.RegisterPresenter>();
-        services.AddScoped<Application.Boundaries.Register.IOutputPort>(x => x.GetRequiredService<UseCases.V1.Register.RegisterPresenter>());
+        services.AddScoped<RegisterPresenter, RegisterPresenter>();
+        services.AddScoped<Application.Boundaries.Registers.IOutputPort>(x => x.GetRequiredService<RegisterPresenter>());
 #endif
 #if Withdraw
-        services.AddScoped<UseCases.V1.Withdraw.WithdrawPresenter, UseCases.V1.Withdraw.WithdrawPresenter>();
-        services.AddScoped<Application.Boundaries.Withdraw.IOutputPort>(x => x.GetRequiredService<UseCases.V1.Withdraw.WithdrawPresenter>());
+        services.AddScoped<WithdrawPresenter, WithdrawPresenter>();
+        services.AddScoped<Application.Boundaries.Withdraws.IOutputPort>(x => x.GetRequiredService<WithdrawPresenter>());
 #endif
 #if Refund
-        services.AddScoped<UseCases.V1.Refund.RefundPresenter, UseCases.V1.Refund.RefundPresenter>();
-        services.AddScoped<Application.Boundaries.Refund.IOutputPort>(x => x.GetRequiredService<UseCases.V1.Refund.RefundPresenter>());
+        services.AddScoped<RefundPresenter, RefundPresenter>();
+        services.AddScoped<Application.Boundaries.Refunds.IOutputPort>(x => x.GetRequiredService<RefundPresenter>());
 #endif
 #if Transfer
-        services.AddScoped<UseCases.V1.Transfer.TransferPresenter, UseCases.V1.Transfer.TransferPresenter>();
-        services.AddScoped<Application.Boundaries.Transfer.IOutputPort>(x => x.GetRequiredService<UseCases.V1.Transfer.TransferPresenter>());
+        services.AddScoped<TransferPresenter, TransferPresenter>();
+        services.AddScoped<Application.Boundaries.Transfers.IOutputPort>(x => x.GetRequiredService<TransferPresenter>());
 #endif
         return services;
     }

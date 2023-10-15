@@ -1,5 +1,7 @@
-﻿namespace Genocs.MicroserviceLight.Template.BusWorker.HostedServices
+﻿namespace Genocs.CleanArchitecture.Template.Worker.HostedServices
 {
+    using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
+    using Genocs.CleanArchitecture.Template.Shared.Interfaces;
     using Infrastructure.ServiceBus;
     using Microsoft.Azure.ServiceBus;
     using Microsoft.Extensions.Hosting;
@@ -17,21 +19,21 @@
     internal class AzureBusService : IHostedService
     {
         private readonly ILogger<AzureBusService> _logger;
-        private readonly Infrastructure.ServiceBus.AzureServiceBusSettings _settings;
+        private readonly AzureServiceBusSettings _settings;
 
-        private readonly Func<Infrastructure.ServiceBus.AzureServiceBusSettings, IQueueClient> _createQueueClient;
+        private readonly Func<AzureServiceBusSettings, IQueueClient> _createQueueClient;
 
         private readonly IServiceProvider _serviceProvider;
 
         private IQueueClient _busClient;
         private Dictionary<string, KeyValuePair<Type, Type>> _handlers = new Dictionary<string, KeyValuePair<Type, Type>>();
 
-        public AzureBusService(IOptions<Infrastructure.ServiceBus.AzureServiceBusSettings> options, ILogger<AzureBusService> logger, IServiceProvider serviceProvider)
+        public AzureBusService(IOptions<AzureServiceBusSettings> options, ILogger<AzureBusService> logger, IServiceProvider serviceProvider)
             : this(options, logger, CreateQueueClient, serviceProvider)
         { }
 
-        public AzureBusService(IOptions<Infrastructure.ServiceBus.AzureServiceBusSettings> options, ILogger<AzureBusService> logger,
-            Func<Infrastructure.ServiceBus.AzureServiceBusSettings, IQueueClient> createQueueClient, IServiceProvider serviceProvider)
+        public AzureBusService(IOptions<AzureServiceBusSettings> options, ILogger<AzureBusService> logger,
+            Func<AzureServiceBusSettings, IQueueClient> createQueueClient, IServiceProvider serviceProvider)
         {
             _settings = options.Value;
 
@@ -55,7 +57,7 @@
             }
         }
 
-        private static IQueueClient CreateQueueClient(Infrastructure.ServiceBus.AzureServiceBusSettings options)
+        private static IQueueClient CreateQueueClient(AzureServiceBusSettings options)
         {
             ServiceBusConnectionStringBuilder connectionStringBuilder = new ServiceBusConnectionStringBuilder
             {

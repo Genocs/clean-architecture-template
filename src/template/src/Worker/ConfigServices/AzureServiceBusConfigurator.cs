@@ -1,15 +1,14 @@
-﻿namespace Genocs.MicroserviceLight.Template.BusWorker.ConfigServices
-{
-    using BusWorker.HostedServices;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
+﻿using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
+using Genocs.CleanArchitecture.Template.Worker.HostedServices;
 
-    public class AzureServiceBusConfigurator
+namespace Genocs.CleanArchitecture.Template.Worker.ConfigServices;
+
+
+public class AzureServiceBusConfigurator
+{
+    public static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
     {
-        public static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
-        {
-            services.Configure<Infrastructure.ServiceBus.AzureServiceBusSettings>(context.Configuration.GetSection("AzureServiceBusSettings"));
-            services.AddHostedService<AzureBusHostService>();
-        }
+        services.Configure<AzureServiceBusSettings>(context.Configuration.GetSection("AzureServiceBusSettings"));
+        services.AddHostedService<AzureBusHostService>();
     }
 }

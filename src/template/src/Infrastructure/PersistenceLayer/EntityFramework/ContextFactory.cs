@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.EntityFramework
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.EntityFramework
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Design;
@@ -18,9 +18,9 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.Enti
 
         private string ReadDefaultConnectionStringFromAppSettings()
         {
-            IConfigurationRoot configuration = new ConfigurationBuilder()
+            var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile($"appsettings.{System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json")
+                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json")
                 .Build();
 
             string connectionString = configuration.GetConnectionString("DefaultConnection");

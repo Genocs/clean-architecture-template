@@ -1,4 +1,4 @@
-﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.WebApiClient.Resiliency
+﻿namespace Genocs.CleanArchitecture.Template.Infrastructure.WebApiClient.Resiliency
 {
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;

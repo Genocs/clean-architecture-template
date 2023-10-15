@@ -1,9 +1,6 @@
-namespace Genocs.MicroserviceLight.Template.Application.Boundaries.GetAccountDetails
-{
-    using System.Threading.Tasks;
+namespace Genocs.CleanArchitecture.Template.Application.Boundaries.GetAccountDetails;
 
-    public interface IUseCase
-    {
-        Task Execute(GetAccountDetailsInput getAccountDetailsInput);
-    }
+public interface IUseCase
+{
+    Task Execute(GetAccountDetailsInput getAccountDetailsInput);
 }

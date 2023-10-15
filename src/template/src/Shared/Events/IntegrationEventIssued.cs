@@ -1,9 +1,8 @@
-﻿namespace Genocs.MicroserviceLight.Template.Shared.ReadModels
-{
-    using Interfaces;
+﻿using Genocs.CleanArchitecture.Template.Shared.Interfaces;
 
-    public class IntegrationEventIssued : IIntegrationEvent
-    {
-        public string Title { get; set; }
-    }
+namespace Genocs.CleanArchitecture.Template.Shared.Events;
+
+public class IntegrationEventIssued : IIntegrationEvent
+{
+    public string? Title { get; set; }
 }

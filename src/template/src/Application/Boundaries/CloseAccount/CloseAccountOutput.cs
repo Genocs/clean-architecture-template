@@ -1,15 +1,13 @@
-namespace Genocs.MicroserviceLight.Template.Application.Boundaries.CloseAccount
+using Genocs.CleanArchitecture.Template.Domain.Accounts;
+
+namespace Genocs.CleanArchitecture.Template.Application.Boundaries.CloseAccount;
+
+public sealed class CloseAccountOutput
 {
-    using Domain.Accounts;
-    using System;
+    public Guid AccountId { get; }
 
-    public sealed class CloseAccountOutput
+    public CloseAccountOutput(IAccount account)
     {
-        public Guid AccountId { get; }
-
-        public CloseAccountOutput(IAccount account)
-        {
-            AccountId = account.Id;
-        }
+        AccountId = account.Id;
     }
 }

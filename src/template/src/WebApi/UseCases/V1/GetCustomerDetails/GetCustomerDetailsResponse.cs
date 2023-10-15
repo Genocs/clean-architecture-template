@@ -1,5 +1,6 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.GetCustomerDetails
+namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.GetCustomerDetails
 {
+    using Genocs.CleanArchitecture.Template.WebApi.ViewModels;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

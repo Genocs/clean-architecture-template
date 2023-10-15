@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Genocs.MicroserviceLight.Template.WebApi.Filters;
+namespace Genocs.CleanArchitecture.Template.WebApi.Filters;
 
 /// <summary>
 /// Configures the Swagger generation options.

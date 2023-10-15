@@ -1,7 +1,8 @@
-namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.InMemory
+using Genocs.CleanArchitecture.Template.Application.Boundaries.Withdraws;
+using System.Collections.ObjectModel;
+
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.InMemory.Presenters
 {
-    using Application.Boundaries.Withdraw;
-    using System.Collections.ObjectModel;
 
     public sealed class WithdrawPresenter : IOutputPort
     {

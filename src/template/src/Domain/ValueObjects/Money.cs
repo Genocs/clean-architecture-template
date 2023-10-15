@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.Domain.ValueObjects
+namespace Genocs.CleanArchitecture.Template.Domain.ValueObjects
 {
     using System;
 

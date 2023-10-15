@@ -1,53 +1,50 @@
-namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.EntityFramework
+using Genocs.CleanArchitecture.Template.Application.Repositories;
+using Genocs.CleanArchitecture.Template.Domain.Customers;
+using Microsoft.EntityFrameworkCore;
+
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.EntityFramework.Repositories;
+
+
+public sealed class CustomerRepository : ICustomerRepository
 {
-    using Application.Repositories;
-    using Domain.Customers;
-    using Microsoft.EntityFrameworkCore;
-    using System;
-    using System.Linq;
-    using System.Threading.Tasks;
+    private readonly GenocsContext _context;
 
-    public sealed class CustomerRepository : ICustomerRepository
+    public CustomerRepository(GenocsContext context)
     {
-        private readonly GenocsContext _context;
+        _context = context ??
+            throw new ArgumentNullException(nameof(context));
+    }
 
-        public CustomerRepository(GenocsContext context)
+    public async Task Add(ICustomer customer)
+    {
+        await _context.Customers.AddAsync((Customer)customer);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<ICustomer> Get(Guid id)
+    {
+        var customer = await _context.Customers
+            .Where(c => c.Id == id)
+            .SingleOrDefaultAsync();
+
+        if (customer == null)
         {
-            _context = context ??
-                throw new ArgumentNullException(nameof(context));
+            return null;
         }
 
-        public async Task Add(ICustomer customer)
-        {
-            await _context.Customers.AddAsync((Customer)customer);
-            await _context.SaveChangesAsync();
-        }
+        List<Guid> accounts = _context.Accounts
+            .Where(e => e.CustomerId == id)
+            .Select(e => e.Id)
+            .ToList();
 
-        public async Task<ICustomer> Get(Guid id)
-        {
-            var customer = await _context.Customers
-                .Where(c => c.Id == id)
-                .SingleOrDefaultAsync();
+        customer.LoadAccounts(accounts);
 
-            if (customer == null)
-            {
-                return null;
-            }
+        return customer;
+    }
 
-            System.Collections.Generic.List<Guid> accounts = _context.Accounts
-                .Where(e => e.CustomerId == id)
-                .Select(e => e.Id)
-                .ToList();
-
-            customer.LoadAccounts(accounts);
-
-            return customer;
-        }
-
-        public async Task Update(ICustomer customer)
-        {
-            _context.Customers.Update((Customer)customer);
-            await _context.SaveChangesAsync();
-        }
+    public async Task Update(ICustomer customer)
+    {
+        _context.Customers.Update((Customer)customer);
+        await _context.SaveChangesAsync();
     }
 }

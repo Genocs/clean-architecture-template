@@ -1,10 +1,11 @@
-﻿namespace Genocs.MicroserviceLight.Template.Shared.Commands
+﻿using Genocs.CleanArchitecture.Template.Shared.Interfaces;
+
+namespace Genocs.CleanArchitecture.Template.Shared.Commands;
+
+public class SimpleMessage : ICommand
 {
-    public class SimpleMessage : Interfaces.ICommand
-    {
-        public string MessageId { get; set; }
+    public string MessageId { get; set; }
 
-        public string MessageBody { get; set; }
+    public string MessageBody { get; set; }
 
-    }
 }

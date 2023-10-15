@@ -1,19 +1,17 @@
-﻿namespace Genocs.MicroserviceLight.Template.UnitTests.TestFixtures
+﻿using Genocs.CleanArchitecture.Template.Application.Services;
+using Genocs.CleanArchitecture.Template.Shared.Interfaces;
+
+namespace Genocs.CleanArchitecture.Template.UnitTests.TestFixtures;
+
+public class FakeServiceBus : IServiceBusClient
 {
-    using Application.Services;
-    using Shared.Interfaces;
-    using System.Threading.Tasks;
-
-    public class FakeServiceBus : IServiceBusClient
+    public async Task PublishEventAsync<T>(T evt) where T : IEvent
     {
-        public async Task PublishEventAsync<T>(T evt) where T : IEvent
-        {
-            await Task.CompletedTask;
-        }
+        await Task.CompletedTask;
+    }
 
-        public async Task SendCommandAsync<T>(T cmd) where T : ICommand
-        {
-            await Task.CompletedTask;
-        }
+    public async Task SendCommandAsync<T>(T cmd) where T : ICommand
+    {
+        await Task.CompletedTask;
     }
 }

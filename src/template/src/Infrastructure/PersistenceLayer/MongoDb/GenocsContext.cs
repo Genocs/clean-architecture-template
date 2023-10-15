@@ -1,4 +1,4 @@
-﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.MongoDb
+﻿namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.MongoDb
 {
     using Domain;
     using Microsoft.Extensions.Configuration;
@@ -37,13 +37,13 @@
 
         public static void RegisterConventions()
         {
-             // Set Guid to CSharp style (with dash -)
-            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy)); 
+            // Set Guid to CSharp style (with dash -)
+            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));
 
             var pack = new ConventionPack
             {
                 new IgnoreExtraElementsConvention(true),
-                new IgnoreIfDefaultConvention(true)                
+                new IgnoreIfDefaultConvention(true)
             };
 
             ConventionRegistry.Register("Genocs Solution Conventions", pack, t => true);

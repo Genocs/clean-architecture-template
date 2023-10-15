@@ -1,9 +1,8 @@
-﻿namespace Genocs.MicroserviceLight.Template.Shared.ReadModels
+﻿namespace Genocs.CleanArchitecture.Template.Shared.ReadModels;
+
+public class ChangeStatusSchedule
 {
-    public class ChangeStatusSchedule
-    {
-        public string MessageId { get; set; }
-        public string StatusId { get; set; }
-        public string DateEvent { get; set; }
-    }
+    public string? MessageId { get; set; }
+    public string? StatusId { get; set; }
+    public string? DateEvent { get; set; }
 }

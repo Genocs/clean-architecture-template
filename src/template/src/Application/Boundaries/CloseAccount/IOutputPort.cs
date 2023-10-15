@@ -1,7 +1,6 @@
-namespace Genocs.MicroserviceLight.Template.Application.Boundaries.CloseAccount
+namespace Genocs.CleanArchitecture.Template.Application.Boundaries.CloseAccount;
+
+public interface IOutputPort : IErrorHandler
 {
-    public interface IOutputPort : IErrorHandler
-    {
-        void Default(CloseAccountOutput closeAccountOutput);
-    }
+    void Default(CloseAccountOutput closeAccountOutput);
 }

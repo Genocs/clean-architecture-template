@@ -1,8 +1,7 @@
-namespace Genocs.MicroserviceLight.Template.Application.Boundaries.GetAccountDetails
+namespace Genocs.CleanArchitecture.Template.Application.Boundaries.GetAccountDetails;
+
+public interface IOutputPort : IErrorHandler
 {
-    public interface IOutputPort : IErrorHandler
-    {
-        void Default(GetAccountDetailsOutput getAccountDetailsOutput);
-        void NotFound(string message);
-    }
+    void Default(GetAccountDetailsOutput getAccountDetailsOutput);
+    void NotFound(string message);
 }

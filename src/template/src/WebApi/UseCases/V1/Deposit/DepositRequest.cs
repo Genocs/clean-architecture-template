@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Deposit
+namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Deposit
 {
     using System;
     using System.ComponentModel.DataAnnotations;

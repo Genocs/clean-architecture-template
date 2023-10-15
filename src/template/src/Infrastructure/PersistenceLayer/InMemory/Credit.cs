@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.InMemory
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.InMemory
 {
     using Domain.Accounts;
     using Domain.ValueObjects;
@@ -12,7 +12,7 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.InMe
 
         public Credit(IAccount account, PositiveMoney amountToDeposit, DateTime transactionDate)
         {
-            this.AccountId = account.Id;
+            AccountId = account.Id;
             this.Amount = amountToDeposit;
             this.TransactionDate = transactionDate;
         }

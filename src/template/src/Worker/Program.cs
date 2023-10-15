@@ -7,7 +7,7 @@ using Serilog.Formatting.Compact;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Genocs.MicroserviceLight.Template.BusWorker
+namespace Genocs.CleanArchitecture.Template.Worker
 {
     class Program
     {
@@ -23,8 +23,8 @@ namespace Genocs.MicroserviceLight.Template.BusWorker
 
         private static IHostBuilder CreateHostBuilder(string[] args)
         {
-            string environment = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            
+            string environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
             return new HostBuilder()
                 .ConfigureHostConfiguration(configHost => configHost.AddEnvironmentVariables())
                 .ConfigureAppConfiguration((context, builder) =>

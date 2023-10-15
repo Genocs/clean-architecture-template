@@ -1,40 +1,37 @@
-namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.EntityFramework
+using Genocs.CleanArchitecture.Template.Application.Services;
+
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.EntityFramework;
+
+public sealed class UnitOfWork : IUnitOfWork, IDisposable
 {
-    using Application.Services;
-    using System;
-    using System.Threading.Tasks;
+    private readonly GenocsContext _context;
 
-    public sealed class UnitOfWork : IUnitOfWork, IDisposable
+    public UnitOfWork(GenocsContext context)
+        => _context = context;
+
+    public async Task<int> Save()
     {
-        private readonly GenocsContext _context;
+        int affectedRows = await _context.SaveChangesAsync();
+        return affectedRows;
+    }
 
-        public UnitOfWork(GenocsContext context)
-            => _context = context;
+    private bool _disposed = false;
 
-        public async Task<int> Save()
+    private void Dispose(bool disposing)
+    {
+        if (!_disposed)
         {
-            int affectedRows = await _context.SaveChangesAsync();
-            return affectedRows;
-        }
-
-        private bool _disposed = false;
-
-        private void Dispose(bool disposing)
-        {
-            if (!_disposed)
+            if (disposing)
             {
-                if (disposing)
-                {
-                    _context.Dispose();
-                }
+                _context.Dispose();
             }
-            _disposed = true;
         }
+        _disposed = true;
+    }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }

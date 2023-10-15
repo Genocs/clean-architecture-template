@@ -1,9 +1,8 @@
-﻿namespace Genocs.MicroserviceLight.Template.Shared.Options
+﻿namespace Genocs.CleanArchitecture.Template.Shared.Options;
+
+public class ParticularOptions
 {
-    public class ParticularOptions
-    {
-        public string TransportConnectionString { get; set; }
-        public string PersistenceConnectionString { get; set; }
-        public string PersistenceDatabase { get; set; }
-    }
+    public string? TransportConnectionString { get; set; }
+    public string? PersistenceConnectionString { get; set; }
+    public string? PersistenceDatabase { get; set; }
 }

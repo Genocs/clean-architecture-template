@@ -1,8 +1,9 @@
-﻿namespace Genocs.MicroserviceLight.Template.Shared.Events
+﻿using Genocs.CleanArchitecture.Template.Shared.Interfaces;
+
+namespace Genocs.CleanArchitecture.Template.Shared.Events;
+
+public class DemoEventOccurred : IIntegrationEvent
 {
-    public class DemoEventOccurred : Interfaces.IIntegrationEvent
-    {
-        public string Payload { get; set; }
-        public int Value { get; set; }
-    }
+    public string Payload { get; set; }
+    public int Value { get; set; }
 }

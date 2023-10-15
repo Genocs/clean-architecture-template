@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.Domain.ValueObjects
+namespace Genocs.CleanArchitecture.Template.Domain.ValueObjects
 {
     using Exceptions;
     using System;
@@ -17,7 +17,7 @@ namespace Genocs.MicroserviceLight.Template.Domain.ValueObjects
                 throw new SSNShouldNotBeEmptyException("The 'SSN' field is required");
 
             Regex regex = new Regex(RegExForValidation);
-            Match match = regex.Match(text);
+            var match = regex.Match(text);
 
             if (!match.Success)
                 throw new InvalidSSNException("Invalid SSN format. Use YYMMDDNNNN.");
@@ -32,7 +32,7 @@ namespace Genocs.MicroserviceLight.Template.Domain.ValueObjects
 
         public bool Equals(SSN other)
         {
-            return this._text == other._text;
+            return _text == other._text;
         }
 
         public override bool Equals(object obj)

@@ -5,7 +5,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Genocs.MicroserviceLight.Template.BusWorker.ExternalServices
+namespace Genocs.CleanArchitecture.Template.Worker.ExternalServices
 {
     public class ReadinessLivenessPublisher : IHealthCheckPublisher
     {
@@ -24,36 +24,36 @@ namespace Genocs.MicroserviceLight.Template.BusWorker.ExternalServices
             switch (report.Status)
             {
                 case HealthStatus.Healthy:
-                {
-                    _logger.LogInformation(
-                            "{Timestamp} Readiness/Liveness Probe Status: {Result}",
-                            DateTime.UtcNow,
-                            report.Status);
+                    {
+                        _logger.LogInformation(
+                                "{Timestamp} Readiness/Liveness Probe Status: {Result}",
+                                DateTime.UtcNow,
+                                report.Status);
 
-                    CreateOrUpdateHealthz();
+                        CreateOrUpdateHealthz();
 
-                    break;
-                }
+                        break;
+                    }
 
                 case HealthStatus.Degraded:
-                {
-                    _logger.LogWarning(
-                            "{Timestamp} Readiness/Liveness Probe Status: {Result}",
-                            DateTime.UtcNow,
-                            report.Status);
+                    {
+                        _logger.LogWarning(
+                                "{Timestamp} Readiness/Liveness Probe Status: {Result}",
+                                DateTime.UtcNow,
+                                report.Status);
 
-                    break;
-                }
+                        break;
+                    }
 
                 case HealthStatus.Unhealthy:
-                {
-                    _logger.LogError(
-                            "{Timestamp} Readiness Probe/Liveness Status: {Result}",
-                            DateTime.UtcNow,
-                            report.Status);
+                    {
+                        _logger.LogError(
+                                "{Timestamp} Readiness Probe/Liveness Status: {Result}",
+                                DateTime.UtcNow,
+                                report.Status);
 
-                    break;
-                }
+                        break;
+                    }
             }
 
             cancellationToken.ThrowIfCancellationRequested();
@@ -72,5 +72,5 @@ namespace Genocs.MicroserviceLight.Template.BusWorker.ExternalServices
                 File.AppendText(FilePath).Close();
             }
         }
-   }
+    }
 }

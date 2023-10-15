@@ -1,33 +1,32 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Transfer
+using Genocs.CleanArchitecture.Template.Application.Boundaries.Transfers;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Transfer;
+
+public sealed class TransferPresenter : IOutputPort
 {
-    using Application.Boundaries.Transfer;
-    using Microsoft.AspNetCore.Mvc;
+    public IActionResult ViewModel { get; private set; }
 
-    public sealed class TransferPresenter : IOutputPort
+    public void Error(string message)
     {
-        public IActionResult ViewModel { get; private set; }
-
-        public void Error(string message)
+        var problemDetails = new ProblemDetails()
         {
-            var problemDetails = new ProblemDetails()
-            {
-                Title = "An error occurred",
-                Detail = message
-            };
+            Title = "An error occurred",
+            Detail = message
+        };
 
-            ViewModel = new BadRequestObjectResult(problemDetails);
-        }
+        ViewModel = new BadRequestObjectResult(problemDetails);
+    }
 
-        public void Default(TransferOutput transferOutput)
+    public void Default(TransferOutput transferOutput)
+    {
+        var transferResponse = new
         {
-            var transferResponse = new
-            {
-                Amount = transferOutput.Transaction.Amount,
-                Description = transferOutput.Transaction.Description,
-                TransactionDate = transferOutput.Transaction.TransactionDate,
-                UpdatedBalance = transferOutput.UpdatedBalance,
-            };
-            ViewModel = new ObjectResult(transferResponse);
-        }
+            transferOutput.Transaction.Amount,
+            transferOutput.Transaction.Description,
+            transferOutput.Transaction.TransactionDate,
+            transferOutput.UpdatedBalance,
+        };
+        ViewModel = new ObjectResult(transferResponse);
     }
 }

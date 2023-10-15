@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Register
+namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Register
 {
     using System;
     using System.Collections.Generic;

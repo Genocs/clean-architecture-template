@@ -1,8 +1,8 @@
-namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.InMemory
-{
-    using Application.Boundaries.GetAccountDetails;
-    using System.Collections.ObjectModel;
+using Genocs.CleanArchitecture.Template.Application.Boundaries.GetAccountDetails;
+using System.Collections.ObjectModel;
 
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.InMemory.Presenters
+{
     public sealed class GetAccountDetailsPresenter : IOutputPort
     {
         public Collection<string> Errors { get; }

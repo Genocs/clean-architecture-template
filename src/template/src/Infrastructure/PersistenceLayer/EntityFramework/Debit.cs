@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.EntityFramework
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.EntityFramework
 {
     using Domain.Accounts;
     using Domain.ValueObjects;
@@ -12,7 +12,7 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.Enti
 
         public Debit(IAccount account, PositiveMoney amountToWithdraw, DateTime transactionDate)
         {
-            this.AccountId = account.Id;
+            AccountId = account.Id;
             this.Amount = amountToWithdraw;
             this.TransactionDate = transactionDate;
         }

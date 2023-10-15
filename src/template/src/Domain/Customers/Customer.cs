@@ -1,6 +1,7 @@
-namespace Genocs.MicroserviceLight.Template.Domain.Customers
+namespace Genocs.CleanArchitecture.Template.Domain.Customers
 {
     using Accounts;
+    using Genocs.CleanArchitecture.Template.Domain.Accounts;
     using System;
     using ValueObjects;
 

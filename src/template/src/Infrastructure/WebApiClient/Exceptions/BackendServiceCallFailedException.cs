@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Genocs.MicroserviceLight.Template.BusWorker.Exceptions
+namespace Genocs.CleanArchitecture.Template.Infrastructure.WebApiClient.Exceptions
 {
     public class BackendServiceCallFailedException : Exception
     {

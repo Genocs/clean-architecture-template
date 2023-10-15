@@ -1,9 +1,8 @@
-namespace Genocs.MicroserviceLight.Template.Application.Boundaries.GetCustomerDetails
-{
-    using System.Threading.Tasks;
+namespace Genocs.CleanArchitecture.Template.Application.Boundaries.GetCustomerDetails;
 
-    public interface IUseCase
-    {
-        Task Execute(GetCustomerDetailsInput getCustomerDetailsInput);
-    }
+using System.Threading.Tasks;
+
+public interface IUseCase
+{
+    Task Execute(GetCustomerDetailsInput getCustomerDetailsInput);
 }

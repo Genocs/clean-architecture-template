@@ -1,15 +1,13 @@
-﻿namespace Genocs.MicroserviceLight.Template.BusWorker.ConfigServices
-{
-    using BusWorker.HostedServices;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
+﻿using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Rebus;
+using Genocs.CleanArchitecture.Template.Worker.HostedServices;
 
-    public class RebusServiceBusConfigurator
+namespace Genocs.CleanArchitecture.Template.Worker.ConfigServices;
+
+public class RebusServiceBusConfigurator
+{
+    public static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
     {
-        public static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
-        {
-            services.Configure<Infrastructure.ServiceBus.RebusBusSettings>(context.Configuration.GetSection("RebusBusSettings"));
-            services.AddHostedService<RebusService>();
-        }
+        services.Configure<RebusBusSettings>(context.Configuration.GetSection("RebusBusSettings"));
+        services.AddHostedService<RebusService>();
     }
 }

@@ -1,20 +1,18 @@
-namespace Genocs.MicroserviceLight.Template.Application.Boundaries.GetAccountDetails
+using Genocs.CleanArchitecture.Template.Application.Exceptions;
+
+namespace Genocs.CleanArchitecture.Template.Application.Boundaries.GetAccountDetails;
+
+public sealed class GetAccountDetailsInput
 {
-    using Application.Exceptions;
-    using System;
+    public Guid AccountId { get; }
 
-    public sealed class GetAccountDetailsInput
+    public GetAccountDetailsInput(Guid accountId)
     {
-        public Guid AccountId { get; }
-
-        public GetAccountDetailsInput(Guid accountId)
+        if (accountId == Guid.Empty)
         {
-            if (accountId == Guid.Empty)
-            {
-                throw new InputValidationException($"{nameof(accountId)} cannot be empty.");
-            }
-
-            AccountId = accountId;
+            throw new InputValidationException($"{nameof(accountId)} cannot be empty.");
         }
+
+        AccountId = accountId;
     }
 }

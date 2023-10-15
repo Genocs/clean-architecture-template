@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.Domain.Accounts
+namespace Genocs.CleanArchitecture.Template.Domain.Accounts
 {
     using System;
     using ValueObjects;
@@ -8,8 +8,7 @@ namespace Genocs.MicroserviceLight.Template.Domain.Accounts
         public Guid Id { get; protected set; }
         public PositiveMoney Amount { get; protected set; }
 
-        public string Description
-        {
+        public string Description {
             get { return "Debit"; }
         }
 

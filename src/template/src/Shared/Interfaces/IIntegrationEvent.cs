@@ -1,10 +1,9 @@
-﻿namespace Genocs.MicroserviceLight.Template.Shared.Interfaces
-{
-    /// <summary>
-    /// IntegrationEvent definition
-    /// </summary>
-    public interface IIntegrationEvent
-    {
+﻿namespace Genocs.CleanArchitecture.Template.Shared.Interfaces;
 
-    }
+/// <summary>
+/// IntegrationEvent definition.
+/// </summary>
+public interface IIntegrationEvent
+{
+
 }

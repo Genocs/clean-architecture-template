@@ -1,7 +1,10 @@
-namespace Genocs.MicroserviceLight.Template.WebApi
+namespace Genocs.CleanArchitecture.Template.WebApi
 {
     using Extensions;
     using Extensions.FeatureFlags;
+    using Genocs.CleanArchitecture.Template.WebApi.ApiClient;
+    using Genocs.CleanArchitecture.Template.WebApi.Extensions;
+    using Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc.ApiExplorer;

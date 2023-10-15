@@ -1,7 +1,6 @@
-﻿namespace Genocs.MicroserviceLight.Template.Shared.ReadModels
+﻿namespace Genocs.CleanArchitecture.Template.Shared.ReadModels;
+
+public class SimpleResult
 {
-    public class SimpleResult
-    {
-        public string MessageId { get; set; }
-    }
+    public string? MessageId { get; set; }
 }

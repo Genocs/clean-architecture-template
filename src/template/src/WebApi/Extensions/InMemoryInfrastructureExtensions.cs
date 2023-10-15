@@ -1,11 +1,10 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.Extensions;
+using Genocs.CleanArchitecture.Template.Application.Repositories;
+using Genocs.CleanArchitecture.Template.Application.Services;
+using Genocs.CleanArchitecture.Template.Domain;
+using Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.InMemory;
+using Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.InMemory.Repositories;
 
-using Application.Repositories;
-using Application.Services;
-using Domain;
-using Infrastructure.PersistenceLayer.InMemory;
-using Infrastructure.PersistenceLayer.InMemory.Repositories;
-using Microsoft.Extensions.DependencyInjection;
+namespace Genocs.CleanArchitecture.Template.WebApi.Extensions;
 
 public static class InMemoryInfrastructureExtensions
 {

@@ -1,5 +1,5 @@
-using Genocs.MicroserviceLight.Template.WebApi.ApiClient;
-using Genocs.MicroserviceLight.Template.WebApi.Extensions;
+using Genocs.CleanArchitecture.Template.WebApi.ApiClient;
+using Genocs.CleanArchitecture.Template.WebApi.Extensions;
 using Microsoft.ApplicationInsights.DependencyCollector;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Refit;

@@ -1,27 +1,26 @@
-namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.InMemory
+using Genocs.CleanArchitecture.Template.Application.Boundaries.Transfers;
+using System.Collections.ObjectModel;
+
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.InMemory.Presenters;
+
+public sealed class TransferPresenter : IOutputPort
 {
-    using Application.Boundaries.Transfer;
-    using System.Collections.ObjectModel;
+    public Collection<string> Errors { get; }
+    public Collection<TransferOutput> Transfers { get; }
 
-    public sealed class TransferPresenter : IOutputPort
+    public TransferPresenter()
     {
-        public Collection<string> Errors { get; }
-        public Collection<TransferOutput> Transfers { get; }
+        Errors = new Collection<string>();
+        Transfers = new Collection<TransferOutput>();
+    }
 
-        public TransferPresenter()
-        {
-            Errors = new Collection<string>();
-            Transfers = new Collection<Application.Boundaries.Transfer.TransferOutput>();
-        }
+    public void Error(string message)
+    {
+        Errors.Add(message);
+    }
 
-        public void Error(string message)
-        {
-            Errors.Add(message);
-        }
-
-        public void Default(TransferOutput output)
-        {
-            Transfers.Add(output);
-        }
+    public void Default(TransferOutput output)
+    {
+        Transfers.Add(output);
     }
 }

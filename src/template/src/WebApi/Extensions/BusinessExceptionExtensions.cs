@@ -1,5 +1,6 @@
-﻿namespace Genocs.MicroserviceLight.Template.WebApi.Extensions;
+﻿namespace Genocs.CleanArchitecture.Template.WebApi.Extensions;
 
+using Genocs.CleanArchitecture.Template.WebApi.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using WebApi.Filters;
 

@@ -1,9 +1,6 @@
-﻿using System;
+﻿namespace Genocs.CleanArchitecture.Template.Shared.Events;
 
-namespace Genocs.MicroserviceLight.Template.Shared.Events
+public class CloseAccountCompleted : Interfaces.IEvent
 {
-    public class CloseAccountCompleted : Interfaces.IEvent
-    {
-        public Guid AccountId { get; set; }
-    }
+    public Guid AccountId { get; set; }
 }

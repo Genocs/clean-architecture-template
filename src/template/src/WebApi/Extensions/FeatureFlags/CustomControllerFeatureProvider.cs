@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.Extensions.FeatureFlags;
+namespace Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
 
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;

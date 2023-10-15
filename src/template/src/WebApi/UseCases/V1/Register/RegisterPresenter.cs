@@ -1,60 +1,58 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Register
+using Genocs.CleanArchitecture.Template.Application.Boundaries.Registers;
+using Genocs.CleanArchitecture.Template.WebApi.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Register;
+
+public sealed class RegisterPresenter : IOutputPort
 {
-    using Application.Boundaries.Register;
-    using Microsoft.AspNetCore.Mvc;
-    using System.Collections.Generic;
-    using WebApi.ViewModels;
+    public IActionResult ViewModel { get; private set; }
 
-    public sealed class RegisterPresenter : IOutputPort
+    public void Error(string message)
     {
-        public IActionResult ViewModel { get; private set; }
-
-        public void Error(string message)
+        var problemDetails = new ProblemDetails()
         {
-            var problemDetails = new ProblemDetails()
-            {
-                Title = "An error occurred",
-                Detail = message
-            };
+            Title = "An error occurred",
+            Detail = message
+        };
 
-            ViewModel = new BadRequestObjectResult(problemDetails);
+        ViewModel = new BadRequestObjectResult(problemDetails);
+    }
+
+    public void Standard(RegisterOutput output)
+    {
+        var transactions = new List<TransactionModel>();
+
+        foreach (var item in output.Account.Transactions)
+        {
+            var transaction = new TransactionModel(
+                item.Amount,
+                item.Description,
+                item.TransactionDate);
+
+            transactions.Add(transaction);
         }
 
-        public void Standard(RegisterOutput output)
-        {
-            var transactions = new List<TransactionModel>();
+        var account = new AccountDetailsModel(
+            output.Account.AccountId,
+            output.Account.CurrentBalance,
+            transactions);
 
-            foreach (var item in output.Account.Transactions)
+        var accounts = new List<AccountDetailsModel>();
+        accounts.Add(account);
+
+        var registerResponse = new RegisterResponse(
+            output.Customer.CustomerId,
+            output.Customer.SSN,
+            output.Customer.Name,
+            accounts
+        );
+
+        ViewModel = new CreatedAtRouteResult("GetCustomer",
+            new
             {
-                var transaction = new TransactionModel(
-                    item.Amount,
-                    item.Description,
-                    item.TransactionDate);
-
-                transactions.Add(transaction);
-            }
-
-            var account = new AccountDetailsModel(
-                output.Account.AccountId,
-                output.Account.CurrentBalance,
-                transactions);
-
-            var accounts = new List<AccountDetailsModel>();
-            accounts.Add(account);
-
-            var registerResponse = new RegisterResponse(
-                output.Customer.CustomerId,
-                output.Customer.SSN,
-                output.Customer.Name,
-                accounts
-            );
-
-            ViewModel = new CreatedAtRouteResult("GetCustomer",
-                new
-                {
-                    customerId = registerResponse.CustomerId
-                },
-                registerResponse);
-        }
+                customerId = registerResponse.CustomerId
+            },
+            registerResponse);
     }
 }

@@ -1,32 +1,32 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Withdraw
+using Genocs.CleanArchitecture.Template.Application.Boundaries.Withdraws;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Withdraw;
+
+
+public sealed class WithdrawPresenter : IOutputPort
 {
-    using Application.Boundaries.Withdraw;
-    using Microsoft.AspNetCore.Mvc;
+    public IActionResult ViewModel { get; private set; }
 
-    public sealed class WithdrawPresenter : IOutputPort
+    public void Error(string message)
     {
-        public IActionResult ViewModel { get; private set; }
-
-        public void Error(string message)
+        var problemDetails = new ProblemDetails()
         {
-            var problemDetails = new ProblemDetails()
-            {
-                Title = "An error occurred",
-                Detail = message
-            };
+            Title = "An error occurred",
+            Detail = message
+        };
 
-            ViewModel = new BadRequestObjectResult(problemDetails);
-        }
+        ViewModel = new BadRequestObjectResult(problemDetails);
+    }
 
-        public void Default(WithdrawOutput withdrawOutput)
-        {
-            var withdrawResponse = new WithdrawResponse(
-                withdrawOutput.Transaction.Amount,
-                withdrawOutput.Transaction.Description,
-                withdrawOutput.Transaction.TransactionDate,
-                withdrawOutput.UpdatedBalance
-            );
-            ViewModel = new ObjectResult(withdrawResponse);
-        }
+    public void Default(WithdrawOutput withdrawOutput)
+    {
+        var withdrawResponse = new WithdrawResponse(
+            withdrawOutput.Transaction.Amount,
+            withdrawOutput.Transaction.Description,
+            withdrawOutput.Transaction.TransactionDate,
+            withdrawOutput.UpdatedBalance
+        );
+        ViewModel = new ObjectResult(withdrawResponse);
     }
 }

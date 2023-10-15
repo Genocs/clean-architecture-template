@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.Application.Boundaries
+namespace Genocs.CleanArchitecture.Template.Application.Boundaries
 {
     public interface IErrorHandler
     {

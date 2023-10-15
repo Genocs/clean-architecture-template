@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.Domain.ValueObjects
+namespace Genocs.CleanArchitecture.Template.Domain.ValueObjects
 {
     using Exceptions;
     using System;
@@ -64,7 +64,7 @@ namespace Genocs.MicroserviceLight.Template.Domain.ValueObjects
 
         public bool Equals(PositiveMoney other)
         {
-            return this._value == other._value;
+            return _value == other._value;
         }
     }
 }

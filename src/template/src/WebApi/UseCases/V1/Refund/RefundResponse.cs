@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Refund
+namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Refund
 {
     using System;
     using System.ComponentModel.DataAnnotations;

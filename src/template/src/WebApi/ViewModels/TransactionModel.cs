@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.ViewModels
+namespace Genocs.CleanArchitecture.Template.WebApi.ViewModels
 {
     using System;
     using System.ComponentModel.DataAnnotations;

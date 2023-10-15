@@ -1,20 +1,18 @@
-namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.EntityFramework
+using Genocs.CleanArchitecture.Template.Domain.Accounts;
+using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
+
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.EntityFramework;
+
+public class Credit : Domain.Accounts.Credit
 {
-    using Domain.Accounts;
-    using Domain.ValueObjects;
-    using System;
+    public Guid AccountId { get; protected set; }
 
-    public class Credit : Domain.Accounts.Credit
+    protected Credit() { }
+
+    public Credit(IAccount account, PositiveMoney amountToDeposit, DateTime transactionDate)
     {
-        public Guid AccountId { get; protected set; }
-
-        protected Credit() { }
-
-        public Credit(IAccount account, PositiveMoney amountToDeposit, DateTime transactionDate)
-        {
-            this.AccountId = account.Id;
-            this.Amount = amountToDeposit;
-            this.TransactionDate = transactionDate;
-        }
+        AccountId = account.Id;
+        this.Amount = amountToDeposit;
+        this.TransactionDate = transactionDate;
     }
 }

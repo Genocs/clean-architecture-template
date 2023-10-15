@@ -1,9 +1,6 @@
-namespace Genocs.MicroserviceLight.Template.Application.Boundaries.CloseAccount
-{
-    using System.Threading.Tasks;
+namespace Genocs.CleanArchitecture.Template.Application.Boundaries.CloseAccount;
 
-    public interface IUseCase
-    {
-        Task Execute(CloseAccountInput closeAccountInput);
-    }
+public interface IUseCase
+{
+    Task Execute(CloseAccountInput closeAccountInput);
 }

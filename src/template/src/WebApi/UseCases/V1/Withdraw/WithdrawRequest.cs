@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.Withdraw
+namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Withdraw
 {
     using System;
     using System.ComponentModel.DataAnnotations;

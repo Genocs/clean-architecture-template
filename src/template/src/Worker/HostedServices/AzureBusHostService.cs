@@ -1,5 +1,7 @@
-﻿namespace Genocs.MicroserviceLight.Template.BusWorker.HostedServices
+﻿namespace Genocs.CleanArchitecture.Template.Worker.HostedServices
 {
+    using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
+    using Genocs.CleanArchitecture.Template.Shared.Events;
     using Infrastructure.ServiceBus;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;

@@ -1,23 +1,20 @@
-﻿namespace Genocs.MicroserviceLight.Template.BusWorker_MassTransit.Handlers
+﻿using Genocs.CleanArchitecture.Template.Shared.Events;
+using MassTransit;
+
+namespace Genocs.CleanArchitecture.Template.Worker.MassTransit.Handlers;
+
+public class DemoEventOccurredHandler : IConsumer<DemoEventOccurred>
 {
-    using Genocs.MicroserviceLight.Template.Shared.Events;
-    using MassTransit;
-    using Microsoft.Extensions.Logging;
-    using System.Threading.Tasks;
+    private readonly ILogger<DemoEventOccurredHandler> _logger;
 
-    public class DemoEventOccurredHandler : IConsumer<DemoEventOccurred>
+    public DemoEventOccurredHandler(ILogger<DemoEventOccurredHandler> logger)
     {
-        private readonly ILogger<DemoEventOccurredHandler> _logger;
+        _logger = logger;
+    }
 
-        public DemoEventOccurredHandler(ILogger<DemoEventOccurredHandler> logger)
-        {
-            _logger = logger;
-        }
-
-        public Task Consume(ConsumeContext<DemoEventOccurred> context)
-        {
-            _logger.LogInformation(context.Message.Payload);
-            return Task.CompletedTask;
-        }
+    public Task Consume(ConsumeContext<DemoEventOccurred> context)
+    {
+        _logger.LogInformation(context.Message.Payload);
+        return Task.CompletedTask;
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.ApplicationInsights;
+﻿using Genocs.CleanArchitecture.Template.Worker;
+using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.AspNetCore.TelemetryInitializers;
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DependencyCollector;
@@ -14,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Genocs.MicroserviceLight.Template.BusWorker
+namespace Genocs.CleanArchitecture.Template.Worker
 {
     /// <summary>
     /// Application Insights setup class based on https://docs.microsoft.com/en-us/azure/azure-monitor/app/console
@@ -190,7 +191,7 @@ namespace Genocs.MicroserviceLight.Template.BusWorker
                 var configureOptionsArray = configureOptions.ToArray();
                 foreach (var c in configureOptionsArray)
                 {
-                    c.Configure(this.Value);
+                    c.Configure(Value);
                 }
             }
 

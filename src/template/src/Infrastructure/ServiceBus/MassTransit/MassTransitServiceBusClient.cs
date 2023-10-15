@@ -1,11 +1,11 @@
-﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.ServiceBus
+﻿using Genocs.CleanArchitecture.Template.Application.Services;
+using Genocs.CleanArchitecture.Template.Shared.Interfaces;
+using MassTransit;
+using Microsoft.Extensions.Options;
+
+namespace Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.MassTransit
 {
-    using Application.Services;
-    using MassTransit;
-    using Microsoft.Extensions.Options;
-    using Shared.Interfaces;
-    using System;
-    using System.Threading.Tasks;
+
 
     public class MassTransitServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
     {

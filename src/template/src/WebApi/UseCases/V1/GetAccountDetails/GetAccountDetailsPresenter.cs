@@ -1,50 +1,48 @@
-namespace Genocs.MicroserviceLight.Template.WebApi.UseCases.V1.GetAccountDetails
+using Genocs.CleanArchitecture.Template.Application.Boundaries.GetAccountDetails;
+using Genocs.CleanArchitecture.Template.WebApi.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.GetAccountDetails;
+
+public sealed class GetAccountDetailsPresenter : IOutputPort
 {
-    using Application.Boundaries.GetAccountDetails;
-    using Microsoft.AspNetCore.Mvc;
-    using System.Collections.Generic;
-    using WebApi.ViewModels;
+    public IActionResult ViewModel { get; private set; }
 
-    public sealed class GetAccountDetailsPresenter : IOutputPort
+    public void Error(string message)
     {
-        public IActionResult ViewModel { get; private set; }
-
-        public void Error(string message)
+        var problemDetails = new ProblemDetails()
         {
-            var problemDetails = new ProblemDetails()
-            {
-                Title = "An error occurred",
-                Detail = message
-            };
+            Title = "An error occurred",
+            Detail = message
+        };
 
-            ViewModel = new BadRequestObjectResult(problemDetails);
+        ViewModel = new BadRequestObjectResult(problemDetails);
+    }
+
+    public void Default(GetAccountDetailsOutput getAccountDetailsOutput)
+    {
+        List<TransactionModel> transactions = new List<TransactionModel>();
+
+        foreach (var item in getAccountDetailsOutput.Transactions)
+        {
+            var transaction = new TransactionModel(
+                item.Amount,
+                item.Description,
+                item.TransactionDate);
+
+            transactions.Add(transaction);
         }
 
-        public void Default(GetAccountDetailsOutput getAccountDetailsOutput)
-        {
-            List<TransactionModel> transactions = new List<TransactionModel>();
+        var getAccountDetailsResponse = new GetAccountDetailsResponse(
+            getAccountDetailsOutput.AccountId,
+            getAccountDetailsOutput.CurrentBalance,
+            transactions);
 
-            foreach (var item in getAccountDetailsOutput.Transactions)
-            {
-                var transaction = new TransactionModel(
-                    item.Amount,
-                    item.Description,
-                    item.TransactionDate);
+        ViewModel = new OkObjectResult(getAccountDetailsResponse);
+    }
 
-                transactions.Add(transaction);
-            }
-
-            var getAccountDetailsResponse = new GetAccountDetailsResponse(
-                getAccountDetailsOutput.AccountId,
-                getAccountDetailsOutput.CurrentBalance,
-                transactions);
-
-            ViewModel = new OkObjectResult(getAccountDetailsResponse);
-        }
-
-        public void NotFound(string message)
-        {
-            ViewModel = new NotFoundObjectResult(message);
-        }
+    public void NotFound(string message)
+    {
+        ViewModel = new NotFoundObjectResult(message);
     }
 }

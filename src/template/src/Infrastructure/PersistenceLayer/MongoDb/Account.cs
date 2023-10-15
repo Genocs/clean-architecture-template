@@ -1,4 +1,4 @@
-﻿namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.MongoDb
+﻿namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.MongoDb
 {
     using Domain.Accounts;
     using Domain.Customers;

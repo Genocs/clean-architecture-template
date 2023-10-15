@@ -1,13 +1,12 @@
 ﻿using NServiceBus;
 
-namespace Genocs.MicroserviceLight.Template.ParticularShared.TransactionSaga
+namespace Genocs.CleanArchitecture.Template.Shared.Particular.TransactionSaga;
+
+/// <summary>
+/// This event happen whenever the system receive an Unload
+/// </summary>
+public class TransactionUnloaded : IEvent
 {
-    /// <summary>
-    /// This event happen whenever the system receive an Unload
-    /// </summary>
-    public class TransactionUnloaded : IEvent
-    {
-        public string RequestId { get; set; }
-        public string TransactionId { get; set; }
-    }
+    public string RequestId { get; set; }
+    public string TransactionId { get; set; }
 }

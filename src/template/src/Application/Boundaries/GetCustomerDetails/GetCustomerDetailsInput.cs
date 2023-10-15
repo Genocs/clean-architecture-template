@@ -1,20 +1,18 @@
-namespace Genocs.MicroserviceLight.Template.Application.Boundaries.GetCustomerDetails
+using Genocs.CleanArchitecture.Template.Application.Exceptions;
+
+namespace Genocs.CleanArchitecture.Template.Application.Boundaries.GetCustomerDetails;
+
+public sealed class GetCustomerDetailsInput
 {
-    using Application.Exceptions;
-    using System;
+    public Guid CustomerId { get; }
 
-    public sealed class GetCustomerDetailsInput
+    public GetCustomerDetailsInput(Guid customerId)
     {
-        public Guid CustomerId { get; }
-
-        public GetCustomerDetailsInput(Guid customerId)
+        if (customerId == Guid.Empty)
         {
-            if (customerId == Guid.Empty)
-            {
-                throw new InputValidationException($"{nameof(customerId)} cannot be empty.");
-            }
-
-            CustomerId = customerId;
+            throw new InputValidationException($"{nameof(customerId)} cannot be empty.");
         }
+
+        CustomerId = customerId;
     }
 }

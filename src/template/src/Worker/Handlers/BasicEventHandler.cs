@@ -1,31 +1,28 @@
-﻿namespace Genocs.MicroserviceLight.Template.BusWorker.Handlers
+﻿using Genocs.CleanArchitecture.Template.Shared.Particular.IntegrationEvents;
+using Genocs.CleanArchitecture.Template.Shared.Particular.TransactionSaga;
+using NServiceBus;
+using NServiceBus.Logging;
+
+namespace Genocs.CleanArchitecture.Template.Worker.Handlers;
+
+
+/// <summary>
+/// Basic event handler.
+/// This event handler will be registered automatically. It do not need any action to be up and running 
+/// </summary>
+public class BasicEventHandler : IHandleMessages<BasicEvent>
 {
-    using Shared.Particular.IntegrationEvents;
-    using NServiceBus;
-    using NServiceBus.Logging;
-    using System.Threading.Tasks;
-    using ParticularShared.TransactionSaga;
-    using System;
+    static ILog _log = LogManager.GetLogger<BasicEventHandler>();
 
-
-    /// <summary>
-    /// Basic event handler.
-    /// This event handler will be registerd automatcally. It do not need any action to be up and running 
-    /// </summary>
-    public class BasicEventHandler : IHandleMessages<BasicEvent>
+    public async Task Handle(BasicEvent message, IMessageHandlerContext context)
     {
-        static ILog _log = LogManager.GetLogger<BasicEventHandler>();
+        _log.Info($"WorkerService.BasicEventHandler has received a message");
 
-        public async Task Handle(BasicEvent message, IMessageHandlerContext context)
+
+        await context.SendLocal(new TransactionLoaded()
         {
-            _log.Info($"WorkerService.BasicEventHandler has received a message");
-
-
-            await context.SendLocal(new TransactionLoaded()
-            {
-                RequestId = Guid.NewGuid().ToString(),
-                TransactionId = Guid.NewGuid().ToString()
-            });
-        }
+            RequestId = Guid.NewGuid().ToString(),
+            TransactionId = Guid.NewGuid().ToString()
+        });
     }
 }

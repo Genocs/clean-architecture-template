@@ -1,4 +1,6 @@
-namespace Genocs.MicroserviceLight.Template.Domain.Exceptions
+using Genocs.CleanArchitecture.Template.Domain;
+
+namespace Genocs.CleanArchitecture.Template.Domain.Exceptions
 {
     public sealed class SSNShouldNotBeEmptyException : DomainException
     {

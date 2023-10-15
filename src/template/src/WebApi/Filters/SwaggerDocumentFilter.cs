@@ -1,7 +1,7 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Genocs.MicroserviceLight.Template.WebApi.Filters;
+namespace Genocs.CleanArchitecture.Template.WebApi.Filters;
 
 public class SwaggerDocumentFilter : IDocumentFilter
 {
