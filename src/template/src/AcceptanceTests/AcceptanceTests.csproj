@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Genocs.MicroserviceLight.Template.WebApi\Genocs.MicroserviceLight.Template.WebApi.csproj" />
+    <ProjectReference Include="..\..\src\WebApi\WebApi.csproj" />
   </ItemGroup>
 
 </Project>

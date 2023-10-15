@@ -4,15 +4,16 @@
   "classifications": [
     "Web/ASP.NET"
   ],
-  "name": "Genocs: Clean Architecture for .NET Core",
-  "identity": "Genocs.CleanArchitecture",
-  "groupIdentity": "Genocs.CleanArchitecture",
+  "name": "Genocs: Clean Architecture Template for .NET7",
+  "identity": "Genocs.CleanArchitecture.Template",
+  "groupIdentity": "Genocs.CleanArchitecture.Template",
   "shortName": "cleanarchitecture",
   "tags": {
-    "language": "C#" // Specify that this template is in C#.
+    "type": "solution",
+    "language": "C#"
   },
-  "sourceName": "Genocs.MicroserviceLight.Template", // Will replace the string 'Genocs.MicroserviceLight.Template' with the value provided via -n.
-  "preferNameDirectory": "true",
+  "sourceName": "Genocs.CleanArchitecture.Template", // Will replace the string 'Genocs.MicroserviceLight.Template' with the value provided via -n.
+  "preferNameDirectory": true,
   "symbols": {
     "use-cases": {
       "type": "parameter",
@@ -134,105 +135,105 @@
         {
           "condition": "(ReadOnly)",
           "exclude": [
-            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/CloseAccount/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Deposit/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Register/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Transfer/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Withdraw/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/CloseAccount/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Deposit/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Register/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Transfer/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Withdraw/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/UseCases/CloseAccount.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/UseCases/Deposit.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/UseCases/Register.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/UseCases/Transfer.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/UseCases/Withdraw.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/CloseAccountPresenter.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/DepositPresenter.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/RegisterPresenter.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/TransferPresenter.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/WithdrawPresenter.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/CloseAccount/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Deposit/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Register/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Transfer/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Withdraw/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/CloseAccountInputValidationTests.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/DepositInputValidationTests.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/RegisterInputValidationTests.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/TransferInputValidationTests.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/WithdrawInputValidationTests.cs"
+            "src/WebApi/UseCases/V1/CloseAccount/**/*.cs",
+            "src/WebApi/UseCases/V1/Deposit/**/*.cs",
+            "src/WebApi/UseCases/V1/Register/**/*.cs",
+            "src/WebApi/UseCases/V1/Transfer/**/*.cs",
+            "src/WebApi/UseCases/V1/Withdraw/**/*.cs",
+            "src/Application/Boundaries/CloseAccount/**/*.cs",
+            "src/Application/Boundaries/Deposit/**/*.cs",
+            "src/Application/Boundaries/Register/**/*.cs",
+            "src/Application/Boundaries/Transfer/**/*.cs",
+            "src/Application/Boundaries/Withdraw/**/*.cs",
+            "src/Application/UseCases/CloseAccount.cs",
+            "src/Application/UseCases/Deposit.cs",
+            "src/Application/UseCases/Register.cs",
+            "src/Application/UseCases/Transfer.cs",
+            "src/Application/UseCases/Withdraw.cs",
+            "src/Infrastructure/PersistenceLayer.InMemory/Presenters/CloseAccountPresenter.cs",
+            "src/Infrastructure/PersistenceLayer.InMemory/Presenters/DepositPresenter.cs",
+            "src/Infrastructure/PersistenceLayer.InMemory/Presenters/RegisterPresenter.cs",
+            "src/Infrastructure/PersistenceLayer.InMemory/Presenters/TransferPresenter.cs",
+            "src/Infrastructure/PersistenceLayer.InMemory/Presenters/WithdrawPresenter.cs",
+            "src/UnitTests/UseCaseTests/CloseAccount/**/*.cs",
+            "src/UnitTests/UseCaseTests/Deposit/**/*.cs",
+            "src/UnitTests/UseCaseTests/Register/**/*.cs",
+            "src/UnitTests/UseCaseTests/Transfer/**/*.cs",
+            "src/UnitTests/UseCaseTests/Withdraw/**/*.cs",
+            "src/UnitTests/InputValidationTests/CloseAccountInputValidationTests.cs",
+            "src/UnitTests/InputValidationTests/DepositInputValidationTests.cs",
+            "src/UnitTests/InputValidationTests/RegisterInputValidationTests.cs",
+            "src/UnitTests/InputValidationTests/TransferInputValidationTests.cs",
+            "src/UnitTests/InputValidationTests/WithdrawInputValidationTests.cs"
           ]
         },
         {
           "condition": "(Basic)",
           "exclude": [
-            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/CloseAccount/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Deposit/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/GetAccountDetails/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Transfer/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V1/Withdraw/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.WebApi/UseCases/V2/GetAccountDetails/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/CloseAccount/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Deposit/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/GetAccountDetails/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Transfer/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/Boundaries/Withdraw/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/UseCases/CloseAccount.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/UseCases/Deposit.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/UseCases/GetAccountDetails.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/UseCases/Transfer.cs",
-            "src/Genocs.MicroserviceLight.Template.Application/UseCases/Withdraw.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/CloseAccountPresenter.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/DepositPresenter.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/GetAccountDetailsPresenter.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/TransferPresenter.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/PersistenceLayer.InMemory/Presenters/WithdrawPresenter.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/CloseAccount/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Deposit/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/GetAccountDetails/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Transfer/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/UseCaseTests/Withdraw/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/CloseAccountInputValidationTests.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/DepositInputValidationTests.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/GetAccountDetailsInputValidationTests.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/TransferInputValidationTests.cs",
-            "src/Genocs.MicroserviceLight.Template.UnitTests/InputValidationTests/WithdrawInputValidationTests.cs"
+            "src/WebApi/UseCases/V1/CloseAccount/**/*.cs",
+            "src/WebApi/UseCases/V1/Deposit/**/*.cs",
+            "src/WebApi/UseCases/V1/GetAccountDetails/**/*.cs",
+            "src/WebApi/UseCases/V1/Transfer/**/*.cs",
+            "src/WebApi/UseCases/V1/Withdraw/**/*.cs",
+            "src/WebApi/UseCases/V2/GetAccountDetails/**/*.cs",
+            "src/Application/Boundaries/CloseAccount/**/*.cs",
+            "src/Application/Boundaries/Deposit/**/*.cs",
+            "src/Application/Boundaries/GetAccountDetails/**/*.cs",
+            "src/Application/Boundaries/Transfer/**/*.cs",
+            "src/Application/Boundaries/Withdraw/**/*.cs",
+            "src/Application/UseCases/CloseAccount.cs",
+            "src/Application/UseCases/Deposit.cs",
+            "src/Application/UseCases/GetAccountDetails.cs",
+            "src/Application/UseCases/Transfer.cs",
+            "src/Application/UseCases/Withdraw.cs",
+            "src/Infrastructure/PersistenceLayer.InMemory/Presenters/CloseAccountPresenter.cs",
+            "src/Infrastructure/PersistenceLayer.InMemory/Presenters/DepositPresenter.cs",
+            "src/Infrastructure/PersistenceLayer.InMemory/Presenters/GetAccountDetailsPresenter.cs",
+            "src/Infrastructure/PersistenceLayer.InMemory/Presenters/TransferPresenter.cs",
+            "src/Infrastructure/PersistenceLayer.InMemory/Presenters/WithdrawPresenter.cs",
+            "src/UnitTests/UseCaseTests/CloseAccount/**/*.cs",
+            "src/UnitTests/UseCaseTests/Deposit/**/*.cs",
+            "src/UnitTests/UseCaseTests/GetAccountDetails/**/*.cs",
+            "src/UnitTests/UseCaseTests/Transfer/**/*.cs",
+            "src/UnitTests/UseCaseTests/Withdraw/**/*.cs",
+            "src/UnitTests/InputValidationTests/CloseAccountInputValidationTests.cs",
+            "src/UnitTests/InputValidationTests/DepositInputValidationTests.cs",
+            "src/UnitTests/InputValidationTests/GetAccountDetailsInputValidationTests.cs",
+            "src/UnitTests/InputValidationTests/TransferInputValidationTests.cs",
+            "src/UnitTests/InputValidationTests/WithdrawInputValidationTests.cs"
           ]
         },
         {
           "condition": "(NServiceBus)",
           "exclude": [
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Azure/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Rebus/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.WebApi/Extensions/AzureServicebusInfrastructureExtensions.cs",
-            "src/Genocs.MicroserviceLight.Template.WebApi/Extensions/RebusServicebusInfrastructureExtensions.cs",
-            "src/Genocs.MicroserviceLight.Template.BusWorker/HostServices/AzureBusService.cs",
-            "src/Genocs.MicroserviceLight.Template.BusWorker/HostServices/RebusService.cs"
+            "src/Infrastructure/ServiceBus/Azure/**/*.cs",
+            "src/Infrastructure/ServiceBus/Rebus/**/*.cs",
+            "src/WebApi/Extensions/AzureServicebusInfrastructureExtensions.cs",
+            "src/WebApi/Extensions/RebusServicebusInfrastructureExtensions.cs",
+            "src/BusWorker/HostServices/AzureBusService.cs",
+            "src/BusWorker/HostServices/RebusService.cs"
           ]
         },
         {
           "condition": "(Rebus)",
           "exclude": [
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Azure/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Particular/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.WebApi/Extensions/AzureServicebusInfrastructureExtensions.cs",
-            "src/Genocs.MicroserviceLight.Template.WebApi/Extensions/ParticularServicebusInfrastructureExtensions.cs",
-            "src/Genocs.MicroserviceLight.Template.BusWorker/HostServices/AzureBusService.cs",
-            "src/Genocs.MicroserviceLight.Template.BusWorker/HostServices/ParticularService.cs"
+            "src/Infrastructure/ServiceBus/Azure/**/*.cs",
+            "src/Infrastructure/ServiceBus/Particular/**/*.cs",
+            "src/WebApi/Extensions/AzureServicebusInfrastructureExtensions.cs",
+            "src/WebApi/Extensions/ParticularServicebusInfrastructureExtensions.cs",
+            "src/BusWorker/HostServices/AzureBusService.cs",
+            "src/BusWorker/HostServices/ParticularService.cs"
           ]
         },
         {
           "condition": "(Azure)",
           "exclude": [
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Particular/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.Infrastructure/ServiceBus/Rebus/**/*.cs",
-            "src/Genocs.MicroserviceLight.Template.WebApi/Extensions/ParticularServicebusInfrastructureExtensions.cs",
-            "src/Genocs.MicroserviceLight.Template.WebApi/Extensions/RebusServicebusInfrastructureExtensions.cs",
-            "src/Genocs.MicroserviceLight.Template.BusWorker/HostServices/ParticularService.cs",
-            "src/Genocs.MicroserviceLight.Template.BusWorker/HostServices/RebusService.cs"
+            "src/Infrastructure/ServiceBus/Particular/**/*.cs",
+            "src/Infrastructure/ServiceBus/Rebus/**/*.cs",
+            "src/WebApi/Extensions/ParticularServicebusInfrastructureExtensions.cs",
+            "src/WebApi/Extensions/RebusServicebusInfrastructureExtensions.cs",
+            "src/BusWorker/HostServices/ParticularService.cs",
+            "src/BusWorker/HostServices/RebusService.cs"
           ]
         },
         {
@@ -244,22 +245,22 @@
   ],
   "primaryOutputs": [
     {
-      "path": "src/Genocs.MicroserviceLight.Template.Application/Genocs.MicroserviceLight.Template.Application.csproj"
+      "path": "src/Application/Application.csproj"
     },
     {
-      "path": "src/Genocs.MicroserviceLight.Template.Domain/Genocs.MicroserviceLight.Template.Domain.csproj"
+      "path": "src/Domain/Domain.csproj"
     },
     {
-      "path": "src/Genocs.MicroserviceLight.Template.Infrastructure/Genocs.MicroserviceLight.Template.Infrastructure.csproj"
+      "path": "src/Infrastructure/Infrastructure.csproj"
     },
     {
-      "path": "src/Genocs.MicroserviceLight.Template.WebApi/Genocs.MicroserviceLight.Template.WebApi.csproj"
+      "path": "src/WebApi/WebApi.csproj"
     },
     {
-      "path": "src/Genocs.MicroserviceLight.Template.BusWorker/Genocs.MicroserviceLight.Template.BusWorker.csproj"
+      "path": "src/BusWorker/BusWorker.csproj"
     },
     {
-      "path": "src/Genocs.MicroserviceLight.Template.Shared/Genocs.MicroserviceLight.Template.Shared.csproj"
+      "path": "src/Shared/Shared.csproj"
     }
   ]
 }

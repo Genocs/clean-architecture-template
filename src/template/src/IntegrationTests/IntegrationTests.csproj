@@ -16,8 +16,8 @@
   </ItemGroup>
 
    <ItemGroup>
-    <ProjectReference Include="..\..\src\Genocs.MicroserviceLight.Template.Domain\Genocs.MicroserviceLight.Template.Domain.csproj" />
-    <ProjectReference Include="..\..\src\Genocs.MicroserviceLight.Template.Application\Genocs.MicroserviceLight.Template.Application.csproj" />
-    <ProjectReference Include="..\..\src\Genocs.MicroserviceLight.Template.Infrastructure\Genocs.MicroserviceLight.Template.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Domain\Domain.csproj" />
+    <ProjectReference Include="..\..\src\Application\Application.csproj" />
+    <ProjectReference Include="..\..\src\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 </Project>
