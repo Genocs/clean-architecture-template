@@ -1,0 +1,49 @@
+# This is a manually triggered nuget build and deploy
+
+name: Publish on NuGet
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      version:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: "Packages Version"
+
+        # Default value if no value is explicitly provided
+        default: "1.0.0"
+
+        # Input has to be provided for the workflow to run
+        required: true
+
+
+jobs:
+  build:
+    name: Update NuGet package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+    
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+    
+      - name: Restore dependencies
+        run: dotnet restore ./src/template
+    
+      - name: Build
+        run: dotnet build ./src/template --no-restore
+    
+      - name: Test
+        run: dotnet test ./src/template --no-build --verbosity normal
+
+      - name: Pack
+        run: nuget pack ./src/Package.Template.nuspec -NoDefaultExcludes -OutputDirectory ./out -Version ${{github.event.inputs.version}}
+
+      - name: Push package to Nuget
+        run: dotnet nuget push ./out/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols
