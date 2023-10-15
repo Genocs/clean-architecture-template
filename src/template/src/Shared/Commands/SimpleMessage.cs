@@ -4,8 +4,8 @@ namespace Genocs.CleanArchitecture.Template.Shared.Commands;
 
 public class SimpleMessage : ICommand
 {
-    public string MessageId { get; set; }
+    public string? MessageId { get; set; }
 
-    public string MessageBody { get; set; }
+    public string? MessageBody { get; set; }
 
 }

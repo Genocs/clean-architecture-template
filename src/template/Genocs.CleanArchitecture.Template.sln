@@ -17,17 +17,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "src\UnitTests\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Application\Application.csproj", "{B3DAF7F3-D632-4252-829B-010BF702BDC0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusWorker", "src\Worker\Worker.csproj", "{BDCA6C7C-B27B-45E0-B560-D6B69BD3273B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Worker", "src\Worker\Worker.csproj", "{BDCA6C7C-B27B-45E0-B560-D6B69BD3273B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "src\Shared\Shared.csproj", "{DECBE6BD-D669-40C6-8A29-8DEC5EB61ECA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusWorker.MassTransit", "src\Worker.MassTransit\Worker.MassTransit.csproj", "{B326E1D2-0FC8-45F5-B653-BD26FBDACCE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Worker.MassTransit", "src\Worker.MassTransit\Worker.MassTransit.csproj", "{B326E1D2-0FC8-45F5-B653-BD26FBDACCE3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6335BAF6-440D-4B7D-8618-DB1B32F4E1DB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{1250CDBC-9DDA-447F-97E6-FCBF98F82BAC}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Particular", "src\Shared.Particular\Shared.Particular.csproj", "{6CA0C8A1-36C1-47DB-83BD-CF8DE7AC8358}"

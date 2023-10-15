@@ -7,8 +7,6 @@ using Xunit;
 
 namespace Genocs.CleanArchitecture.Template.UnitTests.UseCaseTests.Withdraws;
 
-
-
 public sealed class WithdrawlTests : IClassFixture<StandardFixture>
 {
     private readonly StandardFixture _fixture;

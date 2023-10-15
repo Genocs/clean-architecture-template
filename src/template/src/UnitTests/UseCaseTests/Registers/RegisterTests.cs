@@ -36,8 +36,7 @@ public sealed class RegisterTests : IClassFixture<StandardFixture>
             _fixture.CustomerRepository,
             _fixture.AccountRepository,
             _fixture.UnitOfWork,
-            _fixture.ServiceBus
-        );
+            _fixture.ServiceBus);
 
         await sut.Execute(new RegisterInput(
             ssn,

@@ -1,28 +1,25 @@
-namespace Genocs.CleanArchitecture.Template.Domain.Customers
+using Genocs.CleanArchitecture.Template.Domain.Accounts;
+using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
+
+namespace Genocs.CleanArchitecture.Template.Domain.Customers;
+
+public class Customer : ICustomer
 {
-    using Accounts;
-    using Genocs.CleanArchitecture.Template.Domain.Accounts;
-    using System;
-    using ValueObjects;
+    public Guid Id { get; protected set; }
+    public Name? Name { get; protected set; }
+    public SSN? SSN { get; protected set; }
+    public AccountCollection Accounts { get; protected set; }
 
-    public class Customer : ICustomer
+    public Customer()
     {
-        public Guid Id { get; protected set; }
-        public Name Name { get; protected set; }
-        public SSN SSN { get; protected set; }
-        public AccountCollection Accounts { get; protected set; }
+        Accounts = new AccountCollection();
+    }
 
-        public Customer()
-        {
+    public void Register(IAccount account)
+    {
+        if (Accounts == null)
             Accounts = new AccountCollection();
-        }
 
-        public void Register(IAccount account)
-        {
-            if (Accounts == null)
-                Accounts = new AccountCollection();
-
-            Accounts.Add(account.Id);
-        }
+        Accounts.Add(account.Id);
     }
 }
