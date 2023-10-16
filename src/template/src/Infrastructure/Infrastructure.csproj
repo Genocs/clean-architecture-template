@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
@@ -33,7 +33,7 @@
 
 		<!-- Particular NService Bus -->
 		<PackageReference Include="NServiceBus" Version="7.*" />
-		<PackageReference Include="NServiceBus.RabbitMQ" Version="6.1.1" />
+		<PackageReference Include="NServiceBus.RabbitMQ" Version="8.0.3" />
 		<PackageReference Include="NServiceBus.Storage.MongoDB" Version="2.2.0" />
 		<PackageReference Include="NServiceBus.Newtonsoft.Json" Version="2.3.0" />
 
