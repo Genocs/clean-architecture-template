@@ -1,6 +1,6 @@
 ﻿using NServiceBus;
 
-namespace Genocs.MicroserviceLight.Template.ParticularBusWorker.Messages
+namespace Genocs.CleanArchitecture.Template.Worker.Particular.Messages
 {
     public class DemoMessage : ICommand
     {

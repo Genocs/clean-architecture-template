@@ -2,7 +2,7 @@
 using NServiceBus;
 using System.Threading.Tasks;
 
-namespace Genocs.MicroserviceLight.Template.ParticularBusWorker.Services
+namespace Genocs.CleanArchitecture.Template.Worker.Particular.Services
 {
     public interface ICalculateStuff
     {

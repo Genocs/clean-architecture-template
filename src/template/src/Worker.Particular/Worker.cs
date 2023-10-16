@@ -1,37 +1,31 @@
-namespace Genocs.MicroserviceLight.Template.ParticularBusWorker
+using Genocs.CleanArchitecture.Template.Worker.Particular.Messages;
+using NServiceBus;
+
+namespace Genocs.CleanArchitecture.Template.Worker.Particular;
+
+public class Worker : BackgroundService
 {
-    using Microsoft.Extensions.Hosting;
-    using Microsoft.Extensions.Logging;
-    using NServiceBus;
-    using ParticularBusWorker.Messages;
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly ILogger<Worker> _logger;
+    private readonly IMessageSession _messageSession;
 
-    public class Worker : BackgroundService
+    public Worker(ILogger<Worker> logger, IMessageSession messageSession)
     {
-        private readonly ILogger<Worker> _logger;
-        private readonly IMessageSession _messageSession;
+        _logger = logger;
+        _messageSession = messageSession;
+    }
 
-        public Worker(ILogger<Worker> logger, IMessageSession messageSession)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        while (!stoppingToken.IsCancellationRequested)
         {
-            _logger = logger;
-            _messageSession = messageSession;
-        }
+            _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+            // Simple send the command
+            await _messageSession
+                    .Send(new DemoMessage { Payload = DateTimeOffset.Now.ToString() })
+                    .ConfigureAwait(false);
 
-                // Simple send the command
-                await _messageSession
-                        .Send(new DemoMessage { Payload = DateTimeOffset.Now.ToString() })
-                        .ConfigureAwait(false);
-
-                await Task.Delay(1000, stoppingToken);
-            }
+            await Task.Delay(1000, stoppingToken);
         }
     }
 }

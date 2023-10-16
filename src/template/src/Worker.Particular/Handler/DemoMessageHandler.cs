@@ -1,9 +1,9 @@
-﻿using Genocs.MicroserviceLight.Template.ParticularBusWorker.Messages;
-using Genocs.MicroserviceLight.Template.ParticularBusWorker.Services;
+﻿using Genocs.CleanArchitecture.Template.Worker.Particular.Messages;
+using Genocs.CleanArchitecture.Template.Worker.Particular.Services;
 using NServiceBus;
 using System.Threading.Tasks;
 
-namespace Genocs.MicroserviceLight.Template.ParticularBusWorker.Handler
+namespace Genocs.CleanArchitecture.Template.Worker.Particular.Handler
 {
     public class DemoMessageHandler : IHandleMessages<DemoMessage>
     {
