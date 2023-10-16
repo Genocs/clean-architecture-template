@@ -1,76 +1,70 @@
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Logging;
-using System;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace Genocs.CleanArchitecture.Template.Worker.ExternalServices
+namespace Genocs.CleanArchitecture.Template.Worker.ExternalServices;
+
+public class ReadinessLivenessPublisher : IHealthCheckPublisher
 {
-    public class ReadinessLivenessPublisher : IHealthCheckPublisher
+    public const string FilePath = "healthz";
+
+    private readonly ILogger _logger;
+
+    public ReadinessLivenessPublisher(ILogger<ReadinessLivenessPublisher> logger)
     {
-        public const string FilePath = "healthz";
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    }
 
-        private readonly ILogger _logger;
-
-        public ReadinessLivenessPublisher(ILogger<ReadinessLivenessPublisher> logger)
+    public Task PublishAsync(HealthReport report,
+            CancellationToken cancellationToken)
+    {
+        switch (report.Status)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            case HealthStatus.Healthy:
+                {
+                    _logger.LogInformation(
+                            "{Timestamp} Readiness/Liveness Probe Status: {Result}",
+                            DateTime.UtcNow,
+                            report.Status);
+
+                    CreateOrUpdateHealthz();
+
+                    break;
+                }
+
+            case HealthStatus.Degraded:
+                {
+                    _logger.LogWarning(
+                            "{Timestamp} Readiness/Liveness Probe Status: {Result}",
+                            DateTime.UtcNow,
+                            report.Status);
+
+                    break;
+                }
+
+            case HealthStatus.Unhealthy:
+                {
+                    _logger.LogError(
+                            "{Timestamp} Readiness Probe/Liveness Status: {Result}",
+                            DateTime.UtcNow,
+                            report.Status);
+
+                    break;
+                }
         }
 
-        public Task PublishAsync(HealthReport report,
-                CancellationToken cancellationToken)
+        cancellationToken.ThrowIfCancellationRequested();
+
+        return Task.CompletedTask;
+    }
+
+    private static void CreateOrUpdateHealthz()
+    {
+        if (File.Exists(FilePath))
         {
-            switch (report.Status)
-            {
-                case HealthStatus.Healthy:
-                    {
-                        _logger.LogInformation(
-                                "{Timestamp} Readiness/Liveness Probe Status: {Result}",
-                                DateTime.UtcNow,
-                                report.Status);
-
-                        CreateOrUpdateHealthz();
-
-                        break;
-                    }
-
-                case HealthStatus.Degraded:
-                    {
-                        _logger.LogWarning(
-                                "{Timestamp} Readiness/Liveness Probe Status: {Result}",
-                                DateTime.UtcNow,
-                                report.Status);
-
-                        break;
-                    }
-
-                case HealthStatus.Unhealthy:
-                    {
-                        _logger.LogError(
-                                "{Timestamp} Readiness Probe/Liveness Status: {Result}",
-                                DateTime.UtcNow,
-                                report.Status);
-
-                        break;
-                    }
-            }
-
-            cancellationToken.ThrowIfCancellationRequested();
-
-            return Task.CompletedTask;
+            File.SetLastWriteTimeUtc(FilePath, DateTime.UtcNow);
         }
-
-        private static void CreateOrUpdateHealthz()
+        else
         {
-            if (File.Exists(FilePath))
-            {
-                File.SetLastWriteTimeUtc(FilePath, DateTime.UtcNow);
-            }
-            else
-            {
-                File.AppendText(FilePath).Close();
-            }
+            File.AppendText(FilePath).Close();
         }
     }
 }

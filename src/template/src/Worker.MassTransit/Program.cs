@@ -4,7 +4,6 @@ using MassTransit;
 
 namespace Genocs.CleanArchitecture.Template.Worker.MassTransit;
 
-
 public class Program
 {
     public static void Main(string[] args)
