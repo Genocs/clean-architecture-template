@@ -1,4 +1,5 @@
-namespace Genocs.CleanArchitecture.Template.Domain
+namespace Genocs.CleanArchitecture.Template.Domain;
+
+public interface IAggregateRoot : IEntity
 {
-    public interface IAggregateRoot : IEntity { }
 }

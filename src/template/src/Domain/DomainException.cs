@@ -1,9 +1,6 @@
-namespace Genocs.CleanArchitecture.Template.Domain
-{
-    using System;
+namespace Genocs.CleanArchitecture.Template.Domain;
 
-    public class DomainException : Exception
-    {
-        public DomainException(string businessMessage) : base(businessMessage) { }
-    }
+public class DomainException : Exception
+{
+    public DomainException(string businessMessage) : base(businessMessage) { }
 }

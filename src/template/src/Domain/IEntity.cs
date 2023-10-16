@@ -1,9 +1,6 @@
-namespace Genocs.CleanArchitecture.Template.Domain
-{
-    using System;
+namespace Genocs.CleanArchitecture.Template.Domain;
 
-    public interface IEntity
-    {
-        Guid Id { get; }
-    }
+public interface IEntity
+{
+    Guid Id { get; }
 }

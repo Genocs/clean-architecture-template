@@ -1,20 +1,20 @@
-namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.EntityFramework
+using Genocs.CleanArchitecture.Template.Domain.Accounts;
+using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
+
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.EntityFramework;
+
+public class Debit : Domain.Accounts.Debit
 {
-    using Domain.Accounts;
-    using Domain.ValueObjects;
-    using System;
+    public Guid AccountId { get; protected set; }
 
-    public class Debit : Domain.Accounts.Debit
+    protected Debit()
     {
-        public Guid AccountId { get; protected set; }
+    }
 
-        protected Debit() { }
-
-        public Debit(IAccount account, PositiveMoney amountToWithdraw, DateTime transactionDate)
-        {
-            AccountId = account.Id;
-            this.Amount = amountToWithdraw;
-            this.TransactionDate = transactionDate;
-        }
+    public Debit(IAccount account, PositiveMoney amountToWithdraw, DateTime transactionDate)
+    {
+        AccountId = account.Id;
+        Amount = amountToWithdraw;
+        TransactionDate = transactionDate;
     }
 }

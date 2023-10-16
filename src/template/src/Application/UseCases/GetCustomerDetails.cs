@@ -10,9 +10,9 @@ public sealed class GetCustomerDetails : IUseCase
     private readonly IAccountRepository _accountRepository;
 
     public GetCustomerDetails(
-        IOutputPort outputHandler,
-        ICustomerRepository customerRepository,
-        IAccountRepository accountRepository)
+                              IOutputPort outputHandler,
+                              ICustomerRepository customerRepository,
+                              IAccountRepository accountRepository)
     {
         _outputHandler = outputHandler;
         _customerRepository = customerRepository;

@@ -16,7 +16,7 @@ namespace Genocs.CleanArchitecture.Template.Worker
             var host = CreateHostBuilder(args).Build();
 
             var logger = host.Services.GetRequiredService<ILogger<Program>>();
-            logger.LogInformation("Genocs.MicroserviceLight.Template Bus is starting.");
+            logger.LogInformation("Genocs.CleanArchitecture.Template Bus is starting.");
 
             await host.RunAsync();
         }

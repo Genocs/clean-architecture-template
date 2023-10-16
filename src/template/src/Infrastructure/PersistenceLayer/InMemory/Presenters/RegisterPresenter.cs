@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.InMemory.Presenters;
 
-
 public sealed class RegisterPresenter : IOutputPort
 {
     public Collection<string> Errors { get; }

@@ -4,7 +4,6 @@ using Genocs.CleanArchitecture.Template.Infrastructure.WebApiClient.ExternalServ
 
 namespace Genocs.CleanArchitecture.Template.WebApi.Extensions;
 
-
 public static class ApplicationExtensions
 {
     public static IServiceCollection AddUseCases(this IServiceCollection services)

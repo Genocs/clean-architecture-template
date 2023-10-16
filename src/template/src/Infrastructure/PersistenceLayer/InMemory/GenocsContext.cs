@@ -1,52 +1,50 @@
-namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.InMemory
+using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
+using System.Collections.ObjectModel;
+
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.InMemory;
+
+public sealed class GenocsContext
 {
-    using Domain.ValueObjects;
-    using System;
-    using System.Collections.ObjectModel;
+    public Collection<Customer> Customers { get; set; }
+    public Collection<Account> Accounts { get; set; }
+    public Collection<Credit> Credits { get; set; }
+    public Collection<Debit> Debits { get; set; }
 
-    public sealed class GenocsContext
+    public Guid DefaultCustomerId { get; }
+    public Guid DefaultAccountId { get; }
+
+    public Guid SecondCustomerId { get; }
+    public Guid SecondAccountId { get; }
+
+    public GenocsContext()
     {
-        public Collection<Customer> Customers { get; set; }
-        public Collection<Account> Accounts { get; set; }
-        public Collection<Credit> Credits { get; set; }
-        public Collection<Debit> Debits { get; set; }
+        var entityFactory = new EntityFactory();
+        Customers = new Collection<Customer>();
+        Accounts = new Collection<Account>();
+        Credits = new Collection<Credit>();
+        Debits = new Collection<Debit>();
 
-        public Guid DefaultCustomerId { get; }
-        public Guid DefaultAccountId { get; }
+        var customer = new Customer(new SSN("8608179999"), new Name("Nocco Giovanni Emanuele"));
+        var account = new Account(customer);
+        var credit = account.Deposit(entityFactory, new PositiveMoney(800));
+        var debit = account.Withdraw(entityFactory, new PositiveMoney(100));
+        customer.Register(account);
 
-        public Guid SecondCustomerId { get; }
-        public Guid SecondAccountId { get; }
+        Customers.Add(customer);
+        Accounts.Add(account);
+        Credits.Add((Credit)credit);
+        Debits.Add((Debit)debit);
 
-        public GenocsContext()
-        {
-            var entityFactory = new EntityFactory();
-            Customers = new Collection<Customer>();
-            Accounts = new Collection<Account>();
-            Credits = new Collection<Credit>();
-            Debits = new Collection<Debit>();
+        DefaultCustomerId = customer.Id;
+        DefaultAccountId = account.Id;
 
-            var customer = new Customer(new SSN("8608179999"), new Name("Nocco Giovanni Emanuele"));
-            var account = new Account(customer);
-            var credit = account.Deposit(entityFactory, new PositiveMoney(800));
-            var debit = account.Withdraw(entityFactory, new PositiveMoney(100));
-            customer.Register(account);
+        var secondCustomer = new Customer(new SSN("8408319999"), new Name("Nocco Antonio"));
+        var secondAccount = new Account(secondCustomer);
 
-            Customers.Add(customer);
-            Accounts.Add(account);
-            Credits.Add((Credit)credit);
-            Debits.Add((Debit)debit);
+        Customers.Add(secondCustomer);
+        Accounts.Add(secondAccount);
 
-            DefaultCustomerId = customer.Id;
-            DefaultAccountId = account.Id;
-
-            var secondCustomer = new Customer(new SSN("8408319999"), new Name("Nocco Antonio"));
-            var secondAccount = new Account(secondCustomer);
-
-            Customers.Add(secondCustomer);
-            Accounts.Add(secondAccount);
-
-            SecondCustomerId = secondCustomer.Id;
-            SecondAccountId = secondAccount.Id;
-        }
+        SecondCustomerId = secondCustomer.Id;
+        SecondAccountId = secondAccount.Id;
     }
 }

@@ -1,5 +1,3 @@
-namespace Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
-
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.FeatureManagement;
@@ -7,6 +5,7 @@ using Microsoft.FeatureManagement.Mvc;
 using System.Collections;
 using System.Reflection;
 
+namespace Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
 
 public sealed class CustomControllerFeatureProvider : IApplicationFeatureProvider<ControllerFeature>
 {
@@ -27,7 +26,7 @@ public sealed class CustomControllerFeatureProvider : IApplicationFeatureProvide
                 if (customAttribute.AttributeType.FullName == typeof(FeatureGateAttribute).FullName)
                 {
                     var constructorArgument = customAttribute.ConstructorArguments.First();
-                    foreach (var argumentValue in constructorArgument.Value as IEnumerable)
+                    foreach (object? argumentValue in constructorArgument.Value as IEnumerable)
                     {
                         var typedArgument = (CustomAttributeTypedArgument)argumentValue;
                         var typedArgumentValue = (Features)(int)typedArgument.Value;

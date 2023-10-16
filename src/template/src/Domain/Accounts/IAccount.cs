@@ -1,13 +1,11 @@
-namespace Genocs.CleanArchitecture.Template.Domain.Accounts
-{
-    using Genocs.CleanArchitecture.Template.Domain;
-    using ValueObjects;
+using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 
-    public interface IAccount : IAggregateRoot
-    {
-        ICredit Deposit(IEntityFactory entityFactory, PositiveMoney amountToDeposit);
-        IDebit Withdraw(IEntityFactory entityFactory, PositiveMoney amountToWithdraw);
-        bool IsClosingAllowed();
-        Money GetCurrentBalance();
-    }
+namespace Genocs.CleanArchitecture.Template.Domain.Accounts;
+
+public interface IAccount : IAggregateRoot
+{
+    ICredit Deposit(IEntityFactory entityFactory, PositiveMoney amountToDeposit);
+    IDebit? Withdraw(IEntityFactory entityFactory, PositiveMoney amountToWithdraw);
+    bool IsClosingAllowed();
+    Money GetCurrentBalance();
 }

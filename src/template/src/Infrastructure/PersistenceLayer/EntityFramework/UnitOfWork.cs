@@ -10,23 +10,20 @@ public sealed class UnitOfWork : IUnitOfWork, IDisposable
         => _context = context;
 
     public async Task<int> Save()
-    {
-        int affectedRows = await _context.SaveChangesAsync();
-        return affectedRows;
-    }
+        => await _context.SaveChangesAsync();
 
-    private bool _disposed = false;
+    private bool _disposed;
 
     private void Dispose(bool disposing)
     {
         if (!_disposed)
         {
+            _disposed = true;
             if (disposing)
             {
                 _context.Dispose();
             }
         }
-        _disposed = true;
     }
 
     public void Dispose()

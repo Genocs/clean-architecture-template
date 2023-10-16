@@ -66,8 +66,8 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
         var info = new OpenApiInfo
         {
             Version = description.ApiVersion.ToString(),
-            Title = "Genocs.MicroserviceLight.Template API",
-            Description = "The Genocs.MicroserviceLight.Template API with versioning.",
+            Title = "Genocs.CleanArchitecture.Template API",
+            Description = "The Genocs.CleanArchitecture.Template API with versioning.",
             TermsOfService = new Uri("https://www.genocs.com/sections/terms-of-use.html"),
             Contact = new OpenApiContact
             {

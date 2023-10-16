@@ -1,60 +1,61 @@
-namespace Genocs.CleanArchitecture.Template.Domain.ValueObjects
+using Genocs.CleanArchitecture.Template.Domain.Exceptions;
+
+namespace Genocs.CleanArchitecture.Template.Domain.ValueObjects;
+
+public sealed class Name : IEquatable<Name>
 {
-    using Exceptions;
-    using System;
+    private readonly string _text;
 
-    public sealed class Name : IEquatable<Name>
+    private Name() { }
+
+    public Name(string text)
     {
-        private readonly string _text;
+        if (string.IsNullOrWhiteSpace(text))
+            throw new NameShouldNotBeEmptyException("The 'Name' field is required");
 
-        private Name() { }
+        _text = text;
+    }
 
-        public Name(string text)
+    public override string ToString()
+    {
+        return _text;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is null) return false;
+
+        if (ReferenceEquals(null, obj))
         {
-            if (string.IsNullOrWhiteSpace(text))
-                throw new NameShouldNotBeEmptyException("The 'Name' field is required");
-
-            _text = text;
+            return false;
         }
 
-        public override string ToString()
+        if (ReferenceEquals(this, obj))
         {
-            return _text;
+            return true;
         }
 
-        public override bool Equals(object obj)
+        if (obj is string)
         {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            if (obj is string)
-            {
-                return obj.ToString() == _text;
-            }
-
-            return ((Name)obj)._text == _text;
+            return obj.ToString() == _text;
         }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                int hash = 17;
-                hash = hash * 23 + _text.GetHashCode();
-                return hash;
-            }
-        }
+        return ((Name)obj)._text == _text;
+    }
 
-        public bool Equals(Name other)
+    public override int GetHashCode()
+    {
+        unchecked
         {
-            return _text == other._text;
+            int hash = 17;
+            hash = (hash * 23) + _text.GetHashCode();
+            return hash;
         }
+    }
+
+    public bool Equals(Name? other)
+    {
+        if (other is null) return false;
+        return _text == other._text;
     }
 }

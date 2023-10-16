@@ -1,4 +1,4 @@
-namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.EntityFramework.Migrations
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.EntityFramework.Migrations
 {
     using Microsoft.EntityFrameworkCore.Migrations;
     using System;

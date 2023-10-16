@@ -1,10 +1,8 @@
-namespace Genocs.CleanArchitecture.Template.Domain.Accounts
-{
-    using Genocs.CleanArchitecture.Template.Domain;
-    using ValueObjects;
+using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 
-    public interface ICredit : IEntity
-    {
-        PositiveMoney Sum(PositiveMoney amount);
-    }
+namespace Genocs.CleanArchitecture.Template.Domain.Accounts;
+
+public interface ICredit : IEntity
+{
+    PositiveMoney Sum(PositiveMoney amount);
 }

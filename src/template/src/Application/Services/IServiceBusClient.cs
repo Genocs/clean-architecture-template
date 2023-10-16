@@ -1,11 +1,12 @@
-namespace Genocs.CleanArchitecture.Template.Application.Services
-{
-    using Genocs.CleanArchitecture.Template.Shared.Interfaces;
-    using System.Threading.Tasks;
+using Genocs.CleanArchitecture.Template.Shared.Interfaces;
 
-    public interface IServiceBusClient
-    {
-        Task SendCommandAsync<T>(T cmd) where T : ICommand;
-        Task PublishEventAsync<T>(T evt) where T : IEvent;
-    }
+namespace Genocs.CleanArchitecture.Template.Application.Services;
+
+public interface IServiceBusClient
+{
+    Task SendCommandAsync<T>(T cmd)
+        where T : ICommand;
+
+    Task PublishEventAsync<T>(T evt)
+        where T : IEvent;
 }

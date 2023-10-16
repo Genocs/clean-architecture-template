@@ -1,11 +1,20 @@
-﻿namespace Genocs.CleanArchitecture.Template.WebApi.ApiClient;
+﻿using Refit;
 
-using Refit;
+namespace Genocs.CleanArchitecture.Template.WebApi.ApiClient;
 
-
-[Headers("Accept: application/json", "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6InN2YiJ9.eyJzdWIiOjEsImlhdCI6MTYxMTEzMDYxNCwiZXhwIjoxNjExMjE3MDE0LCJlbWFpbCI6ImFkbWluQHV0dS5nbG9iYWwiLCJnaXZlbl9uYW1lIjoiQWRtaW4iLCJmYW1pbHlfbmFtZSI6IkFkbWluIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiYWRtaW4iLCJyb2xlcyI6WyJBZG1pbiIsIk1hbmFnZXIiLCJNZW1iZXIiXSwiZG9tYWluX2lkIjoiYWRtaW4ifQ.Vaj0JGJJrQwQLnSJY7U2qUSF6agGVHzYRx_TkgGLFxn4xN4ARDk-GH8eLow_6eeAprf9cdnkOX70uUEqaDs8HVCHDPA2-zeqBX4E5-72qtLWnlZA_qkxti-EMfEPxF52mt9DwmWdGI2mE3Oh0EgtFv6iP1h_538iTBiQAe6kk-k")]
+/// <summary>
+/// This is an example of a Refit ApiClient interface.
+/// </summary>
+[Headers("Accept: application/json", "Authorization: Bearer xxxx")]
 public interface IOrderApi
 {
-    [Get("/memberquery")]
-    Task<HttpResponseMessage> GetMemberAsync([AliasAs("attachImages")] bool attachImages, [AliasAs("memberId")] string memberId);
+    /// <summary>
+    /// Fool method to test the ApiClient.
+    /// </summary>
+    /// <param name="pageIndex">The page.</param>
+    /// <param name="pageSize">The number of element inside the page</param>
+    /// <returns></returns>
+    [Get("/orders")]
+    Task<HttpResponseMessage> GetOrdersAsync([AliasAs("page")] int pageIndex, [AliasAs("size")] int pageSize);
+
 }

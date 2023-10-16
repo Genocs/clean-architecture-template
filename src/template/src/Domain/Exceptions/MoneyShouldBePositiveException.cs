@@ -1,9 +1,9 @@
-using Genocs.CleanArchitecture.Template.Domain;
+namespace Genocs.CleanArchitecture.Template.Domain.Exceptions;
 
-namespace Genocs.CleanArchitecture.Template.Domain.Exceptions
+public sealed class MoneyShouldBePositiveException : DomainException
 {
-    public sealed class MoneyShouldBePositiveException : DomainException
+    internal MoneyShouldBePositiveException(string message)
+        : base(message)
     {
-        internal MoneyShouldBePositiveException(string message) : base(message) { }
     }
 }

@@ -27,19 +27,18 @@ public class SwaggerDocumentFilter : IDocumentFilter
 
     private List<OpenApiTag> GetFilteredTagDefinitions(DocumentFilterContext context)
     {
-        //Filtering ensures route for tag is present
+        // Filtering ensures route for tag is present
         var currentGroupNames = context.ApiDescriptions
             .Select(description => description.GroupName);
         return _tags.Where(tag => currentGroupNames.Contains(tag.Name))
             .ToList();
     }
 
-    private OpenApiPaths GetSortedPaths(
+    private OpenApiPaths? GetSortedPaths(
         OpenApiDocument swaggerDoc)
     {
         IDictionary<string, OpenApiPathItem> dic = swaggerDoc.Paths.OrderBy(pair => pair.Key)
             .ToDictionary(pair => pair.Key, pair => pair.Value);
-
 
         return null;
     }

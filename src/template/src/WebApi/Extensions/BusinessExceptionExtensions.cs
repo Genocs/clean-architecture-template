@@ -1,8 +1,6 @@
-﻿namespace Genocs.CleanArchitecture.Template.WebApi.Extensions;
+﻿using Genocs.CleanArchitecture.Template.WebApi.Filters;
 
-using Genocs.CleanArchitecture.Template.WebApi.Filters;
-using Microsoft.Extensions.DependencyInjection;
-using WebApi.Filters;
+namespace Genocs.CleanArchitecture.Template.WebApi.Extensions;
 
 public static class BusinessExceptionExtensions
 {

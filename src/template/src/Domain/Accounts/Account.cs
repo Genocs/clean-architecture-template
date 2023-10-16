@@ -21,7 +21,7 @@ public class Account : IAccount
         return credit;
     }
 
-    public IDebit Withdraw(IEntityFactory entityFactory, PositiveMoney amountToWithdraw)
+    public IDebit? Withdraw(IEntityFactory entityFactory, PositiveMoney amountToWithdraw)
     {
         if (GetCurrentBalance().LessThan(amountToWithdraw))
             return null;
@@ -44,9 +44,7 @@ public class Account : IAccount
         var totalDebits = Debits
             .GetTotal();
 
-        var totalAmount = totalCredits
+        return totalCredits
             .Subtract(totalDebits);
-
-        return totalAmount;
     }
 }

@@ -1,70 +1,72 @@
-namespace Genocs.CleanArchitecture.Template.Domain.ValueObjects
+using Genocs.CleanArchitecture.Template.Domain.Exceptions;
+
+namespace Genocs.CleanArchitecture.Template.Domain.ValueObjects;
+
+public sealed class PositiveMoney : IEquatable<PositiveMoney>
 {
-    using Exceptions;
-    using System;
+    private readonly Money _value;
 
-    public sealed class PositiveMoney : IEquatable<PositiveMoney>
+    private PositiveMoney()
     {
-        private readonly Money _value;
+        _value = new Money(0);
+    }
 
-        private PositiveMoney() { }
+    public PositiveMoney(decimal value)
+    {
+        if (value < 0)
+            throw new MoneyShouldBePositiveException("The 'Amount' should be positive.");
 
-        public PositiveMoney(decimal value)
+        _value = new Money(value);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is null)
         {
-            if (value < 0)
-                throw new MoneyShouldBePositiveException("The 'Amount' should be positive.");
-
-            _value = new Money(value);
+            return false;
         }
 
-        public override bool Equals(object obj)
+        if (ReferenceEquals(this, obj))
         {
-            if (obj is null)
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            if (obj is decimal @decimal)
-            {
-                return @decimal == _value.ToDecimal();
-            }
-
-            return ((PositiveMoney)obj)._value == _value;
+            return true;
         }
 
-        public Money ToMoney()
+        if (obj is decimal @decimal)
         {
-            return _value;
+            return @decimal == _value.ToDecimal();
         }
 
-        internal PositiveMoney Add(PositiveMoney positiveAmount)
-        {
-            return _value.Add(positiveAmount._value);
-        }
+        return ((PositiveMoney)obj)._value == _value;
+    }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                int hash = 17;
-                hash = hash * 23 + _value.GetHashCode();
-                return hash;
-            }
-        }
+    public Money ToMoney()
+    {
+        return _value;
+    }
 
-        internal Money Subtract(PositiveMoney positiveAmount)
-        {
-            return _value.Subtract(positiveAmount._value);
-        }
+    internal PositiveMoney Add(PositiveMoney positiveAmount)
+    {
+        return _value.Add(positiveAmount._value);
+    }
 
-        public bool Equals(PositiveMoney other)
+    public override int GetHashCode()
+    {
+        unchecked
         {
-            return _value == other._value;
+            int hash = 17;
+            hash = (hash * 23) + _value.GetHashCode();
+            return hash;
         }
+    }
+
+    internal Money Subtract(PositiveMoney positiveAmount)
+    {
+        return _value.Subtract(positiveAmount._value);
+    }
+
+    public bool Equals(PositiveMoney? other)
+    {
+        if (other is null) return false;
+        return _value == other._value;
     }
 }

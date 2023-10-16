@@ -1,67 +1,59 @@
-﻿namespace Genocs.CleanArchitecture.Template.Worker.HostedServices
+﻿using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Rebus;
+using Genocs.CleanArchitecture.Template.Shared.Events;
+using Genocs.CleanArchitecture.Template.Worker.Handlers;
+using Microsoft.Extensions.Options;
+using Rebus.Activation;
+using Rebus.Bus;
+using Rebus.Config;
+
+namespace Genocs.CleanArchitecture.Template.Worker.HostedServices;
+
+internal class RebusService : IHostedService
 {
-    using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Rebus;
-    using Genocs.CleanArchitecture.Template.Shared.Events;
-    using Handlers;
-    using Microsoft.Extensions.Hosting;
-    using Microsoft.Extensions.Logging;
-    using Microsoft.Extensions.Options;
-    using Rebus.Activation;
-    using Rebus.Bus;
-    using Rebus.Config;
-    using Shared.Events;
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly ILogger<RebusService> _logger;
+    private readonly RebusBusSettings _settings;
 
-    internal class RebusService : IHostedService
+    private BuiltinHandlerActivator? _activator;
+    private IBus? _bus;
+
+    public RebusService(IOptions<RebusBusSettings> settings, ILogger<RebusService> logger)
     {
-        private readonly ILogger<RebusService> _logger;
-        private readonly RebusBusSettings _settings;
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-        private BuiltinHandlerActivator _activator;
-        private IBus _bus;
+        _settings = settings.Value;
 
-        public RebusService(IOptions<RebusBusSettings> settings, ILogger<RebusService> logger)
+        if (_settings == null)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-
-            _settings = settings.Value;
-
-            if (_settings == null)
-            {
-                throw new NullReferenceException("options cannot be null");
-            }
+            throw new NullReferenceException("options cannot be null");
         }
+    }
 
-        public async Task StartAsync(CancellationToken cancellationToken)
-        {
-            _logger.LogInformation("Starting...");
+    public async Task StartAsync(CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("Starting...");
 
-            // Start rebus configuration
-            _activator = new BuiltinHandlerActivator();
+        // Start rebus configuration
+        _activator = new BuiltinHandlerActivator();
 
-            _activator.Register((r) => new RebusEventOccurredHandler(_logger));
+        _activator.Register((r) => new RebusEventOccurredHandler(_logger));
 
-            _bus = Configure.With(_activator)
-                .Logging(l => l.ColoredConsole(minLevel: Rebus.Logging.LogLevel.Debug))
-                .Transport(t => t.UseRabbitMq(_settings.TransportConnection, _settings.QueueName))
-                .Options(o => o.SetMaxParallelism(1))
-                .Start();
+        _bus = Configure.With(_activator)
+            .Logging(l => l.ColoredConsole(minLevel: Rebus.Logging.LogLevel.Debug))
+            .Transport(t => t.UseRabbitMq(_settings.TransportConnection, _settings.QueueName))
+            .Options(o => o.SetMaxParallelism(1))
+            .Start();
 
+        // Subscribe the event
+        await _activator.Bus.Subscribe<RegistrationCompleted>();
 
-            // Subscribe the event
-            await _activator.Bus.Subscribe<RegistrationCompleted>();
+        _logger.LogInformation("Started");
 
-            _logger.LogInformation("Started");
+    }
 
-        }
-
-        public async Task StopAsync(CancellationToken cancellationToken)
-        {
-            _logger.LogInformation("Stopping...");
-            _logger.LogInformation("Stopped");
-            await Task.CompletedTask;
-        }
+    public async Task StopAsync(CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("Stopping...");
+        _logger.LogInformation("Stopped");
+        await Task.CompletedTask;
     }
 }

@@ -1,16 +1,14 @@
-﻿namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.MongoDb
-{
-    using Domain;
-    using MongoDB.Driver;
-    using System;
-    using System.Threading.Tasks;
+﻿using Genocs.CleanArchitecture.Template.Domain;
+using MongoDB.Driver;
 
-    public interface IMongoContext : IDisposable
-    {
-        MongoClient MongoClient { get; set; }
-        IClientSessionHandle Session { get; set; }
-        Task<int> SaveChangesAsync();
-        void AddCommand(Func<Task> func);
-        IMongoCollection<T> GetCollection<T>(string name) where T : IEntity;
-    }
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.MongoDb;
+
+public interface IMongoContext : IDisposable
+{
+    MongoClient MongoClient { get; set; }
+    IClientSessionHandle Session { get; set; }
+    Task<int> SaveChangesAsync();
+    void AddCommand(Func<Task> func);
+    IMongoCollection<T> GetCollection<T>(string name)
+        where T : IEntity;
 }

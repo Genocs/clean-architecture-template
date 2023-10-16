@@ -1,9 +1,9 @@
-using Genocs.CleanArchitecture.Template.Domain;
+namespace Genocs.CleanArchitecture.Template.Domain.Exceptions;
 
-namespace Genocs.CleanArchitecture.Template.Domain.Exceptions
+public sealed class SSNShouldNotBeEmptyException : DomainException
 {
-    public sealed class SSNShouldNotBeEmptyException : DomainException
+    internal SSNShouldNotBeEmptyException(string message)
+        : base(message)
     {
-        internal SSNShouldNotBeEmptyException(string message) : base(message) { }
     }
 }

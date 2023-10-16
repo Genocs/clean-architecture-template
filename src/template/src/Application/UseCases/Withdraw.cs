@@ -5,7 +5,6 @@ using Genocs.CleanArchitecture.Template.Domain;
 
 namespace Genocs.CleanArchitecture.Template.Application.UseCases;
 
-
 public sealed class Withdraw : IUseCase
 {
     private readonly IEntityFactory _entityFactory;
@@ -54,8 +53,7 @@ public sealed class Withdraw : IUseCase
 
         WithdrawOutput output = new WithdrawOutput(
             debit,
-            account.GetCurrentBalance()
-        );
+            account.GetCurrentBalance());
 
         _outputHandler.Default(output);
     }

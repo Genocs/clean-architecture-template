@@ -12,7 +12,6 @@ public sealed class CloseAccount : IUseCase
     private readonly IServiceBusClient _serviceBus;
     private readonly IApiClient _orderApiClient;
 
-
     public CloseAccount(
         IOutputPort outputHandler,
         IAccountRepository accountRepository,
@@ -39,7 +38,8 @@ public sealed class CloseAccount : IUseCase
         if (account.IsClosingAllowed())
         {
             await _accountRepository.Delete(account);
-            // Publish the event to the enterprice service bus
+
+            // Publish the event to the enterprise service bus
             await _serviceBus.PublishEventAsync(new Shared.Events.CloseAccountCompleted() { AccountId = account.Id });
 
             await _unitOfWork.Save();

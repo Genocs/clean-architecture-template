@@ -1,22 +1,21 @@
-namespace Genocs.CleanArchitecture.Template.Domain.Accounts
+using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
+
+namespace Genocs.CleanArchitecture.Template.Domain.Accounts;
+
+public class Debit : IDebit
 {
-    using System;
-    using ValueObjects;
+    public Guid Id { get; protected set; }
+    public PositiveMoney Amount { get; protected set; } = new PositiveMoney(0);
 
-    public class Debit : IDebit
+    public string Description
     {
-        public Guid Id { get; protected set; }
-        public PositiveMoney Amount { get; protected set; }
+        get { return "Debit"; }
+    }
 
-        public string Description {
-            get { return "Debit"; }
-        }
+    public DateTime TransactionDate { get; protected set; }
 
-        public DateTime TransactionDate { get; protected set; }
-
-        public PositiveMoney Sum(PositiveMoney amount)
-        {
-            return Amount.Add(amount);
-        }
+    public PositiveMoney Sum(PositiveMoney amount)
+    {
+        return Amount.Add(amount);
     }
 }

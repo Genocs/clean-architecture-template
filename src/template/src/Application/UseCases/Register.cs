@@ -52,7 +52,6 @@ public sealed class Register : IUseCase
         customer.Register(account);
 
         // Call to an external Web Api
-
         await _customerRepository.Add(customer);
         await _accountRepository.Add(account, credit);
 
@@ -60,7 +59,6 @@ public sealed class Register : IUseCase
         await _serviceBus.PublishEventAsync(new RegistrationCompleted() { CustomerId = customer.Id, AccountId = account.Id, CreditId = credit.Id });
 
         await _unitOfWork.Save();
-
 
         RegisterOutput output = new RegisterOutput(customer, account);
         _outputHandler.Standard(output);

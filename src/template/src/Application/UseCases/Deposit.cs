@@ -47,8 +47,7 @@ public sealed class Deposit : IUseCase
 
         DepositOutput output = new DepositOutput(
             credit,
-            account.GetCurrentBalance()
-        );
+            account.GetCurrentBalance());
 
         _outputHandler.Default(output);
     }

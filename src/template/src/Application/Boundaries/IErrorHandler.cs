@@ -1,7 +1,6 @@
-namespace Genocs.CleanArchitecture.Template.Application.Boundaries
+namespace Genocs.CleanArchitecture.Template.Application.Boundaries;
+
+public interface IErrorHandler
 {
-    public interface IErrorHandler
-    {
-        void Error(string message);
-    }
+    void Error(string message);
 }

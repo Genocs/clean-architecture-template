@@ -5,7 +5,6 @@ using Genocs.CleanArchitecture.Template.Domain;
 
 namespace Genocs.CleanArchitecture.Template.Application.UseCases;
 
-
 public sealed class Refund : IUseCase
 {
     private readonly IEntityFactory _entityFactory;
@@ -47,7 +46,7 @@ public sealed class Refund : IUseCase
 
         await _accountRepository.Update(account, debit);
 
-        // Publish the event to the enterprice service bus
+        // Publish the event to the enterprise service bus
         await _serviceBus.PublishEventAsync(new Shared.Events.WithdrawCompleted() { AccountId = input.AccountId, Amount = input.Amount.ToMoney().ToDecimal() });
 
         await _unitOfWork.Save();

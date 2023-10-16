@@ -6,7 +6,6 @@ using Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.MongoDb.
 
 namespace Genocs.CleanArchitecture.Template.WebApi.Extensions;
 
-
 public static class MongoDBInfrastructureExtensions
 {
     public static IServiceCollection AddMongoDBPersistence(this IServiceCollection services, IConfiguration configuration)

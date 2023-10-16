@@ -6,10 +6,11 @@ namespace Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 public sealed class SSN : IEquatable<SSN>
 {
     private const string RegExForValidation = @"^\d{6,8}[-|(\s)]{0,1}\d{4}$";
-    private string? _text;
+    private string _text;
 
     private SSN()
     {
+        _text = string.Empty;
 
     }
 
@@ -27,7 +28,7 @@ public sealed class SSN : IEquatable<SSN>
         _text = text;
     }
 
-    public override string? ToString()
+    public override string ToString()
     {
         return _text;
     }

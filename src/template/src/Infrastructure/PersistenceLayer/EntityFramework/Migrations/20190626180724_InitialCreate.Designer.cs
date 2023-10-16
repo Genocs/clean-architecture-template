@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.EntityFramework.Migrations
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.EntityFramework.Migrations
 {
     [DbContext(typeof(GenocsContext))]
     [Migration("20190626180724_InitialCreate")]
@@ -21,7 +21,7 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.Enti
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Genocs.MicroserviceLight.Template.Domain.Accounts.Account", b =>
+            modelBuilder.Entity("Genocs.CleanArchitecture.Template.Domain.Accounts.Account", b =>
             {
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd();
@@ -40,7 +40,7 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.Enti
                     });
             });
 
-            modelBuilder.Entity("Genocs.MicroserviceLight.Template.Domain.Accounts.Credit", b =>
+            modelBuilder.Entity("Genocs.CleanArchitecture.Template.Domain.Accounts.Credit", b =>
             {
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd();
@@ -65,7 +65,7 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.Enti
                     });
             });
 
-            modelBuilder.Entity("Genocs.MicroserviceLight.Template.Domain.Accounts.Debit", b =>
+            modelBuilder.Entity("Genocs.CleanArchitecture.Template.Domain.Accounts.Debit", b =>
             {
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd();
@@ -90,7 +90,7 @@ namespace Genocs.MicroserviceLight.Template.Infrastructure.PersistenceLayer.Enti
                     });
             });
 
-            modelBuilder.Entity("Genocs.MicroserviceLight.Template.Domain.Customers.Customer", b =>
+            modelBuilder.Entity("Genocs.CleanArchitecture.Template.Domain.Customers.Customer", b =>
             {
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd();

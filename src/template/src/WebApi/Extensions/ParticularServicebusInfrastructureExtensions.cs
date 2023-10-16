@@ -3,7 +3,6 @@ using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Particular;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.Extensions;
 
-
 public static class ParticularServicebusInfrastructureExtensions
 {
     public static IServiceCollection AddParticularServiceBus(this IServiceCollection services, IConfiguration config)

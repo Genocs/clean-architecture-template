@@ -1,9 +1,8 @@
-﻿namespace Genocs.CleanArchitecture.Template.Application.Services
+﻿namespace Genocs.CleanArchitecture.Template.Application.Services;
+
+/// <summary>
+/// Placeholder for API Client.
+/// </summary>
+public interface IApiClient
 {
-    /// <summary>
-    /// Placeholder for API Client
-    /// </summary>
-    public interface IApiClient
-    {
-    }
 }

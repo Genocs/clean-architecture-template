@@ -14,11 +14,8 @@ public static class UserInterfaceV2Extensions
             new AccountsV2Controller(
                 new Application.UseCases.GetAccountDetails(
                     ctx.GetRequiredService<GetAccountDetailsPresenterV2>(),
-                    ctx.GetRequiredService<IAccountRepository>()
-                ),
-                ctx.GetRequiredService<GetAccountDetailsPresenterV2>()
-            )
-        );
+                    ctx.GetRequiredService<IAccountRepository>()),
+                ctx.GetRequiredService<GetAccountDetailsPresenterV2>()));
 #endif
         return services;
     }

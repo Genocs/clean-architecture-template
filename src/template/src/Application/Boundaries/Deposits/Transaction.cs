@@ -7,9 +7,9 @@ public sealed class Transaction
     public DateTime TransactionDate { get; }
 
     public Transaction(
-        string description,
-        decimal amount,
-        DateTime transactionDate)
+                       string description,
+                       decimal amount,
+                       DateTime transactionDate)
     {
         Description = description;
         Amount = amount;

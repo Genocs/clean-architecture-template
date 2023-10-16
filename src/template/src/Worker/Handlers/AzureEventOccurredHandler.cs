@@ -1,24 +1,20 @@
-﻿namespace Genocs.CleanArchitecture.Template.Worker.Handlers
+﻿using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
+using Genocs.CleanArchitecture.Template.Shared.Events;
+
+namespace Genocs.CleanArchitecture.Template.Worker.Handlers;
+
+public class AzureEventOccurredHandler : IMessageEventHandler<IntegrationEventIssued>
 {
-    using Shared.ReadModels;
-    using System.Threading.Tasks;
-    using Infrastructure.ServiceBus;
-    using Microsoft.Extensions.Logging;
-    using Genocs.CleanArchitecture.Template.Shared.Events;
-    using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
+    private readonly ILogger<AzureEventOccurredHandler> _logger;
 
-    public class AzureEventOccurredHandler : IMessageEventHandler<IntegrationEventIssued>
+    public AzureEventOccurredHandler(ILogger<AzureEventOccurredHandler> logger)
+        => _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+
+    public Task Handle(IntegrationEventIssued @event)
     {
-        private readonly ILogger<AzureEventOccurredHandler> _logger;
+        _logger.LogDebug("Processed message");
 
-        public AzureEventOccurredHandler(ILogger<AzureEventOccurredHandler> logger)
-            => _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-
-        public Task Handle(IntegrationEventIssued @event)
-        {
-            _logger.LogDebug("Processed message");
-            // Do something with the message here
-            return Task.CompletedTask;
-        }
+        // Do something with the message here
+        return Task.CompletedTask;
     }
 }

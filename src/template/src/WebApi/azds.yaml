@@ -46,6 +46,6 @@ configurations:
       - "!**/*.{sln,csproj}"
       command: [dotnet, run, --no-restore, --no-build, --no-launch-profile, -c, "${BUILD_CONFIGURATION:-Debug}"]
       iterate:
-        processesToKill: [dotnet, vsdbg, Genocs.MicroserviceLight.Template.WebApi]
+        processesToKill: [dotnet, vsdbg, Genocs.CleanArchitecture.Template.WebApi]
         buildCommands:
         - [dotnet, build, --no-restore, -c, "${BUILD_CONFIGURATION:-Debug}"]

@@ -5,17 +5,16 @@ using NServiceBus.Logging;
 
 namespace Genocs.CleanArchitecture.Template.Worker.Handlers;
 
-
 /// <summary>
-/// This event handler will be registered automatically. It do not need any action to be up and running 
+/// This event handler will be registered automatically. It do not need any action to be up and running.
 /// </summary>
 public class ParticularEventOccurredHandler : IHandleMessages<RegistrationCompleted>
 {
     private readonly ILog _logger = LogManager.GetLogger<ParticularEventOccurredHandler>();
 
-    //static int counter = 0;
+    // static int counter = 0;
 
-    //public ParticularEventOccurredHandler(ILog logger)
+    // public ParticularEventOccurredHandler(ILog logger)
     //    => _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
 
     public async Task Handle(RegistrationCompleted message, IMessageHandlerContext context)

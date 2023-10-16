@@ -1,9 +1,9 @@
-using Genocs.CleanArchitecture.Template.Domain;
+namespace Genocs.CleanArchitecture.Template.Domain.Exceptions;
 
-namespace Genocs.CleanArchitecture.Template.Domain.Exceptions
+internal sealed class InvalidSSNException : DomainException
 {
-    internal sealed class InvalidSSNException : DomainException
+    internal InvalidSSNException(string message)
+        : base(message)
     {
-        internal InvalidSSNException(string message) : base(message) { }
     }
 }

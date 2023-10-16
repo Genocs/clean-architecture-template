@@ -1,6 +1,6 @@
-namespace Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
-
 using Microsoft.FeatureManagement;
+
+namespace Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
 
 public static class FeatureFlagsExtensions
 {
@@ -14,8 +14,7 @@ public static class FeatureFlagsExtensions
         services.AddMvc()
             .ConfigureApplicationPartManager(apm =>
                 apm.FeatureProviders.Add(
-                    new CustomControllerFeatureProvider(featureManager)
-                ));
+                    new CustomControllerFeatureProvider(featureManager)));
 
         return services;
     }

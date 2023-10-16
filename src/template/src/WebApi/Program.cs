@@ -62,7 +62,7 @@ services.AddSwaggerGen(c =>
     {
         Version = "v1",
         Title = "Genocs.CleanArchitecture.Template",
-        Description = "The Genocs.CleanArchitecture.Template. The API contains OpenAPI documentation to be used easily by LangChain tools and agents.",
+        Description = "The Genocs.CleanArchitecture.Template service. The API contains OpenAPI documentation. This useful when used with LangChain tools and agents.",
         TermsOfService = new Uri("https://www.genocs.com/sections/software.html"),
         Contact = new OpenApiContact
         {
@@ -77,7 +77,7 @@ services.AddSwaggerGen(c =>
         }
     });
 
-    c.AddServer(new OpenApiServer() { Url = "https://localhost:53246", Description = "Local version for internal test" });
+    c.AddServer(new OpenApiServer() { Url = "https://localhost:5001", Description = "Local version for internal test" });
     c.AddServer(new OpenApiServer() { Url = "http://genocs.cleanarchitecture.template-service", Description = "Docker version to use within docker compose" });
     c.AddServer(new OpenApiServer() { Url = "https://genocs.cleanarchitecture.template.azurewebsites.net", Description = "Deploy on Azure" });
 

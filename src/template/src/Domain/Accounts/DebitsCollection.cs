@@ -1,46 +1,43 @@
-namespace Genocs.CleanArchitecture.Template.Domain.Accounts
+using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
+using System.Collections.ObjectModel;
+
+namespace Genocs.CleanArchitecture.Template.Domain.Accounts;
+
+public sealed class DebitsCollection
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using ValueObjects;
+    private readonly IList<IDebit> _debits;
 
-    public sealed class DebitsCollection
+    public DebitsCollection()
     {
-        private readonly IList<IDebit> _debits;
+        _debits = new List<IDebit>();
+    }
 
-        public DebitsCollection()
+    public void Add<T>(IEnumerable<T> debits)
+        where T : IDebit
+    {
+        foreach (var debit in debits)
+            Add(debit);
+    }
+
+    public void Add(IDebit debit)
+    {
+        _debits.Add(debit);
+    }
+
+    public IReadOnlyCollection<IDebit> GetTransactions()
+    {
+        return new ReadOnlyCollection<IDebit>(_debits);
+    }
+
+    public PositiveMoney GetTotal()
+    {
+        PositiveMoney total = new PositiveMoney(0);
+
+        foreach (var debit in _debits)
         {
-            _debits = new List<IDebit>();
+            total = debit.Sum(total);
         }
 
-        public void Add<T>(IEnumerable<T> debits)
-            where T : IDebit
-        {
-            foreach (var debit in debits)
-                Add(debit);
-        }
-
-        public void Add(IDebit debit)
-        {
-            _debits.Add(debit);
-        }
-
-        public IReadOnlyCollection<IDebit> GetTransactions()
-        {
-            IReadOnlyCollection<IDebit> transactions = new ReadOnlyCollection<IDebit>(_debits);
-            return transactions;
-        }
-
-        public PositiveMoney GetTotal()
-        {
-            PositiveMoney total = new PositiveMoney(0);
-
-            foreach (var debit in _debits)
-            {
-                total = debit.Sum(total);
-            }
-
-            return total;
-        }
+        return total;
     }
 }

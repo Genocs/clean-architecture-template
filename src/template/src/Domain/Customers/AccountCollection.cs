@@ -1,33 +1,30 @@
-namespace Genocs.CleanArchitecture.Template.Domain.Customers
+using System.Collections.ObjectModel;
+
+namespace Genocs.CleanArchitecture.Template.Domain.Customers;
+
+public sealed class AccountCollection
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
+    private readonly IList<Guid> _accountIds;
 
-    public sealed class AccountCollection
+    public AccountCollection()
     {
-        private readonly IList<Guid> _accountIds;
+        _accountIds = new List<Guid>();
+    }
 
-        public AccountCollection()
-        {
-            _accountIds = new List<Guid>();
-        }
+    public void Add(IEnumerable<Guid> accounts)
+    {
+        foreach (var account in accounts)
+            Add(account);
+    }
 
-        public void Add(IEnumerable<Guid> accounts)
-        {
-            foreach (var account in accounts)
-                Add(account);
-        }
+    public IReadOnlyCollection<Guid> GetAccountIds()
+    {
+        IReadOnlyCollection<Guid> accountIds = new ReadOnlyCollection<Guid>(_accountIds);
+        return accountIds;
+    }
 
-        public IReadOnlyCollection<Guid> GetAccountIds()
-        {
-            IReadOnlyCollection<Guid> accountIds = new ReadOnlyCollection<Guid>(_accountIds);
-            return accountIds;
-        }
-
-        public void Add(Guid accountId)
-        {
-            _accountIds.Add(accountId);
-        }
+    public void Add(Guid accountId)
+    {
+        _accountIds.Add(accountId);
     }
 }

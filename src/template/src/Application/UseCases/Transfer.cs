@@ -55,10 +55,10 @@ public sealed class Transfer : IUseCase
         await _unitOfWork.Save();
 
         TransferOutput output = new TransferOutput(
-            debit,
-            originAccount.GetCurrentBalance(),
-            input.OriginAccountId,
-            input.DestinationAccountId);
+                                                   debit,
+                                                   originAccount.GetCurrentBalance(),
+                                                   input.OriginAccountId,
+                                                   input.DestinationAccountId);
 
         _outputHandler.Default(output);
     }
