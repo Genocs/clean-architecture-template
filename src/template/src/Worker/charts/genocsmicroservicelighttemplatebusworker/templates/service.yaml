@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "genocsmicroservicelighttemplatebusworker.fullname" . }}
+  name: {{ template "genocscleanarchitecturetemplateworker.fullname" . }}
   labels:
-    app: {{ template "genocsmicroservicelighttemplatebusworker.name" . }}
-    chart: {{ template "genocsmicroservicelighttemplatebusworker.chart" . }}
+    app: {{ template "genocscleanarchitecturetemplateworker.name" . }}
+    chart: {{ template "genocscleanarchitecturetemplateworker.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
@@ -15,5 +15,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: {{ template "genocsmicroservicelighttemplatebusworker.name" . }}
+    app: {{ template "genocscleanarchitecturetemplateworker.name" . }}
     release: {{ .Release.Name }}

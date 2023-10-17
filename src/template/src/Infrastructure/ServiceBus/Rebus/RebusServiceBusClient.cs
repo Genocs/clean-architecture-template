@@ -10,6 +10,8 @@ namespace Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Rebus;
 public class RebusServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
 {
     private BuiltinHandlerActivator _activator;
+
+    private bool _disposed;
     public RebusServiceBusClient(IOptions<RebusBusSettings> settings)
     {
         var optionsInstance = settings?.Value;
@@ -22,13 +24,15 @@ public class RebusServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
            .Start();
     }
 
-    public async Task SendCommandAsync<T>(T cmd) where T : ICommand
+    public async Task SendCommandAsync<T>(T cmd)
+        where T : ICommand
     {
         // Check the ContextId Management
         await _activator.Bus.Send(cmd);
     }
 
-    public async Task PublishEventAsync<T>(T evt) where T : IEvent
+    public async Task PublishEventAsync<T>(T evt)
+        where T : IEvent
     {
         await _activator.Bus.Publish(evt);
     }
@@ -49,21 +53,26 @@ public class RebusServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
 
     protected virtual void Dispose(bool disposing)
     {
-        if (disposing)
+        if (!_disposed)
         {
-            _activator?.Dispose();
+            _disposed = true;
+            if (disposing)
+            {
+                _activator.Dispose();
+            }
         }
-        _activator = null;
     }
 
     protected virtual async ValueTask DisposeAsyncCore()
     {
-        //if (_bus is not null)
-        //{
-        //    await _bus.DisposeAsync();
-        //}
+        /*
+        if (_bus is not null)
+        {
+            await _bus.DisposeAsync();
+        }
 
-        //_bus = null;
+        _bus = null;
+        */
 
         await Task.CompletedTask;
     }

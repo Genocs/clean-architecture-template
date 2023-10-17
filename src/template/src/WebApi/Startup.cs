@@ -59,18 +59,18 @@ public sealed class Startup
 #endif
 
         // Select your Enterprise service bus library
-
-        //services.AddAzureServiceBus(Configuration);
-        //services.AddMassTransitServiceBus(Configuration);
+        // services.AddAzureServiceBus(Configuration);
+        // services.AddMassTransitServiceBus(Configuration);
         services.AddParticularServiceBus(Configuration);
+
         // services.AddRebusServiceBus(Configuration);
 
-        //refit apis
+        // refit apis
         services.AddRefitClient<IOrderApi>()
         //.AddHttpMessageHandler<AuthorizationMessageHandler>()
           .ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration["ExternalWebServices:Order"]));
 
-        //HealthChecks(services, Configuration);
+        // HealthChecks(services, Configuration);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

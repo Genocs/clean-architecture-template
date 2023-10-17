@@ -1,49 +1,42 @@
-namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Register
+using Genocs.CleanArchitecture.Template.WebApi.ViewModels;
+using System.ComponentModel.DataAnnotations;
+
+namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Register;
+
+/// <summary>
+/// The response for Registration.
+/// </summary>
+public sealed class RegisterResponse
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using WebApi.ViewModels;
+    /// <summary>
+    /// Customer ID.
+    /// </summary>
+    [Required]
+    public Guid CustomerId { get; }
 
     /// <summary>
-    /// The response for Registration
+    /// SSN.
     /// </summary>
-    public sealed class RegisterResponse
+    [Required]
+    public string SSN { get; }
+
+    /// <summary>
+    /// Name.
+    /// </summary>
+    [Required]
+    public string Name { get; }
+
+    /// <summary>
+    /// Accounts.
+    /// </summary>
+    [Required]
+    public List<AccountDetailsModel> Accounts { get; }
+
+    public RegisterResponse(in Guid customerId, string ssn, string name, List<AccountDetailsModel> accounts)
     {
-        /// <summary>
-        /// Customer ID
-        /// </summary>
-        [Required]
-        public Guid CustomerId { get; }
-
-        /// <summary>
-        /// SSN
-        /// </summary>
-        [Required]
-        public string SSN { get; }
-
-        /// <summary>
-        /// Name
-        /// </summary>
-        [Required]
-        public string Name { get; }
-
-        /// <summary>
-        /// Accounts
-        /// </summary>
-        [Required]
-        public List<AccountDetailsModel> Accounts { get; }
-
-        public RegisterResponse(
-            Guid customerId,
-            string ssn,
-            string name,
-            List<AccountDetailsModel> accounts)
-        {
-            CustomerId = customerId;
-            SSN = ssn;
-            Name = name;
-            Accounts = accounts;
-        }
+        CustomerId = customerId;
+        SSN = ssn;
+        Name = name;
+        Accounts = accounts;
     }
 }

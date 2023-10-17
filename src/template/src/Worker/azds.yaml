@@ -30,7 +30,7 @@ install:
       # This expands to form the service's public URL: [space.s.][rootSpace.]genocsmicroservicelighttemplatebusworker.<random suffix>.<region>.azds.io
       # Customize the public URL by changing the 'genocsmicroservicelighttemplatebusworker' text between the $(rootSpacePrefix) and $(hostSuffix) tokens
       # For more information see https://aka.ms/devspaces/routing
-      - $(spacePrefix)$(rootSpacePrefix)genocs.microservicelight.template.busworker$(hostSuffix)
+      - $(spacePrefix)$(rootSpacePrefix)genocs.microservicelight.template.worker$(hostSuffix)
 configurations:
   develop:
     build:
@@ -46,6 +46,6 @@ configurations:
       - "!**/*.{sln,csproj}"
       command: [dotnet, run, --no-restore, --no-build, --no-launch-profile, -c, "${BUILD_CONFIGURATION:-Debug}"]
       iterate:
-        processesToKill: [dotnet, vsdbg, Genocs.CleanArchitecture.Template.BusWorker]
+        processesToKill: [dotnet, vsdbg, Genocs.CleanArchitecture.Template.Worker]
         buildCommands:
         - [dotnet, build, --no-restore, -c, "${BUILD_CONFIGURATION:-Debug}"]

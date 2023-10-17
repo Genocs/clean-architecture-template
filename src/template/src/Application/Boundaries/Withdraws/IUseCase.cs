@@ -1,9 +1,6 @@
-namespace Genocs.CleanArchitecture.Template.Application.Boundaries.Withdraws
-{
-    using System.Threading.Tasks;
+namespace Genocs.CleanArchitecture.Template.Application.Boundaries.Withdraws;
 
-    public interface IUseCase
-    {
-        Task Execute(WithdrawInput withdrawInput);
-    }
+public interface IUseCase
+{
+    Task Execute(WithdrawInput withdrawInput);
 }

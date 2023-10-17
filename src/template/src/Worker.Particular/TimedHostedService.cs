@@ -29,9 +29,7 @@ public class TimedHostedService : IHostedService, IDisposable
 
     private void DoWork(object state)
     {
-        var count = Interlocked.Increment(ref _executionCount);
-
-
+        int count = Interlocked.Increment(ref _executionCount);
 
         _logger.LogInformation(
             "Timed Hosted Service is working. Count: {Count}", count);
@@ -48,6 +46,7 @@ public class TimedHostedService : IHostedService, IDisposable
 
     public void Dispose()
     {
+        GC.SuppressFinalize(this);
         _timer?.Dispose();
     }
 }

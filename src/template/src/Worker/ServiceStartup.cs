@@ -26,10 +26,11 @@ public static class ServiceStartup
         services.AddApplicationInsightsTelemetry(context.Configuration);
 
         // Setup config services
-        // AzureServiceBusConfigurator.ConfigureServices(context, services);
-        // MassTransitServiceBusConfigurator.ConfigureServices(context, services);
-        ParticularServiceBusConfigurator.ConfigureServices(context, services);
+        MassTransitServiceBusConfigurator.ConfigureServices(context, services);
+
         // RebusServiceBusConfigurator.ConfigureServices(context, services);
+        // AzureServiceBusConfigurator.ConfigureServices(context, services);
+        // ParticularServiceBusConfigurator.ConfigureServices(context, services);
 
         // Register the Event handler
         services.AddScoped<IMessageEventHandler<IntegrationEventIssued>, AzureEventOccurredHandler>();
@@ -67,12 +68,12 @@ public static class ServiceStartup
 
         services.Configure<ParticularOptions>(context.Configuration.GetSection(nameof(ParticularOptions)));
 
-
         // workaround .NET Core 2.2: for more info https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/health-checks/samples/2.x/HealthChecksSample/LivenessProbeStartup.cs#L51
         services.TryAddEnumerable(
-            ServiceDescriptor.Singleton(typeof(IHostedService),
-                typeof(HealthCheckPublisherOptions).Assembly
-                    .GetType(HealthCheckServiceAssembly)));
+            ServiceDescriptor.Singleton(
+                                        typeof(IHostedService),
+                                        typeof(HealthCheckPublisherOptions).Assembly
+                                            .GetType(HealthCheckServiceAssembly)));
 
         services.AddSingleton<IHealthCheckPublisher, ReadinessLivenessPublisher>();
     }

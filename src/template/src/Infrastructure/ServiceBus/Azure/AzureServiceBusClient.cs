@@ -7,10 +7,8 @@ using System.Text;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
 
-
 public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
 {
-
     private readonly AzureServiceBusSettings _settings;
 
     private IQueueClient _queueClient;
@@ -39,7 +37,6 @@ public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
         };
     }
 
-
     public void Dispose()
     {
         Dispose(disposing: true);
@@ -64,12 +61,13 @@ public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
 
     protected virtual async ValueTask DisposeAsyncCore()
     {
-        //if (_bus is not null)
-        //{
-        //    await _bus.DisposeAsync();
-        //}
-
-        //_bus = null;
+        /*
+        if (_bus is not null)
+        {
+            await _bus.DisposeAsync();
+        }
+        _bus = null;
+        */
 
         await Task.CompletedTask;
     }
@@ -82,20 +80,23 @@ public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
         /*
          * Please evaluate how ho implement a more efficient way
          * to serialize the event to a byte
-         * 
-         * */
-        //BinaryFormatter bf = new BinaryFormatter();
-        //using (MemoryStream ms = new MemoryStream())
-        //{
-        //    bf.Serialize(ms, evt);
-        //    msg.Body = ms.ToArray();
-        //}
+         */
+
+        /*
+        BinaryFormatter bf = new BinaryFormatter();
+        using (MemoryStream ms = new MemoryStream())
+        {
+            bf.Serialize(ms, evt);
+            msg.Body = ms.ToArray();
+        }
+        */
 
         msg.Body = Encoding.ASCII.GetBytes(strMsg);
         await _queueClient.SendAsync(msg);
     }
 
-    public async Task SendCommandAsync<T>(T command) where T : ICommand
+    public async Task SendCommandAsync<T>(T command)
+        where T : ICommand
     {
         Message msg = new Message();
         string strMsg = JsonConvert.SerializeObject(command);
@@ -104,13 +105,16 @@ public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
          * Please evaluate how ho implement a more efficient way
          * to serialize the event to a byte
          * 
-         * */
-        //BinaryFormatter bf = new BinaryFormatter();
-        //using (MemoryStream ms = new MemoryStream())
-        //{
-        //    bf.Serialize(ms, evt);
-        //    msg.Body = ms.ToArray();
-        //}
+         */
+
+        /*
+        BinaryFormatter bf = new BinaryFormatter();
+        using (MemoryStream ms = new MemoryStream())
+        {
+            bf.Serialize(ms, evt);
+            msg.Body = ms.ToArray();
+        }
+        */
 
         msg.Body = Encoding.ASCII.GetBytes(strMsg);
         await _queueClient.SendAsync(msg);

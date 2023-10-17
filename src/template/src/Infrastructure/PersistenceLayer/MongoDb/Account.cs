@@ -1,29 +1,26 @@
-﻿namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.MongoDb
+﻿using Genocs.CleanArchitecture.Template.Domain.Accounts;
+using Genocs.CleanArchitecture.Template.Domain.Customers;
+
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.MongoDb;
+
+public class Account : Domain.Accounts.Account
 {
-    using Domain.Accounts;
-    using Domain.Customers;
-    using System;
-    using System.Collections.Generic;
+    public Guid CustomerId { get; protected set; }
 
-    public class Account : Domain.Accounts.Account
+    protected Account() { }
+
+    public Account(ICustomer customer)
     {
-        public Guid CustomerId { get; protected set; }
+        Id = Guid.NewGuid();
+        CustomerId = customer.Id;
+    }
 
-        protected Account() { }
+    public void Load(IList<Credit> credits, IList<Debit> debits)
+    {
+        Credits = new CreditsCollection();
+        Credits.Add(credits);
 
-        public Account(ICustomer customer)
-        {
-            Id = Guid.NewGuid();
-            CustomerId = customer.Id;
-        }
-
-        public void Load(IList<Credit> credits, IList<Debit> debits)
-        {
-            Credits = new CreditsCollection();
-            Credits.Add(credits);
-
-            Debits = new DebitsCollection();
-            Debits.Add(debits);
-        }
+        Debits = new DebitsCollection();
+        Debits.Add(debits);
     }
 }

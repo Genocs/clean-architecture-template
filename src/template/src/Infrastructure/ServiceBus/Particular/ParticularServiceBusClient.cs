@@ -31,13 +31,12 @@ public class ParticularServiceBusClient : IServiceBusClient, IDisposable, IAsync
             #endregion
 
             #region ConfigureMetrics and Monitoring
-            //endpointConfiguration.SendFailedMessagesTo("error");
-            //endpointConfiguration.AuditProcessedMessagesTo("audit");
-            //endpointConfiguration.SendHeartbeatTo("Particular.ServiceControl");
-            //var metrics = endpointConfiguration.EnableMetrics();
-            //metrics.SendMetricDataToServiceControl("Particular.Monitoring", TimeSpan.FromMilliseconds(500));
+            // endpointConfiguration.SendFailedMessagesTo("error");
+            // endpointConfiguration.AuditProcessedMessagesTo("audit");
+            // endpointConfiguration.SendHeartbeatTo("Particular.ServiceControl");
+            // var metrics = endpointConfiguration.EnableMetrics();
+            // metrics.SendMetricDataToServiceControl("Particular.Monitoring", TimeSpan.FromMilliseconds(500));
             #endregion
-
 
             var endpointConfiguration = new EndpointConfiguration(_settings.EndpointName);
 
@@ -57,20 +56,20 @@ public class ParticularServiceBusClient : IServiceBusClient, IDisposable, IAsync
 
             #region Register commands
 
-            //transport.Routing().RouteToEndpoint(typeof(MyCommand), "Sample.SimpleSender");
+            // transport.Routing().RouteToEndpoint(typeof(MyCommand), "Sample.SimpleSender");
 
             #endregion
 
-
-            // Unobtrusive mode. 
+            // Unobtrusive mode.
             var conventions = endpointConfiguration.Conventions();
 
             conventions.DefiningEventsAs(type => type.Namespace == "Genocs.CleanArchitecture.Template.Shared.Events");
 
-            //conventions.DefiningEventsAs(type =>
-            //    type.Namespace == "Genocs.CleanArchitecture.Template.Shared.Events"
-            //    || typeof(IEvent).IsAssignableFrom(typeof(Shared.Events.EventOccurred))
-            //);
+            /*
+            conventions.DefiningEventsAs(type =>
+                type.Namespace == "Genocs.CleanArchitecture.Template.Shared.Events"
+                || typeof(IEvent).IsAssignableFrom(typeof(Shared.Events.EventOccurred)));
+            */
 
             // https://docs.particular.net/nservicebus/serialization/
             endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
@@ -81,13 +80,15 @@ public class ParticularServiceBusClient : IServiceBusClient, IDisposable, IAsync
     }
 
 
-    public async Task PublishEventAsync<T>(T evt) where T : Shared.Interfaces.IEvent
+    public async Task PublishEventAsync<T>(T evt)
+        where T : Shared.Interfaces.IEvent
     {
         await Initialize();
         await _instance.Publish(evt);
     }
 
-    public async Task SendCommandAsync<T>(T cmd) where T : Shared.Interfaces.ICommand
+    public async Task SendCommandAsync<T>(T cmd)
+        where T : Shared.Interfaces.ICommand
     {
         await Initialize();
         await _instance.Send(cmd);
@@ -111,7 +112,7 @@ public class ParticularServiceBusClient : IServiceBusClient, IDisposable, IAsync
     {
         if (disposing)
         {
-            //_instance.Stop();
+            // _instance.Stop();
         }
     }
 

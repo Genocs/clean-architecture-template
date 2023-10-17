@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "genocsmicroservicelighttemplatebusworker.fullname" . }}
+  name: {{ template "genocscleanarchitecturetemplateworker.fullname" . }}
   labels:
-    app: {{ template "genocsmicroservicelighttemplatebusworker.name" . }}
-    chart: {{ template "genocsmicroservicelighttemplatebusworker.chart" . }}
+    app: {{ template "genocscleanarchitecturetemplateworker.name" . }}
+    chart: {{ template "genocscleanarchitecturetemplateworker.chart" . }}
     draft: {{ .Values.draft | default "draft-app" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -13,12 +13,12 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "genocsmicroservicelighttemplatebusworker.name" . }}
+      app: {{ template "genocscleanarchitecturetemplateworker.name" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ template "genocsmicroservicelighttemplatebusworker.name" . }}
+        app: {{ template "genocscleanarchitecturetemplateworker.name" . }}
         draft: {{ .Values.draft | default "draft-app" }}
         release: {{ .Release.Name }}
       annotations:
@@ -49,7 +49,7 @@ spec:
             - name: {{ $ref }}_{{ $key }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "genocsmicroservicelighttemplatebusworker.fullname" $root }}-{{ $ref | lower }}
+                  name: {{ template "genocscleanarchitecturetemplateworker.fullname" $root }}-{{ $ref | lower }}
                   key: {{ $key }}
             {{- end }}
             {{- end }}

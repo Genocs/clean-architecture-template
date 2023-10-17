@@ -1,28 +1,27 @@
-namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Register
+using System.ComponentModel.DataAnnotations;
+
+namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Register;
+
+/// <summary>
+/// Registration Request.
+/// </summary>
+public sealed class RegisterRequest
 {
-    using System.ComponentModel.DataAnnotations;
+    /// <summary>
+    /// SSN.
+    /// </summary>
+    [Required]
+    public string? SSN { get; set; }
 
     /// <summary>
-    /// Registration Request
+    /// Name.
     /// </summary>
-    public sealed class RegisterRequest
-    {
-        /// <summary>
-        /// SSN
-        /// </summary>
-        [Required]
-        public string SSN { get; set; }
+    [Required]
+    public string? Name { get; set; }
 
-        /// <summary>
-        /// Name
-        /// </summary>
-        [Required]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Initial Amount
-        /// </summary>
-        [Required]
-        public decimal InitialAmount { get; set; }
-    }
+    /// <summary>
+    /// Initial Amount.
+    /// </summary>
+    [Required]
+    public decimal InitialAmount { get; set; }
 }

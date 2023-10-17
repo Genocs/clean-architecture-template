@@ -1,5 +1,5 @@
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := include "genocsmicroservicelighttemplatebusworker.fullname" . -}}
+{{- $fullName := include "genocscleanarchitecturetemplateworker.fullname" . -}}
 {{- $servicePort := .Values.service.port -}}
 {{- $ingressPath := .Values.ingress.path -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
@@ -11,8 +11,8 @@ kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
-    app: {{ template "genocsmicroservicelighttemplatebusworker.name" . }}
-    chart: {{ template "genocsmicroservicelighttemplatebusworker.chart" . }}
+    app: {{ template "genocscleanarchitecturetemplateworker.name" . }}
+    chart: {{ template "genocscleanarchitecturetemplateworker.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 {{- with .Values.ingress.annotations }}

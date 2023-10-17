@@ -1,17 +1,15 @@
-namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.GetCustomerDetails
-{
-    using System;
-    using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
+namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.GetCustomerDetails;
+
+/// <summary>
+/// The Get Customer Details Request.
+/// </summary>
+public sealed class GetCustomerDetailsRequest
+{
     /// <summary>
-    /// The Get Customer Details Request
+    /// Customer ID.
     /// </summary>
-    public sealed class GetCustomerDetailsRequest
-    {
-        /// <summary>
-        /// Customer ID
-        /// </summary>
-        [Required]
-        public Guid CustomerId { get; set; }
-    }
+    [Required]
+    public Guid CustomerId { get; set; }
 }

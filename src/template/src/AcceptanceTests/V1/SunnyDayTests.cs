@@ -61,13 +61,19 @@ public sealed class SunnyDayTests : IClassFixture<WebApplicationFactory<Startup>
 
         response.EnsureSuccessStatusCode();
 
-        var responseString = await response.Content.ReadAsStringAsync();
+        string responseString = await response.Content.ReadAsStringAsync();
 
         Assert.Contains("customerId", responseString);
         var customer = JsonConvert.DeserializeObject<JObject>(responseString);
 
-        string customerId = customer["customerId"].Value<string>();
-        string accountId = ((JContainer)customer["accounts"]).First["accountId"].Value<string>();
+        string customerId = string.Empty;
+        string accountId = string.Empty;
+
+        if (customer != null)
+        {
+            customerId = customer["customerId"]?.Value<string>();
+            accountId = ((JContainer)customer["accounts"])?.First["accountId"]?.Value<string>();
+        }
 
         return new Tuple<string, string>(customerId, accountId);
     }
@@ -114,5 +120,5 @@ public sealed class SunnyDayTests : IClassFixture<WebApplicationFactory<Startup>
         var response = await client.DeleteAsync($"api/v1/Accounts/{account}?api-version=1");
         response.EnsureSuccessStatusCode();
     }
-#endif		
+#endif
 }

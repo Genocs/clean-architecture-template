@@ -50,10 +50,10 @@ public class Program
 
             // Unobtrusive mode. 
             //var conventions = endpointConfiguration.Conventions();
-            //conventions.DefiningEventsAs(type => type.Namespace == "Genocs.MicroserviceLight.Template.Shared.Events");
+            //conventions.DefiningEventsAs(type => type.Namespace == "Genocs.CleanArchitecture.Template.Shared.Events");
 
             //conventions.DefiningEventsAs(type =>
-            //    type.Namespace == "Genocs.MicroserviceLight.Template.Shared.Events"
+            //    type.Namespace == "Genocs.CleanArchitecture.Template.Shared.Events"
             //    || typeof(IEvent).IsAssignableFrom(typeof(Shared.Events.EventOccurred))
             //);
 
@@ -88,10 +88,10 @@ public class Program
 
             // Unobtrusive mode. 
             //var conventions = endpointConfiguration.Conventions();
-            //conventions.DefiningEventsAs(type => type.Namespace == "Genocs.MicroserviceLight.Template.Shared.Events");
+            //conventions.DefiningEventsAs(type => type.Namespace == "Genocs.CleanArchitecture.Template.Shared.Events");
 
             //conventions.DefiningEventsAs(type =>
-            //    type.Namespace == "Genocs.MicroserviceLight.Template.Shared.Events"
+            //    type.Namespace == "Genocs.CleanArchitecture.Template.Shared.Events"
             //    || typeof(IEvent).IsAssignableFrom(typeof(Shared.Events.EventOccurred))
             //);
 

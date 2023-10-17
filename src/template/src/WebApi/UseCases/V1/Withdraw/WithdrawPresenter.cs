@@ -3,10 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Withdraw;
 
-
 public sealed class WithdrawPresenter : IOutputPort
 {
-    public IActionResult ViewModel { get; private set; }
+    public IActionResult? ViewModel { get; private set; }
 
     public void Error(string message)
     {

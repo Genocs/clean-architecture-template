@@ -1,20 +1,18 @@
-﻿namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.MongoDb
+﻿using Genocs.CleanArchitecture.Template.Domain.Accounts;
+using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
+
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.MongoDb;
+
+public class Credit : Domain.Accounts.Credit
 {
-    using Domain.Accounts;
-    using Domain.ValueObjects;
-    using System;
+    public Guid AccountId { get; protected set; }
 
-    public class Credit : Domain.Accounts.Credit
+    protected Credit() { }
+
+    public Credit(IAccount account, PositiveMoney amountToDeposit, DateTime transactionDate)
     {
-        public Guid AccountId { get; protected set; }
-
-        protected Credit() { }
-
-        public Credit(IAccount account, PositiveMoney amountToDeposit, DateTime transactionDate)
-        {
-            AccountId = account.Id;
-            Amount = amountToDeposit;
-            TransactionDate = transactionDate;
-        }
+        AccountId = account.Id;
+        Amount = amountToDeposit;
+        TransactionDate = transactionDate;
     }
 }

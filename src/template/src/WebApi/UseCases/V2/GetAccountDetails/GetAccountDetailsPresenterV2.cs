@@ -8,7 +8,7 @@ namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V2.GetAccountDetails
 
 public sealed class GetAccountDetailsPresenterV2 : IOutputPort
 {
-    public IActionResult ViewModel { get; private set; }
+    public IActionResult? ViewModel { get; private set; }
 
     public void Error(string message)
     {
