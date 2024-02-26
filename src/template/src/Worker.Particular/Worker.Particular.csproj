@@ -9,12 +9,6 @@
         <AssemblyName>Genocs.CleanArchitecture.Template.Worker.Particular</AssemblyName>
     </PropertyGroup>
 
-    <ItemGroup>
-        <Compile Remove="Extensions\**" />
-        <Content Remove="Extensions\**" />
-        <EmbeddedResource Remove="Extensions\**" />
-        <None Remove="Extensions\**" />
-    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="NServiceBus.Extensions.Hosting" Version="1.*" />
