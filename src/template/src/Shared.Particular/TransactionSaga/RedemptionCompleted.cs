@@ -7,6 +7,9 @@ namespace Genocs.CleanArchitecture.Template.Shared.Particular.TransactionSaga;
 /// </summary>
 public class RedemptionCompleted : IEvent
 {
+   /// <summary>
+   /// The requestId.
+   /// </summary>
     public string? RequestId { get; set; }
     public string? TransactionId { get; set; }
 }
