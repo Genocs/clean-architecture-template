@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-  <metadata minClientVersion="5.0.0">
+  <metadata minClientVersion="5.10.0">
     <id>Genocs.CleanArchitecture.Template</id>
     <version>2.0.0</version>
+    <title>Genocs - Clean Code Template</title>
     <authors>Nocco Giovanni Emanuele</authors>
     <owners>[Genocs] Nocco Giovanni Emanuele</owners>
     <projectUrl>https://github.com/Genocs/clean-architecture-template</projectUrl>
     <repository type="git" url="https://github.com/Genocs/clean-architecture-template.git" branch="main"  />
     <license type="expression">MIT</license>
-    <icon>genocs-icon.png</icon>    
+    <icon>.\content\icon.png</icon>
+    <readme>.\content\README_NUGET.md</readme>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <title>The clean code template by Genocs</title>
     <summary>
       A .NET template following the Clean Architecture Style, DDD and Separation of Concerns in Domain, Application, Infrastructure and UI. Separated host for WebApi and ServiceBus. Docker compose debugging support provided as well.
     </summary>	
@@ -26,7 +27,7 @@ $ dotnet new cleanarchitecture
   Added list of events
   
 - Clean Architecture Principles Documentation
-- .NET Core 6.0
+- .NET8
 - Swashbuckle 5 
 - Entity Framework Core 5
 - Enterprice Service Bus
@@ -73,6 +74,8 @@ $ dotnet new cleanarchitecture
     </dependencies>
   </metadata>
   <files>
+    <file src="..\README_NUGET.md" target="content" />
+    <file src="..\icon.png" target="content" />
     <file src="**" exclude="**\bin\**\*;**\obj\**\*;**\*.user;**\*.log;**\.vscode\**\*;" />
   </files>
 </package>

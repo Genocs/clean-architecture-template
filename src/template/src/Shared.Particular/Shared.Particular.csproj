@@ -1,28 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<IsPublishable>false</IsPublishable>
-		<IsPackable>false</IsPackable>
-		<RootNamespace>Genocs.CleanArchitecture.Template.Shared.Particular</RootNamespace>
-		<AssemblyName>Genocs.CleanArchitecture.Template.Shared.Particular</AssemblyName>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <IsPublishable>false</IsPublishable>
+        <IsPackable>false</IsPackable>
+        <RootNamespace>Genocs.CleanArchitecture.Template.Shared.Particular</RootNamespace>
+        <AssemblyName>Genocs.CleanArchitecture.Template.Shared.Particular</AssemblyName>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="NServiceBus" Version="7.8.4" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="NServiceBus" Version="7.8.4" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<Folder Include="Commands\" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Update="Roslynator.Analyzers" Version="4.5.0">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
-
+    <ItemGroup>
+        <Folder Include="Commands\" />
+    </ItemGroup>
+    
 </Project>

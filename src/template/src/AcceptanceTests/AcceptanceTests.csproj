@@ -1,45 +1,43 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<IsPublishable>false</IsPublishable>
-		<IsPackable>false</IsPackable>
-		<RootNamespace>Genocs.CleanArchitecture.Template.AcceptanceTests</RootNamespace>
-		<AssemblyName>Genocs.CleanArchitecture.Template.AcceptanceTests</AssemblyName>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <IsPublishable>false</IsPublishable>
+        <IsPackable>false</IsPackable>
+        <RootNamespace>Genocs.CleanArchitecture.Template.AcceptanceTests</RootNamespace>
+        <AssemblyName>Genocs.CleanArchitecture.Template.AcceptanceTests</AssemblyName>
+    </PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DefineConstants>TRACE;Full</DefineConstants>
-	</PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DefineConstants>TRACE;Full</DefineConstants>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
-		<PackageReference Include="xunit" Version="2.5.2" />
-		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.3">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.12" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+        <PackageReference Include="xunit" Version="2.5.2" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.12" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\src\WebApi\WebApi.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\WebApi\WebApi.csproj" />
+    </ItemGroup>
 
-	<ItemGroup>
-	  <None Update="api-documentation.xml">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
+    <ItemGroup>
+        <None Update="api-documentation.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
 
 
-	<ItemGroup>
-		<PackageReference Update="Roslynator.Analyzers" Version="4.5.0">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Update="Roslynator.Analyzers" Version="4.5.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
 
 </Project>

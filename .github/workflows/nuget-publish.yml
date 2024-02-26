@@ -10,7 +10,7 @@ on:
     inputs:
       version:
         # Friendly description to be shown in the UI instead of 'name'
-        description: "Packages Version"
+        description: "Package Version"
 
         # Default value if no value is explicitly provided
         default: "1.0.0"
@@ -31,7 +31,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: 8.0.x
     
       - name: Restore dependencies
         run: dotnet restore ./src/template
@@ -43,7 +43,7 @@ jobs:
         run: dotnet test ./src/template --no-build --verbosity normal
 
       - name: Pack
-        run: nuget pack ./src/Package.Template.nuspec -NoDefaultExcludes -OutputDirectory ./out -Version ${{github.event.inputs.version}}
+        run: nuget pack ./src/Package.Template.nuspec -NoDefaultExcludes -OutputDirectory ./out -Version ${{ github.event.inputs.version }}
 
       - name: Push package to Nuget
-        run: dotnet nuget push ./out/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols
+        run: dotnet nuget push ./out/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols

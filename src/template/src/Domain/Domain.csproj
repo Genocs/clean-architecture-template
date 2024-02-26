@@ -1,19 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<IsPublishable>false</IsPublishable>
-		<IsPackable>false</IsPackable>
-		<RootNamespace>Genocs.CleanArchitecture.Template.Domain</RootNamespace>
-		<AssemblyName>Genocs.CleanArchitecture.Template.Domain</AssemblyName>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <IsPublishable>false</IsPublishable>
+        <IsPackable>false</IsPackable>
+        <RootNamespace>Genocs.CleanArchitecture.Template.Domain</RootNamespace>
+        <AssemblyName>Genocs.CleanArchitecture.Template.Domain</AssemblyName>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Update="Roslynator.Analyzers" Version="4.5.0">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
 </Project>

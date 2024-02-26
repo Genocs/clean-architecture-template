@@ -1,7 +1,6 @@
 using Genocs.CleanArchitecture.Template.Application.Exceptions;
 using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 
-
 namespace Genocs.CleanArchitecture.Template.Application.Boundaries.Withdraws;
 
 public sealed class WithdrawInput
@@ -9,7 +8,7 @@ public sealed class WithdrawInput
     public Guid AccountId { get; }
     public PositiveMoney Amount { get; }
 
-    public WithdrawInput(Guid accountId, PositiveMoney amount)
+    public WithdrawInput(Guid accountId, PositiveMoney? amount)
     {
         if (accountId == Guid.Empty)
         {

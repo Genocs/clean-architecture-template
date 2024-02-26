@@ -3,7 +3,6 @@ using Genocs.CleanArchitecture.Template.Application.Exceptions;
 using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 using Xunit;
 
-
 namespace Genocs.CleanArchitecture.Template.UnitTests.InputValidationTests;
 
 public sealed class TransferInputValidationTests

@@ -166,14 +166,14 @@ dotnet new -u
 
 dotnet --list
 ```
+## Changelogs
+
+View Complete [Changelogs](https://github.com/Genocs/clean-architecture-template/blob/main/CHANGELOGS.md).
 
 ## License
 
 This project is licensed with the [MIT license](LICENSE).
 
-## Changelogs
-
-View Complete [Changelogs](https://github.com/Genocs/clean-architecture-template/blob/main/CHANGELOGS.md).
 
 ## Community
 
