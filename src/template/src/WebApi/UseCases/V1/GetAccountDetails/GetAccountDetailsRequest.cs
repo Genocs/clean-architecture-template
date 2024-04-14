@@ -1,17 +1,15 @@
-namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.GetAccountDetails
-{
-    using System;
-    using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
+namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.GetAccountDetails;
+
+/// <summary>
+/// The Get Account Details Request.
+/// </summary>
+public sealed class GetAccountDetailsRequest
+{
     /// <summary>
-    /// The Get Account Details Request
+    /// Account ID.
     /// </summary>
-    public sealed class GetAccountDetailsRequest
-    {
-        /// <summary>
-        /// Account ID
-        /// </summary>
-        [Required]
-        public Guid AccountId { get; set; }
-    }
+    [Required]
+    public Guid AccountId { get; set; }
 }

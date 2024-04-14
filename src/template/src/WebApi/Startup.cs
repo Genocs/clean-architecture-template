@@ -26,7 +26,6 @@ public sealed class Startup
     public void ConfigureDockerServices(IServiceCollection services)
         => InternalConfiguration(services);
 
-
     private void InternalConfiguration(IServiceCollection services)
     {
         services.AddControllers().AddControllersAsServices();

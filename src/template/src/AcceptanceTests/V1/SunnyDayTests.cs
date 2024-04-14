@@ -17,7 +17,7 @@ public sealed class SunnyDayTests : IClassFixture<WebApplicationFactory<Startup>
     }
 #if Full
     [Fact]
-    public async Task Register_Deposit_Withdraw_Close()
+    public async Task RegisterDepositWithdrawCloseAsync()
     {
         var customerId_accountId = await Register(100);
         await GetCustomer(customerId_accountId.Item1);

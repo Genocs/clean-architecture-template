@@ -16,15 +16,15 @@ public sealed class RegisterTests : IClassFixture<StandardFixture>
     }
 
     [Fact]
-    public void GivenNullInput_ThrowsException()
+    public async Task GivenNullInputThrowsExceptionAsync()
     {
         var register = new Register(null, null, null, null, null, null);
-        Assert.ThrowsAsync<Exception>(async () => await register.Execute(null));
+        await Assert.ThrowsAsync<NullReferenceException>(async () => await register.Execute(null));
     }
 
     [Theory]
     [ClassData(typeof(PositiveDataSetup))]
-    public async Task Register_WritesOutput_InputIsValid(decimal amount)
+    public async Task RegisterWritesOutputInputIsValidAsync(decimal amount)
     {
         var presenter = new RegisterPresenter();
         var ssn = new SSN("8608178888");

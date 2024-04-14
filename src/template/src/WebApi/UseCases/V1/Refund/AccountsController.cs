@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Refund;
 
-
 [ApiVersion("1.0")]
 [Route("api/v1/[controller]")]
 [ApiController]
@@ -15,15 +14,15 @@ public sealed class AccountsController : ControllerBase
     private readonly RefundPresenter _presenter;
 
     public AccountsController(
-        IUseCase refundUseCase,
-        RefundPresenter presenter)
+                                IUseCase refundUseCase,
+                                RefundPresenter presenter)
     {
         _refundUseCase = refundUseCase;
         _presenter = presenter;
     }
 
     /// <summary>
-    /// Refund on an account
+    /// Refund on an account.
     /// </summary>
     /// <response code="200">The updated balance.</response>
     /// <response code="400">Bad request.</response>
@@ -37,9 +36,9 @@ public sealed class AccountsController : ControllerBase
     public async Task<IActionResult> Refund([FromBody][Required] RefundRequest request)
     {
         RefundInput refundInput = new RefundInput(
-            request.AccountId,
-            new PositiveMoney(request.Amount)
-        );
+                                                    request.AccountId,
+                                                    new PositiveMoney(request.Amount));
+
         await _refundUseCase.Execute(refundInput);
         return _presenter.ViewModel;
     }

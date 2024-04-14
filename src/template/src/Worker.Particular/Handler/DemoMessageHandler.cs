@@ -1,24 +1,22 @@
 ﻿using Genocs.CleanArchitecture.Template.Worker.Particular.Messages;
 using Genocs.CleanArchitecture.Template.Worker.Particular.Services;
 using NServiceBus;
-using System.Threading.Tasks;
 
-namespace Genocs.CleanArchitecture.Template.Worker.Particular.Handler
+namespace Genocs.CleanArchitecture.Template.Worker.Particular.Handler;
+
+public class DemoMessageHandler : IHandleMessages<DemoMessage>
 {
-    public class DemoMessageHandler : IHandleMessages<DemoMessage>
+    private readonly ICalculateStuff _stuffCalculator;
+
+    public DemoMessageHandler(ICalculateStuff stuffCalculator)
     {
-        private readonly ICalculateStuff stuffCalculator;
+        _stuffCalculator = stuffCalculator ?? throw new ArgumentNullException(nameof(stuffCalculator));
+    }
 
-        public DemoMessageHandler(ICalculateStuff stuffCalculator)
-        {
-            this.stuffCalculator = stuffCalculator;
-        }
+    public async Task Handle(DemoMessage message, IMessageHandlerContext context)
+    {
+        await _stuffCalculator.Calculate(message.Value);
 
-        public async Task Handle(DemoMessage message, IMessageHandlerContext context)
-        {
-            await stuffCalculator.Calculate(message.Value);
-
-            // Do some more stuff if needed
-        }
+        // Do some more stuff if needed
     }
 }

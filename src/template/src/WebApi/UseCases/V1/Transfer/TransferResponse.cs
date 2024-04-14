@@ -1,28 +1,26 @@
-namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Transfer
+using System.ComponentModel.DataAnnotations;
+
+namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Transfer;
+
+public sealed class TransferResponse
 {
-    using System;
-    using System.ComponentModel.DataAnnotations;
+    [Required]
+    public decimal Amount { get; }
 
-    public sealed class TransferResponse
+    [Required]
+    public string Description { get; }
+
+    [Required]
+    public DateTime TransactionDate { get; }
+
+    [Required]
+    public decimal UpdateBalance { get; }
+
+    public TransferResponse(decimal amount, string description, DateTime transactionDate, decimal updatedBalance)
     {
-        [Required]
-        public decimal Amount { get; }
-
-        [Required]
-        public string Description { get; }
-
-        [Required]
-        public DateTime TransactionDate { get; }
-
-        [Required]
-        public decimal UpdateBalance { get; }
-
-        public TransferResponse(decimal amount, string description, DateTime transactionDate, decimal updatedBalance)
-        {
-            Amount = amount;
-            Description = description;
-            TransactionDate = transactionDate;
-            UpdateBalance = updatedBalance;
-        }
+        Amount = amount;
+        Description = description;
+        TransactionDate = transactionDate;
+        UpdateBalance = updatedBalance;
     }
 }

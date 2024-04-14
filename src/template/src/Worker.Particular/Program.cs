@@ -22,7 +22,7 @@ public class Program
         SetUpNServiceBusBasic(builder);
 
         // Setup with RabbitMQ and MongoDB
-        //SetUpNServiceBus(builder);
+        // SetUpNServiceBus(builder);
 
         builder.ConfigureServices((hostContext, services) =>
             {
@@ -72,38 +72,36 @@ public class Program
         builder.UseNServiceBus(context =>
         {
             var endpointConfiguration = new EndpointConfiguration("Sample.FrontEnd");
-            //endpointConfiguration.SendOnly();
+            // endpointConfiguration.SendOnly();
 
             // Use Rabbit as transport
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
             transport.UseConventionalRoutingTopology();
             transport.ConnectionString("amqp://rabbitmq");
 
-            // Use MongoDB as persistance layer
+            // Use MongoDB as persistence layer
             // Save all the data related to Saga and so on to MongoDB
             var persistence = endpointConfiguration.UsePersistence<MongoPersistence>();
             persistence.MongoClient(new MongoClient("mongodb://localhost:27017"));
             persistence.DatabaseName("UTU_Platform_DemoDB");
             persistence.UseTransactions(false);
 
-            // Unobtrusive mode. 
-            //var conventions = endpointConfiguration.Conventions();
-            //conventions.DefiningEventsAs(type => type.Namespace == "Genocs.CleanArchitecture.Template.Shared.Events");
+            // Unobtrusive mode.
+            // var conventions = endpointConfiguration.Conventions();
+            // conventions.DefiningEventsAs(type => type.Namespace == "Genocs.CleanArchitecture.Template.Shared.Events");
 
-            //conventions.DefiningEventsAs(type =>
+            // conventions.DefiningEventsAs(type =>
             //    type.Namespace == "Genocs.CleanArchitecture.Template.Shared.Events"
             //    || typeof(IEvent).IsAssignableFrom(typeof(Shared.Events.EventOccurred))
-            //);
+            // );
 
             // https://docs.particular.net/nservicebus/serialization/
             endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
             endpointConfiguration.EnableInstallers();
-
 
             return endpointConfiguration;
         });
 
         return builder;
     }
-
 }

@@ -6,7 +6,7 @@ namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.GetCustomerDetail
 
 public sealed class GetCustomerDetailsPresenter : IOutputPort
 {
-    public IActionResult ViewModel { get; private set; }
+    public IActionResult? ViewModel { get; private set; }
 
     public void Error(string message)
     {
@@ -19,38 +19,37 @@ public sealed class GetCustomerDetailsPresenter : IOutputPort
         ViewModel = new BadRequestObjectResult(problemDetails);
     }
 
-    public void Default(GetCustomerDetailsOutput getCustomerDetailsOutput)
+    public void Default(GetCustomerDetailsOutput output)
     {
         List<AccountDetailsModel> accounts = new List<AccountDetailsModel>();
 
-        foreach (var account in getCustomerDetailsOutput.Accounts)
+        foreach (var account in output.Accounts)
         {
             List<TransactionModel> transactions = new List<TransactionModel>();
 
             foreach (var item in account.Transactions)
             {
                 var transaction = new TransactionModel(
-                    item.Amount,
-                    item.Description,
-                    item.TransactionDate);
+                                                        item.Amount,
+                                                        item.Description,
+                                                        item.TransactionDate);
 
                 transactions.Add(transaction);
             }
 
             accounts.Add(new AccountDetailsModel(
-                account.AccountId,
-                account.CurrentBalance,
-                transactions));
+                                                    account.AccountId,
+                                                    account.CurrentBalance,
+                                                    transactions));
         }
 
-        var getCustomerDetailsResponse = new GetCustomerDetailsResponse(
-            getCustomerDetailsOutput.CustomerId,
-            getCustomerDetailsOutput.SSN,
-            getCustomerDetailsOutput.Name,
-            accounts
-        );
+        var response = new GetCustomerDetailsResponse(
+                                                        output.CustomerId,
+                                                        output.SSN,
+                                                        output.Name,
+                                                        accounts);
 
-        ViewModel = new OkObjectResult(getCustomerDetailsResponse);
+        ViewModel = new OkObjectResult(response);
     }
 
     public void NotFound(string message)

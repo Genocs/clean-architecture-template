@@ -16,7 +16,7 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
         <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
-        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
 
@@ -29,12 +29,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AspNetCore.HealthChecks.MongoDb" Version="8.0.0" />
-        <PackageReference Include="EPPlus" Version="7.0.9" />
+        <PackageReference Include="AspNetCore.HealthChecks.MongoDb" Version="8.0.1" />
+        <PackageReference Include="EPPlus" Version="7.1.1" />
         <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="4.2.0" />
         <PackageReference Include="Refit.HttpClientFactory" Version="7.0.0" />
-        <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="3.1.1" />
+        <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="3.2.0" />
     </ItemGroup>
 
     <ItemGroup>

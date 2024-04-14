@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.GetCustomerDetails;
 
-
 [ApiVersion("1.0")]
 [Route("api/v1/[controller]")]
 [ApiController]

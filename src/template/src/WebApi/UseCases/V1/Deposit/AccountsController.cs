@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Deposit;
 
-
 [ApiVersion("1.0")]
 [Route("api/v1/[controller]")]
 [ApiController]
@@ -23,7 +22,7 @@ public sealed class AccountsController : ControllerBase
     }
 
     /// <summary>
-    /// Deposit on an account
+    /// Deposit on an account.
     /// </summary>
     /// <response code="200">The updated balance.</response>
     /// <response code="400">Bad request.</response>
@@ -37,9 +36,8 @@ public sealed class AccountsController : ControllerBase
     public async Task<IActionResult> Deposit([FromBody][Required] DepositRequest request)
     {
         var depositInput = new DepositInput(
-            request.AccountId,
-            new PositiveMoney(request.Amount)
-        );
+                                            request.AccountId,
+                                            new PositiveMoney(request.Amount));
 
         await _depositUseCase.Execute(depositInput);
         return _presenter.ViewModel;

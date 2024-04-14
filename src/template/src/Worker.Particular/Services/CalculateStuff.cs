@@ -1,30 +1,26 @@
-﻿using Microsoft.Extensions.Logging;
-using NServiceBus;
-using System.Threading.Tasks;
+﻿using NServiceBus;
 
-namespace Genocs.CleanArchitecture.Template.Worker.Particular.Services
+namespace Genocs.CleanArchitecture.Template.Worker.Particular.Services;
+
+public interface ICalculateStuff
 {
-    public interface ICalculateStuff
+    Task Calculate(int number);
+}
+
+internal class CalculateStuff : ICalculateStuff
+{
+    private readonly ILogger _logger;
+    public IMessageSession? MessageSession { get; }
+
+    public CalculateStuff(ILogger<CalculateStuff> logger)
     {
-        Task Calculate(int number);
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    internal class CalculateStuff : ICalculateStuff
+    public Task Calculate(int number)
     {
-        private readonly ILogger logger;
+        _logger.LogInformation($"Calculating the value for {number}");
 
-        public CalculateStuff(ILogger<CalculateStuff> logger)
-        {
-            this.logger = logger;
-        }
-
-        public IMessageSession MessageSession { get; }
-
-        public Task Calculate(int number)
-        {
-            logger.LogInformation($"Calculating the value for {number}");
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

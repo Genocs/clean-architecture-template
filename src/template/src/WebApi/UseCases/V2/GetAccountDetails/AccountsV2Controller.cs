@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V2.GetAccountDetails;
 
-
 [FeatureGate(Features.GetAccountDetailsV2)]
 [ApiVersion("2.0")]
 [Route("api/v2/[controller]")]

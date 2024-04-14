@@ -5,7 +5,7 @@ namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Transfer;
 
 public sealed class TransferPresenter : IOutputPort
 {
-    public IActionResult ViewModel { get; private set; }
+    public IActionResult? ViewModel { get; private set; }
 
     public void Error(string message)
     {
@@ -27,6 +27,7 @@ public sealed class TransferPresenter : IOutputPort
             transferOutput.Transaction.TransactionDate,
             transferOutput.UpdatedBalance,
         };
+
         ViewModel = new ObjectResult(transferResponse);
     }
 }

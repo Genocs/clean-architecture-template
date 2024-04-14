@@ -7,26 +7,25 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Transfer;
 
-
 [FeatureGate(Features.Transfer)]
 [ApiVersion("1.0")]
 [Route("api/v1/[controller]")]
 [ApiController]
 public sealed class AccountsController : ControllerBase
 {
-    private readonly IUseCase _TransferUseCase;
+    private readonly IUseCase _transferUseCase;
     private readonly TransferPresenter _presenter;
 
     public AccountsController(
-        IUseCase TransferUseCase,
-        TransferPresenter presenter)
+                                IUseCase transferUseCase,
+                                TransferPresenter presenter)
     {
-        _TransferUseCase = TransferUseCase;
-        _presenter = presenter;
+        _transferUseCase = transferUseCase ?? throw new ArgumentNullException(nameof(transferUseCase));
+        _presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
     }
 
     /// <summary>
-    /// Transfer to an account
+    /// Transfer to an account.
     /// </summary>
     /// <response code="200">The updated balance.</response>
     /// <response code="400">Bad request.</response>
@@ -40,12 +39,11 @@ public sealed class AccountsController : ControllerBase
     public async Task<IActionResult> Transfer([FromBody][Required] TransferRequest request)
     {
         var transferInput = new TransferInput(
-                request.OriginAccountId,
-                request.DestinationAccountId,
-                new PositiveMoney(request.Amount)
-            );
+                                                request.OriginAccountId,
+                                                request.DestinationAccountId,
+                                                new PositiveMoney(request.Amount));
 
-        await _TransferUseCase.Execute(transferInput);
+        await _transferUseCase.Execute(transferInput);
         return _presenter.ViewModel;
     }
 }
