@@ -14,11 +14,11 @@ public sealed class CustomersController : ControllerBase
     private readonly RegisterPresenter _presenter;
 
     public CustomersController(
-        IUseCase registerUseCase,
-        RegisterPresenter presenter)
+                                IUseCase registerUseCase,
+                                RegisterPresenter presenter)
     {
-        _registerUseCase = registerUseCase;
-        _presenter = presenter;
+        _registerUseCase = registerUseCase ?? throw new ArgumentNullException(nameof(registerUseCase));
+        _presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
     }
 
     /// <summary>

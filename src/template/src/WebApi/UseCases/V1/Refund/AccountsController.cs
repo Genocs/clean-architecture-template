@@ -17,8 +17,8 @@ public sealed class AccountsController : ControllerBase
                                 IUseCase refundUseCase,
                                 RefundPresenter presenter)
     {
-        _refundUseCase = refundUseCase;
-        _presenter = presenter;
+        _refundUseCase = refundUseCase ?? throw new ArgumentNullException(nameof(refundUseCase));
+        _presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
     }
 
     /// <summary>

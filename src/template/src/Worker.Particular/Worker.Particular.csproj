@@ -14,16 +14,10 @@
     <ItemGroup>
         <PackageReference Include="NServiceBus.Extensions.Hosting" Version="1.*" />
         <PackageReference Include="NServiceBus.MicrosoftLogging.Hosting" Version="1.*" />
-
-        <!-- The following package to use RabbitMQ Transport and MongoDB persistance layer-->
-        <PackageReference Include="NServiceBus.Storage.MongoDB" Version="2.2.0" />
-        <!-- END-->
-
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-        <ProjectReference Include="..\Shared.Particular\Shared.Particular.csproj" />
     </ItemGroup>
 
 </Project>

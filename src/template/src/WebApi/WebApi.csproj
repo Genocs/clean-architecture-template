@@ -20,14 +20,9 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-        <DefineConstants>DEBUG;TRACE;CloseAccount;Deposit;GetAccountDetails;GetCustomerDetails;Register;Withdraw;Refund;Transfer;AzureServiceBus;NServiceBus;Rebus;MongoDB;SqlServer;InMemory</DefineConstants>
+    <PropertyGroup>
+        <DefineConstants>CloseAccount;Deposit;GetAccountDetails;GetCustomerDetails;Register;Withdraw;Refund;Transfer;AzureServiceBus;NServiceBus;Rebus;MongoDB;SqlServer;InMemory</DefineConstants>
     </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-        <DefineConstants>TRACE;CloseAccount;Deposit;GetAccountDetails;GetCustomerDetails;Register;Withdraw;Refund;Transfer;AzureServiceBus;NServiceBus;Rebus;MongoDB;SqlServer;InMemory</DefineConstants>
-    </PropertyGroup>
-
     <ItemGroup>
         <PackageReference Include="AspNetCore.HealthChecks.MongoDb" Version="8.0.1" />
         <PackageReference Include="EPPlus" Version="7.1.1" />
@@ -48,6 +43,4 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
-
-
 </Project>

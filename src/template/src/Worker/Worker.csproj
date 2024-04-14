@@ -11,14 +11,6 @@
         <AssemblyName>Genocs.CleanArchitecture.Template.Worker</AssemblyName>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-        <DefineConstants>DEBUG;TRACE;AzureServiceBus;NServiceBus;Rebus;MongoDB;SqlServer;InMemory</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-        <DefineConstants>TRACE;AzureServiceBus;NServiceBus;Rebus;MongoDB;SqlServer;InMemory</DefineConstants>
-    </PropertyGroup>
-
     <ItemGroup>
         <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.17.5" />
         <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
