@@ -2,6 +2,7 @@
 [![License][license-shield]][license-url]
 [![Build][build-shield]][build-url]
 [![Packages][package-shield]][package-url]
+[![Downloads Prev][downloads-prev-shield]][downloads-prev-url]
 [![Downloads][downloads-shield]][downloads-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -17,8 +18,10 @@
 [license-url]: https://github.com/Genocs/clean-architecture-template/blob/main/LICENSE
 [build-shield]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml/badge.svg?branch=main
 [build-url]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml
-[package-shield]: https://img.shields.io/badge/nuget-v.1.0.0-blue?&label=latests&logo=nuget
+[package-shield]: https://img.shields.io/badge/nuget-v.3.0.0-blue?&label=latests&logo=nuget
 [package-url]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml
+[downloads-prev-shield]: https://img.shields.io/nuget/dt/Genocs.CleanArchitectureTemplate.svg?color=2da44e&label=downloads%20prev&logo=nuget
+[downloads-prev-url]: https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate
 [downloads-shield]: https://img.shields.io/nuget/dt/Genocs.CleanArchitecture.Template.svg?color=2da44e&label=downloads&logo=nuget
 [downloads-url]: https://www.nuget.org/packages/Genocs.CleanArchitecture.Template
 [contributors-shield]: https://img.shields.io/github/contributors/Genocs/clean-architecture-template.svg?style=flat-square
@@ -44,33 +47,32 @@
 
 
 # Clean Architecture Template 
-Built for .NET6 and .NET7. Incorporates the most essential Packages your projects will ever need. Follows Clean Architecture Principles.
+Built for .NET8. It incorporates the most essential Packages your projects will ever need. Follows Clean Architecture Principles.
 
 The template can be used with the `dotnet new` command or with the `Visual Studio 2022` or `Visual Studio Code` IDEs.
 
 ## Goals
 
 This is an Application Template built to help you create LOB applications. It follows the Clean Architecture Principles and built on Domain-Driven-Design. This tool is useful to increases productivity on developing your next microservices.
-The template allows you to use different storage and enterprise service bus.
+The template allows you to use different databases and enterprise service bus.
 
-Storage:
+### Databases supported:
 - InMemoryDB (for development purpose)
 - SqlServer
 - MongoDB
 
 
-Enterprise Service libraries:
+### Enterprise Service Bus libraries supported:
 - Particular NServiceBus
 - MassTransit
 - Rebus
 
 ## Prerequisites
-- [.NET 6.x](https://dotnet.microsoft.com/download/dotnet/6.0)
-or
-- [.NET 7.x](https://dotnet.microsoft.com/download/dotnet/7.0)
+- [.NET 8.x](https://dotnet.microsoft.com/download/dotnet/8.0)
 
-- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/preview/vs2022/)
-- [Visual Studio Code](https://code.visualstudio.com/download)
+- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/preview/vs2022/)(optional)
+- [Visual Studio Code](https://code.visualstudio.com/download)(optional)
+- [Rider](https://www.jetbrains.com/rider/)(optional)
 
 
 ## Getting Started
@@ -81,7 +83,7 @@ Open up your *Command Prompt* or *PowerShell* or "bash" and run the following co
 # To clone the repository
 git clone https://github.com/Genocs/clean-architecture-template
 # To build the nuget package
-nuget pack ./src/Package.Template.nuspec -NoDefaultExcludes -OutputDirectory ./out -Version 1.0.0
+nuget pack ./src/Package.Template.nuspec -NoDefaultExcludes -OutputDirectory ./out -Version 3.0.0
 ```
 
 
@@ -97,13 +99,12 @@ if you want to use a specific version of the template,
 use
 
 ``` bash
-dotnet new --install Genocs.CleanArchitecture.Template::0.0.1
+dotnet new --install Genocs.CleanArchitecture.Template::3.0.0
 ```
 
 This would install the `Genocs CleanArchitecture Template` globally on your machine.
 
 For more details on getting started, [read the documentation](https://genocs-blog.netlify.app/library/)
-
 
 
 ## How to create a project
@@ -133,7 +134,7 @@ To build the package run the following commands:
 cd ./src
 nuget pack
 dotnet new -u Genocs.CleanArchitecture.Template
-dotnet new -i Genocs.CleanArchitecture.Template.2.0.{version}.nupkg
+dotnet new -i Genocs.CleanArchitecture.Template.3.0.{version}.nupkg
 dotnet new cleanarchitecture --help
 dotnet new cleanarchitecture --name {MyCompany.MyProject} -d mongodb -sb particular
 ```
@@ -184,12 +185,13 @@ This project is licensed with the [MIT license](LICENSE).
 ## Support
 
 Has this Project helped you learn something New? or Helped you at work?
+
 Here are a few ways by which you can support.
 
 - ⭐ Leave a star!
 - 🥇 Recommend this project to your colleagues.
 - 🦸 Do consider endorsing me on LinkedIn for ASP.NET Core - [Connect via LinkedIn](https://www.linkedin.com/in/giovanni-emanuele-nocco-b31a5169/) 
-- ☕ If you want to support this project in the long run, [consider buying me a coffee](https://www.buymeacoffee.com/genocs)!
+- ☕ If you want to support this project in the long run, consider [buying me a coffee](https://www.buymeacoffee.com/genocs)!
   
 
 [![buy-me-a-coffee](https://raw.githubusercontent.com/Genocs/clean-architecture-template/main/assets/buy-me-a-coffee.png "buy me a coffee")](https://www.buymeacoffee.com/genocs)

@@ -5,8 +5,8 @@ Sample implementation of the **Clean Architecture Principles with .NET Core**. U
 
 ----
 
-[![Build Status](https://travis-ci.com/genocs/clean-architecture-template.svg?branch=master)](https://travis-ci.com/genocs/clean-architecture-template)   [![Build status](https://ci.appveyor.com/api/projects/status/0i6s33kw3y87tkb2?svg=true)](https://ci.appveyor.com/project/genocs/clean-architecture-template)   ![NuGet](https://buildstats.info/nuget/Genocs.CleanArchitectureTemplate)   [![All Contributors](https://img.shields.io/badge/all_contributors-12-yellow.svg?style=flat-square)](#contributors)
-<a href="https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate/" rel="Genocs.CleanArchitectureTemplate"></a>
+[![Build Status](https://travis-ci.com/genocs/clean-architecture-template.svg?branch=master)](https://travis-ci.com/genocs/clean-architecture-template)   [![Build status](https://ci.appveyor.com/api/projects/status/0i6s33kw3y87tkb2?svg=true)](https://ci.appveyor.com/project/genocs/clean-architecture-template)   ![NuGet](https://buildstats.info/nuget/Genocs.CleanArchitecture.Template)   [![All Contributors](https://img.shields.io/badge/all_contributors-12-yellow.svg?style=flat-square)](#contributors)
+<a href="https://www.nuget.org/packages/Genocs.CleanArchitecture.Template/" rel="Genocs.CleanArchitecture.Template"></a>
 
 
 ## Usage

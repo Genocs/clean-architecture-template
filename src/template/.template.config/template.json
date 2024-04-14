@@ -4,7 +4,7 @@
   "classifications": [
     "Web/ASP.NET"
   ],
-  "name": "Genocs: Clean Architecture Template for .NET7",
+  "name": "Genocs: Clean Architecture Template for .NET8",
   "identity": "Genocs.CleanArchitecture.Template",
   "groupIdentity": "Genocs.CleanArchitecture.Template",
   "shortName": "cleanarchitecture",
@@ -12,7 +12,7 @@
     "type": "solution",
     "language": "C#"
   },
-  "sourceName": "Genocs.CleanArchitecture.Template", // Will replace the string 'Genocs.MicroserviceLight.Template' with the value provided via -n.
+  "sourceName": "Genocs.CleanArchitecture.Template", // Will replace the string 'Genocs.CleanArchitecture.Template' with the value provided via -n.
   "preferNameDirectory": true,
   "symbols": {
     "use-cases": {
