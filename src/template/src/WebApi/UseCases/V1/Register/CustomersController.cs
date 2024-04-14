@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Genocs.CleanArchitecture.Template.Application.Boundaries.Registers;
 using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 using Microsoft.AspNetCore.Mvc;

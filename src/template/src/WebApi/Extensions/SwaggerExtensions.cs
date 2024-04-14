@@ -1,5 +1,5 @@
+using Asp.Versioning.ApiExplorer;
 using Genocs.CleanArchitecture.Template.WebApi.Filters;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.AspNetCore.Swagger;
@@ -50,10 +50,10 @@ public static class SwaggerExtensions
             }
 
             /*
-            if (provider != null && provider.ApiVersionDescriptions != null)
+            if (_provider != null && _provider.ApiVersionDescriptions != null)
             {
                 // build a swagger endpoint for each discovered API version
-                foreach (var description in provider.ApiVersionDescriptions)
+                foreach (var description in _provider.ApiVersionDescriptions)
                 {
                     options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
                 }

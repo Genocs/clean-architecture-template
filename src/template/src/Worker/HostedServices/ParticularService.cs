@@ -40,7 +40,7 @@ internal class ParticularService : IHostedService
 
         #region Configure Transport with Rabbit
         var transport = _configuration.UseTransport<RabbitMQTransport>();
-        transport.UseConventionalRoutingTopology();
+//        transport.UseConventionalRoutingTopology();
         transport.ConnectionString(settings.Value.TransportConnectionString);
         _logger.LogInformation($"Transport connection string: '{settings.Value.TransportConnectionString}'");
         #endregion
@@ -70,7 +70,7 @@ internal class ParticularService : IHostedService
         //);
 
         // https://docs.particular.net/nservicebus/serialization/
-        _configuration.UseSerialization<NewtonsoftSerializer>();
+        _configuration.UseSerialization<NewtonsoftJsonSerializer>();
 
         _configuration.EnableInstallers();
     }

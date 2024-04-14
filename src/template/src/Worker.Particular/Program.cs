@@ -58,7 +58,7 @@ public class Program
             //);
 
             // https://docs.particular.net/nservicebus/serialization/
-            endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
+            endpointConfiguration.UseSerialization<NewtonsoftJsonSerializer>();
             endpointConfiguration.EnableInstallers();
 
             return endpointConfiguration;
@@ -76,7 +76,7 @@ public class Program
 
             // Use Rabbit as transport
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
-            transport.UseConventionalRoutingTopology();
+            // transport.UseConventionalRoutingTopology();
             transport.ConnectionString("amqp://rabbitmq");
 
             // Use MongoDB as persistence layer
@@ -96,7 +96,7 @@ public class Program
             // );
 
             // https://docs.particular.net/nservicebus/serialization/
-            endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
+            endpointConfiguration.UseSerialization<NewtonsoftJsonSerializer>();
             endpointConfiguration.EnableInstallers();
 
             return endpointConfiguration;

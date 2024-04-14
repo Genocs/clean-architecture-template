@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Genocs.CleanArchitecture.Template.Application.Boundaries.GetAccountDetails;
 using Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
 using Microsoft.AspNetCore.Mvc;

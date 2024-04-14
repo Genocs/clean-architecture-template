@@ -1,24 +1,21 @@
 ﻿using Genocs.CleanArchitecture.Template.Shared.Particular.TransactionSaga;
 using NServiceBus;
 using NServiceBus.Logging;
-using NServiceBus.Sagas;
 
 namespace Genocs.CleanArchitecture.Template.Worker.Handlers.Sagas;
 
-
 /// <summary>
-/// This is the TransactionSagaPolicy body
+/// This is the TransactionSagaPolicy class.
+/// NOTE: Refactory is needed after version update.
 /// </summary>
 public class TransactionSagaPolicy : Saga<TransactionSagaData>,
                                     IAmStartedByMessages<TransactionLoaded>,
                                     IHandleMessages<TransactionUnloaded>,
                                     IHandleMessages<RedemptionStarted>,
                                     IHandleMessages<RedemptionCompleted>,
-                                    IHandleMessages<RedemptionRejected>,
-                                    IHandleSagaNotFound
+                                    IHandleMessages<RedemptionRejected>
 {
-    static ILog _log = LogManager.GetLogger<TransactionSagaPolicy>();
-
+    static readonly private ILog _log = LogManager.GetLogger<TransactionSagaPolicy>();
 
     protected override void ConfigureHowToFindSaga(SagaPropertyMapper<TransactionSagaData> mapper)
     {
@@ -86,6 +83,7 @@ public class TransactionSagaPolicy : Saga<TransactionSagaData>,
             _log.Error($"TransactionUnloaded INVALID STATUS, RequestId: '{message.RequestId}'.");
             return Task.CompletedTask;
         }
+
         MarkAsComplete();
         return Task.CompletedTask;
     }
@@ -94,33 +92,6 @@ public class TransactionSagaPolicy : Saga<TransactionSagaData>,
     {
         _log.Info($"RedemptionRejected received message with RequestId: '{message.RequestId}'.");
         Data.TransactionStatus = "RedemptionRejected";
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// This handle IHandleSagaNotFound 
-    /// </summary>
-    /// <param name="message"></param>
-    /// <param name="context"></param>
-    /// <returns></returns>
-    public Task Handle(object message, IMessageProcessingContext context)
-    {
-        var evt1 = message as TransactionLoaded;
-        if (evt1 is not null)
-        {
-            _log.Error($"Received SagaNotFound with Property1SetEvent. RequestId: '{evt1.RequestId}'");
-        }
-        var evt2 = message as TransactionUnloaded;
-
-        if (evt2 is not null)
-        {
-            _log.Error($"Received SagaNotFound with Property2SetEvent. RequestId: '{evt2.RequestId}'");
-        }
-        else
-        {
-            _log.Error($"Received SagaNotFound");
-        }
-
         return Task.CompletedTask;
     }
 }

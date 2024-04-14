@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Genocs.CleanArchitecture.Template.Application.Boundaries.CloseAccount;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;

@@ -5,7 +5,6 @@ using NServiceBus;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Particular;
 
-
 public class ParticularServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
 {
     private readonly ParticularServiceBusSettings _settings;
@@ -42,7 +41,7 @@ public class ParticularServiceBusClient : IServiceBusClient, IDisposable, IAsync
 
             #region Configure Transport with Rabbit
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
-            transport.UseConventionalRoutingTopology();
+            // transport.UseConventionalRoutingTopology();
             transport.ConnectionString(_settings.TransportConnectionString);
             #endregion
 
@@ -72,7 +71,7 @@ public class ParticularServiceBusClient : IServiceBusClient, IDisposable, IAsync
             */
 
             // https://docs.particular.net/nservicebus/serialization/
-            endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
+            endpointConfiguration.UseSerialization<NewtonsoftJsonSerializer>();
             endpointConfiguration.EnableInstallers();
 
             _instance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);

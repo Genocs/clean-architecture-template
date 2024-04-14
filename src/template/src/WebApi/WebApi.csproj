@@ -26,8 +26,8 @@
     <ItemGroup>
         <PackageReference Include="AspNetCore.HealthChecks.MongoDb" Version="8.0.1" />
         <PackageReference Include="EPPlus" Version="7.1.1" />
-        <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="4.2.0" />
+        <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />        
+        <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
         <PackageReference Include="Refit.HttpClientFactory" Version="7.0.0" />
         <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="3.2.0" />
     </ItemGroup>

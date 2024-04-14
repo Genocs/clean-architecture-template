@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Genocs.CleanArchitecture.Template.Application.Boundaries.GetCustomerDetails;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;

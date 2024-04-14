@@ -1,7 +1,7 @@
+using Asp.Versioning.ApiExplorer;
 using Genocs.CleanArchitecture.Template.WebApi.ApiClient;
 using Genocs.CleanArchitecture.Template.WebApi.Extensions;
 using Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Refit;
 
@@ -66,7 +66,8 @@ public sealed class Startup
 
         // refit apis
         services.AddRefitClient<IOrderApi>()
-        //.AddHttpMessageHandler<AuthorizationMessageHandler>()
+
+        // .AddHttpMessageHandler<AuthorizationMessageHandler>()
           .ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration["ExternalWebServices:Order"]));
 
         // HealthChecks(services, Configuration);
