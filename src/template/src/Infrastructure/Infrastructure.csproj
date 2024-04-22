@@ -37,7 +37,7 @@
         <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="3.0.0" />
         
         <!-- The following package to use RabbitMQ Transport and MongoDB persistance layer-->
-        <PackageReference Include="NServiceBus.RabbitMQ" Version="8.0.3" />
+        <PackageReference Include="NServiceBus.RabbitMQ" Version="9.0.0" />
         <PackageReference Include="NServiceBus.Storage.MongoDB" Version="3.0.3" />
         <!-- END-->
 
