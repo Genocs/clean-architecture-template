@@ -1,7 +1,6 @@
 using Asp.Versioning.ApiExplorer;
 using Genocs.CleanArchitecture.Template.WebApi.Filters;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
@@ -19,20 +18,11 @@ public static class SwaggerExtensions
             options.OperationFilter<SwaggerDefaultValues>();
 
             // Integrate xml comments
-            options.IncludeXmlComments(XmlCommentsFilePath);
+            string documentationFile = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
+            options.IncludeXmlComments(documentationFile);
         });
 
         return services;
-    }
-
-    private static string XmlCommentsFilePath
-    {
-        get
-        {
-            string basePath = PlatformServices.Default.Application.ApplicationBasePath;
-            string fileName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name + ".xml";
-            return Path.Combine(basePath, fileName);
-        }
     }
 
     public static IApplicationBuilder UseVersionedSwagger(this IApplicationBuilder app, IApiVersionDescriptionProvider provider, Action<SwaggerOptions>? setupAction = null)

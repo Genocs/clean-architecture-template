@@ -135,12 +135,11 @@ services.AddSwaggerGen(c =>
 
 #if DEBUG
 services.AddInMemoryPersistence();
-
 #else
 
 // Select your Database
-services.AddMongoDBPersistence(Configuration);
-services.AddSQLServerPersistence(Configuration);
+services.AddMongoDBPersistence(builder.Configuration);
+services.AddSQLServerPersistence(builder.Configuration);
 
 #endif
 

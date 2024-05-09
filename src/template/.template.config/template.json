@@ -43,7 +43,7 @@
     "service-bus": {
       "type": "parameter",
       "datatype": "choice",
-      "defaultValue": "particular",
+      "defaultValue": "masstransit",
       "choices": [
         {
           "choice": "azure",
@@ -51,7 +51,7 @@
         },
         {
           "choice": "masstransit",
-          "description": "Mass Transit Service Bus (MassTransit)"
+          "description": "Mass Transit Service Bus (MassTransit)"          
         },
         {
           "choice": "particular",
@@ -61,7 +61,6 @@
           "choice": "rebus",
           "description": "Rebus Service Bus (Rebus)"
         }
-
       ]
     },
     "database": {
