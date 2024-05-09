@@ -46,16 +46,19 @@
       "defaultValue": "masstransit",
       "choices": [
         {
-          "choice": "azure",
-          "description": "Azure Service Bus (AzureServicebus)"
+          "choice": "azureservicebus",
+          "description": "Azure Service Bus (AzureServiceBus)",
+          "Value": "(AzureServiceBus)"
         },
         {
           "choice": "masstransit",
-          "description": "Mass Transit Service Bus (MassTransit)"          
+          "description": "Mass Transit Service Bus (MassTransit)",
+          "Value": "(MassTransit)"
         },
         {
-          "choice": "particular",
-          "description": "Particular Software Service Bus (NServiceBus)"
+          "choice": "nservicebus",
+          "description": "Particular Software Service Bus (NServiceBus)",
+          "Value": "(NServiceBus)"
         },
         {
           "choice": "rebus",

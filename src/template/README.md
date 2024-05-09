@@ -12,7 +12,7 @@ Sample implementation of the **Clean Architecture Principles with .NET Core**. U
 ## Usage
 
 ```sh
-dotnet new -i Genocs.CleanArchitecture::1.7.2
+dotnet new -i Genocs.CleanArchitecture.Template::3.1.0
 dotnet new cleanarchitecture -n "MyCompany.MyProject"
 ```
 
@@ -50,18 +50,18 @@ This is continually updated, open source project.
 [Contributions](#contributors-) are welcome!
 
 
-## Persistance layer
+## Persistence layer
 
 This example contains the implementation related to three different storage type:
 
-- InMemoryDataAccess (usefull only for development) 
+- InMemoryDataAccess (useful only for development) 
 - Microsoft SQL Server (The popular Relational database developed by Microsoft) 
 - MongoDB (The popular Document DB) 
 
 
 ### MongoDB Replicaset
 
-To set Mongodb as a replicaset
+To set Mongodb as a replica set
 
 1. Run Docker compose with 3 mongo container
 2. Connect to Mongo Shell
@@ -70,7 +70,7 @@ docker exec -it mongo_db2 /bin/bash
 mongo
 ```
 
-3. Initialize the replicaset and check the status
+3. Initialize the replica set and check the status
 
 ```ts
 rs.initiate(
@@ -191,7 +191,7 @@ Feel free to submit pull requests to help:
 Application architecture is about usage, a good architecture screams the business use cases to the developer and framework concerns are implementation details. On **Manga** sample the user can `Register` an account then manage the balance by `Deposits`, `Withdrawals` and `Transfers`.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/genocs/clean-architecture/master/docs/clean-architecture-use-cases.png" alt=Clean Architecture Use Cases" style="max-width:100%;">
+  <img src="https://raw.githubusercontent.com/genocs/clean-architecture-template/main/docs/clean-architecture-use-cases.png" alt=Clean Architecture Use Cases" style="max-width:100%;">
 </p>
 
 Following the list of Use Cases:

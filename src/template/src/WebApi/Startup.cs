@@ -34,6 +34,7 @@ public sealed class Startup
         services.AddVersioning();
         services.AddSwagger();
         services.AddUseCases();
+
 #if DEBUG
         services.AddInMemoryPersistence();
 #else
@@ -46,15 +47,15 @@ public sealed class Startup
         services.AddPresentersV2();
 
 #if AzureServiceBus
-        // services.AddAzureServiceBus(Configuration);
+        services.AddAzureServiceBus(Configuration);
 #endif
 
 #if NServiceBus
-        // services.AddParticularServiceBus(Configuration);
+        services.AddParticularServiceBus(Configuration);
 #endif
 
 #if Rebus
-        // services.AddRebusServiceBus(Configuration);
+        services.AddRebusServiceBus(Configuration);
 #endif
 
         // Select your Enterprise service bus library
