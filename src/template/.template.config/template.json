@@ -4,7 +4,7 @@
   "classifications": [
     "Web/ASP.NET"
   ],
-  "name": "Genocs: Clean Architecture Template for .NET8",
+  "name": "Genocs: .NET8 Clean Architecture Template",
   "identity": "Genocs.CleanArchitecture.Template",
   "groupIdentity": "Genocs.CleanArchitecture.Template",
   "shortName": "cleanarchitecture",
