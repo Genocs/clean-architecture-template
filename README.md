@@ -43,8 +43,10 @@
 [twitterx-shield]: https://img.shields.io/twitter/url/https/twitter.com/genocs.svg?style=social
 [twitterx-url]: https://twitter.com/genocs
 
-[![logo](https://raw.githubusercontent.com/Genocs/clean-architecture-template/main/assets/genocs-library-logo.png "logo")](https://github.com/Genocs/clean-architecture-template)
 
+<p align="center">
+    <img src="./assets/genocs-library-logo.png" alt="icon">
+</p>
 
 # Clean Architecture Template 
 Built for .NET8. It incorporates the most essential Packages your projects will ever need. Follows Clean Architecture Principles.
@@ -185,10 +187,10 @@ This project is licensed with the [MIT license](LICENSE).
 - Facebook Page [@genocs](https://facebook.com/Genocs)
 - Youtube Channel [@genocs](https://youtube.com/c/genocs)
 
+
 ## Support
 
 Has this Project helped you learn something New? or Helped you at work?
-
 Here are a few ways by which you can support.
 
 - ⭐ Leave a star!
@@ -197,8 +199,7 @@ Here are a few ways by which you can support.
 - ☕ If you want to support this project in the long run, consider [buying me a coffee](https://www.buymeacoffee.com/genocs)!
   
 
-[![buy-me-a-coffee](https://raw.githubusercontent.com/Genocs/clean-architecture-template/main/assets/buy-me-a-coffee.png "buy me a coffee")](https://www.buymeacoffee.com/genocs)
-
+[![buy-me-a-coffee](./assets/buy-me-a-coffee.png "buy me a coffee")](https://www.buymeacoffee.com/genocs)
 
 ## Code Contributors
 

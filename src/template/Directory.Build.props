@@ -5,6 +5,7 @@
         <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
         <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
         <DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
         <NoDefaultExcludes>true</NoDefaultExcludes>
         <ImplicitUsings>enable</ImplicitUsings>
