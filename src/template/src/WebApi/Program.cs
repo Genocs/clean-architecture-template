@@ -133,14 +133,15 @@ services.AddSwaggerGen(c =>
 
 });
 
-#if DEBUG
+// Setup Database
+#if InMemory
 services.AddInMemoryPersistence();
-#else
-
-// Select your Database
-services.AddMongoDBPersistence(builder.Configuration);
+#endif
+#if SqlServer
 services.AddSQLServerPersistence(builder.Configuration);
-
+#endif
+#if MongoDb
+services.AddMongoDBPersistence(builder.Configuration);
 #endif
 
 services.AddUseCases();
@@ -148,12 +149,19 @@ services.AddUseCases();
 services.AddPresentersV1();
 services.AddPresentersV2();
 
-// Select your Enterprise service bus library
+// Setup your Enterprise service bus library
+#if AzureServiceBus
+services.AddAzureServiceBus(builder.Configuration);
+#endif
+#if MassTransit
 services.AddMassTransitServiceBus(builder.Configuration);
-
-// services.AddParticularServiceBus(builder.Configuration);
-// services.AddRebusServiceBus(builder.Configuration);
-// services.AddAzureServiceBus(Configuration);
+#endif
+#if NServiceBus
+services.AddParticularServiceBus(builder.Configuration);
+#endif
+#if Rebus
+services.AddRebusServiceBus(builder.Configuration);
+#endif
 
 // refit apis
 services.AddRefitClient<IOrderApi>()

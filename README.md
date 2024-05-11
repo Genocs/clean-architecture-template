@@ -18,7 +18,7 @@
 [license-url]: https://github.com/Genocs/clean-architecture-template/blob/main/LICENSE
 [build-shield]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml/badge.svg?branch=main
 [build-url]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml
-[package-shield]: https://img.shields.io/badge/nuget-v.3.0.0-blue?&label=latests&logo=nuget
+[package-shield]: https://img.shields.io/badge/nuget-v.3.1.0-blue?&label=latests&logo=nuget
 [package-url]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml
 [downloads-prev-shield]: https://img.shields.io/nuget/dt/Genocs.CleanArchitectureTemplate.svg?color=2da44e&label=downloads%20prev&logo=nuget
 [downloads-prev-url]: https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate
@@ -83,13 +83,13 @@ Open up your *Command Prompt* or *PowerShell* or "bash" and run the following co
 # To clone the repository
 git clone https://github.com/Genocs/clean-architecture-template
 # To build the nuget package
-nuget pack ./src/Package.Template.nuspec -NoDefaultExcludes -OutputDirectory ./out -Version 3.0.0
+nuget pack ./src/Package.Template.nuspec -NoDefaultExcludes -OutputDirectory ./out -Version 3.1.0
 ```
 
 
 ``` bash
 # To install the template
-dotnet new --install Genocs.CleanArchitecture.Template
+dotnet new install Genocs.CleanArchitecture.Template
 ```
 
 or, 
@@ -99,12 +99,15 @@ if you want to use a specific version of the template,
 use
 
 ``` bash
-dotnet new --install Genocs.CleanArchitecture.Template::3.0.0
+dotnet new install Genocs.CleanArchitecture.Template::3.1.0
 ```
 
 This would install the `Genocs CleanArchitecture Template` globally on your machine.
 
 For more details on getting started, [read the documentation](https://genocs-blog.netlify.app/library/)
+
+
+Please check the [documentation](https://learn.microsoft.com/en-us/visualstudio/ide/how-to-locate-and-organize-project-and-item-templates?view=vs-2022) for more details. 
 
 
 ## How to create a project
@@ -133,8 +136,8 @@ To build the package run the following commands:
 ``` bash
 cd ./src
 nuget pack
-dotnet new -u Genocs.CleanArchitecture.Template
-dotnet new -i Genocs.CleanArchitecture.Template.3.0.{version}.nupkg
+dotnet new u Genocs.CleanArchitecture.Template
+dotnet new i ./out/Genocs.CleanArchitecture.Template.3.1.0.nupkg
 dotnet new cleanarchitecture --help
 dotnet new cleanarchitecture --name {MyCompany.MyProject} -d mongodb -sb particular
 ```

@@ -1336,7 +1336,7 @@ Manga is a cross-platform application, you can run it from Mac, Windows or Unix.
 
 The single requirement is to install the latest .NET Code SDK.
 
-* [.NET Core SDK 5.0](https://dotnet.microsoft.com/download/dotnet/5.0)
+* [.NET Core SDK 8.0](https://dotnet.microsoft.com/download/dotnet/8.0)
 
 We made available scripts to create and seed the database quickly via Docker.
 
@@ -1426,8 +1426,8 @@ ENTRYPOINT dotnet {MyCompany.MyProject}.WebApi.dll
 To build the docker images
 
 ```sh
-docker build -t mycompany/myproject.webapi -f .\src\Genocs.MicroserviceLight.Template.WebApi\Dockerfile .
-docker build -t mycompany/myproject.worker -f .\src\Genocs.MicroserviceLight.Template.BusWorker\Dockerfile .
+docker build -t company/project.service.webapi -f ./src/WebApi/Dockerfile .
+docker build -t company/project.service.worker -f ./src/Worker/Dockerfile .
 ```
 
 

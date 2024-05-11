@@ -1,8 +1,8 @@
-version: '3.4'
+version: '3.9'
 
 services:
-  genocs.microservicelight.template.webapi:
-    image: ${DOCKER_REGISTRY-}genocsmicroservicelighttemplatewebapi
+  genocs.cleanarchitecture.template.webapi:
+    image: ${DOCKER_REGISTRY-}genocs.cleanarchitecture.template.webapi
     build:
       context: .
-      dockerfile: src/Genocs.MicroserviceLight.Template.WebApi/Dockerfile
+      dockerfile: src/WebApi/Dockerfile

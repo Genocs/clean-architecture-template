@@ -47,18 +47,15 @@
       "choices": [
         {
           "choice": "azureservicebus",
-          "description": "Azure Service Bus (AzureServiceBus)",
-          "Value": "(AzureServiceBus)"
+          "description": "Azure Service Bus (AzureServiceBus)"
         },
         {
           "choice": "masstransit",
-          "description": "Mass Transit Service Bus (MassTransit)",
-          "Value": "(MassTransit)"
+          "description": "Mass Transit Service Bus (MassTransit)"
         },
         {
           "choice": "nservicebus",
-          "description": "Particular Software Service Bus (NServiceBus)",
-          "Value": "(NServiceBus)"
+          "description": "Particular Software Service Bus (NServiceBus)"
         },
         {
           "choice": "rebus",
@@ -97,6 +94,34 @@
       "type": "computed",
       "value": "(use-cases == \"full\")"
     },
+    "AzureServiceBus": {
+      "type": "computed",
+      "value": "(service-bus == \"azureservicebus\")"
+    },
+    "MassTransit": {
+      "type": "computed",
+      "value": "(service-bus == \"masstransit\")"
+    },
+    "NServiceBus": {
+      "type": "computed",
+      "value": "(service-bus == \"nservicebus\")"
+    },    
+    "Rebus": {
+      "type": "computed",
+      "value": "(service-bus == \"rebus\")"
+    },      
+    "InMemory": {
+      "type": "computed",
+      "value": "(database == \"inmemory\")"
+    },
+    "SqlServer": {
+      "type": "computed",
+      "value": "(database == \"sqlserver\")"
+    },
+    "MongoDb": {
+      "type": "computed",
+      "value": "(database == \"mongodb\")"
+    }, 
     "CloseAccount": {
       "type": "computed",
       "value": "(Full)"

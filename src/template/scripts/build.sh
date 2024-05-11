@@ -6,5 +6,5 @@ case "$TRAVIS_BRANCH" in
     ;;
 esac
 
-dotnet build ../src/Genocs.MicroserviceLight.Template.WebApi -c release
-dotnet build ../src/Genocs.MicroserviceLight.Template.BusWorker -c release
+dotnet build ../src/WebApi -c release
+dotnet build ../src/Worker -c release

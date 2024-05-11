@@ -4,7 +4,7 @@ build:
   context: ..\..
   dockerfile: Dockerfile
 install:
-  chart: charts/genocs.microservicelight.template.busworker
+  chart: charts/genocs.cleanarchitecture.template.worker
   values:
   - values.dev.yaml?
   - secrets.dev.yaml?
@@ -20,7 +20,7 @@ install:
     #   - name: myRegistryKeySecretName
     replicaCount: 1
     image:
-      repository: genocs.microservicelight.template.busworker
+      repository: genocs.cleanarchitecture.template.worker
       tag: $(tag)
       pullPolicy: Never
     ingress:
@@ -30,7 +30,7 @@ install:
       # This expands to form the service's public URL: [space.s.][rootSpace.]genocsmicroservicelighttemplatebusworker.<random suffix>.<region>.azds.io
       # Customize the public URL by changing the 'genocsmicroservicelighttemplatebusworker' text between the $(rootSpacePrefix) and $(hostSuffix) tokens
       # For more information see https://aka.ms/devspaces/routing
-      - $(spacePrefix)$(rootSpacePrefix)genocs.microservicelight.template.worker$(hostSuffix)
+      - $(spacePrefix)$(rootSpacePrefix)genocs.cleanarchitecture.template.worker$(hostSuffix)
 configurations:
   develop:
     build:
