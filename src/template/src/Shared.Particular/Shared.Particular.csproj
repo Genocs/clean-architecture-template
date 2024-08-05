@@ -9,6 +9,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="NServiceBus" Version="8.2.0" />
+        <PackageReference Include="NServiceBus" Version="9.1.1" />
     </ItemGroup>    
 </Project>
