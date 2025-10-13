@@ -29,25 +29,14 @@ public sealed class GetCustomerDetailsPresenter : IOutputPort
 
             foreach (var item in account.Transactions)
             {
-                var transaction = new TransactionModel(
-                                                        item.Amount,
-                                                        item.Description,
-                                                        item.TransactionDate);
-
+                var transaction = new TransactionModel(item.Amount, item.Description, item.TransactionDate);
                 transactions.Add(transaction);
             }
 
-            accounts.Add(new AccountDetailsModel(
-                                                    account.AccountId,
-                                                    account.CurrentBalance,
-                                                    transactions));
+            accounts.Add(new AccountDetailsModel(account.AccountId, account.CurrentBalance, transactions));
         }
 
-        var response = new GetCustomerDetailsResponse(
-                                                        output.CustomerId,
-                                                        output.SSN,
-                                                        output.Name,
-                                                        accounts);
+        var response = new GetCustomerDetailsResponse(output.CustomerId, output.SSN, output.Name, accounts);
 
         ViewModel = new OkObjectResult(response);
     }

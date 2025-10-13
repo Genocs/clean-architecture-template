@@ -27,8 +27,8 @@ install:
       annotations:
         kubernetes.io/ingress.class: traefik-azds
       hosts:
-      # This expands to form the service's public URL: [space.s.][rootSpace.]genocsmicroservicelighttemplatewebapi.<random suffix>.<region>.azds.io
-      # Customize the public URL by changing the 'genocsmicroservicelighttemplatewebapi' text between the $(rootSpacePrefix) and $(hostSuffix) tokens
+      # This expands to form the service's public URL: [space.s.][rootSpace.]genocscleanarchitecturetemplatewebapi.<random suffix>.<region>.azds.io
+      # Customize the public URL by changing the 'genocscleanarchitecturetemplatewebapi' text between the $(rootSpacePrefix) and $(hostSuffix) tokens
       # For more information see https://aka.ms/devspaces/routing
       - $(spacePrefix)$(rootSpacePrefix)genocs.cleanarchitecture.template.webapi$(hostSuffix)
 configurations:

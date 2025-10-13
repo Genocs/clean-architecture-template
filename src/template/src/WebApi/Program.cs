@@ -151,13 +151,13 @@ services.AddPresentersV2();
 
 // Setup your Enterprise service bus library
 #if AzureServiceBus
-//services.AddAzureServiceBus(builder.Configuration);
+// services.AddAzureServiceBus(builder.Configuration);
 #endif
 #if MassTransit
 services.AddMassTransitServiceBus(builder.Configuration);
 #endif
 #if NServiceBus
-//services.AddParticularServiceBus(builder.Configuration);
+// services.AddParticularServiceBus(builder.Configuration);
 #endif
 #if Rebus
 services.AddRebusServiceBus(builder.Configuration);

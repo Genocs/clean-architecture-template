@@ -25,6 +25,7 @@
         <ProjectReference Include="..\..\src\Domain\Domain.csproj" />
         <ProjectReference Include="..\..\src\Application\Application.csproj" />
         <ProjectReference Include="..\..\src\Infrastructure\Infrastructure.csproj" />
+        <ProjectReference Include="..\WebApi\Host.csproj" />
     </ItemGroup>
 
 </Project>

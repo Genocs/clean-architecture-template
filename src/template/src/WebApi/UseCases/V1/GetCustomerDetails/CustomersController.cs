@@ -22,7 +22,7 @@ public sealed class CustomersController : ControllerBase
     }
 
     /// <summary>
-    /// Get the Customer details 
+    /// Get the Customer details
     /// </summary>
     [HttpGet("{CustomerId}", Name = "GetCustomer")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetCustomerDetailsResponse))]

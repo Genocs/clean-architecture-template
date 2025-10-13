@@ -4,27 +4,18 @@ using Genocs.CleanArchitecture.Template.Application.Services;
 
 namespace Genocs.CleanArchitecture.Template.Application.UseCases;
 
-public sealed class CloseAccount : IUseCase
+public sealed class CloseAccount(
+                IOutputPort outputHandler,
+                IAccountRepository accountRepository,
+                IUnitOfWork unitOfWork,
+                IServiceBusClient serviceBus,
+                IApiClient orderApiClient) : IUseCase
 {
-    private readonly IOutputPort _outputHandler;
-    private readonly IAccountRepository _accountRepository;
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IServiceBusClient _serviceBus;
-    private readonly IApiClient _orderApiClient;
-
-    public CloseAccount(
-        IOutputPort outputHandler,
-        IAccountRepository accountRepository,
-        IUnitOfWork unitOfWork,
-        IServiceBusClient serviceBus,
-        IApiClient orderApiClient)
-    {
-        _outputHandler = outputHandler;
-        _accountRepository = accountRepository;
-        _unitOfWork = unitOfWork;
-        _serviceBus = serviceBus;
-        _orderApiClient = orderApiClient;
-    }
+    private readonly IOutputPort _outputHandler = outputHandler;
+    private readonly IAccountRepository _accountRepository = accountRepository;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IServiceBusClient _serviceBus = serviceBus;
+    private readonly IApiClient _orderApiClient = orderApiClient;
 
     public async Task ExecuteAsync(CloseAccountInput closeAccountInput)
     {

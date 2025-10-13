@@ -1,7 +1,6 @@
 using Genocs.CleanArchitecture.Template.WorkerNServiceBus.Messages;
 using Genocs.CleanArchitecture.Template.WorkerNServiceBus.Services;
 using MongoDB.Driver;
-using NServiceBus;
 
 namespace Genocs.CleanArchitecture.Template.WorkerNServiceBus;
 

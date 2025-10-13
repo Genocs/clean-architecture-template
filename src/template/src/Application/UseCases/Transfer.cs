@@ -5,27 +5,18 @@ using Genocs.CleanArchitecture.Template.Domain;
 
 namespace Genocs.CleanArchitecture.Template.Application.UseCases;
 
-public sealed class Transfer : IUseCase
+public sealed class Transfer(
+            IEntityFactory entityFactory,
+            IOutputPort outputHandler,
+            IAccountRepository accountRepository,
+            IUnitOfWork unitOfWork,
+            IServiceBusClient serviceBus) : IUseCase
 {
-    private readonly IEntityFactory _entityFactory;
-    private readonly IOutputPort _outputHandler;
-    private readonly IAccountRepository _accountRepository;
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IServiceBusClient _serviceBus;
-
-    public Transfer(
-        IEntityFactory entityFactory,
-        IOutputPort outputHandler,
-        IAccountRepository accountRepository,
-        IUnitOfWork unitOfWork,
-        IServiceBusClient serviceBus)
-    {
-        _entityFactory = entityFactory;
-        _outputHandler = outputHandler;
-        _accountRepository = accountRepository;
-        _unitOfWork = unitOfWork;
-        _serviceBus = serviceBus;
-    }
+    private readonly IEntityFactory _entityFactory = entityFactory;
+    private readonly IOutputPort _outputHandler = outputHandler;
+    private readonly IAccountRepository _accountRepository = accountRepository;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IServiceBusClient _serviceBus = serviceBus;
 
     public async Task ExecuteAsync(TransferInput input)
     {

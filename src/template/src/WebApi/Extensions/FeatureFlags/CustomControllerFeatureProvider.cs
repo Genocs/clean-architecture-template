@@ -7,14 +7,9 @@ using System.Reflection;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
 
-public sealed class CustomControllerFeatureProvider : IApplicationFeatureProvider<ControllerFeature>
+public sealed class CustomControllerFeatureProvider(IFeatureManager featureManager) : IApplicationFeatureProvider<ControllerFeature>
 {
-    private readonly IFeatureManager _featureManager;
-
-    public CustomControllerFeatureProvider(IFeatureManager featureManager)
-    {
-        _featureManager = featureManager;
-    }
+    private readonly IFeatureManager _featureManager = featureManager;
 
     public async void PopulateFeature(IEnumerable<ApplicationPart> parts, ControllerFeature feature)
     {

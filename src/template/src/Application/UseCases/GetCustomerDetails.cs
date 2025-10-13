@@ -3,21 +3,14 @@ using Genocs.CleanArchitecture.Template.Application.Repositories;
 
 namespace Genocs.CleanArchitecture.Template.Application.UseCases;
 
-public sealed class GetCustomerDetails : IUseCase
+public sealed class GetCustomerDetails(
+                          IOutputPort outputHandler,
+                          ICustomerRepository customerRepository,
+                          IAccountRepository accountRepository) : IUseCase
 {
-    private readonly IOutputPort _outputHandler;
-    private readonly ICustomerRepository _customerRepository;
-    private readonly IAccountRepository _accountRepository;
-
-    public GetCustomerDetails(
-                              IOutputPort outputHandler,
-                              ICustomerRepository customerRepository,
-                              IAccountRepository accountRepository)
-    {
-        _outputHandler = outputHandler;
-        _customerRepository = customerRepository;
-        _accountRepository = accountRepository;
-    }
+    private readonly IOutputPort _outputHandler = outputHandler;
+    private readonly ICustomerRepository _customerRepository = customerRepository;
+    private readonly IAccountRepository _accountRepository = accountRepository;
 
     public async Task ExecuteAsync(GetCustomerDetailsInput input)
     {

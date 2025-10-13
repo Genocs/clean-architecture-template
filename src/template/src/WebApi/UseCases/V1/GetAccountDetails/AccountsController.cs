@@ -4,6 +4,7 @@ using Genocs.CleanArchitecture.Template.Application.Boundaries.GetAccountDetails
 using Microsoft.AspNetCore.Mvc;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.GetAccountDetails;
+
 [ApiVersion("1.0")]
 [Route("api/v1/[controller]")]
 [ApiController]

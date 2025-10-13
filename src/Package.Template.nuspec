@@ -28,7 +28,7 @@ $ dotnet new cleanarchitecture
   Added list of events
   
 - Clean Architecture Principles Documentation
-- .NET8
+- .NET9
 - Swashbuckle 5 
 - Entity Framework Core 5
 - Enterprice Service Bus

@@ -32,7 +32,7 @@ public sealed class RegisterResponse
     [Required]
     public List<AccountDetailsModel> Accounts { get; }
 
-    public RegisterResponse(in Guid customerId, string ssn, string name, List<AccountDetailsModel> accounts)
+    public RegisterResponse(Guid customerId, string ssn, string name, List<AccountDetailsModel> accounts)
     {
         CustomerId = customerId;
         SSN = ssn;

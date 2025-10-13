@@ -4,6 +4,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <IsPublishable>false</IsPublishable>
         <IsPackable>false</IsPackable>
+        <UserSecretsId>Genocs</UserSecretsId>
         <RootNamespace>Genocs.CleanArchitecture.Template.WorkerNServiceBus</RootNamespace>
         <AssemblyName>Genocs.CleanArchitecture.Template.WorkerNServiceBus</AssemblyName>
     </PropertyGroup>

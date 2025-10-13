@@ -3,6 +3,4 @@
 /// <summary>
 /// Placeholder for API Client.
 /// </summary>
-public interface IApiClient
-{
-}
+public interface IApiClient;
