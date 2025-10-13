@@ -11,6 +11,11 @@
         <AssemblyName>Genocs.CleanArchitecture.Template.Worker</AssemblyName>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <DefineConstants>CloseAccount;Deposit;GetAccountDetails;GetCustomerDetails;Register;Withdraw;Refund;Transfer;REBUS;IN_MEMORY</DefineConstants>
+    </PropertyGroup>
+
+
     <ItemGroup>
         <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.17.5" />
         <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.23.0" />

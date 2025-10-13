@@ -25,12 +25,16 @@ public static class ServiceStartup
         services.AddApplicationInsightsKubernetesEnricher();
         services.AddApplicationInsightsTelemetry(context.Configuration);
 
-        // Setup config services
-        MassTransitServiceBusConfigurator.ConfigureServices(context, services);
-
-        // RebusServiceBusConfigurator.ConfigureServices(context, services);
-        // AzureServiceBusConfigurator.ConfigureServices(context, services);
-        // ParticularServiceBusConfigurator.ConfigureServices(context, services);
+        // Setup your Enterprise service bus library
+#if REBUS
+        RebusServiceBusConfigurator.ConfigureServices(context, services);
+#elif MASS_TRANSIT
+MassTransitServiceBusConfigurator.ConfigureServices(context, services);
+#elif N_SERVICE_BUS
+ParticularServiceBusConfigurator.ConfigureServices(context, services);
+#elif AZURE_SERVICE_BUS
+AzureServiceBusConfigurator.ConfigureServices(context, services);
+#endif
 
         // Register the Event handler
         services.AddScoped<IMessageEventHandler<IntegrationEventIssued>, AzureEventOccurredHandler>();
