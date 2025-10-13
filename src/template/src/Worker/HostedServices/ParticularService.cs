@@ -13,12 +13,9 @@ internal class ParticularService : IHostedService
 
     private IEndpointInstance _instance;
 
-    public ParticularService(IOptions<ParticularServiceBusSettings> settings, ILogger<ParticularService> logger)
+    public ParticularService(IOptions<NServiceServiceBusSettings> settings, ILogger<ParticularService> logger)
     {
-        if (settings is null)
-        {
-            throw new ArgumentNullException(nameof(settings));
-        }
+        ArgumentNullException.ThrowIfNull(settings);
 
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 

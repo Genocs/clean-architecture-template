@@ -1,9 +1,9 @@
-﻿using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
-using Genocs.CleanArchitecture.Template.Shared.Interfaces;
+﻿using System.Text;
+using Genocs.CleanArchitecture.Template.Contracts.Interfaces;
+using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using System.Text;
 
 namespace Genocs.CleanArchitecture.Template.Worker.HostedServices;
 

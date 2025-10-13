@@ -5,9 +5,9 @@ namespace Genocs.CleanArchitecture.Template.Worker.ConfigServices;
 
 public class ParticularServiceBusConfigurator
 {
-    public static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
+    public static void ConfigureNServiceServiceBusServices(HostBuilderContext context, IServiceCollection services)
     {
-        services.Configure<ParticularServiceBusSettings>(context.Configuration.GetSection("ParticularServiceBusSettings"));
+        services.Configure<NServiceServiceBusSettings>(context.Configuration.GetSection(NServiceServiceBusSettings.Position));
         services.AddHostedService<ParticularService>();
     }
 }

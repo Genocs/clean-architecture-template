@@ -1,5 +1,4 @@
-﻿using Genocs.CleanArchitecture.Template.Shared.Particular.TransactionSaga;
-using NServiceBus;
+﻿using Genocs.CleanArchitecture.Template.ContractsNServiceBus.TransactionSaga;
 using NServiceBus.Logging;
 
 namespace Genocs.CleanArchitecture.Template.Worker.Handlers.Sagas;

@@ -1,6 +1,5 @@
-﻿using Genocs.CleanArchitecture.Template.Shared.Particular.IntegrationEvents;
-using Genocs.CleanArchitecture.Template.Shared.Particular.TransactionSaga;
-using NServiceBus;
+﻿using Genocs.CleanArchitecture.Template.ContractsNServiceBus.IntegrationEvents;
+using Genocs.CleanArchitecture.Template.ContractsNServiceBus.TransactionSaga;
 using NServiceBus.Logging;
 
 namespace Genocs.CleanArchitecture.Template.Worker.Handlers;
@@ -16,7 +15,6 @@ public class BasicEventHandler : IHandleMessages<BasicEvent>
     public async Task Handle(BasicEvent message, IMessageHandlerContext context)
     {
         _log.Info($"WorkerService.BasicEventHandler has received a message");
-
 
         await context.SendLocal(new TransactionLoaded()
         {

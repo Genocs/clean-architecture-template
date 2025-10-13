@@ -1,5 +1,5 @@
-﻿using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Rebus;
-using Genocs.CleanArchitecture.Template.Shared.Events;
+﻿using Genocs.CleanArchitecture.Template.Contracts.Events;
+using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Rebus;
 using Genocs.CleanArchitecture.Template.Worker.Handlers;
 using Microsoft.Extensions.Options;
 using Rebus.Activation;

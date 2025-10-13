@@ -10,7 +10,8 @@ public static class HealthChecksExtensions
     /// <summary>
     /// Extension method to add custom health checks to the DI container.
     /// </summary>
-    /// <param name="builder">The Genocs builder.</param>
+    /// <param name="services">The service collection.</param>
+    /// <param name="configuration">The configuration manager.</param>
     /// <returns>The Genocs builder to be used for chain.</returns>
     public static IServiceCollection AddCustomHealthChecks(this IServiceCollection services, IConfiguration configuration)
     {

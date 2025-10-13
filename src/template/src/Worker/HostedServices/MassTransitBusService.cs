@@ -1,4 +1,4 @@
-﻿using Genocs.CleanArchitecture.Template.Infrastructure.Options;
+﻿using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.MassTransit;
 using Microsoft.Extensions.Options;
 
 namespace Genocs.CleanArchitecture.Template.Worker.HostedServices;
@@ -23,7 +23,6 @@ internal class MassTransitBusService : IHostedService
 
         _logger = logger;
     }
-
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {

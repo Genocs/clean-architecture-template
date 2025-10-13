@@ -1,5 +1,5 @@
-﻿using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
-using Genocs.CleanArchitecture.Template.Shared.Events;
+﻿using Genocs.CleanArchitecture.Template.Contracts.Events;
+using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
 using Microsoft.Extensions.Options;
 
 namespace Genocs.CleanArchitecture.Template.Worker.HostedServices;

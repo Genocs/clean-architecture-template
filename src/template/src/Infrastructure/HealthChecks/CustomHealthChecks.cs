@@ -1,4 +1,5 @@
 ﻿using Genocs.CleanArchitecture.Template.Infrastructure.Options;
+using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
@@ -68,14 +69,9 @@ public class StartupHealthCheck : IHealthCheck
 /// <summary>
 /// Custom health check for memory usage monitoring.
 /// </summary>
-public class MemoryHealthCheck : IHealthCheck
+public class MemoryHealthCheck(IOptions<HealthCheckSettings> settings) : IHealthCheck
 {
-    private readonly HealthCheckSettings _settings;
-
-    public MemoryHealthCheck(IOptions<HealthCheckSettings> settings)
-    {
-        _settings = settings.Value;
-    }
+    private readonly HealthCheckSettings _settings = settings.Value;
 
     public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
     {

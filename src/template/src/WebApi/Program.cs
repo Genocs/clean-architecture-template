@@ -1,5 +1,8 @@
+using Asp.Versioning.ApiExplorer;
+using Genocs.CleanArchitecture.Template.Infrastructure.HealthChecks;
 using Genocs.CleanArchitecture.Template.WebApi.ApiClient;
 using Genocs.CleanArchitecture.Template.WebApi.Extensions;
+using Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
 using Microsoft.ApplicationInsights.DependencyCollector;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -30,11 +33,18 @@ services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, _)
     module.IncludeDiagnosticSourceActivities.Add("MassTransit");
 });
 
-services.AddControllers();
+services.AddControllers().AddControllersAsServices();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
+
+services.AddBusinessExceptionFilter();
+services.AddFeatureFlags(builder.Configuration);
+services.AddVersioning();
+//services.AddSwagger();
+
+services.AddCustomHealthChecks(builder.Configuration);
 
 services.Configure<HealthCheckPublisherOptions>(options =>
 {
@@ -134,34 +144,29 @@ services.AddSwaggerGen(c =>
 });
 
 // Setup Database
-#if InMemory
+#if IN_MEMORY
 services.AddInMemoryPersistence();
-#endif
-#if SqlServer
-//services.AddSQLServerPersistence(builder.Configuration);
-#endif
-#if MongoDb
+#elif MONGO_DB
 services.AddMongoDBPersistence(builder.Configuration);
+#elif SQL_SERVER
+services.AddSQLServerPersistence(builder.Configuration);
+#endif
+
+// Setup your Enterprise service bus library
+#if REBUS
+services.AddRebusServiceBus(builder.Configuration);
+#elif MASS_TRANSIT
+services.AddMassTransitServiceBus(builder.Configuration);
+#elif N_SERVICE_BUS
+services.AddParticularServiceBus(builder.Configuration);
+#elif AZURE_SERVICE_BUS
+services.AddAzureServiceBus(builder.Configuration);
 #endif
 
 services.AddUseCases();
 
 services.AddPresentersV1();
 services.AddPresentersV2();
-
-// Setup your Enterprise service bus library
-#if AzureServiceBus
-// services.AddAzureServiceBus(builder.Configuration);
-#endif
-#if MassTransit
-services.AddMassTransitServiceBus(builder.Configuration);
-#endif
-#if NServiceBus
-// services.AddParticularServiceBus(builder.Configuration);
-#endif
-#if Rebus
-services.AddRebusServiceBus(builder.Configuration);
-#endif
 
 // refit apis
 services.AddRefitClient<IOrderApi>()
@@ -181,7 +186,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
+
+//var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+//app.UseVersionedSwagger(provider);
 
 app.MapControllers();
 

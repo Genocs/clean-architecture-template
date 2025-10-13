@@ -1,4 +1,4 @@
-﻿using Genocs.CleanArchitecture.Template.Shared.Events;
+﻿using Genocs.CleanArchitecture.Template.Contracts.Events;
 
 namespace Genocs.CleanArchitecture.Template.Worker.Handlers;
 

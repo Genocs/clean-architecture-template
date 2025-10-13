@@ -1,9 +1,9 @@
 ﻿using Genocs.CleanArchitecture.Template.Application.Services;
+using Genocs.CleanArchitecture.Template.Contracts.Events;
 using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
+using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Particular;
 using Genocs.CleanArchitecture.Template.Infrastructure.WebApiClient.ExternalServices;
 using Genocs.CleanArchitecture.Template.Infrastructure.WebApiClient.Resiliency;
-using Genocs.CleanArchitecture.Template.Shared.Events;
-using Genocs.CleanArchitecture.Template.Shared.Options;
 using Genocs.CleanArchitecture.Template.Worker.ConfigServices;
 using Genocs.CleanArchitecture.Template.Worker.ExternalServices;
 using Genocs.CleanArchitecture.Template.Worker.Handlers;
@@ -35,7 +35,7 @@ public static class ServiceStartup
         // Register the Event handler
         services.AddScoped<IMessageEventHandler<IntegrationEventIssued>, AzureEventOccurredHandler>();
 
-        // Register API client 
+        // Register API client
         services
             .AddHttpClient<IDummyApiClient, DummyApiClient>(c =>
             {
@@ -66,7 +66,7 @@ public static class ServiceStartup
                 });
         }
 
-        services.Configure<ParticularOptions>(context.Configuration.GetSection(nameof(ParticularOptions)));
+        services.Configure<NServiceServiceBusSettings>(context.Configuration.GetSection(nameof(NServiceServiceBusSettings)));
 
         // workaround .NET Core 2.2: for more info https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/health-checks/samples/2.x/HealthChecksSample/LivenessProbeStartup.cs#L51
         services.TryAddEnumerable(

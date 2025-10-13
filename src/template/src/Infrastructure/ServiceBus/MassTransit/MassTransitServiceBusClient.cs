@@ -1,5 +1,4 @@
 ﻿using Genocs.CleanArchitecture.Template.Application.Services;
-using Genocs.CleanArchitecture.Template.Infrastructure.Options;
 using MassTransit;
 using Microsoft.Extensions.Options;
 

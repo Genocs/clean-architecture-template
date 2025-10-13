@@ -49,6 +49,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkerNServiceBus", "Worker
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "src\WebApi\Host.csproj", "{4552C345-558B-DA31-3693-BAB5315AE735}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "src\Worker\Host.csproj", "{18EE3BA9-B0E7-88DD-CF9C-A7C0713930F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{4552C345-558B-DA31-3693-BAB5315AE735}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4552C345-558B-DA31-3693-BAB5315AE735}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4552C345-558B-DA31-3693-BAB5315AE735}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18EE3BA9-B0E7-88DD-CF9C-A7C0713930F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18EE3BA9-B0E7-88DD-CF9C-A7C0713930F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18EE3BA9-B0E7-88DD-CF9C-A7C0713930F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18EE3BA9-B0E7-88DD-CF9C-A7C0713930F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -110,6 +116,7 @@ Global
 		{75F244C3-4DBF-E0D2-27ED-16BFB84CCBF5} = {3DBA8B5D-0017-45D1-92F1-8F8C8463EB58}
 		{888CE328-FA0E-B41A-4BCB-8F2D3DF9FB1F} = {711FEE32-C0AE-44B8-8BED-BA3A40BF13A2}
 		{4552C345-558B-DA31-3693-BAB5315AE735} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{18EE3BA9-B0E7-88DD-CF9C-A7C0713930F9} = {F5A1163F-15CC-46B6-B7E9-41CA380575C9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7085404A-CC53-42BF-9A9F-C0BC3830CC6C}

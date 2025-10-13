@@ -2,6 +2,8 @@
 
 public class NServiceServiceBusSettings
 {
+    public static string Position = "NServiceServiceBusSettings";
+
     public string? EndpointName { get; set; }
     public string? TransportConnectionString { get; set; }
 
