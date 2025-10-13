@@ -14,7 +14,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <DefineConstants>CloseAccount;Deposit;GetAccountDetails;GetCustomerDetails;Register;Withdraw;Refund;Transfer;REBUS;IN_MEMORY</DefineConstants>
+        <DefineConstants>CloseAccount;Deposit;GetAccountDetails;GetCustomerDetails;Register;Withdraw;Refund;Transfer</DefineConstants>
     </PropertyGroup>
 
     <ItemGroup>

@@ -143,22 +143,22 @@ services.AddSwaggerGen(c =>
 });
 
 // Setup Database
-#if IN_MEMORY
+#if InMemory
 services.AddInMemoryPersistence();
-#elif MONGO_DB
+#elif MongoDb
 services.AddMongoDBPersistence(builder.Configuration);
-#elif SQL_SERVER
+#elif SQLServer
 services.AddSQLServerPersistence(builder.Configuration);
 #endif
 
 // Setup your Enterprise service bus library
-#if REBUS
+#if Rebus
 services.AddRebusServiceBus(builder.Configuration);
-#elif MASS_TRANSIT
+#elif MassTransit
 services.AddMassTransitServiceBus(builder.Configuration);
-#elif N_SERVICE_BUS
+#elif NServiceBus
 services.AddParticularServiceBus(builder.Configuration);
-#elif AZURE_SERVICE_BUS
+#elif AzureServiceBus
 services.AddAzureServiceBus(builder.Configuration);
 #endif
 

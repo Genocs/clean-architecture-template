@@ -232,11 +232,11 @@ To build the package run the following commands:
 
 ```bash
 cd ./src
-./nuget.exe pack -OutputDirectory ./out -Version 4.0.0 ./Package.Template.nuspec
-dotnet new uninstall Genocs.CleanArchitecture.Template
-dotnet new install ./out/Genocs.CleanArchitecture.Template.4.0.0.nupkg
+nuget pack
+dotnet new u Genocs.CleanArchitecture.Template
+dotnet new i ./out/Genocs.CleanArchitecture.Template.4.0.0.nupkg
 dotnet new cleanarchitecture --help
-dotnet new cleanarchitecture --name {MyCompany.MyProject} -da inmemory -sb rebus
+dotnet new cleanarchitecture --name {MyCompany.MyProject} -d mongodb -sb particular
 ```
 
 ## Sample application
@@ -262,7 +262,7 @@ Useful commands:
 # How to get the list of installed templates
 dotnet new -u
 
-dotnet new list
+dotnet --list
 ```
 
 ## Changelogs

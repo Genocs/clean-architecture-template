@@ -26,13 +26,13 @@ public static class ServiceStartup
         services.AddApplicationInsightsTelemetry(context.Configuration);
 
         // Setup your Enterprise service bus library
-#if REBUS
+#if Rebus
         RebusServiceBusConfigurator.ConfigureServices(context, services);
-#elif MASS_TRANSIT
+#elif MassTransit
 MassTransitServiceBusConfigurator.ConfigureServices(context, services);
-#elif N_SERVICE_BUS
+#elif NServiceBus
 ParticularServiceBusConfigurator.ConfigureServices(context, services);
-#elif AZURE_SERVICE_BUS
+#elif AzureServiceBus
 AzureServiceBusConfigurator.ConfigureServices(context, services);
 #endif
 

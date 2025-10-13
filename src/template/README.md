@@ -1,26 +1,11 @@
-# The Clean Architecture Sample Implementation with .NET Core
+# The Clean Architecture with .NET Core
 
 
-Sample implementation of the **Clean Architecture Principles with .NET Core**. Use cases as central organizing structure, decoupled from frameworks and technology details. Built with small components that are developed and tested in isolation.
+The **Clean Architecture Principles with .NET Core**. Use cases as central organizing structure, decoupled from frameworks and technology details. 
 
-----
-
-[![Build Status](https://travis-ci.com/genocs/clean-architecture-template.svg?branch=master)](https://travis-ci.com/genocs/clean-architecture-template)   [![Build status](https://ci.appveyor.com/api/projects/status/0i6s33kw3y87tkb2?svg=true)](https://ci.appveyor.com/project/genocs/clean-architecture-template)   ![NuGet](https://buildstats.info/nuget/Genocs.CleanArchitecture.Template)   [![All Contributors](https://img.shields.io/badge/all_contributors-12-yellow.svg?style=flat-square)](#contributors)
-<a href="https://www.nuget.org/packages/Genocs.CleanArchitecture.Template/" rel="Genocs.CleanArchitecture.Template"></a>
-
+Built with small components that are developed and tested in isolation.
 
 ## Usage
-
-```sh
-dotnet new -i Genocs.CleanArchitecture.Template::3.1.0
-dotnet new cleanarchitecture -n "MyCompany.MyProject"
-```
-
-To get the Clean Architecture updates hit the `WATCH` button.
-
-Would you like to show Clean Architecture on your GitHub profile? Hit the `FORK` button.
-
-Really interested in designing modular applications? Support this project with a hit on the `STAR` button. Share with a friend!
 
 **Manga** is a virtual Wallet application in which a customer can register an account then manage the balance with `Deposits`, `Withdraws` and `Transfers`.
 
@@ -43,12 +28,11 @@ Learning how to design modular applications will help you become a better engine
 
 .NET Core brings a sweet development environment, an extensible and cross-platform framework. We will explore the benefits of it in the infrastructure layer and we will reduce its relevance in the application layer. The same rule is applied for modern C# language constructions.
 
-### Learn from the open source community
 
-This is continually updated, open source project.
+## Containers and orchestrators
 
-[Contributions](#contributors-) are welcome!
-
+The example is using Docker Compose for both setup the infrastructure components and to create the application images for both WebApi and BusWorker.
+The docker-infrastructure folder contains everything required to run the infrastructure components locally.
 
 ## Persistence layer
 
@@ -59,63 +43,37 @@ This example contains the implementation related to three different storage type
 - MongoDB (The popular Document DB) 
 
 
-### MongoDB Replicaset
+## Enterprise Service Bus (ESB)
 
-To set Mongodb as a replica set
+### Message Broker - RabbitMQ cluster
 
-1. Run Docker compose with 3 mongo container
-2. Connect to Mongo Shell
-```sh
-docker exec -it mongo_db2 /bin/bash
-mongo
-```
+The folder docker-infrastructure contains the docker-compose file and everything required to run RabbitMQ locally.   
 
-3. Initialize the replica set and check the status
-
-```ts
-rs.initiate(
-  {
-    _id : 'rs0',
-    members: [
-      { _id : 0, host : "mongo_db1:27017" },
-      { _id : 1, host : "mongo_db2:27017" },
-      { _id : 2, host : "mongo_db3:27017" }
-    ]
-  }
-)
-
-rs.slaveOk().ok
-rs.status()
-```
-
-## Enterprise service bus
-
-### RabbitMQ cluster
-
-The folder docker-infrastructure contains the docker-compose file and everything required to run a two node RabbitMQ cluster.   
-
-This example implement the enterprise service bus through three different library.
+This example implement the enterprise service bus through four different library.
  
 - NService Bus
+- MassTransit
 - Rebus
-- Bare implementation with Azure Service bus 
+- Azure Service Bus
+
+Documents and samples are provided for each library.
+
+- Rebus
+    - [Rebus Documentation](https://rebus.fm/docs/)
+    - [Rebus GitHub Repository](https://github.com/rebus-org/Rebus)
+    - [Rebus Samples](https://github.com/rebus-org/Rebus.Samples)
+
+- NServiceBus
+    - [NServiceBus Documentation](https://docs.particular.net/nservicebus/)
+    - [NServiceBus GitHub Repository](https://github.com/Particular/NServiceBus)
+    - [NServiceBus Samples](https://github.com/Particular/NServiceBus.Samples)
+
+- MassTransit
+    - [MassTransit Documentation](https://masstransit-project.com/)
+    - [MassTransit GitHub Repository](https://github.com/MassTransit/MassTransit)
+    - [MassTransit Samples](https://github.com/MassTransit/Samples)
 
 
-## Containers and orchestrators
-
-The example is ready to create the docker images for both WebApi and BusWorker
-
-
-## Contributing
-
-> Learn from the community.
-
-Feel free to submit pull requests to help:
-
-* Fix errors
-* Improve sections
-* Add new sections
-* Submit questions and bugs
 
 ## Index of Clean Architecture Template
 

@@ -74,7 +74,7 @@
         },
         {
           "choice": "sqlserver",
-          "description": "Microsoft Sql Server Database (SqlServer)"
+          "description": "Microsoft Sql Server Database (SQLServer)"
         },
         {
           "choice": "inmemory",
@@ -114,7 +114,7 @@
       "type": "computed",
       "value": "(database == \"inmemory\")"
     },
-    "SqlServer": {
+    "SQLServer": {
       "type": "computed",
       "value": "(database == \"sqlserver\")"
     },
@@ -253,7 +253,7 @@
           ]
         },
         {
-          "condition": "(Azure)",
+          "condition": "(AzureServiceBus)",
           "exclude": [
             "src/Infrastructure/ServiceBus/Particular/**/*.cs",
             "src/Infrastructure/ServiceBus/Rebus/**/*.cs",

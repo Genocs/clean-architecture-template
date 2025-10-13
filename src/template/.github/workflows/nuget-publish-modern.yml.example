@@ -1,0 +1,56 @@
+# Alternative modern approach using dotnet pack
+# This is an example of how to modernize the workflow to use dotnet pack instead of nuget pack
+# To use this approach, you would need to create a .csproj file with package metadata
+
+name: Publish on NuGet (Modern Approach)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Package Version"
+        default: "2.3.0"
+        required: true
+
+jobs:
+  build:
+    name: Update NuGet package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore ./src/template
+
+      - name: Build
+        run: dotnet build ./src/template --no-restore
+
+      - name: Test
+        run: dotnet test ./src/template --no-build --verbosity normal
+
+      # Alternative approach using dotnet pack (requires a .csproj with package metadata)
+      # - name: Pack with dotnet
+      #   run: dotnet pack ./src/PackageProject.csproj -c Release -o ./out -p:PackageVersion=${{ github.event.inputs.version }}
+
+      - name: Create output directory
+        run: mkdir -p ./out
+
+      - name: Pack with NuGet CLI
+        run: |
+          # Install NuGet CLI if not available
+          if ! command -v nuget &> /dev/null; then
+            wget -qO- https://dist.nuget.org/win-x86-commandline/latest/nuget.exe > nuget.exe
+            sudo mv nuget.exe /usr/local/bin/nuget
+            sudo chmod +x /usr/local/bin/nuget
+          fi
+          nuget pack ./src/Package.Template.nuspec -NoDefaultExcludes -OutputDirectory ./out -Version ${{ github.event.inputs.version }}
+
+      - name: Push package to NuGet
+        run: dotnet nuget push ./out/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols

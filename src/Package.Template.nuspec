@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata minClientVersion="5.10.0">
     <id>Genocs.CleanArchitecture.Template</id>
-    <version>3.1.0</version>
+    <version>4.0.0</version>
     <title>Genocs - Clean Code Template</title>
     <authors>Nocco Giovanni Emanuele</authors>
     <owners>[Genocs] Nocco Giovanni Emanuele</owners>
@@ -18,7 +18,7 @@
     </summary>	
     <description>
 Install the package:
-$ dotnet new -i Genocs.CleanArchitecture.Template::3.1.0
+$ dotnet new -i Genocs.CleanArchitecture.Template::4.0.0
 
 The full clean project:
 $ dotnet new cleanarchitecture
@@ -75,8 +75,8 @@ $ dotnet new cleanarchitecture
     </dependencies>
   </metadata>
   <files>
-    <file src="..\README_NUGET.md" target="content" />
-    <file src="..\icon.png" target="content" />
-    <file src="**" exclude="**\bin\**\*;**\obj\**\*;**\*.user;**\*.log;**\.vscode\**\*;" />
+    <file src=".\README_NUGET.md" target="content" />
+    <file src=".\icon.png" target="content" />
+    <file src="**" exclude="**\bin\**\*;**\obj\**\*;**\*.user;**\*.log;**\.vscode\**\*;**\.vs\**\*;**\.exe\**\*" />
   </files>
 </package>
