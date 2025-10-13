@@ -29,35 +29,36 @@ public sealed class Startup(IConfiguration configuration)
         services.AddSwagger();
         services.AddUseCases();
 
-#if DEBUG
+        /*
+         * ************************************************************
+         * Persistence and Service Bus Sections
+         * ************************************************************
+        */
+
+#if IN_MEMORY
         services.AddInMemoryPersistence();
-#else
-        // Select your Database
-        // services.AddMongoDBPersistence(Configuration);
-        // services.AddSQLServerPersistence(Configuration);
+#elif MONGO_DB
+        services.AddMongoDBPersistence(Configuration);
+#elif SQL_SERVER
+        services.AddSQLServerPersistence(Configuration);
 #endif
+
+#if REBUS
+        services.AddRebusServiceBus(Configuration);
+#elif MASSTRANSIT
+        services.AddMassTransitServiceBus(Configuration);
+#elif N_SERVICE_BUS
+        services.AddNServiceBusServiceBus(Configuration);
+#endif
+
+        /*
+         * ************************************************************
+         * Persistence and Service Bus Sections END
+         * ************************************************************
+        */
 
         services.AddPresentersV1();
         services.AddPresentersV2();
-
-#if AzureServiceBus
-        services.AddAzureServiceBus(Configuration);
-#endif
-
-#if NServiceBus
-        services.AddParticularServiceBus(Configuration);
-#endif
-
-#if Rebus
-        services.AddRebusServiceBus(Configuration);
-#endif
-
-        // Select your Enterprise service bus library
-        // services.AddAzureServiceBus(Configuration);
-        // services.AddMassTransitServiceBus(Configuration);
-        services.AddParticularServiceBus(Configuration);
-
-        // services.AddRebusServiceBus(Configuration);
 
         // refit apis
         services.AddRefitClient<IOrderApi>()

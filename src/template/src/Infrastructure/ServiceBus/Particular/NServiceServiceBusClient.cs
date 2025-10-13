@@ -4,12 +4,12 @@ using MongoDB.Driver;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Particular;
 
-public class ParticularServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
+public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
 {
-    private readonly ParticularServiceBusSettings _settings;
+    private readonly NServiceServiceBusSettings _settings;
     private IEndpointInstance _instance;
 
-    public ParticularServiceBusClient(IOptions<ParticularServiceBusSettings> settings)
+    public NServiceServiceBusClient(IOptions<NServiceServiceBusSettings> settings)
     {
         _settings = settings.Value;
 
