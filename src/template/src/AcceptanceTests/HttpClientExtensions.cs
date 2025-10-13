@@ -10,7 +10,6 @@ public static class HttpClientExtensions
             Content = content
         };
 
-        var response = await client.SendAsync(request);
-        return response;
+        return await client.SendAsync(request);
     }
 }

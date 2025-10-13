@@ -1,20 +1,11 @@
-using Genocs.CleanArchitecture.Template.WebApi;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Text;
 using Xunit;
 
 namespace Genocs.CleanArchitecture.Template.AcceptanceTests.V2;
 
-public sealed class SunnyDayTests : IClassFixture<WebApplicationFactory<Startup>>
+public sealed class SunnyDayTests(WebApplicationFactory<Program> factory) : IClassFixture<WebApplicationFactory<Program>>
 {
-    private readonly WebApplicationFactory<Startup> _factory;
-
-    public SunnyDayTests(WebApplicationFactory<Startup> factory)
-    {
-        _factory = factory;
-    }
+    private readonly WebApplicationFactory<Program> _factory = factory;
 #if Full
     [Fact]
     public async Task RegisterDepositWithdrawCloseAsync()
@@ -114,5 +105,5 @@ public sealed class SunnyDayTests : IClassFixture<WebApplicationFactory<Startup>
         var response = await client.DeleteAsync($"api/v1/Accounts/{account}?api-version=1");
         response.EnsureSuccessStatusCode();
     }
-#endif		
+#endif
 }

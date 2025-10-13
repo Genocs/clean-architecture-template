@@ -1,4 +1,3 @@
-using Asp.Versioning.ApiExplorer;
 using Genocs.CleanArchitecture.Template.Infrastructure.HealthChecks;
 using Genocs.CleanArchitecture.Template.WebApi.ApiClient;
 using Genocs.CleanArchitecture.Template.WebApi.Extensions;
@@ -205,3 +204,6 @@ app.UseEndpoints(endpoints =>
 app.Run();
 
 Log.CloseAndFlush();
+
+// Make the implicit Program class public so test projects can access it
+public partial class Program;
