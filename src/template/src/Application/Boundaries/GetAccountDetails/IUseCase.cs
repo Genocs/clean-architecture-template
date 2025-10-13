@@ -2,5 +2,5 @@ namespace Genocs.CleanArchitecture.Template.Application.Boundaries.GetAccountDet
 
 public interface IUseCase
 {
-    Task Execute(GetAccountDetailsInput getAccountDetailsInput);
+    Task ExecuteAsync(GetAccountDetailsInput getAccountDetailsInput);
 }

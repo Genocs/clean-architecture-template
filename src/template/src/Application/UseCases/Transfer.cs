@@ -27,7 +27,7 @@ public sealed class Transfer : IUseCase
         _serviceBus = serviceBus;
     }
 
-    public async Task Execute(TransferInput input)
+    public async Task ExecuteAsync(TransferInput input)
     {
         var originAccount = await _accountRepository.Get(input.OriginAccountId);
         if (originAccount == null)

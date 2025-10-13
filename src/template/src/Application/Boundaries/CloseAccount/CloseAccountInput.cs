@@ -6,7 +6,7 @@ public sealed class CloseAccountInput
 {
     public Guid AccountId { get; }
 
-    public CloseAccountInput(Guid accountId)
+    public CloseAccountInput(in Guid accountId)
     {
         if (accountId == Guid.Empty)
         {

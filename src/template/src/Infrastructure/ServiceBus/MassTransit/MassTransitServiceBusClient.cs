@@ -1,85 +1,80 @@
 ﻿using Genocs.CleanArchitecture.Template.Application.Services;
-using Genocs.CleanArchitecture.Template.Shared.Interfaces;
+using Genocs.CleanArchitecture.Template.Infrastructure.Options;
 using MassTransit;
 using Microsoft.Extensions.Options;
 
-namespace Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.MassTransit
+namespace Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.MassTransit;
+
+public class MassTransitServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
 {
+    private readonly MassTransitSetting _settings;
 
+    private IPublishEndpoint _publishEndpoint;
 
-    public class MassTransitServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
+    public MassTransitServiceBusClient(IOptions<MassTransitSetting> settings)
     {
-        private readonly MassTransitSetting _settings;
+        _settings = settings.Value;
 
-        private IPublishEndpoint _publishEndpoint;
-
-        public MassTransitServiceBusClient(IOptions<MassTransitSetting> settings)
+        if (_settings is null)
         {
-            _settings = settings.Value;
-
-            if (_settings is null)
-            {
-                throw new NullReferenceException("settings.Value.cannot be null");
-            }
-
-            //ServiceBusConnectionStringBuilder connectionStringBuilder = new ServiceBusConnectionStringBuilder
-            //{
-            //    Endpoint = _settings.QueueEndpoint,
-            //    EntityPath = _settings.QueueName,
-            //    SasKeyName = _settings.QueueAccessPolicyName,
-            //    SasKey = _settings.QueueAccessPolicyKey,
-            //    TransportType = TransportType.Amqp
-            //};
-
-            //_queueClient = new QueueClient(connectionStringBuilder)
-            //{
-            //    PrefetchCount = _settings.PrefetchCount
-            //};
+            throw new NullReferenceException("settings.Value.cannot be null");
         }
 
+        //ServiceBusConnectionStringBuilder connectionStringBuilder = new ServiceBusConnectionStringBuilder
+        //{
+        //    Endpoint = _settings.QueueEndpoint,
+        //    EntityPath = _settings.QueueName,
+        //    SasKeyName = _settings.QueueAccessPolicyName,
+        //    SasKey = _settings.QueueAccessPolicyKey,
+        //    TransportType = TransportType.Amqp
+        //};
 
-        public void Dispose()
+        //_queueClient = new QueueClient(connectionStringBuilder)
+        //{
+        //    PrefetchCount = _settings.PrefetchCount
+        //};
+    }
+    public void Dispose()
+    {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsyncCore();
+
+        Dispose(disposing: false);
+        GC.SuppressFinalize(this);
+    }
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
+
         }
+    }
 
-        public async ValueTask DisposeAsync()
-        {
-            await DisposeAsyncCore();
+    protected virtual async ValueTask DisposeAsyncCore()
+    {
+        //if (_bus is not null)
+        //{
+        //    await _bus.DisposeAsync();
+        //}
 
-            Dispose(disposing: false);
-            GC.SuppressFinalize(this);
-        }
+        //_bus = null;
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
+        await Task.CompletedTask;
+    }
 
-            }
-        }
+    public async Task PublishEventAsync<T>(T @event)
+        where T : Shared.Interfaces.IEvent
+    {
+        await Task.CompletedTask;
+    }
 
-        protected virtual async ValueTask DisposeAsyncCore()
-        {
-            //if (_bus is not null)
-            //{
-            //    await _bus.DisposeAsync();
-            //}
-
-            //_bus = null;
-
-            await Task.CompletedTask;
-        }
-
-        public async Task PublishEventAsync<T>(T @event) where T : IEvent
-        {
-            await Task.CompletedTask;
-        }
-
-        public async Task SendCommandAsync<T>(T command) where T : ICommand
-        {
-            await Task.CompletedTask;
-        }
+    public async Task SendCommandAsync<T>(T command)
+        where T : Shared.Interfaces.ICommand
+    {
+        await Task.CompletedTask;
     }
 }

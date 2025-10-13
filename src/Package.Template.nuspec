@@ -9,10 +9,10 @@
     <projectUrl>https://github.com/Genocs/clean-architecture-template</projectUrl>
     <repository type="git" url="https://github.com/Genocs/clean-architecture-template.git" branch="main" />
     <license type="expression">MIT</license>
-    <icon>.\content\icon.png</icon>
-    <readme>.\content\README_NUGET.md</readme>
+    <icon>.\icon.png</icon>
+    <readme>.\README_NUGET.md</readme>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <copyright>2024</copyright>
+    <copyright>Copyright (c) 2025 Genocs Services</copyright>
     <summary>
       A .NET template following the Clean Architecture Style, DDD and Separation of Concerns in Domain, Application, Infrastructure and UI. Separated host for WebApi and ServiceBus. Docker compose debugging support provided as well.
     </summary>	

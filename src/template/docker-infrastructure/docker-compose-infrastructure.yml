@@ -1,4 +1,3 @@
-version: "2"
 services:
   rabbit_node_1:
     image: "rabbitmq:3-management"
@@ -15,12 +14,12 @@ services:
     networks:
       - genocs
     tty: true
-    command:  bash -c "sleep 10; rabbitmq-server;"
+    command: bash -c "sleep 10; rabbitmq-server;"
 
   rabbit_node_2:
-    image: "rabbitmq:3-management"  
+    image: "rabbitmq:3-management"
     hostname: rabbit_node_2
-    container_name: rabbit2     
+    container_name: rabbit2
     environment:
       - RABBITMQ_ERLANG_COOKIE='secret_cookie'
     depends_on:
@@ -34,12 +33,11 @@ services:
     networks:
       - genocs
     tty: true
-    command:  bash -c "sleep 10; rabbitmq-server;"
-
+    command: bash -c "sleep 10; rabbitmq-server;"
 
   mongodb_node_1:
     image: "mongo"
-    hostname: mongo_db1    
+    hostname: mongo_db1
     container_name: mongo_db1
     ports:
       - "27017:27017"
@@ -47,7 +45,7 @@ services:
       - mongodb_data1:/data/db
     networks:
       - genocs
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+    entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0"]
 
   mongodb_node_2:
     image: "mongo"
@@ -59,7 +57,7 @@ services:
       - mongodb_data2:/data/db
     networks:
       - genocs
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+    entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0"]
 
   mongodb_node_3:
     image: "mongo"
@@ -71,8 +69,7 @@ services:
       - mongodb_data3:/data/db
     networks:
       - genocs
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
-
+    entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0"]
 
   sqlserver:
     image: "mcr.microsoft.com/mssql/server"
@@ -97,7 +94,7 @@ services:
     networks:
       - genocs
     # network_mode: host
-    volumes: 
+    volumes:
       - redis_data:/data
 
 volumes:

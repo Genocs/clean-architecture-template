@@ -9,7 +9,7 @@ public sealed class CreditsCollection
 
     public CreditsCollection()
     {
-        _credits = new List<ICredit>();
+        _credits = [];
     }
 
     public void Add<T>(IEnumerable<T> credits)

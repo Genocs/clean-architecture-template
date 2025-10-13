@@ -15,12 +15,12 @@ public sealed class DepositOutput
         Credit creditEntity = (Credit)credit;
 
         Transaction = new Transaction(
-            creditEntity.Description,
-            creditEntity
-            .Amount
-            .ToMoney()
-            .ToDecimal(),
-            creditEntity.TransactionDate);
+                                    creditEntity.Description,
+                                    creditEntity
+                                    .Amount
+                                    .ToMoney()
+                                    .ToDecimal(),
+                                    creditEntity.TransactionDate);
 
         UpdatedBalance = updatedBalance.ToDecimal();
     }

@@ -1,4 +1,4 @@
-﻿using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.MassTransit;
+﻿using Genocs.CleanArchitecture.Template.Infrastructure.Options;
 using Microsoft.Extensions.Options;
 
 namespace Genocs.CleanArchitecture.Template.Worker.HostedServices;
@@ -9,7 +9,6 @@ internal class MassTransitBusService : IHostedService
     private readonly MassTransitSetting _settings;
 
     private readonly IServiceProvider _serviceProvider;
-
 
     public MassTransitBusService(IOptions<MassTransitSetting> options, ILogger<MassTransitBusService> logger, IServiceProvider serviceProvider)
     {

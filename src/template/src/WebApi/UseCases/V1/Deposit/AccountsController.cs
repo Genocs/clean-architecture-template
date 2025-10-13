@@ -34,13 +34,13 @@ public sealed class AccountsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DepositResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Deposit([FromBody][Required] DepositRequest request)
+    public async Task<IActionResult?> Deposit([FromBody][Required] DepositRequest request)
     {
         var depositInput = new DepositInput(
                                             request.AccountId,
                                             new PositiveMoney(request.Amount));
 
-        await _depositUseCase.Execute(depositInput);
+        await _depositUseCase.ExecuteAsync(depositInput);
         return _presenter.ViewModel;
     }
 }

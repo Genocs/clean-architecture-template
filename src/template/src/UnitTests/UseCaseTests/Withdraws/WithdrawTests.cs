@@ -30,7 +30,7 @@ public sealed class WithdrawlTests : IClassFixture<StandardFixture>
             _fixture.ServiceBus
         );
 
-        await sut.Execute(new WithdrawInput(
+        await sut.ExecuteAsync(new WithdrawInput(
             _fixture.Context.DefaultAccountId,
             new PositiveMoney(amount)));
 

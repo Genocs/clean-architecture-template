@@ -7,11 +7,11 @@ public static class AzureServicebusInfrastructureExtensions
 {
     public static IServiceCollection AddAzureServiceBus(this IServiceCollection services, IConfiguration config)
     {
-        // Add Azure Service Bus
-        services.AddSingleton<IServiceBusClient, AzureServiceBusClient>();
-
         // Setup registration
         services.Configure<AzureServiceBusSettings>(config.GetSection("AzureServiceBusSettings"));
+
+        // Add Azure Service Bus
+        services.AddSingleton<IServiceBusClient, AzureServiceBusClient>();
 
         return services;
     }

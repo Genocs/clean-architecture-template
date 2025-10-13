@@ -2,12 +2,7 @@ using Genocs.CleanArchitecture.Template.Domain.Accounts;
 
 namespace Genocs.CleanArchitecture.Template.Application.Boundaries.CloseAccount;
 
-public sealed class CloseAccountOutput
+public sealed class CloseAccountOutput(IAccount account)
 {
-    public Guid AccountId { get; }
-
-    public CloseAccountOutput(IAccount account)
-    {
-        AccountId = account.Id;
-    }
+    public Guid AccountId { get; } = account.Id;
 }

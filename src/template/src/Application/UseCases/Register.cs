@@ -6,32 +6,22 @@ using Genocs.CleanArchitecture.Template.Shared.Events;
 
 namespace Genocs.CleanArchitecture.Template.Application.UseCases;
 
-public sealed class Register : IUseCase
+public sealed class Register(IEntityFactory entityFactory,
+    IOutputPort outputHandler,
+    ICustomerRepository customerRepository,
+    IAccountRepository accountRepository,
+    IUnitOfWork unityOfWork,
+    IServiceBusClient serviceBus)
+    : IUseCase
 {
-    private readonly IEntityFactory _entityFactory;
-    private readonly IOutputPort _outputHandler;
-    private readonly ICustomerRepository _customerRepository;
-    private readonly IAccountRepository _accountRepository;
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IServiceBusClient _serviceBus;
+    private readonly IEntityFactory _entityFactory = entityFactory;
+    private readonly IOutputPort _outputHandler = outputHandler;
+    private readonly ICustomerRepository _customerRepository = customerRepository;
+    private readonly IAccountRepository _accountRepository = accountRepository;
+    private readonly IUnitOfWork _unitOfWork = unityOfWork;
+    private readonly IServiceBusClient _serviceBus = serviceBus;
 
-    public Register(
-        IEntityFactory entityFactory,
-        IOutputPort outputHandler,
-        ICustomerRepository customerRepository,
-        IAccountRepository accountRepository,
-        IUnitOfWork unityOfWork,
-        IServiceBusClient serviceBus)
-    {
-        _entityFactory = entityFactory;
-        _outputHandler = outputHandler;
-        _customerRepository = customerRepository;
-        _accountRepository = accountRepository;
-        _unitOfWork = unityOfWork;
-        _serviceBus = serviceBus;
-    }
-
-    public async Task Execute(RegisterInput input)
+    public async Task ExecuteAsync(RegisterInput input)
     {
         if (input == null)
         {

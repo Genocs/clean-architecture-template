@@ -26,7 +26,7 @@ public sealed class CloseAccount : IUseCase
         _orderApiClient = orderApiClient;
     }
 
-    public async Task Execute(CloseAccountInput closeAccountInput)
+    public async Task ExecuteAsync(CloseAccountInput closeAccountInput)
     {
         var account = await _accountRepository.Get(closeAccountInput.AccountId);
         if (account == null)

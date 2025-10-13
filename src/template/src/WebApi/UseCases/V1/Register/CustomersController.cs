@@ -9,18 +9,10 @@ namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Register;
 [ApiVersion("1.0")]
 [Route("api/v1/[controller]")]
 [ApiController]
-public sealed class CustomersController : ControllerBase
+public sealed class CustomersController(IUseCase registerUseCase, RegisterPresenter presenter) : ControllerBase
 {
-    private readonly IUseCase _registerUseCase;
-    private readonly RegisterPresenter _presenter;
-
-    public CustomersController(
-                                IUseCase registerUseCase,
-                                RegisterPresenter presenter)
-    {
-        _registerUseCase = registerUseCase ?? throw new ArgumentNullException(nameof(registerUseCase));
-        _presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
-    }
+    private readonly IUseCase _registerUseCase = registerUseCase ?? throw new ArgumentNullException(nameof(registerUseCase));
+    private readonly RegisterPresenter _presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
 
     /// <summary>
     /// Register a customer.
@@ -41,7 +33,7 @@ public sealed class CustomersController : ControllerBase
                                                 new Name(request.Name),
                                                 new PositiveMoney(request.InitialAmount));
 
-        await _registerUseCase.Execute(registerInput);
+        await _registerUseCase.ExecuteAsync(registerInput);
 
         return _presenter.ViewModel;
     }

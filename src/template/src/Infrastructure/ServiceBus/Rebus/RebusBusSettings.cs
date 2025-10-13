@@ -2,8 +2,11 @@
 {
     public class RebusBusSettings
     {
-        public string TransportConnection { get; set; }
+        public const string Position = "RebusBusSettings";
+        public bool Enabled { get; set; }
 
-        public string QueueName { get; set; }
+        public string? TransportConnection { get; set; }
+
+        public string? QueueName { get; set; }
     }
 }

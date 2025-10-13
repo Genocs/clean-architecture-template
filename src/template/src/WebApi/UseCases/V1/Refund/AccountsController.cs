@@ -34,13 +34,13 @@ public sealed class AccountsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RefundResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Refund([FromBody][Required] RefundRequest request)
+    public async Task<IActionResult?> Refund([FromBody][Required] RefundRequest request)
     {
         RefundInput refundInput = new RefundInput(
                                                     request.AccountId,
                                                     new PositiveMoney(request.Amount));
 
-        await _refundUseCase.Execute(refundInput);
+        await _refundUseCase.ExecuteAsync(refundInput);
         return _presenter.ViewModel;
     }
 }

@@ -2,22 +2,16 @@ using Asp.Versioning.ApiExplorer;
 using Genocs.CleanArchitecture.Template.WebApi.ApiClient;
 using Genocs.CleanArchitecture.Template.WebApi.Extensions;
 using Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Refit;
 
 namespace Genocs.CleanArchitecture.Template.WebApi;
 
-public sealed class Startup
+public sealed class Startup(IConfiguration configuration)
 {
-    public Startup(IConfiguration configuration)
-    {
-        Configuration = configuration;
-    }
-
-    public IConfiguration Configuration { get; }
+    public IConfiguration Configuration { get; } = configuration;
 
     // This method gets called by the runtime. Use this method to add services to the container.
-    public void ConfigureDevelopmentServices(IServiceCollection services)
+    public void ConfigureServices(IServiceCollection services)
         => InternalConfiguration(services);
 
     public void ConfigureProductionServices(IServiceCollection services)
@@ -91,14 +85,5 @@ public sealed class Startup
         {
             endpoints.MapControllers();
         });
-    }
-
-    public void HealthChecks(IServiceCollection services, IConfiguration configuration)
-    {
-        services.AddHealthChecks().AddMongoDb(
-            mongodbConnectionString: "mongodb://localhost:27017",
-            name: "MongoDB",
-            failureStatus: HealthStatus.Unhealthy,
-            tags: new string[] { "db", "mongoDB" });
     }
 }

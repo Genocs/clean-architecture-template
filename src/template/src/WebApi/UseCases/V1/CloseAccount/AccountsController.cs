@@ -36,7 +36,7 @@ public sealed class AccountsController : ControllerBase
     public async Task<IActionResult> Close([FromRoute][Required] CloseAccountRequest request)
     {
         var closeAccountInput = new CloseAccountInput(request.AccountId);
-        await _closeAccountUseCase.Execute(closeAccountInput);
+        await _closeAccountUseCase.ExecuteAsync(closeAccountInput);
         return _presenter.ViewModel;
     }
 }

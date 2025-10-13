@@ -16,10 +16,7 @@ public class SwaggerDocumentFilter : IDocumentFilter
 
     public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
     {
-        if (swaggerDoc == null)
-        {
-            throw new ArgumentNullException(nameof(swaggerDoc));
-        }
+        ArgumentNullException.ThrowIfNull(swaggerDoc);
 
         swaggerDoc.Tags = GetFilteredTagDefinitions(context);
         swaggerDoc.Paths = GetSortedPaths(swaggerDoc);

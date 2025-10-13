@@ -31,6 +31,8 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+[Ii]mages/
+[Dd]atabases/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -452,3 +454,10 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Package build
+nupkgs
+nuget.exe
+
+[Ll]og*.txt
+

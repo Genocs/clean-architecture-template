@@ -6,7 +6,7 @@ public sealed class GetAccountDetailsInput
 {
     public Guid AccountId { get; }
 
-    public GetAccountDetailsInput(Guid accountId)
+    public GetAccountDetailsInput(in Guid accountId)
     {
         if (accountId == Guid.Empty)
         {

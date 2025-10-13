@@ -72,10 +72,12 @@ public class Program
         builder.UseNServiceBus(context =>
         {
             var endpointConfiguration = new EndpointConfiguration("Sample.FrontEnd");
+
             // endpointConfiguration.SendOnly();
 
             // Use Rabbit as transport
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
+
             // transport.UseConventionalRoutingTopology();
             transport.ConnectionString("amqp://rabbitmq");
 

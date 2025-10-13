@@ -7,11 +7,11 @@ public static class RebusServicebusInfrastructureExtensions
 {
     public static IServiceCollection AddRebusServiceBus(this IServiceCollection services, IConfiguration config)
     {
-        // Add Rebus Service Bus 
-        services.AddSingleton<IServiceBusClient, RebusServiceBusClient>();
+        // Configure Rebus settings
+        services.Configure<RebusBusSettings>(config.GetSection(RebusBusSettings.Position));
 
-        // Setup registration
-        services.Configure<RebusBusSettings>(config.GetSection("RebusBusSettings"));
+        // Add Rebus Service Bus
+        services.AddSingleton<IServiceBusClient, RebusServiceBusClient>();
 
         return services;
     }

@@ -18,7 +18,6 @@ on:
         # Input has to be provided for the workflow to run
         required: true
 
-
 jobs:
   build:
     name: Update NuGet package
@@ -26,21 +25,30 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-    
+        uses: actions/checkout@v5
+
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: 8.0.x
-    
+          dotnet-version: 9.0.x
+
+      - name: Setup NuGet CLI
+        uses: nuget/setup-nuget@v2
+        with:
+          nuget-version: "latest"
+        # Note: Required for nuget pack command. Alternative: use dotnet pack with a .csproj
+
       - name: Restore dependencies
         run: dotnet restore ./src/template
-    
+
       - name: Build
         run: dotnet build ./src/template --no-restore
-    
+
       - name: Test
         run: dotnet test ./src/template --no-build --verbosity normal
+
+      - name: Create output directory
+        run: mkdir -p ./out
 
       - name: Pack
         run: nuget pack ./src/Package.Template.nuspec -NoDefaultExcludes -OutputDirectory ./out -Version ${{ github.event.inputs.version }}

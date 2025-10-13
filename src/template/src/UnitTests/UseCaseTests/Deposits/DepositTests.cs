@@ -30,7 +30,7 @@ public sealed class DepositTests : IClassFixture<StandardFixture>
             _fixture.ServiceBus
         );
 
-        await sut.Execute(
+        await sut.ExecuteAsync(
             new DepositInput(
                 _fixture.Context.DefaultAccountId,
                 new PositiveMoney(amount)));
@@ -49,14 +49,9 @@ public sealed class DepositTests : IClassFixture<StandardFixture>
             presenter,
             _fixture.AccountRepository,
             _fixture.UnitOfWork,
-            _fixture.ServiceBus
-        );
+            _fixture.ServiceBus);
 
         await Assert.ThrowsAsync<MoneyShouldBePositiveException>(() =>
-            sut.Execute(
-                new DepositInput(
-                    _fixture.Context.DefaultAccountId,
-                    new PositiveMoney(amount)
-                )));
+            sut.ExecuteAsync(new DepositInput(_fixture.Context.DefaultAccountId, new PositiveMoney(amount))));
     }
 }

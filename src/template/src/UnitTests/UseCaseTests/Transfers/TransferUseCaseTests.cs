@@ -30,7 +30,7 @@ public sealed class TransferUseCaseTests : IClassFixture<StandardFixture>
             _fixture.ServiceBus
         );
 
-        await sut.Execute(
+        await sut.ExecuteAsync(
             new TransferInput(
                 _fixture.Context.DefaultAccountId,
                 _fixture.Context.SecondAccountId,

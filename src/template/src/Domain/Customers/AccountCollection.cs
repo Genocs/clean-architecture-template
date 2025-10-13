@@ -8,7 +8,7 @@ public sealed class AccountCollection
 
     public AccountCollection()
     {
-        _accountIds = new List<Guid>();
+        _accountIds = [];
     }
 
     public void Add(IEnumerable<Guid> accounts)
@@ -23,7 +23,7 @@ public sealed class AccountCollection
         return accountIds;
     }
 
-    public void Add(Guid accountId)
+    public void Add(in Guid accountId)
     {
         _accountIds.Add(accountId);
     }

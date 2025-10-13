@@ -1,4 +1,4 @@
-using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.MassTransit;
+using Genocs.CleanArchitecture.Template.Infrastructure.Options;
 using Genocs.CleanArchitecture.Template.Worker.MassTransit.Handlers;
 using MassTransit;
 

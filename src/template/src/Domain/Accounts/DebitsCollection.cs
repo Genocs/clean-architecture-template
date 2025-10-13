@@ -9,7 +9,7 @@ public sealed class DebitsCollection
 
     public DebitsCollection()
     {
-        _debits = new List<IDebit>();
+        _debits = [];
     }
 
     public void Add<T>(IEnumerable<T> debits)

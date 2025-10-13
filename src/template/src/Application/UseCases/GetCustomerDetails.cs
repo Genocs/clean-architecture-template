@@ -19,7 +19,7 @@ public sealed class GetCustomerDetails : IUseCase
         _accountRepository = accountRepository;
     }
 
-    public async Task Execute(GetCustomerDetailsInput input)
+    public async Task ExecuteAsync(GetCustomerDetailsInput input)
     {
         var customer = await _customerRepository.Get(input.CustomerId);
 

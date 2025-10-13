@@ -47,7 +47,7 @@
 
 
 # Clean Architecture Template 
-Built for .NET8. It incorporates the most essential Packages your projects will ever need. Follows Clean Architecture Principles.
+Built for .NET9. It incorporates the most essential Packages your projects will ever need. Follows Clean Architecture Principles.
 
 The template can be used with the `dotnet new` command or with the `Visual Studio 2022` or `Visual Studio Code` IDEs.
 

@@ -27,7 +27,7 @@ public sealed class Refund : IUseCase
         _serviceBus = serviceBus;
     }
 
-    public async Task Execute(RefundInput input)
+    public async Task ExecuteAsync(RefundInput input)
     {
         var account = await _accountRepository.Get(input.AccountId);
         if (account == null)

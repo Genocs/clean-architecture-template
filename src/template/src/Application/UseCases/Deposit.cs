@@ -27,7 +27,7 @@ public sealed class Deposit : IUseCase
         _serviceBus = serviceBus;
     }
 
-    public async Task Execute(DepositInput input)
+    public async Task ExecuteAsync(DepositInput input)
     {
         var account = await _accountRepository.Get(input.AccountId);
         if (account == null)

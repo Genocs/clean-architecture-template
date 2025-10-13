@@ -4,7 +4,7 @@
   "classifications": [
     "Web/ASP.NET"
   ],
-  "name": "Genocs: .NET8 Clean Architecture Template",
+  "name": "Genocs: .NET9 Clean Architecture Template",
   "identity": "Genocs.CleanArchitecture.Template",
   "groupIdentity": "Genocs.CleanArchitecture.Template",
   "shortName": "cleanarchitecture",
@@ -105,11 +105,11 @@
     "NServiceBus": {
       "type": "computed",
       "value": "(service-bus == \"nservicebus\")"
-    },    
+    },
     "Rebus": {
       "type": "computed",
       "value": "(service-bus == \"rebus\")"
-    },      
+    },
     "InMemory": {
       "type": "computed",
       "value": "(database == \"inmemory\")"
@@ -121,7 +121,7 @@
     "MongoDb": {
       "type": "computed",
       "value": "(database == \"mongodb\")"
-    }, 
+    },
     "CloseAccount": {
       "type": "computed",
       "value": "(Full)"

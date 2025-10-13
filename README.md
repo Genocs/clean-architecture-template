@@ -1,4 +1,5 @@
 <!-- PROJECT SHIELDS -->
+
 [![License][license-shield]][license-url]
 [![Build][build-shield]][build-url]
 [![Packages][package-shield]][package-url]
@@ -43,90 +44,185 @@
 [twitterx-shield]: https://img.shields.io/twitter/url/https/twitter.com/genocs.svg?style=social
 [twitterx-url]: https://twitter.com/genocs
 
-
 <p align="center">
     <img src="./assets/genocs-library-logo.png" alt="icon">
 </p>
 
-# Clean Architecture Template 
-Built for .NET8. It incorporates the most essential Packages your projects will ever need. Follows Clean Architecture Principles.
+# Genocs Clean Architecture Template
 
-The template can be used with the `dotnet new` command or with the `Visual Studio 2022` or `Visual Studio Code` IDEs.
+A comprehensive .NET 9 project template that follows Clean Architecture principles and Domain-Driven Design (DDD). This template helps you rapidly scaffold microservices applications with built-in support for multiple databases, message brokers, and enterprise patterns.
 
-## Goals
+## 📋 Table of Contents
 
-This is an Application Template built to help you create LOB applications. It follows the Clean Architecture Principles and built on Domain-Driven-Design. This tool is useful to increases productivity on developing your next microservices.
-The template allows you to use different databases and enterprise service bus.
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Quick Start](#quick-start)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Template Options](#template-options)
+- [Architecture Overview](#architecture-overview)
+- [Examples](#examples)
+- [Contributing](#contributing)
+- [Support](#support)
+
+## ✨ Features
+
+- 🏗️ **Clean Architecture** - Domain, Application, Infrastructure, and Presentation layers
+- 🎯 **Domain-Driven Design** - Rich domain models with proper separation of concerns
+- 📨 **CQRS Pattern** - Command Query Responsibility Segregation with MediatR
+- 🚌 **Message Brokers** - Support for RabbitMQ, Azure Service Bus, and more
+- 🗃️ **Multiple Databases** - SQL Server, MongoDB, Redis integration
+- 🔍 **Observability** - OpenTelemetry tracing and monitoring
+- 🐳 **Containerization** - Docker and Kubernetes ready
+- ⚡ **Background Services** - Worker services for async processing
 
 ### Databases supported:
+
 - InMemoryDB (for development purpose)
 - SqlServer
 - MongoDB
 
-
 ### Enterprise Service Bus libraries supported:
+
 - Particular NServiceBus
 - MassTransit
 - Rebus
 
-## Prerequisites
-- [.NET 8.x](https://dotnet.microsoft.com/download/dotnet/8.0)
+## 📋 Prerequisites
 
-- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/preview/vs2022/)(optional)
-- [Visual Studio Code](https://code.visualstudio.com/download)(optional)
-- [Rider](https://www.jetbrains.com/rider/)(optional)
+- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) (latest version)
+- **IDE** (choose one):
+  - [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (recommended)
+  - [Visual Studio Code](https://code.visualstudio.com/) with C# extension
+  - [JetBrains Rider](https://www.jetbrains.com/rider/)
+- **Optional for development**:
+  - [Docker Desktop](https://www.docker.com/products/docker-desktop) for containerization
+  - MongoDB, SQL Server, or Redis (if not using Docker)
 
+## 🚀 Quick Start
 
-## Getting Started
+### Install the Template
 
-Open up your *Command Prompt* or *PowerShell* or "bash" and run the following command.
+```bash
+# Install the latest version
+dotnet new install Genocs.CleanArchitecture.Template
 
-``` bash
+# Or install a specific version
+dotnet new install Genocs.CleanArchitecture.Template::3.1.0
+
+# Create a new microservice
+dotnet new cleanarchitecture --name "MyCompany.OrderService" --database mongodb --servicebus masstransit
+
+# Navigate to the project directory
+cd MyCompany.OrderService
+
+# Build and run
+dotnet build
+dotnet test
+dotnet run --project src/MyCompany.OrderService.WebApi
+
+# View all available options
+dotnet new cleanarchitecture --help
+
+# Example with custom options
+dotnet new cleanarchitecture \
+  --name "Acme.InventoryService" \
+  --database sqlserver \
+  --servicebus particular \
+  --use-cases full
+```
+
+## 🏗️ Architecture Overview
+
+The template generates a solution with the following structure:
+
+```pl
+src/
+├── Domain/ # Core business logic and entities
+├── Application/ # Use cases and application services
+├── Infrastructure/ # Data access and external services
+├── WebApi/ # REST API controllers and middleware
+├── Worker/ # Background services and message handlers
+├── Shared/ # Cross-cutting concerns and DTOs
+└── Contracts/ # API contracts and events
+```
+
+### Key Components
+
+- **Domain Layer**: Entities, value objects, domain services
+- **Application Layer**: CQRS handlers, interfaces, DTOs
+- **Infrastructure Layer**: Repositories, message brokers, databases
+- **Presentation Layer**: Controllers, middleware, API documentation
+
+## 🔧 Development Workflow
+
+### Local Development
+
+```bash
+# Start infrastructure services
+docker-compose -f docker-infrastructure/docker-compose-infrastructure.yml up -d
+
+# Run the API
+dotnet run --project src/YourProject.WebApi
+
+# Run the Worker
+dotnet run --project src/YourProject.Worker
+
+# Run all tests
+dotnet test
+
+# Run specific test projects
+dotnet test src/UnitTests
+dotnet test src/IntegrationTests
+dotnet test src/AcceptanceTests
+```
+
+## 💬 Community & Support
+
+### Get Help
+
+- 💬 [Discord Community](https://discord.com/invite/fWwArnkV)
+- 📖 [Documentation](https://genocs-blog.netlify.app/library/)
+- 🐛 [Report Issues](https://github.com/Genocs/clean-architecture-template/issues)
+
+### Stay Connected
+
+- 🐦 [Twitter @genocs](https://twitter.com/genocs)
+- 📺 [YouTube Channel](https://youtube.com/c/genocs)
+- 💼 [LinkedIn](https://www.linkedin.com/in/giovanni-emanuele-nocco-b31a5169/)
+
+### Show Your Support
+
+- ⭐ Star this repository
+- 🔄 Share with your team
+- ☕ [Buy me a coffee](https://www.buymeacoffee.com/genocs)
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+**Template installation fails**
+
+```bash
+# Uninstall old version first
+dotnet new uninstall Genocs.CleanArchitecture.Template
+dotnet new install Genocs.CleanArchitecture.Template
+
+# Restore packages
+dotnet restore
+dotnet build
+
 # To clone the repository
 git clone https://github.com/Genocs/clean-architecture-template
 # To build the nuget package
 nuget pack ./src/Package.Template.nuspec -NoDefaultExcludes -OutputDirectory ./out -Version 3.1.0
+
 ```
 
-
-``` bash
-# To install the template
-dotnet new install Genocs.CleanArchitecture.Template
-```
-
-or, 
-
-if you want to use a specific version of the template, 
-
-use
-
-``` bash
-dotnet new install Genocs.CleanArchitecture.Template::3.1.0
-```
-
-This would install the `Genocs CleanArchitecture Template` globally on your machine.
 
 For more details on getting started, [read the documentation](https://genocs-blog.netlify.app/library/)
 
-
-Please check the [documentation](https://learn.microsoft.com/en-us/visualstudio/ide/how-to-locate-and-organize-project-and-item-templates?view=vs-2022) for more details. 
-
-
-## How to create a project
-
-Create, build, test and run:
-
-``` bash
-dotnet new -i Genocs.CleanArchitecture.Template
-dotnet new cleanarchitecture -n {CompanyName.ProjectName.ServiceName}
-cd {CompanyName.ProjectName.ServiceName}
-dotnet build ./src/{CompanyName.ProjectName.ServiceName}.WebApi
-dotnet build ./src/{CompanyName.ProjectName.ServiceName}.Worker
-
-dotnet test
-dotnet run ./src/{CompanyName.ProjectName.ServiceName}.WebApi
-```
-
+Please check the [documentation](https://learn.microsoft.com/en-us/visualstudio/ide/how-to-locate-and-organize-project-and-item-templates?view=vs-2022) for more details.
 
 ## How to build the package
 
@@ -134,8 +230,7 @@ To build the package run the following commands:
 
 [Official Link](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates)
 
-
-``` bash
+```bash
 cd ./src
 nuget pack
 dotnet new u Genocs.CleanArchitecture.Template
@@ -144,13 +239,11 @@ dotnet new cleanarchitecture --help
 dotnet new cleanarchitecture --name {MyCompany.MyProject} -d mongodb -sb particular
 ```
 
-
 ## Sample application
 
 Run `dotnet new -i Genocs.CleanArchitecture.Template` then try the following commands.
 
-
-``` bash
+```bash
 # Complete suite of use cases.
 dotnet new cleanarchitecture --use-cases full
 
@@ -161,17 +254,17 @@ dotnet new cleanarchitecture --use-cases basic
 dotnet new cleanarchitecture --use-cases readonly
 ```
 
-
 ## Miscellaneous
 
 Useful commands:
 
-``` bash
+```bash
 # How to get the list of installed templates
 dotnet new -u
 
 dotnet --list
 ```
+
 ## Changelogs
 
 View Complete [Changelogs](https://github.com/Genocs/clean-architecture-template/blob/main/CHANGELOGS.md).
@@ -180,26 +273,11 @@ View Complete [Changelogs](https://github.com/Genocs/clean-architecture-template
 
 This project is licensed with the [MIT license](LICENSE).
 
-
 ## Community
 
 - Discord [@genocs](https://discord.com/invite/fWwArnkV)
 - Facebook Page [@genocs](https://facebook.com/Genocs)
 - Youtube Channel [@genocs](https://youtube.com/c/genocs)
-
-
-## Support
-
-Has this Project helped you learn something New? or Helped you at work?
-Here are a few ways by which you can support.
-
-- ⭐ Leave a star!
-- 🥇 Recommend this project to your colleagues.
-- 🦸 Do consider endorsing me on LinkedIn for ASP.NET Core - [Connect via LinkedIn](https://www.linkedin.com/in/giovanni-emanuele-nocco-b31a5169/) 
-- ☕ If you want to support this project in the long run, consider [buying me a coffee](https://www.buymeacoffee.com/genocs)!
-  
-
-[![buy-me-a-coffee](./assets/buy-me-a-coffee.png "buy me a coffee")](https://www.buymeacoffee.com/genocs)
 
 ## Code Contributors
 
@@ -215,7 +293,4 @@ Become a financial contributor and help me sustain the project.
 
 <a href="https://opencollective.com/genocs"><img src="https://opencollective.com/genocs/individuals.svg?width=890"></a>
 
-
 ## Acknowledgements
-
-

@@ -1,9 +1,8 @@
 ﻿using Genocs.CleanArchitecture.Template.Shared.Events;
-using Rebus.Handlers;
 
 namespace Genocs.CleanArchitecture.Template.Worker.Handlers;
 
-public class RebusEventOccurredHandler : IHandleMessages<RegistrationCompleted>
+public class RebusEventOccurredHandler : Rebus.Handlers.IHandleMessages<RegistrationCompleted>
 {
     private readonly ILogger _logger;
 

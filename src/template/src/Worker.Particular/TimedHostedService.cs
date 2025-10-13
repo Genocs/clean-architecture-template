@@ -28,7 +28,7 @@ public class TimedHostedService : IHostedService, IDisposable
                             TimeSpan.Zero,
                             TimeSpan.FromSeconds(5));
 
-        await MessageSession.Send(new DemoMessage());
+        await MessageSession.Send(new DemoMessage(), cancellationToken: stoppingToken);
     }
 
     private void DoWork(object? state)

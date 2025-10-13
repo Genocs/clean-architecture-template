@@ -7,15 +7,10 @@ public interface ICalculateStuff
     Task Calculate(int number);
 }
 
-internal class CalculateStuff : ICalculateStuff
+internal class CalculateStuff(ILogger<CalculateStuff> logger) : ICalculateStuff
 {
-    private readonly ILogger _logger;
+    private readonly ILogger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     public IMessageSession? MessageSession { get; }
-
-    public CalculateStuff(ILogger<CalculateStuff> logger)
-    {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-    }
 
     public Task Calculate(int number)
     {

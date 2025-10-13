@@ -1,9 +1,8 @@
-﻿using Genocs.CleanArchitecture.Template.Application.Services;
-using Genocs.CleanArchitecture.Template.Shared.Interfaces;
+﻿using System.Text;
+using Genocs.CleanArchitecture.Template.Application.Services;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using System.Text;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
 
@@ -72,7 +71,8 @@ public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
         await Task.CompletedTask;
     }
 
-    public async Task PublishEventAsync<T>(T @event) where T : IEvent
+    public async Task PublishEventAsync<T>(T @event)
+        where T : Shared.Interfaces.IEvent
     {
         Message msg = new Message();
         string strMsg = JsonConvert.SerializeObject(@event);
@@ -96,7 +96,7 @@ public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
     }
 
     public async Task SendCommandAsync<T>(T command)
-        where T : ICommand
+        where T : Shared.Interfaces.ICommand
     {
         Message msg = new Message();
         string strMsg = JsonConvert.SerializeObject(command);

@@ -8,10 +8,7 @@ public sealed class GetAccountDetailsOutput
     public decimal CurrentBalance { get; }
     public List<Transaction> Transactions { get; }
 
-    public GetAccountDetailsOutput(
-        Guid accountId,
-        decimal currentBalance,
-        List<Transaction> transactions)
+    public GetAccountDetailsOutput(Guid accountId, decimal currentBalance, List<Transaction> transactions)
     {
         AccountId = accountId;
         CurrentBalance = currentBalance;

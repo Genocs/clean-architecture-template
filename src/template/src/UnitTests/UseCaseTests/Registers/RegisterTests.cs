@@ -19,7 +19,7 @@ public sealed class RegisterTests : IClassFixture<StandardFixture>
     public async Task GivenNullInputThrowsExceptionAsync()
     {
         var register = new Register(null, null, null, null, null, null);
-        await Assert.ThrowsAsync<NullReferenceException>(async () => await register.Execute(null));
+        await Assert.ThrowsAsync<NullReferenceException>(async () => await register.ExecuteAsync(null));
     }
 
     [Theory]
@@ -38,7 +38,7 @@ public sealed class RegisterTests : IClassFixture<StandardFixture>
             _fixture.UnitOfWork,
             _fixture.ServiceBus);
 
-        await sut.Execute(new RegisterInput(
+        await sut.ExecuteAsync(new RegisterInput(
             ssn,
             name,
             new PositiveMoney(amount)));

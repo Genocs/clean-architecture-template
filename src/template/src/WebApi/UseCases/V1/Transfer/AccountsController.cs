@@ -44,7 +44,7 @@ public sealed class AccountsController : ControllerBase
                                                 request.DestinationAccountId,
                                                 new PositiveMoney(request.Amount));
 
-        await _transferUseCase.Execute(transferInput);
+        await _transferUseCase.ExecuteAsync(transferInput);
         return _presenter.ViewModel;
     }
 }

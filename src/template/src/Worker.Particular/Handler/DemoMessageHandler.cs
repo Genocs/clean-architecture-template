@@ -4,14 +4,9 @@ using NServiceBus;
 
 namespace Genocs.CleanArchitecture.Template.Worker.Particular.Handler;
 
-public class DemoMessageHandler : IHandleMessages<DemoMessage>
+public class DemoMessageHandler(ICalculateStuff stuffCalculator) : IHandleMessages<DemoMessage>
 {
-    private readonly ICalculateStuff _stuffCalculator;
-
-    public DemoMessageHandler(ICalculateStuff stuffCalculator)
-    {
-        _stuffCalculator = stuffCalculator ?? throw new ArgumentNullException(nameof(stuffCalculator));
-    }
+    private readonly ICalculateStuff _stuffCalculator = stuffCalculator ?? throw new ArgumentNullException(nameof(stuffCalculator));
 
     public async Task Handle(DemoMessage message, IMessageHandlerContext context)
     {

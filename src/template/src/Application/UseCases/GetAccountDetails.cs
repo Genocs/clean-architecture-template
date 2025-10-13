@@ -3,20 +3,12 @@ using Genocs.CleanArchitecture.Template.Application.Repositories;
 
 namespace Genocs.CleanArchitecture.Template.Application.UseCases;
 
-public sealed class GetAccountDetails : IUseCase
+public sealed class GetAccountDetails(IOutputPort outputHandler, IAccountRepository accountRepository) : IUseCase
 {
-    private readonly IOutputPort _outputHandler;
-    private readonly IAccountRepository _accountRepository;
+    private readonly IOutputPort _outputHandler = outputHandler;
+    private readonly IAccountRepository _accountRepository = accountRepository;
 
-    public GetAccountDetails(
-        IOutputPort outputHandler,
-        IAccountRepository accountRepository)
-    {
-        _outputHandler = outputHandler;
-        _accountRepository = accountRepository;
-    }
-
-    public async Task Execute(GetAccountDetailsInput input)
+    public async Task ExecuteAsync(GetAccountDetailsInput input)
     {
         var account = await _accountRepository.Get(input.AccountId);
 

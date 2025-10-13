@@ -8,8 +8,7 @@ public sealed class BusinessExceptionFilter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
     {
-        DomainException domainException = context.Exception as DomainException;
-        if (domainException != null)
+        if (context.Exception is DomainException domainException)
         {
             var problemDetails = new ProblemDetails
             {
@@ -19,7 +18,6 @@ public sealed class BusinessExceptionFilter : IExceptionFilter
             };
 
             context.Result = new BadRequestObjectResult(problemDetails);
-            context.Exception = null;
         }
     }
 }

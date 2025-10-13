@@ -27,7 +27,7 @@ public sealed class Withdraw : IUseCase
         _serviceBus = serviceBus;
     }
 
-    public async Task Execute(WithdrawInput input)
+    public async Task ExecuteAsync(WithdrawInput input)
     {
         var account = await _accountRepository.Get(input.AccountId);
         if (account == null)

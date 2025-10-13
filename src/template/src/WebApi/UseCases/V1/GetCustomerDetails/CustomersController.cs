@@ -29,10 +29,10 @@ public sealed class CustomersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetCustomer([FromRoute][Required] GetCustomerDetailsRequest request)
+    public async Task<IActionResult?> GetCustomer([FromRoute][Required] GetCustomerDetailsRequest request)
     {
         var getCustomerDetailsInput = new GetCustomerDetailsInput(request.CustomerId);
-        await _getCustomerDetailsUseCase.Execute(getCustomerDetailsInput);
+        await _getCustomerDetailsUseCase.ExecuteAsync(getCustomerDetailsInput);
         return _presenter.ViewModel;
     }
 }
