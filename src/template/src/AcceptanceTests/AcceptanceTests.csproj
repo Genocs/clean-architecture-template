@@ -25,10 +25,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\WebApi\WebApi.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
         <None Update="api-documentation.xml">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>

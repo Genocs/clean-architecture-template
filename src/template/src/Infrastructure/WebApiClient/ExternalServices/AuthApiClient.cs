@@ -1,6 +1,6 @@
 ﻿using Genocs.CleanArchitecture.Template.Application.Services;
 using Genocs.CleanArchitecture.Template.Infrastructure.WebApiClient.Exceptions;
-using Genocs.CleanArchitecture.Template.Shared.ReadModels;
+using Genocs.CleanArchitecture.Template.Contracts.ReadModels;
 using System.Net;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.WebApiClient.ExternalServices;

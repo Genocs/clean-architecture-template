@@ -1,5 +1,4 @@
 ﻿using Genocs.CleanArchitecture.Template.Application.Services;
-using Genocs.CleanArchitecture.Template.Shared.Interfaces;
 using Microsoft.Extensions.Options;
 using Rebus.Activation;
 using Rebus.Config;
@@ -25,14 +24,14 @@ public class RebusServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
     }
 
     public async Task SendCommandAsync<T>(T cmd)
-        where T : Shared.Interfaces.ICommand
+        where T : Contracts.Interfaces.ICommand
     {
         // Check the ContextId Management
         await _activator.Bus.Send(cmd);
     }
 
     public async Task PublishEventAsync<T>(T evt)
-        where T : Shared.Interfaces.IEvent
+        where T : Contracts.Interfaces.IEvent
     {
         await _activator.Bus.Publish(evt);
     }

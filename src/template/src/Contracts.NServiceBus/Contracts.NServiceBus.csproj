@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <IsPublishable>false</IsPublishable>
+        <IsPackable>false</IsPackable>
+        <RootNamespace>Genocs.CleanArchitecture.Template.ContractsNServiceBus</RootNamespace>
+        <AssemblyName>Genocs.CleanArchitecture.Template.ContractsNServiceBus</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="NServiceBus" Version="8.2.0" />
+    </ItemGroup>    
+</Project>

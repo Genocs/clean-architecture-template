@@ -1,4 +1,4 @@
-using Genocs.CleanArchitecture.Template.Shared.Interfaces;
+using Genocs.CleanArchitecture.Template.Contracts.Interfaces;
 
 namespace Genocs.CleanArchitecture.Template.Application.Services;
 

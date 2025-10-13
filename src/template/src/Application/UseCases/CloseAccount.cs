@@ -40,7 +40,7 @@ public sealed class CloseAccount : IUseCase
             await _accountRepository.Delete(account);
 
             // Publish the event to the enterprise service bus
-            await _serviceBus.PublishEventAsync(new Shared.Events.CloseAccountCompleted() { AccountId = account.Id });
+            await _serviceBus.PublishEventAsync(new Contracts.Events.CloseAccountCompleted() { AccountId = account.Id });
 
             await _unitOfWork.Save();
         }

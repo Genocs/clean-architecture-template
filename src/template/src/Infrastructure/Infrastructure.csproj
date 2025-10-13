@@ -31,7 +31,7 @@
         <PackageReference Include="Rebus.RabbitMq" Version="10.0.3" />
 
         <!-- Particular NService Bus -->
-        <ProjectReference Include="..\Shared.Particular\Shared.Particular.csproj" />
+        <ProjectReference Include="..\Contracts.NServiceBus\Contracts.NServiceBus.csproj" />
 
         <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="4.1.0" />
 
@@ -56,7 +56,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Shared\Shared.csproj" />
+        <ProjectReference Include="..\Contracts\Contracts.csproj" />
         <ProjectReference Include="..\Domain\Domain.csproj" />
         <ProjectReference Include="..\Application\Application.csproj" />
     </ItemGroup>

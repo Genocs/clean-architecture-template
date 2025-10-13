@@ -2,7 +2,7 @@ using Genocs.CleanArchitecture.Template.Application.Boundaries.Registers;
 using Genocs.CleanArchitecture.Template.Application.Repositories;
 using Genocs.CleanArchitecture.Template.Application.Services;
 using Genocs.CleanArchitecture.Template.Domain;
-using Genocs.CleanArchitecture.Template.Shared.Events;
+using Genocs.CleanArchitecture.Template.Contracts.Events;
 
 namespace Genocs.CleanArchitecture.Template.Application.UseCases;
 

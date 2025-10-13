@@ -72,7 +72,7 @@ public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
     }
 
     public async Task PublishEventAsync<T>(T @event)
-        where T : Shared.Interfaces.IEvent
+        where T : Contracts.Interfaces.IEvent
     {
         Message msg = new Message();
         string strMsg = JsonConvert.SerializeObject(@event);
@@ -96,7 +96,7 @@ public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
     }
 
     public async Task SendCommandAsync<T>(T command)
-        where T : Shared.Interfaces.ICommand
+        where T : Contracts.Interfaces.ICommand
     {
         Message msg = new Message();
         string strMsg = JsonConvert.SerializeObject(command);

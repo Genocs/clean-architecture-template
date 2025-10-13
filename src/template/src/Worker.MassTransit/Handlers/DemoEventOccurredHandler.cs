@@ -1,7 +1,7 @@
-﻿using Genocs.CleanArchitecture.Template.Shared.Events;
+﻿using Genocs.CleanArchitecture.Template.Contracts.Events;
 using MassTransit;
 
-namespace Genocs.CleanArchitecture.Template.Worker.MassTransit.Handlers;
+namespace Genocs.CleanArchitecture.Template.WorkerMassTransit.Handlers;
 
 public class DemoEventOccurredHandler : IConsumer<DemoEventOccurred>
 {

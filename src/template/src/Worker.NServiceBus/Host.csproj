@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <IsPublishable>false</IsPublishable>
+        <IsPackable>false</IsPackable>
+        <RootNamespace>Genocs.CleanArchitecture.Template.WorkerNServiceBus</RootNamespace>
+        <AssemblyName>Genocs.CleanArchitecture.Template.WorkerNServiceBus</AssemblyName>
+    </PropertyGroup>
+
+
+    <ItemGroup>
+        <PackageReference Include="NServiceBus.Extensions.Hosting" Version="2.0.0" />
+        <PackageReference Include="NServiceBus.MicrosoftLogging.Hosting" Version="1.*" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,8 +1,8 @@
 using Genocs.CleanArchitecture.Template.Infrastructure.Options;
-using Genocs.CleanArchitecture.Template.Worker.MassTransit.Handlers;
+using Genocs.CleanArchitecture.Template.WorkerMassTransit.Handlers;
 using MassTransit;
 
-namespace Genocs.CleanArchitecture.Template.Worker.MassTransit;
+namespace Genocs.CleanArchitecture.Template.WorkerMassTransit;
 
 public class Program
 {

@@ -50,7 +50,7 @@ public sealed class Transfer : IUseCase
         await _accountRepository.Update(destinationAccount, credit);
 
         // Publish the event to the enterprise service bus
-        await _serviceBus.PublishEventAsync(new Shared.Events.TransferCompleted() { OriginalAccountId = originAccount.Id, DestinationAccountId = destinationAccount.Id, Amount = input.Amount.ToMoney().ToDecimal() });
+        await _serviceBus.PublishEventAsync(new Contracts.Events.TransferCompleted() { OriginalAccountId = originAccount.Id, DestinationAccountId = destinationAccount.Id, Amount = input.Amount.ToMoney().ToDecimal() });
 
         await _unitOfWork.Save();
 

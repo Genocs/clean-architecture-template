@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <IsPublishable>false</IsPublishable>
+        <IsPackable>false</IsPackable>
+        <RootNamespace>Genocs.CleanArchitecture.Template.Contracts</RootNamespace>
+        <AssemblyName>Genocs.CleanArchitecture.Template.Contracts</AssemblyName>
+    </PropertyGroup>
+
+</Project>

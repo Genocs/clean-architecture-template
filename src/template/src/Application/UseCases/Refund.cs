@@ -47,7 +47,7 @@ public sealed class Refund : IUseCase
         await _accountRepository.Update(account, debit);
 
         // Publish the event to the enterprise service bus
-        await _serviceBus.PublishEventAsync(new Shared.Events.WithdrawCompleted() { AccountId = input.AccountId, Amount = input.Amount.ToMoney().ToDecimal() });
+        await _serviceBus.PublishEventAsync(new Contracts.Events.WithdrawCompleted() { AccountId = input.AccountId, Amount = input.Amount.ToMoney().ToDecimal() });
 
         await _unitOfWork.Save();
 

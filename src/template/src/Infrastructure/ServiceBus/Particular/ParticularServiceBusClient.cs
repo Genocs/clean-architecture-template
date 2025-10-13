@@ -1,7 +1,6 @@
 ﻿using Genocs.CleanArchitecture.Template.Application.Services;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using NServiceBus;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Particular;
 
@@ -80,14 +79,14 @@ public class ParticularServiceBusClient : IServiceBusClient, IDisposable, IAsync
 
 
     public async Task PublishEventAsync<T>(T evt)
-        where T : Shared.Interfaces.IEvent
+        where T : Contracts.Interfaces.IEvent
     {
         await Initialize();
         await _instance.Publish(evt);
     }
 
     public async Task SendCommandAsync<T>(T cmd)
-        where T : Shared.Interfaces.ICommand
+        where T : Contracts.Interfaces.ICommand
     {
         await Initialize();
         await _instance.Send(cmd);

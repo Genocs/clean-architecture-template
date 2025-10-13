@@ -7,9 +7,9 @@ namespace Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.MassTransi
 
 public class MassTransitServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
 {
-    private readonly MassTransitSetting _settings;
+    private readonly MassTransitSetting? _settings;
 
-    private IPublishEndpoint _publishEndpoint;
+    private IPublishEndpoint? _publishEndpoint;
 
     public MassTransitServiceBusClient(IOptions<MassTransitSetting> settings)
     {
@@ -34,11 +34,13 @@ public class MassTransitServiceBusClient : IServiceBusClient, IDisposable, IAsyn
         //    PrefetchCount = _settings.PrefetchCount
         //};
     }
+
     public void Dispose()
     {
         Dispose(disposing: true);
         GC.SuppressFinalize(this);
     }
+
     public async ValueTask DisposeAsync()
     {
         await DisposeAsyncCore();
@@ -46,6 +48,7 @@ public class MassTransitServiceBusClient : IServiceBusClient, IDisposable, IAsyn
         Dispose(disposing: false);
         GC.SuppressFinalize(this);
     }
+
     protected virtual void Dispose(bool disposing)
     {
         if (disposing)
@@ -67,13 +70,13 @@ public class MassTransitServiceBusClient : IServiceBusClient, IDisposable, IAsyn
     }
 
     public async Task PublishEventAsync<T>(T @event)
-        where T : Shared.Interfaces.IEvent
+        where T : Contracts.Interfaces.IEvent
     {
         await Task.CompletedTask;
     }
 
     public async Task SendCommandAsync<T>(T command)
-        where T : Shared.Interfaces.ICommand
+        where T : Contracts.Interfaces.ICommand
     {
         await Task.CompletedTask;
     }

@@ -41,7 +41,7 @@ public sealed class Deposit : IUseCase
         await _accountRepository.Update(account, credit);
 
         // Publish the event to the enterprise service bus
-        await _serviceBus.PublishEventAsync(new Shared.Events.DepositCompleted() { AccountId = input.AccountId, Amount = input.Amount.ToMoney().ToDecimal() });
+        await _serviceBus.PublishEventAsync(new Contracts.Events.DepositCompleted() { AccountId = input.AccountId, Amount = input.Amount.ToMoney().ToDecimal() });
 
         await _unitOfWork.Save();
 
