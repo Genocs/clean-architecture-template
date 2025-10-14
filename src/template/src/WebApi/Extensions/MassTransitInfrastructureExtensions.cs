@@ -7,11 +7,11 @@ public static class MassTransitInfrastructureExtensions
 {
     public static IServiceCollection AddMassTransitServiceBus(this IServiceCollection services, IConfiguration config)
     {
-        // Add Mass Transit Azure Service Bus
-        services.AddSingleton<IServiceBusClient, MassTransitServiceBusClient>();
-
         // Settings registration
         services.Configure<MassTransitSetting>(config.GetSection(MassTransitSetting.Position));
+
+        // Add Mass Transit Azure Service Bus
+        services.AddSingleton<IServiceBusClient, MassTransitServiceBusClient>();
 
         return services;
     }

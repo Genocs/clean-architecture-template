@@ -7,7 +7,7 @@ public class RebusServiceBusConfigurator
 {
     public static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
     {
-        services.Configure<RebusBusSettings>(context.Configuration.GetSection("RebusBusSettings"));
+        services.Configure<RebusBusSettings>(context.Configuration.GetSection(RebusBusSettings.Position));
         services.AddHostedService<RebusService>();
     }
 }

@@ -234,33 +234,39 @@
           "condition": "(NServiceBus)",
           "exclude": [
             "src/Infrastructure/ServiceBus/Azure/**/*.cs",
+            "src/Infrastructure/ServiceBus/MassTransit/**/*.cs",
             "src/Infrastructure/ServiceBus/Rebus/**/*.cs",
             "src/WebApi/Extensions/AzureServicebusInfrastructureExtensions.cs",
+            "src/WebApi/Extensions/MassTransitServicebusInfrastructureExtensions.cs",            
             "src/WebApi/Extensions/RebusServicebusInfrastructureExtensions.cs",
-            "src/BusWorker/HostServices/AzureBusService.cs",
-            "src/BusWorker/HostServices/RebusService.cs"
+            "src/Worker/HostServices/AzureBusService.cs",
+            "src/Worker/HostServices/RebusService.cs"
           ]
         },
         {
           "condition": "(Rebus)",
           "exclude": [
             "src/Infrastructure/ServiceBus/Azure/**/*.cs",
+            "src/Infrastructure/ServiceBus/MassTransit/**/*.cs",
             "src/Infrastructure/ServiceBus/Particular/**/*.cs",
             "src/WebApi/Extensions/AzureServicebusInfrastructureExtensions.cs",
+            "src/WebApi/Extensions/MassTransitServicebusInfrastructureExtensions.cs",
             "src/WebApi/Extensions/ParticularServicebusInfrastructureExtensions.cs",
-            "src/BusWorker/HostServices/AzureBusService.cs",
-            "src/BusWorker/HostServices/ParticularService.cs"
+            "src/Worker/HostServices/AzureBusService.cs",
+            "src/Worker/HostServices/ParticularService.cs"
           ]
         },
         {
           "condition": "(AzureServiceBus)",
           "exclude": [
+            "src/Infrastructure/ServiceBus/MassTransit/**/*.cs",
             "src/Infrastructure/ServiceBus/Particular/**/*.cs",
             "src/Infrastructure/ServiceBus/Rebus/**/*.cs",
+            "src/WebApi/Extensions/MassTransitServicebusInfrastructureExtensions.cs",            
             "src/WebApi/Extensions/ParticularServicebusInfrastructureExtensions.cs",
             "src/WebApi/Extensions/RebusServicebusInfrastructureExtensions.cs",
-            "src/BusWorker/HostServices/ParticularService.cs",
-            "src/BusWorker/HostServices/RebusService.cs"
+            "src/Worker/HostServices/ParticularService.cs",
+            "src/Worker/HostServices/RebusService.cs"
           ]
         },
         {
@@ -287,7 +293,7 @@
       "path": "src/BusWorker/BusWorker.csproj"
     },
     {
-      "path": "src/Shared/Shared.csproj"
+      "path": "src/Contracts/Contracts.csproj"
     }
   ]
 }

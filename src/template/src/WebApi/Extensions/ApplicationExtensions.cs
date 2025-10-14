@@ -23,7 +23,6 @@ public static class ApplicationExtensions
 #if Refund
         services.AddScoped<Application.Boundaries.Refunds.IUseCase, Refund>();
 #endif
-
 #if GetCustomerDetails
         services.AddScoped<Application.Boundaries.GetCustomerDetails.IUseCase, GetCustomerDetails>();
 #endif
