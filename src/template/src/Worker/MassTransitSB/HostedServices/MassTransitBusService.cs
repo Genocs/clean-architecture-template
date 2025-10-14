@@ -1,7 +1,7 @@
 ﻿using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.MassTransit;
 using Microsoft.Extensions.Options;
 
-namespace Genocs.CleanArchitecture.Template.Worker.HostedServices;
+namespace Genocs.CleanArchitecture.Template.Worker.ParticularSB.HostedServices;
 
 internal class MassTransitBusService : IHostedService
 {

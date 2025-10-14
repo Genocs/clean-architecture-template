@@ -1,12 +1,12 @@
 ﻿using Genocs.CleanArchitecture.Template.Contracts.Events;
 using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Rebus;
-using Genocs.CleanArchitecture.Template.Worker.Handlers;
+using Genocs.CleanArchitecture.Template.Worker.RebusSB.Handlers;
 using Microsoft.Extensions.Options;
 using Rebus.Activation;
 using Rebus.Bus;
 using Rebus.Config;
 
-namespace Genocs.CleanArchitecture.Template.Worker.HostedServices;
+namespace Genocs.CleanArchitecture.Template.Worker.RebusSB.HostedServices;
 
 internal class RebusService : IHostedService
 {
@@ -35,7 +35,7 @@ internal class RebusService : IHostedService
         // Start rebus configuration
         _activator = new BuiltinHandlerActivator();
 
-        _activator.Register((r) => new RebusEventOccurredHandler(_logger));
+        _activator.Register(() => new RebusEventOccurredHandler(_logger));
 
         _bus = Configure.With(_activator)
             .Logging(l => l.ColoredConsole(minLevel: Rebus.Logging.LogLevel.Debug))

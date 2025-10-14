@@ -2,7 +2,7 @@
 using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
 using Microsoft.Extensions.Options;
 
-namespace Genocs.CleanArchitecture.Template.Worker.HostedServices;
+namespace Genocs.CleanArchitecture.Template.Worker.AzureSB.HostService;
 
 internal class AzureBusHostService : AzureBusService
 {

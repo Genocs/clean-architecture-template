@@ -2,7 +2,7 @@
 using Genocs.CleanArchitecture.Template.ContractsNServiceBus.TransactionSaga;
 using NServiceBus.Logging;
 
-namespace Genocs.CleanArchitecture.Template.Worker.Handlers;
+namespace Genocs.CleanArchitecture.Template.Worker.Particular;
 
 /// <summary>
 /// Basic event handler.

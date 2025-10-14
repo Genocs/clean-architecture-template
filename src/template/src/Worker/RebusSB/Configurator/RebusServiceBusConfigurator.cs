@@ -1,7 +1,7 @@
 ﻿using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Rebus;
-using Genocs.CleanArchitecture.Template.Worker.HostedServices;
+using Genocs.CleanArchitecture.Template.Worker.RebusSB.HostedServices;
 
-namespace Genocs.CleanArchitecture.Template.Worker.ConfigServices;
+namespace Genocs.CleanArchitecture.Template.Worker.Configurator;
 
 public class RebusServiceBusConfigurator
 {

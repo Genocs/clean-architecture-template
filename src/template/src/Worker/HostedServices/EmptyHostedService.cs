@@ -1,9 +1,5 @@
 ﻿using Genocs.CleanArchitecture.Template.Infrastructure.Generic;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Genocs.CleanArchitecture.Template.Worker.HostedServices;
 
@@ -18,10 +14,7 @@ internal class EmptyHostedService : IHostedService
 
     public EmptyHostedService(IOptions<NullOptions> options, ILogger<EmptyHostedService> logger)
     {
-        if (options is null)
-        {
-            throw new ArgumentNullException(nameof(options));
-        }
+        ArgumentNullException.ThrowIfNull(options);
 
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _options = options.Value;

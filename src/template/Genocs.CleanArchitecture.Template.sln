@@ -30,9 +30,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		.editorconfig = .editorconfig
 		Directory.Build.props = Directory.Build.props
 		Directory.Build.targets = Directory.Build.targets
-		docker-compose.override.yml = docker-compose.override.yml
-		docker-compose.yml = docker-compose.yml
-		Dockerfile = Dockerfile
 		dotnet.ruleset = dotnet.ruleset
 		global.json = global.json
 		README.md = README.md
@@ -43,7 +40,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{02EA68
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkerMassTransit", "WorkerMassTransit", "{3DBA8B5D-0017-45D1-92F1-8F8C8463EB58}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkerRebus", "WorkerRebus", "{F5A1163F-15CC-46B6-B7E9-41CA380575C9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Worker", "Worker", "{F5A1163F-15CC-46B6-B7E9-41CA380575C9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkerNServiceBus", "WorkerNServiceBus", "{711FEE32-C0AE-44B8-8BED-BA3A40BF13A2}"
 EndProject

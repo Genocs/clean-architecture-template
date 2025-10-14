@@ -162,7 +162,6 @@ To build the package run the following commands:
 [Official Link](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates)
 
 ```bash
-
 # To clone the repository
 git clone https://github.com/Genocs/clean-architecture-template
 cd clean-architecture-template
@@ -170,8 +169,8 @@ cd clean-architecture-template
 cd ./src
 
 # To build and install the template locally
-./nuget.exe pack -OutputDirectory ./out -Version 4.0.0 ./Package.Template.nuspec
-dotnet new install ./out/Genocs.CleanArchitecture.Template.4.0.0.nupkg
+./nuget.exe pack -OutputDirectory ./out -Version 4.0.1 ./Package.Template.nuspec -NoDefaultExcludes
+dotnet new install ./out/Genocs.CleanArchitecture.Template.4.0.1.nupkg
 dotnet new cleanarchitecture --help
 
 # To uninstall the template

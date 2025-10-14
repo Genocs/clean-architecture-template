@@ -1,7 +1,7 @@
 ﻿using Genocs.CleanArchitecture.Template.Contracts.Events;
 using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
 
-namespace Genocs.CleanArchitecture.Template.Worker.Handlers;
+namespace Genocs.CleanArchitecture.Template.Worker.AzureSB.Handlers;
 
 public class AzureEventOccurredHandler : IMessageEventHandler<IntegrationEventIssued>
 {

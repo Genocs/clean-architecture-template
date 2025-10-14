@@ -2,7 +2,7 @@
 using Genocs.CleanArchitecture.Template.ContractsNServiceBus.TransactionSaga;
 using NServiceBus.Logging;
 
-namespace Genocs.CleanArchitecture.Template.Worker.Handlers;
+namespace Genocs.CleanArchitecture.Template.Worker.ParticularSB.Handlers;
 
 /// <summary>
 /// This event handler will be registered automatically. It do not need any action to be up and running.

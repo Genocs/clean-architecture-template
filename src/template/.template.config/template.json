@@ -231,13 +231,40 @@
           ]
         },
         {
+          "condition": "(AzureServiceBus)",
+          "exclude": [
+            "src/Infrastructure/ServiceBus/MassTransit/**/*.cs",
+            "src/Infrastructure/ServiceBus/Particular/**/*.cs",
+            "src/Infrastructure/ServiceBus/Rebus/**/*.cs",
+            "src/WebApi/Extensions/MassTransit/**/*.cs",
+            "src/WebApi/Extensions/Particular/**/*.cs",
+            "src/WebApi/Extensions/Rebus/**/*.cs",
+            "src/Worker/HostServices/ParticularService.cs",
+            "src/Worker/HostServices/RebusService.cs"
+          ]
+        },
+        {
+          "condition": "(MassTransit)",
+          "exclude": [
+            "src/Infrastructure/ServiceBus/Azure/**/*.cs",
+            "src/Infrastructure/ServiceBus/Particular/**/*.cs",
+            "src/Infrastructure/ServiceBus/Rebus/**/*.cs",
+            "src/WebApi/Extensions/AzureServicebusInfrastructureExtensions.cs",
+            "src/WebApi/Extensions/ParticularServicebusInfrastructureExtensions.cs",
+            "src/WebApi/Extensions/RebusServicebusInfrastructureExtensions.cs",
+            "src/Worker/HostServices/AzureBusService.cs",
+            "src/Worker/HostServices/ParticularService.cs",
+            "src/Worker/HostServices/RebusService.cs"
+          ]
+        },
+        {
           "condition": "(NServiceBus)",
           "exclude": [
             "src/Infrastructure/ServiceBus/Azure/**/*.cs",
             "src/Infrastructure/ServiceBus/MassTransit/**/*.cs",
             "src/Infrastructure/ServiceBus/Rebus/**/*.cs",
             "src/WebApi/Extensions/AzureServicebusInfrastructureExtensions.cs",
-            "src/WebApi/Extensions/MassTransitServicebusInfrastructureExtensions.cs",            
+            "src/WebApi/Extensions/MassTransitServicebusInfrastructureExtensions.cs",
             "src/WebApi/Extensions/RebusServicebusInfrastructureExtensions.cs",
             "src/Worker/HostServices/AzureBusService.cs",
             "src/Worker/HostServices/RebusService.cs"
@@ -253,20 +280,8 @@
             "src/WebApi/Extensions/MassTransitServicebusInfrastructureExtensions.cs",
             "src/WebApi/Extensions/ParticularServicebusInfrastructureExtensions.cs",
             "src/Worker/HostServices/AzureBusService.cs",
+            "src/Worker/HostServices/MassTransitService.cs",
             "src/Worker/HostServices/ParticularService.cs"
-          ]
-        },
-        {
-          "condition": "(AzureServiceBus)",
-          "exclude": [
-            "src/Infrastructure/ServiceBus/MassTransit/**/*.cs",
-            "src/Infrastructure/ServiceBus/Particular/**/*.cs",
-            "src/Infrastructure/ServiceBus/Rebus/**/*.cs",
-            "src/WebApi/Extensions/MassTransitServicebusInfrastructureExtensions.cs",            
-            "src/WebApi/Extensions/ParticularServicebusInfrastructureExtensions.cs",
-            "src/WebApi/Extensions/RebusServicebusInfrastructureExtensions.cs",
-            "src/Worker/HostServices/ParticularService.cs",
-            "src/Worker/HostServices/RebusService.cs"
           ]
         },
         {

@@ -1,7 +1,7 @@
 ﻿using Genocs.CleanArchitecture.Template.ContractsNServiceBus.TransactionSaga;
 using NServiceBus.Logging;
 
-namespace Genocs.CleanArchitecture.Template.Worker.Handlers.Sagas;
+namespace Genocs.CleanArchitecture.Template.Worker.ParticularSB.Sagas;
 
 /// <summary>
 /// This is the TransactionSagaPolicy class.

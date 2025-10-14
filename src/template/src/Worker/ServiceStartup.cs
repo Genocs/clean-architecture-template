@@ -4,9 +4,9 @@ using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
 using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Particular;
 using Genocs.CleanArchitecture.Template.Infrastructure.WebApiClient.ExternalServices;
 using Genocs.CleanArchitecture.Template.Infrastructure.WebApiClient.Resiliency;
-using Genocs.CleanArchitecture.Template.Worker.ConfigServices;
+using Genocs.CleanArchitecture.Template.Worker.AzureSB.Handlers;
+using Genocs.CleanArchitecture.Template.Worker.Configurator;
 using Genocs.CleanArchitecture.Template.Worker.ExternalServices;
-using Genocs.CleanArchitecture.Template.Worker.Handlers;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 

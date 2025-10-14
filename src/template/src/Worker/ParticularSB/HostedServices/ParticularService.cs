@@ -1,9 +1,8 @@
 ﻿using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Particular;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using NServiceBus;
 
-namespace Genocs.CleanArchitecture.Template.Worker.HostedServices;
+namespace Genocs.CleanArchitecture.Template.Worker.ParticularSB.HostedServices;
 
 internal class ParticularService : IHostedService
 {

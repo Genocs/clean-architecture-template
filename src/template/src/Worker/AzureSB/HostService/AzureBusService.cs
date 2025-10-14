@@ -5,7 +5,7 @@ using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace Genocs.CleanArchitecture.Template.Worker.HostedServices;
+namespace Genocs.CleanArchitecture.Template.Worker.AzureSB.HostService;
 
 internal class AzureBusService : IHostedService
 {
@@ -56,7 +56,7 @@ internal class AzureBusService : IHostedService
 
     private static IQueueClient CreateQueueClient(AzureServiceBusSettings options)
     {
-        ServiceBusConnectionStringBuilder connectionStringBuilder = new ServiceBusConnectionStringBuilder
+        var connectionStringBuilder = new ServiceBusConnectionStringBuilder
         {
             Endpoint = options.QueueEndpoint,
             EntityPath = options.QueueName,
