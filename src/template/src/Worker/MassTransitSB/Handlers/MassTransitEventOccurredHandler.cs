@@ -1,7 +1,7 @@
 ﻿using Genocs.CleanArchitecture.Template.Contracts.Events;
 using Genocs.CleanArchitecture.Template.Infrastructure.AzureSB;
 
-namespace Genocs.CleanArchitecture.Template.Worker.ParticularSB.Handlers;
+namespace Genocs.CleanArchitecture.Template.Worker.MassTransitSB.Handlers;
 
 public class MassTransitEventOccurredHandler : IMessageEventHandler<IntegrationEventIssued>
 {

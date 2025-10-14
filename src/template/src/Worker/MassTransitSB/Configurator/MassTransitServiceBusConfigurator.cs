@@ -1,5 +1,5 @@
 ﻿using Genocs.CleanArchitecture.Template.Infrastructure.MassTransitSB;
-using Genocs.CleanArchitecture.Template.Worker.ParticularSB.HostedServices;
+using Genocs.CleanArchitecture.Template.Worker.MassTransitSB.HostedServices;
 
 namespace Genocs.CleanArchitecture.Template.Worker.Configurator;
 
