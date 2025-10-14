@@ -1,4 +1,4 @@
-﻿using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.MassTransit;
+﻿using Genocs.CleanArchitecture.Template.Infrastructure.MassTransitSB;
 using Microsoft.Extensions.Options;
 
 namespace Genocs.CleanArchitecture.Template.Worker.ParticularSB.HostedServices;

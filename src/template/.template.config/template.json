@@ -233,55 +233,57 @@
         {
           "condition": "(AzureServiceBus)",
           "exclude": [
-            "src/Infrastructure/ServiceBus/MassTransit/**/*.cs",
-            "src/Infrastructure/ServiceBus/Particular/**/*.cs",
-            "src/Infrastructure/ServiceBus/Rebus/**/*.cs",
-            "src/WebApi/Extensions/MassTransit/**/*.cs",
-            "src/WebApi/Extensions/Particular/**/*.cs",
-            "src/WebApi/Extensions/Rebus/**/*.cs",
-            "src/Worker/HostServices/ParticularService.cs",
-            "src/Worker/HostServices/RebusService.cs"
+            "src/Infrastructure/MassTransitSB/**/*.cs",
+            "src/Infrastructure/ParticularSB/**/*.cs",
+            "src/Infrastructure/RebusSB/**/*.cs",
+            "src/WebApi/Extensions/MassTransitSB/**/*.cs",
+            "src/WebApi/Extensions/ParticularSB/**/*.cs",
+            "src/WebApi/Extensions/RebusSB/**/*.cs",
+            "src/Worker/MassTransitSB/**/*.cs",
+            "src/Worker/ParticularSB/**/*.cs",
+            "src/Worker/RebusSB/**/*.cs"
           ]
         },
         {
           "condition": "(MassTransit)",
           "exclude": [
-            "src/Infrastructure/ServiceBus/Azure/**/*.cs",
-            "src/Infrastructure/ServiceBus/Particular/**/*.cs",
-            "src/Infrastructure/ServiceBus/Rebus/**/*.cs",
-            "src/WebApi/Extensions/AzureServicebusInfrastructureExtensions.cs",
-            "src/WebApi/Extensions/ParticularServicebusInfrastructureExtensions.cs",
-            "src/WebApi/Extensions/RebusServicebusInfrastructureExtensions.cs",
-            "src/Worker/HostServices/AzureBusService.cs",
-            "src/Worker/HostServices/ParticularService.cs",
-            "src/Worker/HostServices/RebusService.cs"
+            "src/Infrastructure/AzureSB/**/*.cs",
+            "src/Infrastructure/ParticularSB/**/*.cs",
+            "src/Infrastructure/RebusSB/**/*.cs",
+            "src/WebApi/Extensions/AzureSB/**/*.cs",
+            "src/WebApi/Extensions/ParticularSB/**/*.cs",
+            "src/WebApi/Extensions/RebusSB/**/*.cs",
+            "src/Worker/AzureSB/**/*.cs",
+            "src/Worker/ParticularSB/**/*.cs",
+            "src/Worker/RebusSB/**/*.cs"
           ]
         },
         {
           "condition": "(NServiceBus)",
           "exclude": [
-            "src/Infrastructure/ServiceBus/Azure/**/*.cs",
-            "src/Infrastructure/ServiceBus/MassTransit/**/*.cs",
-            "src/Infrastructure/ServiceBus/Rebus/**/*.cs",
-            "src/WebApi/Extensions/AzureServicebusInfrastructureExtensions.cs",
-            "src/WebApi/Extensions/MassTransitServicebusInfrastructureExtensions.cs",
-            "src/WebApi/Extensions/RebusServicebusInfrastructureExtensions.cs",
-            "src/Worker/HostServices/AzureBusService.cs",
-            "src/Worker/HostServices/RebusService.cs"
+            "src/Infrastructure/AzureSB/**/*.cs",
+            "src/Infrastructure/MassTransitSB/**/*.cs",
+            "src/Infrastructure/RebusSB/**/*.cs",
+            "src/WebApi/Extensions/AzureSB/**/*.cs",
+            "src/WebApi/Extensions/MassTransitSB/**/*.cs",
+            "src/WebApi/Extensions/RebusSB/**/*.cs",
+            "src/Worker/AzureSB/**/*.cs",
+            "src/Worker/MassTransitSB/**/*.cs",
+            "src/Worker/RebusSB/**/*.cs"
           ]
         },
         {
           "condition": "(Rebus)",
           "exclude": [
-            "src/Infrastructure/ServiceBus/Azure/**/*.cs",
-            "src/Infrastructure/ServiceBus/MassTransit/**/*.cs",
-            "src/Infrastructure/ServiceBus/Particular/**/*.cs",
-            "src/WebApi/Extensions/AzureServicebusInfrastructureExtensions.cs",
-            "src/WebApi/Extensions/MassTransitServicebusInfrastructureExtensions.cs",
-            "src/WebApi/Extensions/ParticularServicebusInfrastructureExtensions.cs",
-            "src/Worker/HostServices/AzureBusService.cs",
-            "src/Worker/HostServices/MassTransitService.cs",
-            "src/Worker/HostServices/ParticularService.cs"
+            "src/Infrastructure/AzureSB/**/*.cs",
+            "src/Infrastructure/MassTransitSB/**/*.cs",
+            "src/Infrastructure/ParticularSB/**/*.cs",
+            "src/WebApi/Extensions/AzureSB/**/*.cs",
+            "src/WebApi/Extensions/MassTransitSB/**/*.cs",
+            "src/WebApi/Extensions/ParticularSB/**/*.cs",
+            "src/Worker/AzureSB/**/*.cs",
+            "src/Worker/MassTransitSB/**/*.cs",
+            "src/Worker/ParticularSB/**/*.cs"
           ]
         },
         {

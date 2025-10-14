@@ -1,4 +1,4 @@
-﻿using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Particular;
+﻿using Genocs.CleanArchitecture.Template.Infrastructure.ParticularSB;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 

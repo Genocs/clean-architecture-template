@@ -1,4 +1,4 @@
-﻿namespace Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Rebus;
+﻿namespace Genocs.CleanArchitecture.Template.Infrastructure.RebusSB;
 
 public class RebusBusSettings
 {

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-namespace Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Particular;
+namespace Genocs.CleanArchitecture.Template.Infrastructure.ParticularSB;
 
 public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
 {

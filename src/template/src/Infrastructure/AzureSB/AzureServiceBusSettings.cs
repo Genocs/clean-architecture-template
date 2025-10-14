@@ -1,4 +1,4 @@
-﻿namespace Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
+﻿namespace Genocs.CleanArchitecture.Template.Infrastructure.AzureSB;
 
 public class AzureServiceBusSettings
 {

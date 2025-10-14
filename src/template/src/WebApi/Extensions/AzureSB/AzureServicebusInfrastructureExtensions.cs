@@ -1,5 +1,5 @@
 using Genocs.CleanArchitecture.Template.Application.Services;
-using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
+using Genocs.CleanArchitecture.Template.Infrastructure.AzureSB;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.Extensions;
 

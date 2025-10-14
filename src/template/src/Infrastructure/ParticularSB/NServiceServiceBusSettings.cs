@@ -1,4 +1,4 @@
-﻿namespace Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Particular;
+﻿namespace Genocs.CleanArchitecture.Template.Infrastructure.ParticularSB;
 
 public class NServiceServiceBusSettings
 {

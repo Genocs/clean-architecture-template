@@ -1,5 +1,5 @@
 using Genocs.CleanArchitecture.Template.Application.Services;
-using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Particular;
+using Genocs.CleanArchitecture.Template.Infrastructure.ParticularSB;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.Extensions;
 

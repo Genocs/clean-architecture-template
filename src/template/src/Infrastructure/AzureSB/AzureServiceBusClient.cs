@@ -4,7 +4,7 @@ using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
+namespace Genocs.CleanArchitecture.Template.Infrastructure.AzureSB;
 
 public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
 {
@@ -21,7 +21,7 @@ public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
             throw new NullReferenceException("settings.Value.cannot be null");
         }
 
-        ServiceBusConnectionStringBuilder connectionStringBuilder = new ServiceBusConnectionStringBuilder
+        var connectionStringBuilder = new ServiceBusConnectionStringBuilder
         {
             Endpoint = _settings.QueueEndpoint,
             EntityPath = _settings.QueueName,
@@ -74,7 +74,7 @@ public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
     public async Task PublishEventAsync<T>(T @event)
         where T : Contracts.Interfaces.IEvent
     {
-        Message msg = new Message();
+        var msg = new Message();
         string strMsg = JsonConvert.SerializeObject(@event);
 
         /*
@@ -98,7 +98,7 @@ public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
     public async Task SendCommandAsync<T>(T command)
         where T : Contracts.Interfaces.ICommand
     {
-        Message msg = new Message();
+        var msg = new Message();
         string strMsg = JsonConvert.SerializeObject(command);
 
         /*

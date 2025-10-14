@@ -1,10 +1,6 @@
 ﻿using Genocs.CleanArchitecture.Template.Application.Services;
-using Genocs.CleanArchitecture.Template.Contracts.Events;
-using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Azure;
-using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Particular;
 using Genocs.CleanArchitecture.Template.Infrastructure.WebApiClient.ExternalServices;
 using Genocs.CleanArchitecture.Template.Infrastructure.WebApiClient.Resiliency;
-using Genocs.CleanArchitecture.Template.Worker.AzureSB.Handlers;
 using Genocs.CleanArchitecture.Template.Worker.Configurator;
 using Genocs.CleanArchitecture.Template.Worker.ExternalServices;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -25,19 +21,16 @@ public static class ServiceStartup
         services.AddApplicationInsightsKubernetesEnricher();
         services.AddApplicationInsightsTelemetry(context.Configuration);
 
-        // Setup your Enterprise service bus library
+        // Setup the Enterprise service bus
 #if Rebus
         RebusServiceBusConfigurator.ConfigureServices(context, services);
 #elif MassTransit
-MassTransitServiceBusConfigurator.ConfigureServices(context, services);
+        MassTransitServiceBusConfigurator.ConfigureServices(context, services);
 #elif NServiceBus
-ParticularServiceBusConfigurator.ConfigureServices(context, services);
+        ParticularServiceBusConfigurator.ConfigureServices(context, services);
 #elif AzureServiceBus
-AzureServiceBusConfigurator.ConfigureServices(context, services);
+        AzureServiceBusConfigurator.ConfigureServices(context, services);
 #endif
-
-        // Register the Event handler
-        services.AddScoped<IMessageEventHandler<IntegrationEventIssued>, AzureEventOccurredHandler>();
 
         // Register API client
         services
@@ -69,8 +62,6 @@ AzureServiceBusConfigurator.ConfigureServices(context, services);
                     options.Delay = TimeSpan.FromMilliseconds(delay);
                 });
         }
-
-        services.Configure<NServiceServiceBusSettings>(context.Configuration.GetSection(nameof(NServiceServiceBusSettings)));
 
         // workaround .NET Core 2.2: for more info https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/health-checks/samples/2.x/HealthChecksSample/LivenessProbeStartup.cs#L51
         services.TryAddEnumerable(

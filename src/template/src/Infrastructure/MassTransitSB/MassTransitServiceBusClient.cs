@@ -2,7 +2,7 @@
 using MassTransit;
 using Microsoft.Extensions.Options;
 
-namespace Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.MassTransit;
+namespace Genocs.CleanArchitecture.Template.Infrastructure.MassTransitSB;
 
 public class MassTransitServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
 {

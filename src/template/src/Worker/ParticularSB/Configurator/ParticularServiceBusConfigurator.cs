@@ -1,4 +1,4 @@
-﻿using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Particular;
+﻿using Genocs.CleanArchitecture.Template.Infrastructure.ParticularSB;
 using Genocs.CleanArchitecture.Template.Worker.ParticularSB.HostedServices;
 
 namespace Genocs.CleanArchitecture.Template.Worker.Configurator;

@@ -4,7 +4,7 @@ using Rebus.Activation;
 using Rebus.Config;
 using Rebus.Logging;
 
-namespace Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.Rebus;
+namespace Genocs.CleanArchitecture.Template.Infrastructure.RebusSB;
 
 public class RebusServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
 {

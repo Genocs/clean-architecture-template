@@ -1,5 +1,5 @@
 using Genocs.CleanArchitecture.Template.Application.Services;
-using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.MassTransit;
+using Genocs.CleanArchitecture.Template.Infrastructure.MassTransitSB;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.Extensions;
 

@@ -1,5 +1,5 @@
 ﻿using Genocs.CleanArchitecture.Template.Infrastructure.Options;
-using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.MassTransit;
+// using Genocs.CleanArchitecture.Template.Infrastructure.ServiceBus.MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
@@ -18,11 +18,18 @@ public class ConfigurationHealthCheck(IConfiguration configuration) : IHealthChe
         try
         {
             // Check if essential configuration sections exist
+
+            /* Example: Check for RabbitMQ settings
+             * You can add checks for other essential configurations as needed
+            */
+
+            /*
             var rabbitMQSettings = _configuration.GetSection(MassTransitSetting.Position);
             if (!rabbitMQSettings.Exists())
             {
                 return Task.FromResult(HealthCheckResult.Unhealthy("RabbitMQ settings are not configured"));
             }
+            */
 
             /*
              * Add here other configuration sections to validate as needed
