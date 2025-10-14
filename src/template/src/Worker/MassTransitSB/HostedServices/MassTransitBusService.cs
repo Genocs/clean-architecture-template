@@ -6,11 +6,11 @@ namespace Genocs.CleanArchitecture.Template.Worker.MassTransitSB.HostedServices;
 internal class MassTransitBusService : IHostedService
 {
     private readonly ILogger<MassTransitBusService> _logger;
-    private readonly MassTransitSetting _settings;
+    private readonly MassTransitSettings _settings;
 
     private readonly IServiceProvider _serviceProvider;
 
-    public MassTransitBusService(IOptions<MassTransitSetting> options, ILogger<MassTransitBusService> logger, IServiceProvider serviceProvider)
+    public MassTransitBusService(IOptions<MassTransitSettings> options, ILogger<MassTransitBusService> logger, IServiceProvider serviceProvider)
     {
         _settings = options.Value;
 

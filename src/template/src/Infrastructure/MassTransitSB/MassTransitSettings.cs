@@ -1,6 +1,6 @@
 ﻿namespace Genocs.CleanArchitecture.Template.Infrastructure.MassTransitSB;
 
-public class MassTransitSetting
+public class MassTransitSettings
 {
     public static string Position = "MassTransitSettings";
     public string? HostName { get; set; }

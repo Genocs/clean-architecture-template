@@ -7,7 +7,7 @@ public class MassTransitServiceBusConfigurator
 {
     public static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
     {
-        services.Configure<MassTransitSetting>(context.Configuration.GetSection(MassTransitSetting.Position));
+        services.Configure<MassTransitSettings>(context.Configuration.GetSection(MassTransitSettings.Position));
         services.AddHostedService<MassTransitBusService>();
     }
 }

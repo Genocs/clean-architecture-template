@@ -1,4 +1,7 @@
+using System.Text;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Genocs.CleanArchitecture.Template.AcceptanceTests.V1;

@@ -11,15 +11,15 @@ internal static class MassTransitHostBuilder
         Host.CreateDefaultBuilder(args)
             .ConfigureServices((hostContext, services) =>
             {
-                MassTransitSetting settings = new();
-                hostContext.Configuration.GetSection("MassTransitSetting").Bind(settings);
+                MassTransitSettings settings = new();
+                hostContext.Configuration.GetSection(MassTransitSettings.Position).Bind(settings);
                 services.AddSingleton(settings);
 
                 services.AddMassTransit(x =>
                 {
-                    //x.AddConsumersFromNamespaceContaining<MerchantStatusChangedConsumer>();
+                    //x.AddConsumersFromNamespaceContaining<RegistrationCompletedHandler>();
 
-                    x.AddConsumer<DemoEventOccurredHandler>()
+                    x.AddConsumer<RegistrationCompletedHandler>()
                             .Endpoint(x =>
                             {
                                 x.ConcurrentMessageLimit = 5;
