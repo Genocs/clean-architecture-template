@@ -154,6 +154,60 @@ src/
 - **Infrastructure Layer**: Repositories, message brokers, databases
 - **Presentation Layer**: Controllers, middleware, API documentation
 
+
+## How to build and install the template locally
+
+To build the package run the following commands:
+
+[Official Link](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates)
+
+```bash
+
+# To clone the repository
+git clone https://github.com/Genocs/clean-architecture-template
+cd clean-architecture-template
+
+cd ./src
+
+# To build and install the template locally
+./nuget.exe pack -OutputDirectory ./out -Version 4.0.0 ./Package.Template.nuspec
+dotnet new install ./out/Genocs.CleanArchitecture.Template.4.0.0.nupkg
+dotnet new cleanarchitecture --help
+
+# To uninstall the template
+dotnet new uninstall Genocs.CleanArchitecture.Template
+
+# Example of creating a new project with InMemory database and Rebus as service bus
+dotnet new cleanarchitecture --name {MyCompany.MyProject} -da inmemory -sb rebus
+```
+
+### Sample application
+
+You can use the following commands to create a new project with different use cases: 
+
+```bash
+# Complete suite of use cases.
+dotnet new cleanarchitecture --use-cases full
+
+# Register account and get customer details.
+dotnet new cleanarchitecture --use-cases basic
+
+# Read only use cases
+dotnet new cleanarchitecture --use-cases readonly
+```
+
+### Miscellaneous
+
+Useful commands:
+
+```bash
+# How to get the list of installed templates
+dotnet new -u
+
+# How to get the list of templates
+dotnet new list
+```
+
 ## 🔧 Development Workflow
 
 ### Local Development
@@ -201,69 +255,11 @@ dotnet test src/AcceptanceTests
 
 ### Common Issues
 
-**Template installation fails**
-
-```bash
-# Uninstall old version first
-dotnet new uninstall Genocs.CleanArchitecture.Template
-dotnet new install Genocs.CleanArchitecture.Template
-
-# Restore packages
-dotnet restore
-dotnet build
-
-# To clone the repository
-git clone https://github.com/Genocs/clean-architecture-template
-# To build the nuget package
-nuget pack ./src/Package.Template.nuspec -NoDefaultExcludes -OutputDirectory ./out -Version 4.0.0
-
-```
-
 
 For more details on getting started, [read the documentation](https://genocs-blog.netlify.app/library/)
 
 Please check the [documentation](https://learn.microsoft.com/en-us/visualstudio/ide/how-to-locate-and-organize-project-and-item-templates?view=vs-2022) for more details.
 
-## How to build the package
-
-To build the package run the following commands:
-
-[Official Link](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates)
-
-```bash
-cd ./src
-./nuget.exe pack -OutputDirectory ./out -Version 4.0.0 ./Package.Template.nuspec
-dotnet new uninstall Genocs.CleanArchitecture.Template
-dotnet new install ./out/Genocs.CleanArchitecture.Template.4.0.0.nupkg
-dotnet new cleanarchitecture --help
-dotnet new cleanarchitecture --name {MyCompany.MyProject} -da inmemory -sb rebus
-```
-
-## Sample application
-
-Run `dotnet new -i Genocs.CleanArchitecture.Template` then try the following commands.
-
-```bash
-# Complete suite of use cases.
-dotnet new cleanarchitecture --use-cases full
-
-# Register account and get customer details.
-dotnet new cleanarchitecture --use-cases basic
-
-# Read only use cases
-dotnet new cleanarchitecture --use-cases readonly
-```
-
-## Miscellaneous
-
-Useful commands:
-
-```bash
-# How to get the list of installed templates
-dotnet new -u
-
-dotnet new list
-```
 
 ## Changelogs
 

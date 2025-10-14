@@ -461,3 +461,5 @@ nuget.exe
 
 [Ll]og*.txt
 
+# output folders
+**/out
