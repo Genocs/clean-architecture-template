@@ -50,7 +50,9 @@
 
 # Genocs Clean Architecture Template
 
-A comprehensive .NET 9 project template that follows Clean Architecture principles and Domain-Driven Design (DDD). This template helps you rapidly scaffold microservices applications with built-in support for multiple databases, message brokers, and enterprise patterns.
+A comprehensive .NET 9 project template that follows Clean Architecture principles and Domain-Driven Design (DDD).
+
+This template helps you rapidly scaffold microservices applications with built-in support for multiple databases, message brokers, and enterprise patterns.
 
 ## 📋 Table of Contents
 
@@ -97,7 +99,7 @@ A comprehensive .NET 9 project template that follows Clean Architecture principl
   - [JetBrains Rider](https://www.jetbrains.com/rider/)
 - **Optional for development**:
   - [Docker Desktop](https://www.docker.com/products/docker-desktop) for containerization
-  - MongoDB, SQL Server, or Redis (if not using Docker)
+  - MongoDB, SQL Server
 
 ## 🚀 Quick Start
 
@@ -111,15 +113,15 @@ dotnet new install Genocs.CleanArchitecture.Template
 dotnet new install Genocs.CleanArchitecture.Template::4.0.0
 
 # Create a new microservice
-dotnet new cleanarchitecture --name "MyCompany.OrderService" --database mongodb --servicebus masstransit
+dotnet new cleanarchitecture --name "MyCompany.MyService" --database mongodb --servicebus masstransit
 
 # Navigate to the project directory
-cd MyCompany.OrderService
+cd MyCompany.MyService
 
 # Build and run
 dotnet build
 dotnet test
-dotnet run --project src/MyCompany.OrderService.WebApi
+dotnet run --project src/MyCompany.MyService.WebApi
 
 # View all available options
 dotnet new cleanarchitecture --help
@@ -143,7 +145,7 @@ src/
 ├── Infrastructure/ # Data access and external services
 ├── WebApi/ # REST API controllers and middleware
 ├── Worker/ # Background services and message handlers
-├── Shared/ # Cross-cutting concerns and DTOs
+├── Contracts.NServiceBus/ # NServiceBus contracts and events
 └── Contracts/ # API contracts and events
 ```
 
@@ -159,7 +161,7 @@ src/
 
 To build the package run the following commands:
 
-[Official Link](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates)
+[custom-templates Link](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates)
 
 ```bash
 # To clone the repository
@@ -178,21 +180,6 @@ dotnet new uninstall Genocs.CleanArchitecture.Template
 
 # Example of creating a new project with InMemory database and Rebus as service bus
 dotnet new cleanarchitecture --name {MyCompany.MyProject} -da inmemory -sb rebus
-```
-
-### Sample application
-
-You can use the following commands to create a new project with different use cases: 
-
-```bash
-# Complete suite of use cases.
-dotnet new cleanarchitecture --use-cases full
-
-# Register account and get customer details.
-dotnet new cleanarchitecture --use-cases basic
-
-# Read only use cases
-dotnet new cleanarchitecture --use-cases readonly
 ```
 
 ### Miscellaneous

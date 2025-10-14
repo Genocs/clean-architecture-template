@@ -1,7 +1,6 @@
 # The Clean Architecture with .NET Core
 
-
-The **Clean Architecture Principles with .NET Core**. Use cases as central organizing structure, decoupled from frameworks and technology details. 
+The **Clean Architecture Principles with .NET Core**. Use cases as central organizing structure, decoupled from frameworks and technology details.
 
 Built with small components that are developed and tested in isolation.
 
@@ -13,7 +12,6 @@ Run the Docker container in less than 2 minutes using Play With Docker:
 
 <a href="https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/genocs/clean-architecture-template/master/docker-compose.yml&amp;stack_name=clean-architecture-template" rel="nofollow"><img src="https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png" alt="Try in PWD" style="max-width:100%;"></a>
 
-
 ## Motivation
 
 > Learn how to design modular applications.
@@ -22,12 +20,11 @@ Run the Docker container in less than 2 minutes using Play With Docker:
 
 ### Learn how to design modular applications
 
-Learning how to design modular applications will help you become a better engineer. Designing modular applications is the holy grail of software architecture, it is hard to find engineers experienced in designing applications which allows adding new features in a steady speed. 
+Learning how to design modular applications will help you become a better engineer. Designing modular applications is the holy grail of software architecture, it is hard to find engineers experienced in designing applications which allows adding new features in a steady speed.
 
 ### Explore the .NET Core features
 
 .NET Core brings a sweet development environment, an extensible and cross-platform framework. We will explore the benefits of it in the infrastructure layer and we will reduce its relevance in the application layer. The same rule is applied for modern C# language constructions.
-
 
 ## Containers and orchestrators
 
@@ -38,19 +35,18 @@ The docker-infrastructure folder contains everything required to run the infrast
 
 This example contains the implementation related to three different storage type:
 
-- InMemoryDataAccess (useful only for development) 
-- Microsoft SQL Server (The popular Relational database developed by Microsoft) 
-- MongoDB (The popular Document DB) 
-
+- InMemory DataAccess (useful only for development)
+- Microsoft SQL Server (Relational database developed by Microsoft)
+- MongoDB (Document DB)
 
 ## Enterprise Service Bus (ESB)
 
 ### Message Broker - RabbitMQ cluster
 
-The folder docker-infrastructure contains the docker-compose file and everything required to run RabbitMQ locally.   
+The folder docker-infrastructure contains the docker-compose file and everything required to run RabbitMQ locally.
 
 This example implement the enterprise service bus through four different library.
- 
+
 - NService Bus
 - MassTransit
 - Rebus
@@ -59,91 +55,90 @@ This example implement the enterprise service bus through four different library
 Documents and samples are provided for each library.
 
 - Rebus
-    - [Rebus Documentation](https://rebus.fm/docs/)
-    - [Rebus GitHub Repository](https://github.com/rebus-org/Rebus)
-    - [Rebus Samples](https://github.com/rebus-org/Rebus.Samples)
+
+  - [Rebus Documentation](https://rebus.fm/docs/)
+  - [Rebus GitHub Repository](https://github.com/rebus-org/Rebus)
+  - [Rebus Samples](https://github.com/rebus-org/Rebus.Samples)
 
 - NServiceBus
-    - [NServiceBus Documentation](https://docs.particular.net/nservicebus/)
-    - [NServiceBus GitHub Repository](https://github.com/Particular/NServiceBus)
-    - [NServiceBus Samples](https://github.com/Particular/NServiceBus.Samples)
+
+  - [NServiceBus Documentation](https://docs.particular.net/nservicebus/)
+  - [NServiceBus GitHub Repository](https://github.com/Particular/NServiceBus)
+  - [NServiceBus Samples](https://github.com/Particular/NServiceBus.Samples)
 
 - MassTransit
-    - [MassTransit Documentation](https://masstransit-project.com/)
-    - [MassTransit GitHub Repository](https://github.com/MassTransit/MassTransit)
-    - [MassTransit Samples](https://github.com/MassTransit/Samples)
-
-
+  - [MassTransit Documentation](https://masstransit-project.com/)
+  - [MassTransit GitHub Repository](https://github.com/MassTransit/MassTransit)
+  - [MassTransit Samples](https://github.com/MassTransit/Samples)
 
 ## Index of Clean Architecture Template
 
-* [Use Cases](#use-cases)
-* [Flow of Control](#register-flow-of-control)
-  * [Register Flow of Control](#register-flow-of-control)
-  * [Get Customer Details Flow of Control](#get-customer-details-flow-of-control)
-* [Architecture Styles](#architecture-styles)
-  * [Hexagonal Architecture Style](#ports-and-adapters-architecture-style)
-    * [Ports](#ports)
-    * [Adapters](#adapters)
-    * [The Left Side](#the-left-side)
-    * [The Right Side](#the-right-side)
-  * [Onion Architecture Style](#onion-architecture-style)
-  * [Clean Architecture Style](#clean-architecture-style)
-* [Design Patterns](#design-patterns)
-  * [Controller](#controller)
-  * [ViewModel](#viewmodel)
-  * [Presenter](#presenter)
-    * [Standard Output](#standard-output)
-    * [Error Output](#error-output)
-    * [Alternative Output](#alternative-output)
-  * [Unit of Work](#unit-of-work)
-  * [First-Class Collections](#first-class-collections)
-  * [Factory](#factory)
-* [Domain-Driven Design Patterns](#domain-driven-design-patterns)
-  * [Value Object](#value-object)
-  * [Entity](#entity)
-  * [Aggregate Root](#aggregate-root)
-  * [Repository](#repository)
-  * [Use Case](#use-case)
-* [Separation of Concerns](#separation-of-concerns)
-  * [Domain](#domain)
-  * [Application](#application)
-  * [Infrastructure](#infrastructure)
-  * [User Interface](#user-interface)
-* [Encapsulation](#encapsulation)
-* [Test-Driven Development TDD](#test-driven-development-tdd)
-  * [Fakes](#fakes)
-* [SOLID](#solid)
-  * [Single Responsibility Principle](#single-responsibility-principle)
-  * [Open-Closed Principle](#open-closed-principle)
-  * [Liskov Substitution Principle](#liskov-substitution-principle)
-  * [Interface Segregation Principle](#interface-segregation-principle)
-  * [Dependency Inversion Principle](#dependency-inversion-principle)
-* [.NET Core Web API](#.net-core-webapi)
-  * [Swagger and API Versioning](#swagger-and-api-versioning)
-  * [Microsoft Extensions](#microsoft-extensions)
-  * [Feature Flags](#feature-flags)
-  * [Logging](#logging)
-  * [Data Annotations](#data-annotations)
-  * [Authentication](#authentication)
-  * [Authorization](#authorization)
-* [Entity Framework Core](#entity-framework-core)
-  * [Add Migration](#add-migration)
-  * [Update Database](#update-database)
-* [Environment Configurations](#environment-configurations)
-* [DevOps](#devops)
-  * [Running the Application Locally](#running-the-application-locally)
-  * [Running the Tests Locally](#running-the-tests-locally)
-  * [Continuous Integration & Continuous Deployment](#continuous-integration-continuous-deployment)
-* [Docker](#docker)
-* [SQL Server](#sql-server)
-* [Related Content and Projects](#related-content-and-projects)
+- [Use Cases](#use-cases)
+- [Flow of Control](#register-flow-of-control)
+  - [Register Flow of Control](#register-flow-of-control)
+  - [Get Customer Details Flow of Control](#get-customer-details-flow-of-control)
+- [Architecture Styles](#architecture-styles)
+  - [Hexagonal Architecture Style](#ports-and-adapters-architecture-style)
+    - [Ports](#ports)
+    - [Adapters](#adapters)
+    - [The Left Side](#the-left-side)
+    - [The Right Side](#the-right-side)
+  - [Onion Architecture Style](#onion-architecture-style)
+  - [Clean Architecture Style](#clean-architecture-style)
+- [Design Patterns](#design-patterns)
+  - [Controller](#controller)
+  - [ViewModel](#viewmodel)
+  - [Presenter](#presenter)
+    - [Standard Output](#standard-output)
+    - [Error Output](#error-output)
+    - [Alternative Output](#alternative-output)
+  - [Unit of Work](#unit-of-work)
+  - [First-Class Collections](#first-class-collections)
+  - [Factory](#factory)
+- [Domain-Driven Design Patterns](#domain-driven-design-patterns)
+  - [Value Object](#value-object)
+  - [Entity](#entity)
+  - [Aggregate Root](#aggregate-root)
+  - [Repository](#repository)
+  - [Use Case](#use-case)
+- [Separation of Concerns](#separation-of-concerns)
+  - [Domain](#domain)
+  - [Application](#application)
+  - [Infrastructure](#infrastructure)
+  - [User Interface](#user-interface)
+- [Encapsulation](#encapsulation)
+- [Test-Driven Development TDD](#test-driven-development-tdd)
+  - [Fakes](#fakes)
+- [SOLID](#solid)
+  - [Single Responsibility Principle](#single-responsibility-principle)
+  - [Open-Closed Principle](#open-closed-principle)
+  - [Liskov Substitution Principle](#liskov-substitution-principle)
+  - [Interface Segregation Principle](#interface-segregation-principle)
+  - [Dependency Inversion Principle](#dependency-inversion-principle)
+- [.NET Core Web API](#.net-core-webapi)
+  - [Swagger and API Versioning](#swagger-and-api-versioning)
+  - [Microsoft Extensions](#microsoft-extensions)
+  - [Feature Flags](#feature-flags)
+  - [Logging](#logging)
+  - [Data Annotations](#data-annotations)
+  - [Authentication](#authentication)
+  - [Authorization](#authorization)
+- [Entity Framework Core](#entity-framework-core)
+  - [Add Migration](#add-migration)
+  - [Update Database](#update-database)
+- [Environment Configurations](#environment-configurations)
+- [DevOps](#devops)
+  - [Running the Application Locally](#running-the-application-locally)
+  - [Running the Tests Locally](#running-the-tests-locally)
+  - [Continuous Integration & Continuous Deployment](#continuous-integration-continuous-deployment)
+- [Docker](#docker)
+- [SQL Server](#sql-server)
+- [Related Content and Projects](#related-content-and-projects)
 
-  
 ## Use Cases
 
 > Use Cases are delivery independent, they show the intent of a system.
-> 
+>
 > Use Cases are algorithms which interpret the input to generate the output data.
 
 Application architecture is about usage, a good architecture screams the business use cases to the developer and framework concerns are implementation details. On **Manga** sample the user can `Register` an account then manage the balance by `Deposits`, `Withdrawals` and `Transfers`.
@@ -155,7 +150,7 @@ Application architecture is about usage, a good architecture screams the busines
 Following the list of Use Cases:
 
 | Use Case             | Description                                                           |
-|----------------------|-----------------------------------------------------------------------|
+| -------------------- | --------------------------------------------------------------------- |
 | Register             | An customer can register an account using his personal details.       |
 | Deposit              | The customer can deposit an amount.                                   |
 | Transfer             | The customer can transfer money from one account to another.          |
@@ -192,7 +187,7 @@ Manga uses ideas from popular architectural styles. They Ports and Adapters are 
 
 ### Hexagonal Architecture Style
 
-The general idea behind Hexagonal architecture style is that the dependencies (Adapters) required by the software to run are used behind an interface (Port).  
+The general idea behind Hexagonal architecture style is that the dependencies (Adapters) required by the software to run are used behind an interface (Port).
 
 The software is divided into **Application** and **Infrastructure** in which the adapters are interchangeable components developed and tested in isolation. The Application is loosely coupled to the Adapters and their implementation details.
 
@@ -1194,7 +1189,7 @@ public sealed class GenocsContext : DbContext
             .HasConversion(
                 v => v.ToString(),
                 v => new SSN(v));
-                
+
         modelBuilder.Entity<Customer>()
             .ToTable("Customer")
             .Property(b => b.Name)
@@ -1294,7 +1289,7 @@ Manga is a cross-platform application, you can run it from Mac, Windows or Unix.
 
 The single requirement is to install the latest .NET Code SDK.
 
-* [.NET Core SDK 8.0](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [.NET Core SDK 8.0](https://dotnet.microsoft.com/download/dotnet/8.0)
 
 We made available scripts to create and seed the database quickly via Docker.
 
@@ -1315,8 +1310,8 @@ dotnet test
 ### Continuous Integration & Continuous Deployment
 
 ```yml
-version: '1.0.{build}'
-image: 
+version: "1.0.{build}"
+image:
   - Ubuntu
 environment:
   DOCKER_USER:
@@ -1334,7 +1329,7 @@ services:
 dotnet_csproj:
   patch: true
   file: '**\*.csproj'
-  version: '{version}'
+  version: "{version}"
 build_script:
   - docker pull mcr.microsoft.com/mssql/server:2017-latest || true
   - docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=<YourStrong!Passw0rd>' -p 1433:1433 --name sql1 -d mcr.microsoft.com/mssql/server:2017-latest || true
@@ -1355,14 +1350,14 @@ deploy_script:
   - docker push {mycompany}/clean-architecture:github
   - docker login --username=$HEROKU_USERNAME --password=$HEROKU_API_KEY registry.heroku.com
   - docker tag {mycompany}/clean-architecture:github registry.heroku.com/$HEROKU_APP_NAME/web
-  - docker push registry.heroku.com/$HEROKU_APP_NAME/web                
+  - docker push registry.heroku.com/$HEROKU_APP_NAME/web
   - curl https://cli-assets.heroku.com/install.sh | sh
   - heroku container:release web -a $HEROKU_APP_NAME
 ```
 
 ## Docker
 
-The project build two different images. One for the the Web API and one for the bus worker.   
+The project build two different images. One for the the Web API and one for the bus worker.
 
 ```sh
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
@@ -1388,7 +1383,6 @@ docker build -t company/project.service.webapi -f ./src/WebApi/Dockerfile .
 docker build -t company/project.service.worker -f ./src/Worker/Dockerfile .
 ```
 
-
 ## SQL Server
 
 To spin up a SQL Server in a docker container using the connection string `Server=localhost;User Id=sa;Password=<YourNewStrong!Passw0rd>;` run the following command:
@@ -1399,17 +1393,17 @@ To spin up a SQL Server in a docker container using the connection string `Serve
 
 ## Related Content and Projects
 
-| Video                                 | Date         |
-|---------------------------------------|--------------|
-| [Hexagonal and Clean Architecture styles. Same or Different?](https://www.youtube.com/watch?v=FNQbyZu-NAo)| Sep 16, 2019  |
-| [Clean Architecture Essentials](https://www.youtube.com/watch?v=NjPjCxTIf4M)| Sep 13, 2019  |
-| [Shinning Frameworks and DDD?!](https://www.youtube.com/watch?v=OmxBqmmhoHg)| Sep 12, 2019  |
-| [Clean Architecture: The User Interface is a detail](https://www.youtube.com/watch?v=lWH_ZDu2zKQ)| Sep 11, 2019  |
-| [TDD and Hexagonal Architecture: Clean Tests](https://www.youtube.com/watch?v=j6_XPsqjrhE)| Sep 10, 2019  |
-| [Designing and Testing Input Validation with .NET Core: The Clean Architecture way](https://www.youtube.com/watch?v=hyW4d5OcExw)| Sep 9, 2019  |
-| [Clean Architecture Manga](https://www.youtube.com/watch?v=ivAkdJmSqLQ)              | Aug 6, 2019  |
-| [TDD and TDD with .NET Core and VSCode](https://www.youtube.com/watch?v=ORe0r4bpfac&t=360s) | Nov 3, 2018  |
-| [Introduction to Clean Architecture](https://www.youtube.com/watch?v=6SeoWIIK1NU&t=50s)    | Oct 31, 2018 |
+| Video                                                                                                                            | Date         |
+| -------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| [Hexagonal and Clean Architecture styles. Same or Different?](https://www.youtube.com/watch?v=FNQbyZu-NAo)                       | Sep 16, 2019 |
+| [Clean Architecture Essentials](https://www.youtube.com/watch?v=NjPjCxTIf4M)                                                     | Sep 13, 2019 |
+| [Shinning Frameworks and DDD?!](https://www.youtube.com/watch?v=OmxBqmmhoHg)                                                     | Sep 12, 2019 |
+| [Clean Architecture: The User Interface is a detail](https://www.youtube.com/watch?v=lWH_ZDu2zKQ)                                | Sep 11, 2019 |
+| [TDD and Hexagonal Architecture: Clean Tests](https://www.youtube.com/watch?v=j6_XPsqjrhE)                                       | Sep 10, 2019 |
+| [Designing and Testing Input Validation with .NET Core: The Clean Architecture way](https://www.youtube.com/watch?v=hyW4d5OcExw) | Sep 9, 2019  |
+| [Clean Architecture Manga](https://www.youtube.com/watch?v=ivAkdJmSqLQ)                                                          | Aug 6, 2019  |
+| [TDD and TDD with .NET Core and VSCode](https://www.youtube.com/watch?v=ORe0r4bpfac&t=360s)                                      | Nov 3, 2018  |
+| [Introduction to Clean Architecture](https://www.youtube.com/watch?v=6SeoWIIK1NU&t=50s)                                          | Oct 31, 2018 |
 
 ## Contributors ✨
 
@@ -1441,5 +1435,3 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
-
-
