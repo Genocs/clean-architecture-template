@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using Genocs.CleanArchitecture.Template.Worker;
+using Serilog;
 using Serilog.Formatting.Compact;
 
 namespace Genocs.CleanArchitecture.Template.Worker;
@@ -7,7 +8,13 @@ public class Program
 {
     public static async Task Main(string[] args)
     {
-        var host = CreateHostBuilder(args).Build();
+        IHost? host = null;
+
+#if MassTransit
+        host = MassTransitHostBuilder.CreateHostBuilder(args).Build();
+#else
+        host = CreateHostBuilder(args).Build();
+#endif
 
         var logger = host.Services.GetRequiredService<ILogger<Program>>();
         logger.LogInformation("Genocs.CleanArchitecture.Template Bus is starting.");

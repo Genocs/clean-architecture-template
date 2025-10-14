@@ -169,8 +169,8 @@ cd clean-architecture-template
 cd ./src
 
 # To build and install the template locally
-./nuget.exe pack -OutputDirectory ./out -Version 4.0.1 ./Package.Template.nuspec -NoDefaultExcludes
-dotnet new install ./out/Genocs.CleanArchitecture.Template.4.0.1.nupkg
+./nuget.exe pack -OutputDirectory ./out -Version 4.0.0 ./Package.Template.nuspec -NoDefaultExcludes
+dotnet new install ./out/Genocs.CleanArchitecture.Template.4.0.0.nupkg
 dotnet new cleanarchitecture --help
 
 # To uninstall the template

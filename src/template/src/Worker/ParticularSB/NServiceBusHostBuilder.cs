@@ -1,16 +1,12 @@
+﻿using Genocs.CleanArchitecture.Template.Worker.ExternalServices;
+using Genocs.CleanArchitecture.Template.Worker.HostedServices;
 using Genocs.CleanArchitecture.Template.WorkerNServiceBus.Messages;
-using Genocs.CleanArchitecture.Template.WorkerNServiceBus.Services;
 using MongoDB.Driver;
 
-namespace Genocs.CleanArchitecture.Template.WorkerNServiceBus;
+namespace Genocs.CleanArchitecture.Template.Worker;
 
-public class Program
+internal static class NServiceBusHostBuilder
 {
-    public static async Task Main(string[] args)
-    {
-        await CreateHostBuilder(args).Build().RunAsync();
-    }
-
     public static IHostBuilder CreateHostBuilder(string[] args)
     {
         var builder = Host.CreateDefaultBuilder(args);
@@ -24,13 +20,13 @@ public class Program
         // SetUpNServiceBus(builder);
 
         builder.ConfigureServices((hostContext, services) =>
-            {
-                services.AddHostedService<Worker>();
-                services.AddHostedService<TimedHostedService>();
+        {
+            services.AddHostedService<BackgroundWorker>();
+            services.AddHostedService<TimedHostedService>();
 
-                services.AddSingleton<ICalculateStuff, CalculateStuff>();
+            services.AddSingleton<ICalculateStuff, CalculateStuff>();
 
-            });
+        });
 
         return builder;
     }

@@ -1,16 +1,11 @@
-using Genocs.CleanArchitecture.Template.Infrastructure.MassTransitSB;
-using Genocs.CleanArchitecture.Template.WorkerMassTransit.Handlers;
+﻿using Genocs.CleanArchitecture.Template.Infrastructure.MassTransitSB;
+using Genocs.CleanArchitecture.Template.Worker.MassTransitSB.Handlers;
 using MassTransit;
 
-namespace Genocs.CleanArchitecture.Template.WorkerMassTransit;
+namespace Genocs.CleanArchitecture.Template.Worker;
 
-public class Program
+internal static class MassTransitHostBuilder
 {
-    public static void Main(string[] args)
-    {
-        CreateHostBuilder(args).Build().Run();
-    }
-
     public static IHostBuilder CreateHostBuilder(string[] args) =>
 
         Host.CreateDefaultBuilder(args)
@@ -54,4 +49,5 @@ public class Program
                 });
                 //services.AddMassTransitHostedService();
             });
+
 }

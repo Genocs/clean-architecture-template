@@ -1,6 +1,6 @@
 ﻿using NServiceBus;
 
-namespace Genocs.CleanArchitecture.Template.WorkerNServiceBus.Services;
+namespace Genocs.CleanArchitecture.Template.Worker.ExternalServices;
 
 public interface ICalculateStuff
 {

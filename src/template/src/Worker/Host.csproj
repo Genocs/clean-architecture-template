@@ -37,7 +37,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-        <ProjectReference Include="..\Contracts.NServiceBus\Contracts.NServiceBus.csproj" />
         <ProjectReference Include="..\Contracts\Contracts.csproj" />
     </ItemGroup>
 
@@ -51,6 +50,15 @@
         <None Update="appsettings.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+    </ItemGroup>
+
+    <!-- Particular NService Bus -->
+    <ItemGroup>
+        <PackageReference Include="NServiceBus.Extensions.Hosting" Version="2.0.0" />
+        <PackageReference Include="NServiceBus.MicrosoftLogging.Hosting" Version="1.*" />
+
+        <ProjectReference Include="..\Contracts.NServiceBus\Contracts.NServiceBus.csproj" />
+
         <None Update="License.xml">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
