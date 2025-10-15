@@ -1,4 +1,4 @@
-using Genocs.CleanArchitecture.Template.WorkerNServiceBus.Messages;
+using Genocs.CleanArchitecture.Template.ContractsNServiceBus.Commands;
 
 namespace Genocs.CleanArchitecture.Template.Worker.HostedServices;
 
@@ -21,7 +21,7 @@ public class TimedHostedService(ILogger<TimedHostedService> logger, IMessageSess
                             TimeSpan.Zero,
                             TimeSpan.FromSeconds(5));
 
-        await MessageSession.Send(new DemoMessage(), cancellationToken: stoppingToken);
+        await MessageSession.Send(new TimeTriggreredCommand() { Payload = "Hello form TimedHostedService!" }, cancellationToken: stoppingToken);
     }
 
     private void DoWork(object? state)

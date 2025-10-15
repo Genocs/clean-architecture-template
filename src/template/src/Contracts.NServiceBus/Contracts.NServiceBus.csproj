@@ -10,5 +10,10 @@
 
     <ItemGroup>
         <PackageReference Include="NServiceBus" Version="9.2.7" />
-    </ItemGroup>    
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Contracts\Contracts.csproj" />
+    </ItemGroup>
+
 </Project>

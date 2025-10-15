@@ -1,4 +1,4 @@
-using Genocs.CleanArchitecture.Template.WorkerNServiceBus.Messages;
+using Genocs.CleanArchitecture.Template.ContractsNServiceBus.Commands;
 
 namespace Genocs.CleanArchitecture.Template.Worker.HostedServices;
 
@@ -15,7 +15,7 @@ public class BackgroundWorker(ILogger<BackgroundWorker> logger, IMessageSession 
 
             // Simple send the command
             await _messageSession
-                    .Send(new DemoMessage { Payload = DateTimeOffset.Now.ToString() }, cancellationToken: stoppingToken)
+                    .Send(new TimeTriggreredCommand { Payload = "Hello from trigger" }, cancellationToken: stoppingToken)
                     .ConfigureAwait(false);
 
             await Task.Delay(1000, stoppingToken);

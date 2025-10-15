@@ -45,8 +45,14 @@ public sealed class Register(IEntityFactory entityFactory,
         await _customerRepository.Add(customer);
         await _accountRepository.Add(account, credit);
 
+#if NServiceBus
+        // Publish the event to the enterprise service bus
+        await _serviceBus.PublishEventAsync(new Genocs.CleanArchitecture.Template.ContractsNServiceBus.Events.RegistrationCompleted() { CustomerId = customer.Id, AccountId = account.Id, CreditId = credit.Id });
+#else
         // Publish the event to the enterprise service bus
         await _serviceBus.PublishEventAsync(new RegistrationCompleted() { CustomerId = customer.Id, AccountId = account.Id, CreditId = credit.Id });
+
+#endif
 
         await _unitOfWork.Save();
 

@@ -39,9 +39,11 @@ public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDi
             var endpointConfiguration = new EndpointConfiguration(_settings.EndpointName);
 
             #region Configure Transport with Rabbit
-            var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
-            // transport.UseConventionalRoutingTopology();
-            transport.ConnectionString(_settings.TransportConnectionString);
+
+            var transport = endpointConfiguration.UseTransport<RabbitMQTransport>()
+                                .UseConventionalRoutingTopology(QueueType.Classic)
+                                .SetHeartbeatInterval(TimeSpan.FromSeconds(30))
+                                .ConnectionString(_settings.TransportConnectionString);
             #endregion
 
             #region Configure Persistance with MongoDb
@@ -61,7 +63,7 @@ public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDi
             // Unobtrusive mode.
             var conventions = endpointConfiguration.Conventions();
 
-            conventions.DefiningEventsAs(type => type.Namespace == "Genocs.CleanArchitecture.Template.Shared.Events");
+            conventions.DefiningEventsAs(type => type.Namespace == "Genocs.CleanArchitecture.Template.ContractsNServiceBus.Events");
 
             /*
             conventions.DefiningEventsAs(type =>

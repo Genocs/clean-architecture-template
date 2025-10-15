@@ -157,7 +157,7 @@ services.AddRebusServiceBus(builder.Configuration);
 #elif MassTransit
 services.AddMassTransitServiceBus(builder.Configuration);
 #elif NServiceBus
-services.AddParticularServiceBus(builder.Configuration);
+services.AddNServiceBusServiceBus(builder.Configuration);
 #elif AzureServiceBus
 services.AddAzureServiceBus(builder.Configuration);
 #endif

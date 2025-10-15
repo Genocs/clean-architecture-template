@@ -1,6 +1,6 @@
-﻿using Genocs.CleanArchitecture.Template.Worker.ExternalServices;
+﻿using Genocs.CleanArchitecture.Template.Contracts.Events;
+using Genocs.CleanArchitecture.Template.Worker.ExternalServices;
 using Genocs.CleanArchitecture.Template.Worker.HostedServices;
-using Genocs.CleanArchitecture.Template.WorkerNServiceBus.Messages;
 using MongoDB.Driver;
 
 namespace Genocs.CleanArchitecture.Template.Worker;
@@ -40,12 +40,11 @@ internal static class NServiceBusHostBuilder
 
             var transport = endpointConfiguration.UseTransport<LearningTransport>();
             transport.StorageDirectory(".");
-            transport.Routing().RouteToEndpoint(typeof(DemoMessage), "Sample.BackEnd");
+            transport.Routing().RouteToEndpoint(typeof(RegistrationCompleted), "Sample.RegistrationCompleted");
 
-
-            // Unobtrusive mode. 
+            // Unobtrusive mode.
             //var conventions = endpointConfiguration.Conventions();
-            //conventions.DefiningEventsAs(type => type.Namespace == "Genocs.CleanArchitecture.Template.Shared.Events");
+            //conventions.DefiningEventsAs(type => type.Namespace == "Genocs.CleanArchitecture.Template.ContractsNServiceBus.Events");
 
             //conventions.DefiningEventsAs(type =>
             //    type.Namespace == "Genocs.CleanArchitecture.Template.Shared.Events"
@@ -71,24 +70,24 @@ internal static class NServiceBusHostBuilder
             // endpointConfiguration.SendOnly();
 
             // Use Rabbit as transport
-            var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
-
-            // transport.UseConventionalRoutingTopology();
-            transport.ConnectionString("amqp://rabbitmq");
+            var transport = endpointConfiguration.UseTransport<RabbitMQTransport>()
+                                            .UseConventionalRoutingTopology(QueueType.Classic)
+                                            .SetHeartbeatInterval(TimeSpan.FromSeconds(30))
+                                            .ConnectionString("amqp://rabbitmq");
 
             // Use MongoDB as persistence layer
             // Save all the data related to Saga and so on to MongoDB
             var persistence = endpointConfiguration.UsePersistence<MongoPersistence>();
             persistence.MongoClient(new MongoClient("mongodb://localhost:27017"));
-            persistence.DatabaseName("UTU_Platform_DemoDB");
+            persistence.DatabaseName("DemoDB");
             persistence.UseTransactions(false);
 
             // Unobtrusive mode.
             // var conventions = endpointConfiguration.Conventions();
-            // conventions.DefiningEventsAs(type => type.Namespace == "Genocs.CleanArchitecture.Template.Shared.Events");
+            // conventions.DefiningEventsAs(type => type.Namespace == "Genocs.CleanArchitecture.Template.ContractsNServiceBus.Events");
 
             // conventions.DefiningEventsAs(type =>
-            //    type.Namespace == "Genocs.CleanArchitecture.Template.Shared.Events"
+            //    type.Namespace == "Genocs.CleanArchitecture.Template.ContractsNServiceBus.Events"
             //    || typeof(IEvent).IsAssignableFrom(typeof(Shared.Events.EventOccurred))
             // );
 

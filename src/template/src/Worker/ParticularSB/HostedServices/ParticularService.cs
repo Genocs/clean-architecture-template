@@ -1,4 +1,5 @@
-﻿using Genocs.CleanArchitecture.Template.Infrastructure.ParticularSB;
+﻿using Genocs.CleanArchitecture.Template.ContractsNServiceBus.Events;
+using Genocs.CleanArchitecture.Template.Infrastructure.ParticularSB;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -18,6 +19,25 @@ internal class ParticularService : IHostedService
 
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
+        _configuration = new EndpointConfiguration(settings.Value.EndpointName);
+
+        // https://docs.particular.net/nservicebus/serialization/
+        _configuration.UseSerialization<SystemJsonSerializer>();
+
+        _logger.LogInformation($"Start endpoint name: '{settings.Value.EndpointName}'");
+
+        #region Configure Transport with Rabbit
+
+        var transport = _configuration.UseTransport<RabbitMQTransport>()
+                                        .UseConventionalRoutingTopology(QueueType.Classic)
+                                        .SetHeartbeatInterval(TimeSpan.FromSeconds(30))
+                                        .ConnectionString("host=localhost");
+
+        transport.Routing().RouteToEndpoint(typeof(RegistrationCompleted), "RegistrationCompletedHandler");
+
+        _logger.LogInformation($"Transport connection string: '{settings.Value.TransportConnectionString}'");
+        #endregion
+
         // Start NServiceBus configuration
         #region ConfigureLicense
         #endregion
@@ -31,22 +51,12 @@ internal class ParticularService : IHostedService
         // metrics.SendMetricDataToServiceControl("Particular.Monitoring", TimeSpan.FromMilliseconds(500));
         #endregion
 
-        _configuration = new EndpointConfiguration(settings.Value.EndpointName);
-        _logger.LogInformation($"Start endpoint name: '{settings.Value.EndpointName}'");
-
-        #region Configure Transport with Rabbit
-        var transport = _configuration.UseTransport<RabbitMQTransport>();
-//        transport.UseConventionalRoutingTopology();
-        transport.ConnectionString(settings.Value.TransportConnectionString);
-        _logger.LogInformation($"Transport connection string: '{settings.Value.TransportConnectionString}'");
-        #endregion
-
         #region Configure Persistance with MongoDb
 
         var persistence = _configuration.UsePersistence<MongoPersistence>();
         persistence.MongoClient(new MongoClient(settings.Value.PersistenceConnectionString));
         persistence.DatabaseName(settings.Value.PersistenceDatabase);
-        persistence.UseTransactions(true); // Set replicaset and enable it
+        persistence.UseTransactions(false); // Set replicaset and enable it
         #endregion
 
         #region Register commands
@@ -56,17 +66,8 @@ internal class ParticularService : IHostedService
         #endregion
 
         // Unobtrusive mode.
-        var conventions = _configuration.Conventions();
-
-        conventions.DefiningEventsAs(type => type.Namespace == "Genocs.CleanArchitecture.Template.Shared.Events");
-
-        //conventions.DefiningEventsAs(type =>
-        //    type.Namespace == "Genocs.CleanArchitecture.Template.Shared.Events"
-        //    || typeof(IEvent).IsAssignableFrom(typeof(Shared.Events.EventOccurred))
-        //);
-
-        // https://docs.particular.net/nservicebus/serialization/
-        _configuration.UseSerialization<NewtonsoftJsonSerializer>();
+        // var conventions = _configuration.Conventions();
+        // conventions.DefiningEventsAs(type => type.Namespace == "Genocs.CleanArchitecture.Template.ContractsNServiceBus.Events");
 
         _configuration.EnableInstallers();
     }
@@ -74,14 +75,14 @@ internal class ParticularService : IHostedService
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("Starting...");
-        _instance = await Endpoint.Start(_configuration);
+        _instance = await Endpoint.Start(_configuration, cancellationToken);
         _logger.LogInformation("Started");
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("Stopping...");
-        await _instance.Stop();
+        await _instance.Stop(cancellationToken);
         _logger.LogInformation("Stopped");
     }
 }
