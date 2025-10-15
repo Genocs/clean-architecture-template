@@ -45,7 +45,7 @@
 [twitterx-url]: https://twitter.com/genocs
 
 <p align="center">
-    <img src="./assets/ExagonalArchitecture.png" alt="Genocs Library Logo">
+    <img src="./assets/exagonal-architecture.png" alt="Exagonal Architecture">
 </p>
 
 # Genocs Clean Architecture Template
@@ -148,9 +148,7 @@ To build the package run the following commands:
 git clone https://github.com/Genocs/clean-architecture-template
 cd clean-architecture-template
 
-cd ./src
-
-# To build and install the template locally
+# To pack and install the template
 dotnet pack ./src/Package.Template.csproj -p:PackageVersion=4.0.0 --configuration Release --output ./out
 
 dotnet new install ./out/Genocs.CleanArchitecture.Template.4.0.0.nupkg
