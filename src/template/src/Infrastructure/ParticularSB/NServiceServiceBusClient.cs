@@ -7,7 +7,7 @@ namespace Genocs.CleanArchitecture.Template.Infrastructure.ParticularSB;
 public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
 {
     private readonly NServiceServiceBusSettings _settings;
-    private IEndpointInstance _instance;
+    private IEndpointInstance? _instance;
 
     public NServiceServiceBusClient(IOptions<NServiceServiceBusSettings> settings)
     {
@@ -76,7 +76,6 @@ public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDi
             _instance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
         }
     }
-
 
     public async Task PublishEventAsync<T>(T evt)
         where T : Contracts.Interfaces.IEvent
