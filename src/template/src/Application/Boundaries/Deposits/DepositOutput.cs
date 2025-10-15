@@ -15,7 +15,7 @@ public sealed class DepositOutput
         Credit creditEntity = (Credit)credit;
 
         Transaction = new Transaction(
-                                    creditEntity.Description,
+                                    Credit.Description,
                                     creditEntity
                                     .Amount
                                     .ToMoney()

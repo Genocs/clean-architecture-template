@@ -31,7 +31,7 @@ public sealed class GetAccountDetailsOutput
             Credit creditEntity = (Credit)credit;
 
             Transaction transactionOutput = new Transaction(
-                creditEntity.Description,
+                Credit.Description,
                 creditEntity
                 .Amount
                 .ToMoney()
@@ -47,7 +47,7 @@ public sealed class GetAccountDetailsOutput
             Debit debitEntity = (Debit)debit;
 
             Transaction transactionOutput = new Transaction(
-                debitEntity.Description,
+                Debit.Description,
                 debitEntity
                 .Amount
                 .ToMoney()

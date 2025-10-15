@@ -1,15 +1,10 @@
 namespace Genocs.CleanArchitecture.Template.Application.Boundaries.Withdraws;
 
-public sealed class Transaction
+public sealed class Transaction(string description, decimal amount, DateTime transactionDate)
 {
-    public string Description { get; }
-    public decimal Amount { get; }
-    public DateTime TransactionDate { get; }
+    public string Description { get; } = description;
 
-    public Transaction(string description, decimal amount, DateTime transactionDate)
-    {
-        Description = description;
-        Amount = amount;
-        TransactionDate = transactionDate;
-    }
+    public decimal Amount { get; } = amount;
+
+    public DateTime TransactionDate { get; } = transactionDate;
 }

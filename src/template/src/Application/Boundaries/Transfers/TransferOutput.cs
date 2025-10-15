@@ -16,7 +16,7 @@ public sealed class TransferOutput
         Transaction = new Transaction(
             originAccountId,
             destinationAccountId,
-            debitEntity.Description,
+            Debit.Description,
             debitEntity.Amount
             .ToMoney()
             .ToDecimal(),

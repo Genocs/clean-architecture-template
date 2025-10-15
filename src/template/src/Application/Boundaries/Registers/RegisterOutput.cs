@@ -19,7 +19,7 @@ public sealed class RegisterOutput
             Credit creditEntity = (Credit)credit;
 
             Transaction transactionOutput = new Transaction(
-                creditEntity.Description,
+                Credit.Description,
                 creditEntity
                 .Amount
                 .ToMoney()
@@ -35,7 +35,7 @@ public sealed class RegisterOutput
             Debit debitEntity = (Debit)debit;
 
             Transaction transactionOutput = new Transaction(
-                debitEntity.Description,
+                Debit.Description,
                 debitEntity
                 .Amount
                 .ToMoney()

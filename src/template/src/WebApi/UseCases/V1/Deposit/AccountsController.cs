@@ -9,18 +9,10 @@ namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Deposit;
 [ApiVersion("1.0")]
 [Route("api/v1/[controller]")]
 [ApiController]
-public sealed class AccountsController : ControllerBase
+public sealed class AccountsController(IUseCase depositUseCase, DepositPresenter presenter) : ControllerBase
 {
-    private readonly IUseCase _depositUseCase;
-    private readonly DepositPresenter _presenter;
-
-    public AccountsController(
-        IUseCase depositUseCase,
-        DepositPresenter presenter)
-    {
-        _depositUseCase = depositUseCase;
-        _presenter = presenter;
-    }
+    private readonly IUseCase _depositUseCase = depositUseCase;
+    private readonly DepositPresenter _presenter = presenter;
 
     /// <summary>
     /// Deposit on an account.
@@ -36,9 +28,7 @@ public sealed class AccountsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult?> Deposit([FromBody][Required] DepositRequest request)
     {
-        var depositInput = new DepositInput(
-                                            request.AccountId,
-                                            new PositiveMoney(request.Amount));
+        var depositInput = new DepositInput(request.AccountId, new PositiveMoney(request.Amount));
 
         await _depositUseCase.ExecuteAsync(depositInput);
         return _presenter.ViewModel;

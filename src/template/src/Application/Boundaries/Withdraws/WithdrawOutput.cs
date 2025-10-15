@@ -14,7 +14,7 @@ public sealed class WithdrawOutput
         Debit debitEntity = (Debit)debit;
 
         Transaction = new Transaction(
-            debitEntity.Description,
+            Debit.Description,
             debitEntity.Amount
             .ToMoney()
             .ToDecimal(),

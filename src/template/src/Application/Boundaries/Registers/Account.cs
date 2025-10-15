@@ -34,7 +34,7 @@ public sealed class Account
             Credit creditEntity = (Credit)credit;
 
             Transaction transactionOutput = new Transaction(
-                creditEntity.Description,
+                Credit.Description,
                 creditEntity
                 .Amount
                 .ToMoney()
@@ -50,7 +50,7 @@ public sealed class Account
             Debit debitEntity = (Debit)debit;
 
             Transaction transactionOutput = new Transaction(
-                debitEntity.Description,
+                Debit.Description,
                 debitEntity
                 .Amount
                 .ToMoney()

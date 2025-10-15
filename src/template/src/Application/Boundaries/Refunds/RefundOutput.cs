@@ -13,7 +13,7 @@ public sealed class RefundOutput
         Debit debitEntity = (Debit)debit;
 
         Transaction = new Transaction(
-            debitEntity.Description,
+            Debit.Description,
             debitEntity.Amount
             .ToMoney()
             .ToDecimal(),
