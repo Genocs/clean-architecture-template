@@ -112,25 +112,14 @@ dotnet new install Genocs.CleanArchitecture.Template
 # Or install a specific version
 dotnet new install Genocs.CleanArchitecture.Template::4.0.0
 
-# Create a new microservice
-dotnet new cleanarchitecture --name "MyCompany.MyService" --database mongodb --servicebus masstransit
-
-# Navigate to the project directory
-cd MyCompany.MyService
-
-# Build and run
-dotnet build
-dotnet test
-dotnet run --project src/MyCompany.MyService.WebApi
-
 # View all available options
 dotnet new cleanarchitecture --help
 
 # Example with custom options
 dotnet new cleanarchitecture \
-  --name "Acme.InventoryService" \
-  --database sqlserver \
-  --servicebus particular \
+  --name "CompanyName.ServiceName" \
+  --database inmemory \
+  --service-bus rebus \
   --use-cases full
 ```
 
@@ -140,12 +129,16 @@ The template generates a solution with the following structure:
 
 ```pl
 src/
-├── Domain/ # Core business logic and entities
+├── AcceptanceTests/ # Acceptance Tests
 ├── Application/ # Use cases and application services
+├── Contracts/ # API and ServiceBus contracts and commansd, events and messages
+├── Contracts.NServiceBus/ # API and ServiceBus contracts and commansd, events and messages, used by NServiceBus
+├── Domain/ # Core business logic and entities
 ├── Infrastructure/ # Data access and external services
+├── IntegrationTests/ # Integration Tests
+├── UnitTests/ # Unit Tests
 ├── WebApi/ # REST API controllers and middleware
 ├── Worker/ # Background services and message handlers
-├── Contracts.NServiceBus/ # NServiceBus contracts and events
 └── Contracts/ # API contracts and events
 ```
 
@@ -179,7 +172,7 @@ dotnet new cleanarchitecture --help
 dotnet new uninstall Genocs.CleanArchitecture.Template
 
 # Example of creating a new project with InMemory database and Rebus as service bus
-dotnet new cleanarchitecture --name {MyCompany.MyProject} -da inmemory -sb rebus
+dotnet new cleanarchitecture --name {CompanyName.ServiceName} -da inmemory -sb rebus
 ```
 
 ### Miscellaneous
@@ -200,7 +193,7 @@ dotnet new list
 
 ```bash
 # Start infrastructure services
-docker-compose -f docker-infrastructure/docker-compose-infrastructure.yml up -d
+docker-compose -f ./infrastructure/docker/docker-compose-infrastructure.yml up -d
 
 # Run the API
 dotnet run --project src/YourProject.WebApi
