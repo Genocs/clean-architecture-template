@@ -9,7 +9,7 @@ public class RegistrationCompletedHandler(ILogger<RegistrationCompletedHandler> 
 
     public Task Consume(ConsumeContext<RegistrationCompleted> context)
     {
-        _logger.LogInformation(context.Message.AccountId.ToString());
+        _logger.LogInformation("RegistrationCompleted successfully. CreditId: {0}", context.Message.CreditId);
         return Task.CompletedTask;
     }
 }

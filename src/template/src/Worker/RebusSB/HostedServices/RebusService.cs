@@ -35,7 +35,7 @@ internal class RebusService : IHostedService
         // Start rebus configuration
         _activator = new BuiltinHandlerActivator();
 
-        _activator.Register(() => new RebusEventOccurredHandler(_logger));
+        _activator.Register(() => new RegistrationCompletedHandler(_logger));
 
         _bus = Configure.With(_activator)
             .Logging(l => l.ColoredConsole(minLevel: Rebus.Logging.LogLevel.Debug))
