@@ -227,7 +227,7 @@ Please check the [documentation](https://learn.microsoft.com/en-us/visualstudio/
 
 ## Changelogs
 
-View Complete [Changelogs](https://github.com/Genocs/clean-architecture-template/blob/main/CHANGELOGS.md).
+View Complete [Changelogs](https://github.com/Genocs/clean-architecture-template/blob/main/CHANGELOG.md).
 
 ## License
 
