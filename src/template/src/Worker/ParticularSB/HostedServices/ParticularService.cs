@@ -1,5 +1,4 @@
-﻿using Genocs.CleanArchitecture.Template.ContractsNServiceBus.Events;
-using Genocs.CleanArchitecture.Template.Infrastructure.ParticularSB;
+﻿using Genocs.CleanArchitecture.Template.Infrastructure.ParticularSB;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -16,8 +15,13 @@ internal class ParticularService : IHostedService
     public ParticularService(IOptions<NServiceServiceBusSettings> settings, ILogger<ParticularService> logger)
     {
         ArgumentNullException.ThrowIfNull(settings);
+        ArgumentNullException.ThrowIfNull(settings.Value);
 
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+
+        // Start NServiceBus configuration
+        #region ConfigureLicense
+        #endregion
 
         _configuration = new EndpointConfiguration(settings.Value.EndpointName);
 
@@ -31,23 +35,21 @@ internal class ParticularService : IHostedService
         var transport = _configuration.UseTransport<RabbitMQTransport>()
                                         .UseConventionalRoutingTopology(QueueType.Classic)
                                         .SetHeartbeatInterval(TimeSpan.FromSeconds(30))
-                                        .ConnectionString("host=localhost");
-
-        transport.Routing().RouteToEndpoint(typeof(RegistrationCompleted), "RegistrationCompletedHandler");
-
-        _logger.LogInformation($"Transport connection string: '{settings.Value.TransportConnectionString}'");
+                                        .ConnectionString(settings.Value.TransportConnectionString);
         #endregion
 
-        // Start NServiceBus configuration
-        #region ConfigureLicense
+        #region Register commands
+
+        // transport.Routing().RouteToEndpoint(typeof(MyCommand), "Sample.SimpleSender");
+
         #endregion
 
         #region ConfigureMetrics and Monitoring
 
-        // endpointConfiguration.SendFailedMessagesTo("error");
-        // endpointConfiguration.AuditProcessedMessagesTo("audit");
-        // endpointConfiguration.SendHeartbeatTo("Particular.ServiceControl");
-        // var metrics = endpointConfiguration.EnableMetrics();
+        // _configuration.SendFailedMessagesTo("error");
+        // _configuration.AuditProcessedMessagesTo("audit");
+        // _configuration.SendHeartbeatTo("Particular.ServiceControl");
+        // var metrics = _configuration.EnableMetrics();
         // metrics.SendMetricDataToServiceControl("Particular.Monitoring", TimeSpan.FromMilliseconds(500));
         #endregion
 
@@ -57,12 +59,6 @@ internal class ParticularService : IHostedService
         persistence.MongoClient(new MongoClient(settings.Value.PersistenceConnectionString));
         persistence.DatabaseName(settings.Value.PersistenceDatabase);
         persistence.UseTransactions(false); // Set replicaset and enable it
-        #endregion
-
-        #region Register commands
-
-        // transport.Routing().RouteToEndpoint(typeof(MyCommand), "Sample.SimpleSender");
-
         #endregion
 
         // Unobtrusive mode.
