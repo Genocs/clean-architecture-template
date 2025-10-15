@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <PackageType>Template</PackageType>
+    <PackageVersion>4.0.0</PackageVersion>
+    <PackageId>Genocs.CleanArchitecture.Template</PackageId>
+    <Title>Genocs - Clean Code Template</Title>
+    <Authors>Nocco Giovanni Emanuele</Authors>
+    <Description>A .NET template following the Clean Architecture Style, DDD and Separation of Concerns in Domain, Application, Infrastructure and UI. Separated host for WebApi and ServiceBus. Docker compose debugging support provided as well.</Description>
+    <PackageTags>aggregate;architecture;boilerplate;clean-architecture;clean-code;ddd;ddd-architecture;design-patterns;docker;domain-driven-design;dotnet;dotnetcore;dotnet-core;dotnet-cli;dotnet-new;dotnet-template;evolutionary-architecture;generator;hexagonal-architecture;layered;masstransit;microservice;microservices;nservicebus;onion;rabbitmq;service-bus;solid;solid-principles;templating;tdd;webapi</PackageTags>
+    <PackageProjectUrl>https://github.com/Genocs/clean-architecture-template</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README_NUGET.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/Genocs/clean-architecture-template.git</RepositoryUrl>
+    <RepositoryBranch>main</RepositoryBranch>
+    <RepositoryType>git</RepositoryType>
+    <Copyright>Copyright (c) 2025 Genocs Services</Copyright>
+    <PackageReleaseNotes>
+Release notes: 
+- Release 4.0.0:
+  - Updated to .NET 9
+  - Improved Docker support
+  - Added new templates for CQRS and Event Sourcing
+    </PackageReleaseNotes>
+    <Language>en-US</Language>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <IncludeSymbols>false</IncludeSymbols>
+    <IncludeSource>false</IncludeSource>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <NoDefaultExcludes>true</NoDefaultExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="template\**\*" Exclude="template\**\bin\**;template\**\obj\**;template\**\*.user;template\**\*.log;template\**\.vscode\**;template\**\.vs\**;template\**\*.exe" PackagePath="content\" />
+    <None Include="README_NUGET.md" Pack="true" PackagePath="\" />
+    <None Include="icon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>

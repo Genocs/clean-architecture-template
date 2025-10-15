@@ -32,12 +32,6 @@ jobs:
         with:
           dotnet-version: 9.0.x
 
-      - name: Setup NuGet CLI
-        uses: nuget/setup-nuget@v2
-        with:
-          nuget-version: "latest"
-        # Note: Required for nuget pack command. Alternative: use dotnet pack with a .csproj
-
       - name: Restore dependencies
         run: dotnet restore ./src/template
 
@@ -51,7 +45,7 @@ jobs:
         run: mkdir -p ./out
 
       - name: Pack
-        run: nuget pack ./src/Package.Template.nuspec -NoDefaultExcludes -OutputDirectory ./out -Version ${{ github.event.inputs.version }}
+        run: dotnet pack Package.Template.csproj -p:PackageVersion=5.0.1 --configuration Release --output ./out
 
       - name: Push package to Nuget
         run: dotnet nuget push ./out/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols
