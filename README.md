@@ -45,27 +45,12 @@
 [twitterx-url]: https://twitter.com/genocs
 
 <p align="center">
-    <img src="./assets/genocs-library-logo.png" alt="icon">
+    <img src="./assets/ExagonalArchitecture.png" alt="Genocs Library Logo">
 </p>
 
 # Genocs Clean Architecture Template
 
-A comprehensive .NET 9 project template that follows Clean Architecture principles and Domain-Driven Design (DDD).
-
-This template helps you rapidly scaffold microservices applications with built-in support for multiple databases, message brokers, and enterprise patterns.
-
-## 📋 Table of Contents
-
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Quick Start](#quick-start)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Template Options](#template-options)
-- [Architecture Overview](#architecture-overview)
-- [Examples](#examples)
-- [Contributing](#contributing)
-- [Support](#support)
+A comprehensive .NET 9 project template that follows Clean Architecture principles and Domain-Driven Design (DDD). This template helps you rapidly scaffold microservices applications with built-in support for multiple databases, message brokers, and enterprise patterns.
 
 ## ✨ Features
 
@@ -77,18 +62,21 @@ This template helps you rapidly scaffold microservices applications with built-i
 - 🔍 **Observability** - OpenTelemetry tracing and monitoring
 - 🐳 **Containerization** - Docker and Kubernetes ready
 - ⚡ **Background Services** - Worker services for async processing
+- 🧪 **Comprehensive Testing** - Unit, Integration, and Acceptance tests
 
-### Databases supported:
+## 📋 Table of Contents
 
-- InMemoryDB (for development purpose)
-- SqlServer
-- MongoDB
-
-### Enterprise Service Bus libraries supported:
-
-- Particular NServiceBus
-- MassTransit
-- Rebus
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Quick Start](#quick-start)
+- [Template Options](#template-options)
+- [Architecture Overview](#architecture-overview)
+- [Development Workflow](#development-workflow)
+- [Examples](#examples)
+- [Troubleshooting](#troubleshooting)
+- [Community & Support](#community--support)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## 📋 Prerequisites
 
@@ -148,7 +136,6 @@ src/
 - **Application Layer**: CQRS handlers, interfaces, DTOs
 - **Infrastructure Layer**: Repositories, message brokers, databases
 - **Presentation Layer**: Controllers, middleware, API documentation
-
 
 ## How to build and install the template locally
 
@@ -234,11 +221,9 @@ dotnet test src/AcceptanceTests
 
 ### Common Issues
 
-
 For more details on getting started, [read the documentation](https://genocs-blog.netlify.app/library/)
 
 Please check the [documentation](https://learn.microsoft.com/en-us/visualstudio/ide/how-to-locate-and-organize-project-and-item-templates?view=vs-2022) for more details.
-
 
 ## Changelogs
 
@@ -269,3 +254,12 @@ Become a financial contributor and help me sustain the project.
 <a href="https://opencollective.com/genocs"><img src="https://opencollective.com/genocs/individuals.svg?width=890"></a>
 
 ## Acknowledgements
+
+## ⚙️ Template Options
+
+| Option         | Description         | Values                               | Default       |
+| -------------- | ------------------- | ------------------------------------ | ------------- |
+| `--name`       | Project name        | `{Company.Project.Service}`          | Required      |
+| `--database`   | Database provider   | `inmemory`, `sqlserver`, `mongodb`   | `inmemory`    |
+| `--servicebus` | Message broker      | `particular`, `masstransit`, `rebus` | `masstransit` |
+| `--use-cases`  | Use case complexity | `basic`, `full`, `readonly`          | `basic`       |

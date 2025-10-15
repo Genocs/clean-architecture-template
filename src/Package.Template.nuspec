@@ -24,14 +24,12 @@ The full clean project:
 $ dotnet new cleanarchitecture
     </description>
     <releaseNotes>
-- Relesase 3.1.0:
-  Added list of events
-  
-- Clean Architecture Principles Documentation
-- .NET9
-- Swashbuckle 5 
-- Entity Framework Core 5
-- Enterprice Service Bus
+    Release notes: 
+    - Release 4.0.0:
+      - Updated to .NET 9
+      - Improved Docker support
+      - Added new templates for CQRS and Event Sourcing
+
     </releaseNotes>
     <tags>
       aggregate
