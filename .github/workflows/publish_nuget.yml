@@ -45,7 +45,7 @@ jobs:
         run: mkdir -p ./out
 
       - name: Pack
-        run: dotnet pack Package.Template.csproj -p:PackageVersion=${{ github.event.inputs.version }} --configuration Release --output ./out
+        run: dotnet pack ./src/Package.Template.csproj -p:PackageVersion=${{ github.event.inputs.version }} --configuration Release --output ./out
 
       - name: Push package to Nuget
         run: dotnet nuget push ./out/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols
