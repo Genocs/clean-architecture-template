@@ -1,6 +1,6 @@
 using Genocs.CleanArchitecture.Template.ContractsNServiceBus.Commands;
 
-namespace Genocs.CleanArchitecture.Template.Worker.HostedServices;
+namespace Genocs.CleanArchitecture.Template.Worker.ParticularSB;
 
 public class TimedHostedService(ILogger<TimedHostedService> logger, IMessageSession messageSession) : IHostedService, IDisposable
 {

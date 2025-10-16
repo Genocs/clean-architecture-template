@@ -241,7 +241,8 @@
             "src/WebApi/Extensions/RebusSB/**/*.cs",
             "src/Worker/MassTransitSB/**/*.cs",
             "src/Worker/ParticularSB/**/*.cs",
-            "src/Worker/RebusSB/**/*.cs"
+            "src/Worker/RebusSB/**/*.cs",
+            "src/Contracts.NServiceBus/**/*.*"
           ]
         },
         {
@@ -255,7 +256,8 @@
             "src/WebApi/Extensions/RebusSB/**/*.cs",
             "src/Worker/AzureSB/**/*.cs",
             "src/Worker/ParticularSB/**/*.cs",
-            "src/Worker/RebusSB/**/*.cs"
+            "src/Worker/RebusSB/**/*.cs",
+            "src/Contracts.NServiceBus/**/*.*"
           ]
         },
         {
@@ -283,7 +285,8 @@
             "src/WebApi/Extensions/ParticularSB/**/*.cs",
             "src/Worker/AzureSB/**/*.cs",
             "src/Worker/MassTransitSB/**/*.cs",
-            "src/Worker/ParticularSB/**/*.cs"
+            "src/Worker/ParticularSB/**/*.cs",
+            "src/Contracts.NServiceBus/**/*.*"
           ]
         },
         {

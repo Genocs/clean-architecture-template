@@ -141,7 +141,9 @@ src/
 
 To build the package run the following commands:
 
-[custom-templates Link](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates)
+[custom-templates](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates)
+
+[dotnet-templating](https://github.com/dotnet/templating)
 
 ```bash
 # To clone the repository

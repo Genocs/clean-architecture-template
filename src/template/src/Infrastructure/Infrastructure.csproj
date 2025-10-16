@@ -26,13 +26,14 @@
             <TreatAsUsed>true</TreatAsUsed>
         </PackageReference>
 
+<!--#if (AzureServiceBus) -->
         <!-- Azure Service Bus -->
         <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.2.0" />
-
-        <!-- Rebus -->
+<!--#endif -->
+<!--#if (Rebus) -->
         <PackageReference Include="Rebus.RabbitMq" Version="10.0.3" />
-
-        <!-- Particular NService Bus -->
+<!--#endif -->
+<!--#if (NServiceBus) -->
         <ProjectReference Include="..\Contracts.NServiceBus\Contracts.NServiceBus.csproj" />
 
         <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="4.1.0" />
@@ -40,12 +41,12 @@
         <!-- Particular NService Bus - RabbitMQ Transport and MongoDB persistance layer-->
         <PackageReference Include="NServiceBus.RabbitMQ" Version="10.1.3" />
         <PackageReference Include="NServiceBus.Storage.MongoDB" Version="6.0.0" />
-        <!-- END-->
+<!--#endif -->
 
-        <!-- Mass transit -->
+<!--#if (MassTransit) -->
         <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.3.1" />
         <PackageReference Include="Masstransit.RabbitMQ" Version="8.5.4" />
-        <!-- END -->
+<!--#endif -->
 
     </ItemGroup>
 

@@ -11,11 +11,6 @@
         <AssemblyName>Genocs.CleanArchitecture.Template.Worker</AssemblyName>
     </PropertyGroup>
 
-    <PropertyGroup>
-        <DefineConstants>CloseAccount;Deposit;GetAccountDetails;GetCustomerDetails;Register;Withdraw;Refund;Transfer</DefineConstants>
-    </PropertyGroup>
-
-
     <ItemGroup>
         <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.20.1" />
         <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.23.0" />
@@ -52,7 +47,7 @@
         </None>
     </ItemGroup>
 
-    <!-- Particular NService Bus -->
+<!--#if (NServiceBus) -->
     <ItemGroup>
         <PackageReference Include="NServiceBus.Extensions.Hosting" Version="3.0.1" />
         <PackageReference Include="NServiceBus.MicrosoftLogging.Hosting" Version="1.*" />
@@ -63,5 +58,7 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
+<!--#endif -->
+
 
 </Project>

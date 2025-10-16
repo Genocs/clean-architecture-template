@@ -1,6 +1,6 @@
 ﻿using Genocs.CleanArchitecture.Template.Contracts.Events;
-using Genocs.CleanArchitecture.Template.Worker.ExternalServices;
-using Genocs.CleanArchitecture.Template.Worker.HostedServices;
+using Genocs.CleanArchitecture.Template.Worker.ParticularSB;
+using Genocs.CleanArchitecture.Template.Worker.ParticularSB.ExternalServices;
 using MongoDB.Driver;
 
 namespace Genocs.CleanArchitecture.Template.Worker;

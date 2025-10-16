@@ -1,6 +1,6 @@
 using Genocs.CleanArchitecture.Template.ContractsNServiceBus.Commands;
 
-namespace Genocs.CleanArchitecture.Template.Worker.HostedServices;
+namespace Genocs.CleanArchitecture.Template.Worker.ParticularSB;
 
 public class BackgroundWorker(ILogger<BackgroundWorker> logger, IMessageSession messageSession) : BackgroundService
 {

@@ -13,10 +13,6 @@
         <DocumentationFile>api-documentation.xml</DocumentationFile>
     </PropertyGroup>
 
-    <PropertyGroup>
-        <DefineConstants>CloseAccount;Deposit;GetAccountDetails;GetCustomerDetails;Register;Withdraw;Refund;Transfer</DefineConstants>
-    </PropertyGroup>
-
     <ItemGroup>
         <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.23.0" />
         <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />

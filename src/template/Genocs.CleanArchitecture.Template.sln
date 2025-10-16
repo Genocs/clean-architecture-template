@@ -17,9 +17,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Applicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "src\Contracts\Contracts.csproj", "{07BC6F43-C15F-E0F2-5973-6F32D66D1A14}"
 EndProject
+#if NServiceBus
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts.NServiceBus", "src\Contracts.NServiceBus\Contracts.NServiceBus.csproj", "{FD356C97-846B-C05B-B359-E6EFD1665BCF}"
 EndProject
+#endif
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6335BAF6-440D-4B7D-8618-DB1B32F4E1DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Worker", "Worker", "{F5A1163F-15CC-46B6-B7E9-41CA380575C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "src\WebApi\Host.csproj", "{4552C345-558B-DA31-3693-BAB5315AE735}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "src\Worker\Host.csproj", "{18EE3BA9-B0E7-88DD-CF9C-A7C0713930F9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{1250CDBC-9DDA-447F-97E6-FCBF98F82BAC}"
 	ProjectSection(SolutionItems) = preProject
@@ -31,14 +41,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		README.md = README.md
 		stylecop.json = stylecop.json
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Worker", "Worker", "{F5A1163F-15CC-46B6-B7E9-41CA380575C9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "src\WebApi\Host.csproj", "{4552C345-558B-DA31-3693-BAB5315AE735}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "src\Worker\Host.csproj", "{18EE3BA9-B0E7-88DD-CF9C-A7C0713930F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
