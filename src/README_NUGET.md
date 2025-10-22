@@ -20,7 +20,7 @@
 [build-url]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml
 [downloads-prev-shield]: https://img.shields.io/nuget/dt/Genocs.CleanArchitectureTemplate.svg?color=2da44e&label=downloads%20prev&logo=nuget
 [downloads-prev-url]: https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate
-[package-shield]: https://img.shields.io/badge/nuget-v.4.0.0-blue?&label=latests&logo=nuget
+[package-shield]: https://img.shields.io/badge/nuget-v.4.0.1-blue?&label=latests&logo=nuget
 [package-url]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml
 [downloads-shield]: https://img.shields.io/nuget/dt/Genocs.CleanArchitecture.Template.svg?color=2da44e&label=downloads&logo=nuget
 [downloads-url]: https://www.nuget.org/packages/Genocs.CleanArchitecture.Template
@@ -101,7 +101,7 @@ use
 
 ``` bash
 cd ./out
-dotnet new install Genocs.CleanArchitecture.Template::4.0.0
+dotnet new install Genocs.CleanArchitecture.Template::4.0.1
 ```
 
 This would install the `Genocs CleanArchitecture Template` globally on your machine.

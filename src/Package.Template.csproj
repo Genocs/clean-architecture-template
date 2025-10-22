@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <PackageType>Template</PackageType>
-    <PackageVersion>4.0.0</PackageVersion>
+    <PackageVersion>4.0.1</PackageVersion>
     <PackageId>Genocs.CleanArchitecture.Template</PackageId>
     <Title>Genocs - Clean Code Template</Title>
     <Authors>Nocco Giovanni Emanuele</Authors>

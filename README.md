@@ -19,7 +19,7 @@
 [license-url]: https://github.com/Genocs/clean-architecture-template/blob/main/LICENSE
 [build-shield]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml/badge.svg?branch=main
 [build-url]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml
-[package-shield]: https://img.shields.io/badge/nuget-v.4.0.0-blue?&label=latests&logo=nuget
+[package-shield]: https://img.shields.io/badge/nuget-v.4.0.1-blue?&label=latests&logo=nuget
 [package-url]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml
 [downloads-prev-shield]: https://img.shields.io/nuget/dt/Genocs.CleanArchitectureTemplate.svg?color=2da44e&label=downloads%20prev&logo=nuget
 [downloads-prev-url]: https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate
@@ -98,7 +98,7 @@ A comprehensive .NET 9 project template that follows Clean Architecture principl
 dotnet new install Genocs.CleanArchitecture.Template
 
 # Or install a specific version
-dotnet new install Genocs.CleanArchitecture.Template::4.0.0
+dotnet new install Genocs.CleanArchitecture.Template::4.0.1
 
 # View all available options
 dotnet new cleanarchitecture --help
@@ -151,9 +151,9 @@ git clone https://github.com/Genocs/clean-architecture-template
 cd clean-architecture-template
 
 # To pack and install the template
-dotnet pack ./src/Package.Template.csproj -p:PackageVersion=4.0.0 --configuration Release --output ./out
+dotnet pack ./src/Package.Template.csproj -p:PackageVersion=4.0.1 --configuration Release --output ./out
 
-dotnet new install ./out/Genocs.CleanArchitecture.Template.4.0.0.nupkg
+dotnet new install ./out/Genocs.CleanArchitecture.Template.4.0.1.nupkg
 dotnet new cleanarchitecture --help
 
 # To uninstall the template
