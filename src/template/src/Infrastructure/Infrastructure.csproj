@@ -31,7 +31,7 @@
         <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.2.0" />
 <!--#endif -->
 <!--#if (Rebus) -->
-        <PackageReference Include="Rebus.RabbitMq" Version="10.0.3" />
+        <PackageReference Include="Rebus.RabbitMq" Version="10.1.0" />
 <!--#endif -->
 <!--#if (NServiceBus) -->
         <ProjectReference Include="..\Contracts.NServiceBus\Contracts.NServiceBus.csproj" />
