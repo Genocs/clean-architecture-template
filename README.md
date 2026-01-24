@@ -82,7 +82,7 @@ A comprehensive .NET10 project template that follows Clean Architecture principl
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (latest version)
 - **IDE** (choose one):
-  - [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (recommended)
+  - [Visual Studio 2026](https://visualstudio.microsoft.com/vs/) (recommended)
   - [Visual Studio Code](https://code.visualstudio.com/) with C# extension
   - [JetBrains Rider](https://www.jetbrains.com/rider/)
 - **Optional for development**:
@@ -142,10 +142,6 @@ src/
 
 To build the package run the following commands:
 
-[custom-templates](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates)
-
-[dotnet-templating](https://github.com/dotnet/templating)
-
 ```bash
 # To clone the repository
 git clone https://github.com/Genocs/clean-architecture-template
@@ -165,6 +161,11 @@ dotnet new uninstall Genocs.CleanArchitecture.Template
 # Example of creating a new project with InMemory database and Rebus as service bus
 dotnet new cleanarchitecture --name {CompanyName.ServiceName} -da inmemory -sb rebus
 ```
+
+Official Documentation:
+- [custom-templates](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates)
+- [dotnet-templating](https://github.com/dotnet/templating)
+
 
 ### Miscellaneous
 
@@ -227,7 +228,7 @@ dotnet test src/AcceptanceTests
 
 For more details on getting started, [read the documentation](https://genocs-blog.netlify.app/library/)
 
-Please check the [documentation](https://learn.microsoft.com/en-us/visualstudio/ide/how-to-locate-and-organize-project-and-item-templates?view=vs-2022) for more details.
+Please check the [documentation](https://learn.microsoft.com/en-us/visualstudio/ide/how-to-locate-and-organize-project-and-item-templates?view=visualstudio) for more details.
 
 ## Changelogs
 

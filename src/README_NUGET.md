@@ -223,7 +223,7 @@ dotnet test src/AcceptanceTests
 
 For more details on getting started, [read the documentation](https://genocs-blog.netlify.app/library/)
 
-Please check the [documentation](https://learn.microsoft.com/en-us/visualstudio/ide/how-to-locate-and-organize-project-and-item-templates?view=vs-2022) for more details.
+Please check the [documentation](https://learn.microsoft.com/en-us/visualstudio/ide/how-to-locate-and-organize-project-and-item-templates?view=visualstudio) for more details.
 
 ## Changelogs
 
