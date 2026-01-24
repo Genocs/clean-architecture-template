@@ -12,7 +12,9 @@ COPY ["src/Domain/Domain.csproj", "src/Domain/"]
 COPY ["src/Infrastructure/Infrastructure.csproj", "src/Infrastructure/"]
 COPY ["src/Contracts/Contracts.csproj", "src/Contracts/"]
 
-# COPY ["src/Contracts.NServiceBus/Contracts.NServiceBus.csproj", "src/Contracts.NServiceBus/"]
+#if NServiceBus
+COPY ["src/Contracts.NServiceBus/Contracts.NServiceBus.csproj", "src/Contracts.NServiceBus/"]
+#endif
 
 RUN dotnet restore "src/Worker/Host.csproj"
 COPY . .
