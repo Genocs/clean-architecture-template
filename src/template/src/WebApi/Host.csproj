@@ -13,6 +13,10 @@
         <DocumentationFile>api-documentation.xml</DocumentationFile>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DefineConstants>TRACE;__Full__,CloseAccount,Deposit,GetAccountDetails,Refund,GetCustomerDetails,Register,Withdraw,Transfer</DefineConstants>
+    </PropertyGroup>
+
     <ItemGroup>
         <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.23.0" />
         <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />

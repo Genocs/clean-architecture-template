@@ -1268,7 +1268,7 @@ dotnet ef database update --project src/{MyCompany.MyProject}.Infrastructure --s
 To run in `Development` mode use:
 
 ```sh
-dotnet run --project "src/{MyCompany.MyProject}.WebApi/{MyCompany.MyProject}.WebApi.csproj" --Environment="Development"
+dotnet run --project src/WebApi/Host.csproj --Environment="Development"
 ```
 
 It starts the application and call `ConfigureDevelopmentServices` method which runs the application using in memory persistence.
@@ -1276,7 +1276,7 @@ It starts the application and call `ConfigureDevelopmentServices` method which r
 The second option is to run in `Production` mode:
 
 ```sh
-dotnet run --project "src/{MyCompany.MyProject}.WebApi/{MyCompany.MyProject}.WebApi.csproj" --Environment="Production"
+dotnet run --project src/WebApi/Host.csproj --Environment="Production"
 ```
 
 This command will call `ConfigureProductionServices` then use SQL Server repositories.
@@ -1289,14 +1289,14 @@ Manga is a cross-platform application, you can run it from Mac, Windows or Unix.
 
 The single requirement is to install the latest .NET Code SDK.
 
-- [.NET Core SDK 8.0](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [.NET Core SDK 10.0](https://dotnet.microsoft.com/download/dotnet/10.0)
 
 We made available scripts to create and seed the database quickly via Docker.
 
 Finally to run it locally use:
 
 ```sh
-dotnet run --project "src/{MyCompany.MyProject}.WebApi/{MyCompany.MyProject}.WebApi.csproj"
+dotnet run --project src/WebApi/Host.csproj
 ```
 
 ### Running the Tests Locally
@@ -1360,7 +1360,7 @@ deploy_script:
 The project build two different images. One for the the Web API and one for the bus worker.
 
 ```sh
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /app
 
 # Copy everything else and build
@@ -1368,7 +1368,7 @@ COPY . .
 RUN dotnet publish src/{MyCompany.MyProject}.WebApi -c release -o out
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:5.0
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /app
 COPY --from=build /app/out .
 ENV ASPNETCORE_URLS http://*:80

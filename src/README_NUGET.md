@@ -182,10 +182,10 @@ dotnet new list
 docker-compose -f ./infrastructure/docker/docker-compose-infrastructure.yml up -d
 
 # Run the API
-dotnet run --project src/YourProject.WebApi
+dotnet run --project src/WebApi/Host.csproj
 
 # Run the Worker
-dotnet run --project src/YourProject.Worker
+dotnet run --project src/Worker/Host.csproj
 
 # Run all tests
 dotnet test
