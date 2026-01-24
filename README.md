@@ -151,9 +151,11 @@ git clone https://github.com/Genocs/clean-architecture-template
 cd clean-architecture-template
 
 # To pack and install the template
-dotnet pack ./src/Package.Template.csproj -p:PackageVersion=4.0.1 --configuration Release --output ./out
+dotnet pack ./src/Package.Template.csproj -p:PackageVersion=5.0.0 --configuration Release --output ./out
 
-dotnet new install ./out/Genocs.CleanArchitecture.Template.4.0.1.nupkg
+dotnet new install ./out/Genocs.CleanArchitecture.Template.5.0.0.nupkg
+
+# To verify the installation and see available options
 dotnet new cleanarchitecture --help
 
 # To uninstall the template
