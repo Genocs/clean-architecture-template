@@ -1,4 +1,4 @@
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.Filters;
@@ -22,21 +22,20 @@ public class SwaggerDocumentFilter : IDocumentFilter
         swaggerDoc.Paths = GetSortedPaths(swaggerDoc);
     }
 
-    private List<OpenApiTag> GetFilteredTagDefinitions(DocumentFilterContext context)
+    private ISet<OpenApiTag> GetFilteredTagDefinitions(DocumentFilterContext context)
     {
         // Filtering ensures route for tag is present
         var currentGroupNames = context.ApiDescriptions
             .Select(description => description.GroupName);
         return _tags.Where(tag => currentGroupNames.Contains(tag.Name))
-            .ToList();
+            .ToHashSet();
     }
 
-    private OpenApiPaths? GetSortedPaths(
-        OpenApiDocument swaggerDoc)
+    private static OpenApiPaths GetSortedPaths(OpenApiDocument swaggerDoc)
     {
-        IDictionary<string, OpenApiPathItem> dic = swaggerDoc.Paths.OrderBy(pair => pair.Key)
+        IDictionary<string, IOpenApiPathItem> dic = swaggerDoc.Paths.OrderBy(pair => pair.Key)
             .ToDictionary(pair => pair.Key, pair => pair.Value);
 
-        return null;
+        return [];
     }
 }

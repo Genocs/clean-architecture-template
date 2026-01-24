@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-        <IsPublishable>false</IsPublishable>
-        <IsPackable>false</IsPackable>
+        <TargetFramework>net10.0</TargetFramework>
         <RootNamespace>Genocs.CleanArchitecture.Template.ContractsNServiceBus</RootNamespace>
         <AssemblyName>Genocs.CleanArchitecture.Template.ContractsNServiceBus</AssemblyName>
+        <IsPublishable>false</IsPublishable>
+        <IsPackable>false</IsPackable>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="NServiceBus" Version="9.2.7" />
+        <PackageReference Include="NServiceBus" Version="9.2.8" />
     </ItemGroup>
 
     <ItemGroup>

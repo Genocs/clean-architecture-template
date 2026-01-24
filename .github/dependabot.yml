@@ -8,4 +8,4 @@ updates:
   - package-ecosystem: "nuget" # See documentation for possible values
     directory: "/src/template" # Location of package manifests
     schedule:
-      interval: "weekly" # How often to check for updates (can be "daily", "weekly" or "monthly")
+      interval: "monthly" # How often to check for updates (can be "daily", "weekly" or "monthly")

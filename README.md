@@ -50,7 +50,7 @@
 
 # Genocs Clean Architecture Template
 
-A comprehensive .NET 9 project template that follows Clean Architecture principles and Domain-Driven Design (DDD). This template helps you rapidly scaffold microservices applications with built-in support for multiple databases, message brokers, and enterprise patterns.
+A comprehensive .NET10 project template that follows Clean Architecture principles and Domain-Driven Design (DDD). This template helps you rapidly scaffold microservices applications with built-in support for multiple databases, message brokers, and enterprise patterns.
 
 ## ✨ Features
 
@@ -80,7 +80,7 @@ A comprehensive .NET 9 project template that follows Clean Architecture principl
 
 ## 📋 Prerequisites
 
-- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) (latest version)
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (latest version)
 - **IDE** (choose one):
   - [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (recommended)
   - [Visual Studio Code](https://code.visualstudio.com/) with C# extension

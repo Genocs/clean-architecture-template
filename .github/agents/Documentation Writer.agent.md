@@ -1,6 +1,6 @@
 ---
 description: 'Document code and its functionality.'
-tools: ['search']
+tools: ['read/readFile', 'search']
 ---
 
 # Documentation Writer Mode
