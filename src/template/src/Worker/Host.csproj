@@ -4,7 +4,6 @@
         <TargetFramework>net10.0</TargetFramework>
         <RootNamespace>Genocs.CleanArchitecture.Template.Worker</RootNamespace>
         <AssemblyName>Genocs.CleanArchitecture.Template.Worker</AssemblyName>
-        <IsPublishable>false</IsPublishable>
         <IsPackable>false</IsPackable>
         <UserSecretsId>Genocs</UserSecretsId>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>

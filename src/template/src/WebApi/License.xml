@@ -10,9 +10,9 @@
                     <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
                 </Transforms>
                 <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-                <DigestValue>6D8Vsr3ROkNh80rpLZj/TgCEJ1g=</DigestValue>
+                <DigestValue>your_value</DigestValue>
             </Reference>
         </SignedInfo>
-        <SignatureValue>3+8rtgBjGFU8JF083lu8DE/h/RwtiPZ+IIkHvvr2jR1jfawWkcsNZvdWJf+Ky7GcjLiGF6SL+ldzG0n7GedD5RZ5tlVuZup7TZj5Si72Zg3Mizh8OhHQnaVpGXUlG6aazEOhZgO+TlPyK0xMSBrzE4EThqGD+kiN2cosDmhp30c=</SignatureValue>
+        <SignatureValue>your_value</SignatureValue>
     </Signature>
 </license>

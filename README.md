@@ -200,6 +200,21 @@ dotnet test
 dotnet test src/UnitTests
 dotnet test src/IntegrationTests
 dotnet test src/AcceptanceTests
+
+# Stop infrastructure services
+docker-compose -f ./infrastructure/docker/docker-compose-infrastructure.yml down
+
+
+# Build Docker WebApi image
+docker build -t genocs/clean-architecture-template -f ./src/WebApi/Dockerfile .
+
+# Run Docker WebApi container
+docker run -d -p 8080:80 --name clean-architecture-template genocs/clean-architecture-template
+
+# Stop and remove Docker WebApi container
+docker stop clean-architecture-template
+docker rm clean-architecture-template
+
 ```
 
 ## 💬 Community & Support
