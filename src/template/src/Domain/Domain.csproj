@@ -4,8 +4,8 @@
         <TargetFramework>net10.0</TargetFramework>
         <RootNamespace>Genocs.CleanArchitecture.Template.Domain</RootNamespace>
         <AssemblyName>Genocs.CleanArchitecture.Template.Domain</AssemblyName>
-        <IsPublishable>false</IsPublishable>
         <IsPackable>false</IsPackable>
+        <IsPublishable>false</IsPublishable>
     </PropertyGroup>
 
 </Project>

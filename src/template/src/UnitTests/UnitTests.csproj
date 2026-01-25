@@ -6,8 +6,8 @@
         <AssemblyName>Genocs.CleanArchitecture.Template.UnitTests</AssemblyName>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <IsPublishable>false</IsPublishable>
         <IsPackable>false</IsPackable>
+        <IsPublishable>false</IsPublishable>
     </PropertyGroup>
 
     <ItemGroup>
