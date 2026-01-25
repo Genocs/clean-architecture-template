@@ -1,0 +1,39 @@
+services:
+
+  redis:
+    image: redis
+    hostname: redis
+    container_name: redis
+    ports:
+      - 6379:6379
+    networks:
+      - genocs
+    # network_mode: host
+    volumes:
+      - redis:/data
+
+  postgres:
+    image: postgres
+    hostname: postgres
+    container_name: postgres
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - 5432:5432
+    networks:
+      - genocs
+    # network_mode: host
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+networks:
+  genocs:
+    name: genocs-network
+    driver: bridge
+    external: true
+
+volumes:
+  redis:
+    driver: local
+  postgres:
+    driver: local

@@ -1,0 +1,23 @@
+services:
+  image_labeling:
+    image: heartexlabs/label-studio:latest
+    hostname: image_labeling
+    container_name: image_labeling
+    ports:
+      - 8080:8080
+    networks:
+      - genocs
+
+  object_detection:
+    image: genocs/object-detection-web:latest
+    hostname: object_detection
+    container_name: object_detection
+    ports:
+      - 5700:80
+    networks:
+      - genocs
+
+networks:
+  genocs:
+    name: genocs-network
+    external: true

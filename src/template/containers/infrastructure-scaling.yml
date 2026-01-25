@@ -1,0 +1,34 @@
+services:
+  consul:
+    image: hashicorp/consul
+    hostname: consul
+    container_name: consul
+    ports:
+      - 8500:8500
+    networks:
+      - genocs
+    # network_mode: host
+    volumes:
+      - consul:/consul/data
+
+  fabio:
+    image: fabiolb/fabio
+    hostname: fabio
+    container_name: fabio
+    environment:
+      - FABIO_REGISTRY_CONSUL_ADDR=consul:8500
+    networks:
+      - genocs
+    # network_mode: host
+    ports:
+      - 9998:9998
+      - 9999:9999
+
+networks:
+  genocs:
+    name: genocs-network
+    external: true
+
+volumes:
+  consul:
+    driver: local

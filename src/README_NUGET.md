@@ -135,33 +135,8 @@ src/
 - **Infrastructure Layer**: Repositories, message brokers, databases
 - **Presentation Layer**: Controllers, middleware, API documentation
 
-## How to build and install the template locally
 
-To build the package run the following commands:
 
-```bash
-# To clone the repository
-git clone https://github.com/Genocs/clean-architecture-template
-cd clean-architecture-template
-
-# To pack and install the template
-dotnet pack ./src/Package.Template.csproj -p:PackageVersion=5.0.0 --configuration Release --output ./out
-
-dotnet new install ./out/Genocs.CleanArchitecture.Template.5.0.0.nupkg
-
-# To verify the installation and see available options
-dotnet new cleanarchitecture --help
-
-# To uninstall the template
-dotnet new uninstall Genocs.CleanArchitecture.Template
-
-# Example of creating a new project with InMemory database and Rebus as service bus
-dotnet new cleanarchitecture --name {CompanyName.ServiceName} -da inmemory -sb rebus
-```
-
-Official Documentation:
-- [custom-templates](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates)
-- [dotnet-templating](https://github.com/dotnet/templating)
 
 
 ### Miscellaneous
@@ -180,10 +155,53 @@ dotnet new list
 
 ### Local Development
 
-```bash
-# Start infrastructure services
-docker-compose -f ./infrastructure/docker/docker-compose-infrastructure.yml up -d
+In order to run the infrastructure components locally using Docker, follow these steps:
+> **NOTE**
+> 1. Make sure you have Docker installed and running on your machine.
+> 2. Adjust the `.env` file in the `./containers` folder to match your configuration needs (you can copy the `.env.example` file as a starting point).
 
+
+```bash
+cd ./containers
+
+# Setup the infrastructure.
+# Use this file to setup the basic infrastructure components (RabbitMQ, MongoDB)
+docker compose -f ./infrastructure.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup Redis and PostgreSQL (no need if you use MongoDB)
+docker compose -f ./infrastructure-db.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup monitoring infrastructure components (Prometheus, Grafana, InfluxDB, Jaeger, Seq)
+docker compose -f ./infrastructure-monitoring.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup scaling infrastructure components (Fabio, Consul)
+docker compose -f ./infrastructure-scaling.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup security infrastructure components (Vault)
+docker compose -f ./infrastructure-security.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup sqlserver database (no need if you use PostgreSQL)
+docker compose -f ./infrastructure-sqlserver.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup mySql database (no need if you use PostgreSQL)
+docker compose -f ./infrastructure-mysql.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup oracle database (no need if you use PostgreSQL)
+docker compose -f ./infrastructure-oracle.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup elk stack
+docker compose -f ./infrastructure-elk.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup AI ML components prepared by Genocs
+docker compose -f ./infrastructure-ml.yml --env-file ./.env --project-name genocs up -d
+
+cd ..
+```
+
+
+Running the application:
+
+```bash
 # Run the API
 dotnet run --project src/WebApi/Host.csproj
 
@@ -197,11 +215,11 @@ dotnet test
 dotnet test src/UnitTests
 dotnet test src/IntegrationTests
 dotnet test src/AcceptanceTests
+```
 
-# Stop infrastructure services
-docker-compose -f ./infrastructure/docker/docker-compose-infrastructure.yml down
+Building and Running with Docker:
 
-
+```bash
 # Build Docker WebApi image
 docker build -t genocs/clean-architecture-template -f ./src/WebApi/Dockerfile .
 
@@ -256,13 +274,19 @@ This project is licensed with the [MIT license](LICENSE).
 - Facebook Page [@genocs](https://facebook.com/Genocs)
 - Youtube Channel [@genocs](https://youtube.com/c/genocs)
 
+## Code Contributors
+
+This project exists thanks to all the people who contribute. [Submit your PR and join the team!](CONTRIBUTING.md)
+
+[![genocs contributors](https://contrib.rocks/image?repo=Genocs/clean-architecture-template "genocs contributors")](https://github.com/Genocs/clean-architecture-template/graphs/contributors)
+
 ## Financial Contributors
 
 Become a financial contributor and help me sustain the project.
 
 **Support the Project** on [Opencollective](https://opencollective.com/genocs)
 
-<a href="https://opencollective.com/genocs"><img src="https://opencollective.com/genocs/individuals.svg?width=890"></a>
+[![Opencollective](https://opencollective.com/genocs/individuals.svg?width=890 "Opencollective")](https://opencollective.com/genocs)
 
 ## Acknowledgements
 

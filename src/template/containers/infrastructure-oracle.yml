@@ -1,0 +1,35 @@
+services:
+  oracledb:
+    image: container-registry.oracle.com/database/express:21.3.0-xe
+    hostname: oracledb
+    container_name: oracledb
+    ports:
+      - 1521:1521
+      - 5500:5500
+
+    environment:
+      ORACLE_PWD: ${ORACLE_PASSWORD}
+      ORACLE_CHARACTERSET: AL32UTF8
+      ENABLE_ARCHIVELOG: true
+      ENABLE_FORCE_LOGGING: true
+
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+      - oracle_startup:/opt/oracle/scripts/startup
+      - oracle_setup:/opt/oracle/scripts/setup
+
+    networks:
+      - genocs
+
+networks:
+  genocs:
+    name: genocs-network
+    external: true
+
+volumes:
+  oracle_data:
+    driver: local
+  oracle_startup:
+    driver: local
+  oracle_setup:
+    driver: local

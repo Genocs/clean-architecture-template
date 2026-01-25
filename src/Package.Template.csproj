@@ -19,7 +19,7 @@
     <Copyright>Copyright (c) 2026 Genocs Services</Copyright>
     <PackageReleaseNotes>
 Release notes: 
-- Release 5.0.0:
+  - Release 5.0.x
   - Updated to .NET 10
   - Improved Docker support
   - Added new templates for CQRS and Event Sourcing

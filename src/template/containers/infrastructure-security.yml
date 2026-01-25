@@ -1,0 +1,20 @@
+services:
+  vault:
+    image: hashicorp/vault
+    hostname: vault
+    container_name: vault
+    ports:
+      - 8200:8200
+    networks:
+      - genocs
+    # network_mode: host
+    environment:
+      - VAULT_ADDR=http://127.0.0.1:8200
+      - VAULT_DEV_ROOT_TOKEN_ID=secret
+    cap_add:
+      - IPC_LOCK
+
+networks:
+  genocs:
+    name: genocs-network
+    external: true

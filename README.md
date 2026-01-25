@@ -44,13 +44,11 @@
 [twitterx-shield]: https://img.shields.io/twitter/url/https/twitter.com/genocs.svg?style=social
 [twitterx-url]: https://twitter.com/genocs
 
-<p align="center">
-    <img src="./assets/exagonal-architecture.png" alt="Exagonal Architecture">
-</p>
+[![Exagonal Architecture](https://raw.githubusercontent.com/Genocs/clean-architecture-template/main/assets/exagonal-architecture.png "Exagonal Architecture")](https://github.com/Genocs/clean-architecture-template)
 
 # Genocs Clean Architecture Template
 
-A comprehensive .NET 10 project template that follows Clean Architecture Principles and Domain-Driven Design (DDD). This template helps you rapidly scaffold microservices applications with built-in support for multiple databases, message brokers, and enterprise patterns.
+A comprehensive .NET 10 project template that follows Clean Architecture principles and Domain-Driven Design (DDD). This template helps you rapidly scaffold microservices applications with built-in support for multiple databases, message brokers, and enterprise patterns.
 
 ## ✨ Features
 
@@ -178,43 +176,6 @@ dotnet new -u
 dotnet new list
 ```
 
-## 🔧 Development Workflow
-
-### Local Development
-
-```bash
-# Start infrastructure services
-docker-compose -f ./infrastructure/docker/docker-compose-infrastructure.yml up -d
-
-# Run the API
-dotnet run --project src/WebApi/Host.csproj
-
-# Run the Worker
-dotnet run --project src/Worker/Host.csproj
-
-# Run all tests
-dotnet test
-
-# Run specific test projects
-dotnet test src/UnitTests
-dotnet test src/IntegrationTests
-dotnet test src/AcceptanceTests
-
-# Stop infrastructure services
-docker-compose -f ./infrastructure/docker/docker-compose-infrastructure.yml down
-
-
-# Build Docker WebApi image
-docker build -t genocs/clean-architecture-template -f ./src/WebApi/Dockerfile .
-
-# Run Docker WebApi container
-docker run -d -p 8080:80 --name clean-architecture-template genocs/clean-architecture-template
-
-# Stop and remove Docker WebApi container
-docker stop clean-architecture-template
-docker rm clean-architecture-template
-```
-
 ## 💬 Community & Support
 
 ### Get Help
@@ -233,7 +194,8 @@ docker rm clean-architecture-template
 
 - ⭐ Star this repository
 - 🔄 Share with your team
-- ☕ [Buy me a coffee](https://www.buymeacoffee.com/genocs)
+
+[![buy-me-a-coffee](https://raw.githubusercontent.com/Genocs/clean-architecture-template/main/assets/buy-me-a-coffee.png "buy me a coffee")](https://www.buymeacoffee.com/genocs)
 
 ## 🔧 Troubleshooting
 
@@ -269,7 +231,7 @@ Become a financial contributor and help me sustain the project.
 
 **Support the Project** on [Opencollective](https://opencollective.com/genocs)
 
-<a href="https://opencollective.com/genocs"><img src="https://opencollective.com/genocs/individuals.svg?width=890"></a>
+[![Opencollective](https://opencollective.com/genocs/individuals.svg?width=890 "Opencollective")](https://opencollective.com/genocs)
 
 ## Acknowledgements
 

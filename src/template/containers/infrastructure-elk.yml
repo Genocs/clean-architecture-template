@@ -1,0 +1,74 @@
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2
+    hostname: elasticsearch
+    container_name: elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - genocs
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.3.2
+    hostname: kibana
+    container_name: kibana
+    environment:
+      SERVER_NAME: kibana.local
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    ports:
+      - 5601:5601
+    networks:
+      - genocs
+
+  headPlugin:
+    image: 'mobz/elasticsearch-head:5'
+    container_name: head
+    ports:
+      - 9100:9100
+    networks:
+      - genocs
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash
+    hostname: logstash
+    container_name: logstash
+    secrets:
+      - source: logstash.conf
+        target: /usr/share/logstash/pipeline/logstash.conf
+      - source: logstash.yml
+        target: /usr/share/logstash/config/logstash.yml
+      - source: logstash.keystore
+        target: /usr/share/logstash/config/logstash.keystore
+      - source: ca.crt
+        target: /usr/share/logstash/config/certs/ca/ca.crt
+
+    healthcheck:
+      test: bin/logstash -t
+      interval: 60s
+      timeout: 50s
+      retries: 5
+    networks:
+      - genocs
+
+networks:
+  genocs:
+    name: genocs-network
+    external: true
+
+volumes:
+  esdata:
+    driver: local
