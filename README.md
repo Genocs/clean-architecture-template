@@ -50,7 +50,7 @@
 
 # Genocs Clean Architecture Template
 
-A comprehensive .NET10 project template that follows Clean Architecture principles and Domain-Driven Design (DDD). This template helps you rapidly scaffold microservices applications with built-in support for multiple databases, message brokers, and enterprise patterns.
+A comprehensive .NET10 project template that follows Clean Architecture Principles and Domain-Driven Design (DDD). This template helps you rapidly scaffold microservices applications with built-in support for multiple databases, message brokers, and enterprise patterns.
 
 ## ✨ Features
 
@@ -99,7 +99,6 @@ dotnet new install Genocs.CleanArchitecture.Template
 
 # Or install a specific version
 dotnet new install Genocs.CleanArchitecture.Template::5.0.0
-```
 
 # View all available options
 dotnet new cleanarchitecture --help
@@ -214,7 +213,6 @@ docker run -d -p 8080:80 --name clean-architecture-template genocs/clean-archite
 # Stop and remove Docker WebApi container
 docker stop clean-architecture-template
 docker rm clean-architecture-template
-
 ```
 
 ## 💬 Community & Support

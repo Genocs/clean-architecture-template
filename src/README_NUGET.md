@@ -78,7 +78,7 @@ A comprehensive .NET10 project template that follows Clean Architecture principl
 
 ## 📋 Prerequisites
 
-- [.NE 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (latest version)
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (latest version)
 - **IDE** (choose one):
   - [Visual Studio 2026](https://visualstudio.microsoft.com/vs/) (recommended)
   - [Visual Studio Code](https://code.visualstudio.com/) with C# extension
@@ -139,10 +139,6 @@ src/
 
 To build the package run the following commands:
 
-[custom-templates](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates)
-
-[dotnet-templating](https://github.com/dotnet/templating)
-
 ```bash
 # To clone the repository
 git clone https://github.com/Genocs/clean-architecture-template
@@ -152,6 +148,8 @@ cd clean-architecture-template
 dotnet pack ./src/Package.Template.csproj -p:PackageVersion=5.0.0 --configuration Release --output ./out
 
 dotnet new install ./out/Genocs.CleanArchitecture.Template.5.0.0.nupkg
+
+# To verify the installation and see available options
 dotnet new cleanarchitecture --help
 
 # To uninstall the template
@@ -160,6 +158,11 @@ dotnet new uninstall Genocs.CleanArchitecture.Template
 # Example of creating a new project with InMemory database and Rebus as service bus
 dotnet new cleanarchitecture --name {CompanyName.ServiceName} -da inmemory -sb rebus
 ```
+
+Official Documentation:
+- [custom-templates](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates)
+- [dotnet-templating](https://github.com/dotnet/templating)
+
 
 ### Miscellaneous
 
@@ -194,6 +197,20 @@ dotnet test
 dotnet test src/UnitTests
 dotnet test src/IntegrationTests
 dotnet test src/AcceptanceTests
+
+# Stop infrastructure services
+docker-compose -f ./infrastructure/docker/docker-compose-infrastructure.yml down
+
+
+# Build Docker WebApi image
+docker build -t genocs/clean-architecture-template -f ./src/WebApi/Dockerfile .
+
+# Run Docker WebApi container
+docker run -d -p 8080:80 --name clean-architecture-template genocs/clean-architecture-template
+
+# Stop and remove Docker WebApi container
+docker stop clean-architecture-template
+docker rm clean-architecture-template
 ```
 
 ## 💬 Community & Support
