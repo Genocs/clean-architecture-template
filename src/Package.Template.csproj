@@ -20,7 +20,7 @@
     <PackageReleaseNotes>
 Release notes: 
 - Release 5.0.0:
-  - Updated to .NET10
+  - Updated to .NET 10
   - Improved Docker support
   - Added new templates for CQRS and Event Sourcing
     </PackageReleaseNotes>
