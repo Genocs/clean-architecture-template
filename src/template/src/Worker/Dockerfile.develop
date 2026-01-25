@@ -6,7 +6,7 @@ ENV DOTNET_USE_POLLING_FILE_WATCHER=true
 EXPOSE 80
 
 WORKDIR /src
-COPY ["src/Application/Genocs.CleanArchitecture.Template.Application.csproj", "src/Application/"]
+COPY ["src/Application/Application.csproj", "src/Application/"]
 COPY ["src/Worker/Host.csproj", "src/Worker/"]
 COPY ["src/Domain/Domain.csproj", "src/Domain/"]
 COPY ["src/Infrastructure/Infrastructure.csproj", "src/Infrastructure/"]
