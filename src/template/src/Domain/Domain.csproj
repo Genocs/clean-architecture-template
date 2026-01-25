@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-        <IsPublishable>false</IsPublishable>
-        <IsPackable>false</IsPackable>
+        <TargetFramework>net10.0</TargetFramework>
         <RootNamespace>Genocs.CleanArchitecture.Template.Domain</RootNamespace>
         <AssemblyName>Genocs.CleanArchitecture.Template.Domain</AssemblyName>
+        <IsPublishable>false</IsPublishable>
+        <IsPackable>false</IsPackable>
     </PropertyGroup>
 
 </Project>

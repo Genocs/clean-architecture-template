@@ -19,7 +19,7 @@
 [license-url]: https://github.com/Genocs/clean-architecture-template/blob/main/LICENSE
 [build-shield]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml/badge.svg?branch=main
 [build-url]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml
-[package-shield]: https://img.shields.io/badge/nuget-v.4.0.1-blue?&label=latests&logo=nuget
+[package-shield]: https://img.shields.io/badge/nuget-v.5.0.0-blue?&label=latests&logo=nuget
 [package-url]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml
 [downloads-prev-shield]: https://img.shields.io/nuget/dt/Genocs.CleanArchitectureTemplate.svg?color=2da44e&label=downloads%20prev&logo=nuget
 [downloads-prev-url]: https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate
@@ -48,7 +48,7 @@
 
 # Genocs Clean Architecture Template
 
-A comprehensive .NET 9 project template that follows Clean Architecture principles and Domain-Driven Design (DDD). This template helps you rapidly scaffold microservices applications with built-in support for multiple databases, message brokers, and enterprise patterns.
+A comprehensive .NET 10 project template that follows Clean Architecture principles and Domain-Driven Design (DDD). This template helps you rapidly scaffold microservices applications with built-in support for multiple databases, message brokers, and enterprise patterns.
 
 ## ✨ Features
 
@@ -78,9 +78,9 @@ A comprehensive .NET 9 project template that follows Clean Architecture principl
 
 ## 📋 Prerequisites
 
-- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) (latest version)
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (latest version)
 - **IDE** (choose one):
-  - [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (recommended)
+  - [Visual Studio 2026](https://visualstudio.microsoft.com/vs/) (recommended)
   - [Visual Studio Code](https://code.visualstudio.com/) with C# extension
   - [JetBrains Rider](https://www.jetbrains.com/rider/)
 - **Optional for development**:
@@ -96,7 +96,7 @@ A comprehensive .NET 9 project template that follows Clean Architecture principl
 dotnet new install Genocs.CleanArchitecture.Template
 
 # Or install a specific version
-dotnet new install Genocs.CleanArchitecture.Template::4.0.1
+dotnet new install Genocs.CleanArchitecture.Template::5.0.0
 
 # View all available options
 dotnet new cleanarchitecture --help
@@ -139,19 +139,17 @@ src/
 
 To build the package run the following commands:
 
-[custom-templates](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates)
-
-[dotnet-templating](https://github.com/dotnet/templating)
-
 ```bash
 # To clone the repository
 git clone https://github.com/Genocs/clean-architecture-template
 cd clean-architecture-template
 
 # To pack and install the template
-dotnet pack ./src/Package.Template.csproj -p:PackageVersion=4.0.1 --configuration Release --output ./out
+dotnet pack ./src/Package.Template.csproj -p:PackageVersion=5.0.0 --configuration Release --output ./out
 
-dotnet new install ./out/Genocs.CleanArchitecture.Template.4.0.1.nupkg
+dotnet new install ./out/Genocs.CleanArchitecture.Template.5.0.0.nupkg
+
+# To verify the installation and see available options
 dotnet new cleanarchitecture --help
 
 # To uninstall the template
@@ -160,6 +158,11 @@ dotnet new uninstall Genocs.CleanArchitecture.Template
 # Example of creating a new project with InMemory database and Rebus as service bus
 dotnet new cleanarchitecture --name {CompanyName.ServiceName} -da inmemory -sb rebus
 ```
+
+Official Documentation:
+- [custom-templates](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates)
+- [dotnet-templating](https://github.com/dotnet/templating)
+
 
 ### Miscellaneous
 
@@ -182,10 +185,10 @@ dotnet new list
 docker-compose -f ./infrastructure/docker/docker-compose-infrastructure.yml up -d
 
 # Run the API
-dotnet run --project src/YourProject.WebApi
+dotnet run --project src/WebApi/Host.csproj
 
 # Run the Worker
-dotnet run --project src/YourProject.Worker
+dotnet run --project src/Worker/Host.csproj
 
 # Run all tests
 dotnet test
@@ -194,6 +197,20 @@ dotnet test
 dotnet test src/UnitTests
 dotnet test src/IntegrationTests
 dotnet test src/AcceptanceTests
+
+# Stop infrastructure services
+docker-compose -f ./infrastructure/docker/docker-compose-infrastructure.yml down
+
+
+# Build Docker WebApi image
+docker build -t genocs/clean-architecture-template -f ./src/WebApi/Dockerfile .
+
+# Run Docker WebApi container
+docker run -d -p 8080:80 --name clean-architecture-template genocs/clean-architecture-template
+
+# Stop and remove Docker WebApi container
+docker stop clean-architecture-template
+docker rm clean-architecture-template
 ```
 
 ## 💬 Community & Support
@@ -223,7 +240,7 @@ dotnet test src/AcceptanceTests
 
 For more details on getting started, [read the documentation](https://genocs-blog.netlify.app/library/)
 
-Please check the [documentation](https://learn.microsoft.com/en-us/visualstudio/ide/how-to-locate-and-organize-project-and-item-templates?view=vs-2022) for more details.
+Please check the [documentation](https://learn.microsoft.com/en-us/visualstudio/ide/how-to-locate-and-organize-project-and-item-templates?view=visualstudio) for more details.
 
 ## Changelogs
 

@@ -1,0 +1,34 @@
+<Solution>
+  <Folder Name="/tests/">
+    <Project Path="src/AcceptanceTests/AcceptanceTests.csproj" />
+    <Project Path="src/IntegrationTests/IntegrationTests.csproj" />
+    <Project Path="src/UnitTests/UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/_SolutionItems/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+    <File Path="dotnet.ruleset" />
+    <File Path="global.json" />
+    <File Path="Makefile" />
+    <File Path="README.md" />
+    <File Path="stylecop.json" />
+  </Folder>
+
+  <Folder Name="/WebApi/">
+    <Project Path="src/WebApi/Host.csproj" />
+  </Folder>
+  <Folder Name="/Worker/">
+    <Project Path="src/Worker/Host.csproj" />
+  </Folder>
+
+
+  <Project Path="src/Application/Application.csproj" />
+  <Project Path="src/Contracts/Contracts.csproj" />
+  <Project Path="src/Domain/Domain.csproj" />
+  <Project Path="src/Infrastructure/Infrastructure.csproj" />
+
+<!--#if (NServiceBus)-->
+  <Project Path="src/Contracts.NServiceBus/Contracts.NServiceBus.csproj" />  
+<!--#endif-->
+  
+</Solution>

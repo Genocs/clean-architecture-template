@@ -1,7 +1,11 @@
 build:
 	dotnet build
-start:
-	dotnet run --project src/Host/Host.csproj
+test:
+	dotnet test
+start-webapi:
+	dotnet run --project src/WebApi/Host.csproj
+start-worker:
+	dotnet run --project src/Worker/Host.csproj
 nuget:
 	nuget pack -NoDefaultExcludes -OutputDirectory nupkg
 publish:

@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <PackageType>Template</PackageType>
-    <PackageVersion>4.0.1</PackageVersion>
+    <PackageVersion>5.0.0</PackageVersion>
     <PackageId>Genocs.CleanArchitecture.Template</PackageId>
     <Title>Genocs - Clean Code Template</Title>
     <Authors>Nocco Giovanni Emanuele</Authors>
@@ -16,11 +16,11 @@
     <RepositoryUrl>https://github.com/Genocs/clean-architecture-template.git</RepositoryUrl>
     <RepositoryBranch>main</RepositoryBranch>
     <RepositoryType>git</RepositoryType>
-    <Copyright>Copyright (c) 2025 Genocs Services</Copyright>
+    <Copyright>Copyright (c) 2026 Genocs Services</Copyright>
     <PackageReleaseNotes>
 Release notes: 
-- Release 4.0.0:
-  - Updated to .NET 9
+- Release 5.0.0:
+  - Updated to .NET 10
   - Improved Docker support
   - Added new templates for CQRS and Event Sourcing
     </PackageReleaseNotes>

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.Filters;

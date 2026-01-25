@@ -6,7 +6,7 @@ Built with small components that are developed and tested in isolation.
 
 ## Usage
 
-**Manga** is a virtual Wallet application in which a customer can register an account then manage the balance with `Deposits`, `Withdraws` and `Transfers`.
+The template contains a virtual Wallet application in which a customer can register an account then manage the balance with `Deposits`, `Withdraws` and `Transfers`.
 
 Run the Docker container in less than 2 minutes using Play With Docker:
 
@@ -141,7 +141,7 @@ Documents and samples are provided for each library.
 >
 > Use Cases are algorithms which interpret the input to generate the output data.
 
-Application architecture is about usage, a good architecture screams the business use cases to the developer and framework concerns are implementation details. On **Manga** sample the user can `Register` an account then manage the balance by `Deposits`, `Withdrawals` and `Transfers`.
+Application architecture is about usage, a good architecture screams the business use cases to the developer and framework concerns are implementation details. The user can `Register` an account then manage the balance by `Deposits`, `Withdrawals` and `Transfers`.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/genocs/clean-architecture-template/main/docs/clean-architecture-use-cases.png" alt=Clean Architecture Use Cases" style="max-width:100%;">
@@ -183,7 +183,7 @@ The flow of control begins in the controller, moves through the use case, and th
 
 ## Architecture Styles
 
-Manga uses ideas from popular architectural styles. They Ports and Adapters are the simplest one followed by the others, they complement each other and aim a software made by use cases decoupled from technology implementation details.
+The template uses ideas from popular architectural styles. They Ports and Adapters are the simplest one followed by the others, they complement each other and aim a software made by use cases decoupled from technology implementation details.
 
 ### Hexagonal Architecture Style
 
@@ -694,7 +694,7 @@ public sealed class Withdraw : IUseCase
 ## Separation of Concerns
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/genocs/clean-architecture-template/master/docs/clean-architecture-manga-layers.png" alt="Layers" style="max-width:100%;">
+  <img src="https://raw.githubusercontent.com/genocs/clean-architecture-template/master/docs/clean-architecture-template-layers.png" alt="Layers" style="max-width:100%;">
 </p>
 
 ### Domain
@@ -1081,7 +1081,7 @@ public enum Features
 
 ### Data Annotations
 
-Data Annotations are powerful tool from .NET, it can be interpreted by ASP.NET Core and other frameworks to generate Validation, User Interface and other things. On Manga project, Data Annotations are used to create a complete Swagger UI and HTTP Request validation. Of course following the Clean Architecture Principles we need to keep frameworks under control.
+Data Annotations are powerful tool from .NET, it can be interpreted by ASP.NET Core and other frameworks to generate Validation, User Interface and other things. Data Annotations are used to create a complete Swagger UI and HTTP Request validation. Of course following the Clean Architecture Principles we need to keep frameworks under control.
 
 I decided to use Data Annotations on the User Interface layer. Take a look on the `RegisterRequest` class:
 
@@ -1268,7 +1268,7 @@ dotnet ef database update --project src/{MyCompany.MyProject}.Infrastructure --s
 To run in `Development` mode use:
 
 ```sh
-dotnet run --project "src/{MyCompany.MyProject}.WebApi/{MyCompany.MyProject}.WebApi.csproj" --Environment="Development"
+dotnet run --project src/WebApi/Host.csproj --Environment="Development"
 ```
 
 It starts the application and call `ConfigureDevelopmentServices` method which runs the application using in memory persistence.
@@ -1276,7 +1276,7 @@ It starts the application and call `ConfigureDevelopmentServices` method which r
 The second option is to run in `Production` mode:
 
 ```sh
-dotnet run --project "src/{MyCompany.MyProject}.WebApi/{MyCompany.MyProject}.WebApi.csproj" --Environment="Production"
+dotnet run --project src/WebApi/Host.csproj --Environment="Production"
 ```
 
 This command will call `ConfigureProductionServices` then use SQL Server repositories.
@@ -1285,18 +1285,18 @@ This command will call `ConfigureProductionServices` then use SQL Server reposit
 
 ### Running the Application Locally
 
-Manga is a cross-platform application, you can run it from Mac, Windows or Unix. To develop new features, you may use Visual Studio or Visual Studio Code :heart:.
+The template is a cross-platform application, you can run it from Mac, Windows or Unix. To develop new features, you may use Visual Studio or Visual Studio Code :heart:.
 
 The single requirement is to install the latest .NET Code SDK.
 
-- [.NET Core SDK 8.0](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [.NET Core SDK 10.0](https://dotnet.microsoft.com/download/dotnet/10.0)
 
 We made available scripts to create and seed the database quickly via Docker.
 
 Finally to run it locally use:
 
 ```sh
-dotnet run --project "src/{MyCompany.MyProject}.WebApi/{MyCompany.MyProject}.WebApi.csproj"
+dotnet run --project src/WebApi/Host.csproj
 ```
 
 ### Running the Tests Locally
@@ -1360,7 +1360,7 @@ deploy_script:
 The project build two different images. One for the the Web API and one for the bus worker.
 
 ```sh
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /app
 
 # Copy everything else and build
@@ -1368,7 +1368,7 @@ COPY . .
 RUN dotnet publish src/{MyCompany.MyProject}.WebApi -c release -o out
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:5.0
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /app
 COPY --from=build /app/out .
 ENV ASPNETCORE_URLS http://*:80

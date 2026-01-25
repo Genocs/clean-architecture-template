@@ -1,5 +1,33 @@
 {
   "$schema": "http://json.schemastore.org/template",
+  "SpecialCustomOperations": {
+    "**.slnx": {
+      "operations": [
+        {
+          "type": "conditional",
+          "configuration": {
+            "actionableIf": [ "<!--#if" ],
+            "actionableElse": [ "#else", "<!--#else" ],
+            "actionableElseif": [ "#elseif", "<!--#elseif", "#elif", "<!--#elif" ],
+            "endif": [ "#endif", "<!--#endif" ],
+            "trim" : "true",
+            "wholeLine": "true",
+            "evaluator": "C++"
+          }
+        },
+        {
+          "type": "balancednesting",
+          "configuration": {
+            "startToken": "<!--",
+            "realEndToken": "-->",
+            "pseudoEndToken": "-- >",
+            "id": "fixPseudoNestedComments",
+            "resetFlag": "_TestResetFlag_"
+          }
+        }
+      ]
+    }
+  },
   "author": "Nocco Giovanni Emanuele",
   "classifications": [
     "Web/ASP.NET"

@@ -1,25 +1,32 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
-COPY ["nuget.config", "."]
-COPY ["src/Genocs.CleanArchitecture.Template.WebApi/Genocs.CleanArchitecture.Template.WebApi.csproj", "src/Genocs.CleanArchitecture.Template.WebApi/"]
-COPY ["src/Genocs.CleanArchitecture.Template.Application/Genocs.CleanArchitecture.Template.Application.csproj", "src/Genocs.CleanArchitecture.Template.Application/"]
-COPY ["src/Genocs.CleanArchitecture.Template.Domain/Genocs.CleanArchitecture.Template.Domain.csproj", "src/Genocs.CleanArchitecture.Template.Domain/"]
-COPY ["src/Genocs.CleanArchitecture.Template.Shared/Genocs.CleanArchitecture.Template.Shared.csproj", "src/Genocs.CleanArchitecture.Template.Shared/"]
-COPY ["src/Genocs.CleanArchitecture.Template.Infrastructure/Genocs.CleanArchitecture.Template.Infrastructure.csproj", "src/Genocs.CleanArchitecture.Template.Infrastructure/"]
-RUN dotnet restore "src/Genocs.CleanArchitecture.Template.WebApi/Genocs.CleanArchitecture.Template.WebApi.csproj"
-COPY . .
-WORKDIR "/src/src/Genocs.CleanArchitecture.Template.WebApi"
-RUN dotnet build "Genocs.CleanArchitecture.Template.WebApi.csproj" -c Release -o /app/build
+COPY ["NuGet.config", "."]
+COPY ["src/WebApi/Host.csproj", "src/WebApi/"]
+COPY ["src/Application/Application.csproj", "src/Application/"]
+COPY ["src/Domain/Domain.csproj", "src/Domain/"]
+COPY ["src/Contracts/Contracts.csproj", "src/Contracts/"]
+COPY ["src/Infrastructure/Infrastructure.csproj", "src/Infrastructure/"]
 
+#if NServiceBus
+COPY ["src/Contracts.NServiceBus/Contracts.NServiceBus.csproj", "src/Contracts.NServiceBus/"]
+#endif
+
+RUN dotnet restore "src/WebApi/Host.csproj"
+COPY . .
+WORKDIR "/src/src/WebApi"
+RUN dotnet build "Host.csproj" -c Release -o /app/build
+
+# Publish the application
 FROM build AS publish
-RUN dotnet publish "Genocs.CleanArchitecture.Template.WebApi.csproj" -c Release -o /app/publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "Host.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

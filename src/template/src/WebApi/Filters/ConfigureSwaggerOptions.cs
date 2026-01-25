@@ -1,6 +1,6 @@
 using Asp.Versioning.ApiExplorer;
 using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.Filters;
@@ -40,7 +40,7 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
             Type = SecuritySchemeType.ApiKey,
             Scheme = "Bearer"
         });
-
+        /*
         options.AddSecurityRequirement(new OpenApiSecurityRequirement()
                 {
                     {
@@ -58,10 +58,11 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
                         new List<string>()
                     }
                 });
+        */
 
     }
 
-    static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
+    private static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
     {
         var info = new OpenApiInfo
         {

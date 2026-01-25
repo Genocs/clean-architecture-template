@@ -5,7 +5,7 @@ using Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
 using Microsoft.ApplicationInsights.DependencyCollector;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Refit;
 using Serilog;
 using Serilog.Events;
@@ -116,6 +116,7 @@ services.AddSwaggerGen(c =>
         Scheme = "Bearer"
     });
 
+    /*
     c.AddSecurityRequirement(new OpenApiSecurityRequirement()
     {
         {
@@ -133,6 +134,8 @@ services.AddSwaggerGen(c =>
             new List<string>()
         }
     });
+
+    */
 
     // Set the comments path for the Swagger JSON and UI.
     // var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
