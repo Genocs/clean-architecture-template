@@ -14,7 +14,7 @@ internal static class NServiceBusHostBuilder
 
         builder.UseMicrosoftLogFactoryLogging();
 
-        SetUpNServiceBusBasic(builder);
+        SetUpNServiceBusDemo(builder);
 
         // Setup with RabbitMQ and MongoDB
         // SetUpNServiceBus(builder);
@@ -31,7 +31,7 @@ internal static class NServiceBusHostBuilder
         return builder;
     }
 
-    public static IHostBuilder SetUpNServiceBusBasic(IHostBuilder builder)
+    public static IHostBuilder SetUpNServiceBusDemo(IHostBuilder builder)
     {
         builder.UseNServiceBus(context =>
         {
@@ -51,8 +51,7 @@ internal static class NServiceBusHostBuilder
             //    || typeof(IEvent).IsAssignableFrom(typeof(Shared.Events.EventOccurred))
             //);
 
-            // https://docs.particular.net/nservicebus/serialization/
-            endpointConfiguration.UseSerialization<NewtonsoftJsonSerializer>();
+            endpointConfiguration.UseSerialization<SystemJsonSerializer>();
             endpointConfiguration.EnableInstallers();
 
             return endpointConfiguration;
@@ -92,7 +91,7 @@ internal static class NServiceBusHostBuilder
             // );
 
             // https://docs.particular.net/nservicebus/serialization/
-            endpointConfiguration.UseSerialization<NewtonsoftJsonSerializer>();
+            endpointConfiguration.UseSerialization<SystemJsonSerializer>();
             endpointConfiguration.EnableInstallers();
 
             return endpointConfiguration;
