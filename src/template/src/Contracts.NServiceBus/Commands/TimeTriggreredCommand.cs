@@ -1,4 +1,6 @@
-﻿namespace Genocs.CleanArchitecture.Template.ContractsNServiceBus.Commands;
+﻿using NServiceBus;
+
+namespace Genocs.CleanArchitecture.Template.ContractsNServiceBus.Commands;
 
 /// <summary>
 /// This is a command message that is triggered by time.

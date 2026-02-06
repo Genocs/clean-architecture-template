@@ -13,13 +13,7 @@ public class RegistrationCompletedHandler : IHandleMessages<ContractsNServiceBus
         _logger.Info($"RegistrationCompleted successfully. CreditId: {message.CreditId}");
 
         // Start the saga
-        /*
-        await context.SendLocal(new TransactionLoaded()
-        {
-            RequestId = Guid.NewGuid().ToString(),
-            TransactionId = Guid.NewGuid().ToString()
-        });
-        */
+        await context.Publish(TransactionLoaded.Empty());
 
         // Remove the comments to simulate some exception
         //if(counter++ < 10 )

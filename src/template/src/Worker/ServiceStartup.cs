@@ -18,8 +18,8 @@ public static class ServiceStartup
         services.AddOptions();
 
         // Configure AppInsights
-        services.AddApplicationInsightsKubernetesEnricher();
-        services.AddApplicationInsightsTelemetry(context.Configuration);
+        //services.AddApplicationInsightsKubernetesEnricher();
+        //services.AddApplicationInsightsTelemetry(context.Configuration);
 
         // Setup the Enterprise service bus
 #if Rebus

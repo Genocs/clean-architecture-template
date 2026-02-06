@@ -36,11 +36,11 @@
 <!--#if (NServiceBus) -->
         <ProjectReference Include="..\Contracts.NServiceBus\Contracts.NServiceBus.csproj" />
 
-        <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="4.1.0" />
+        <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="5.0.0" />
 
         <!-- Particular NService Bus - RabbitMQ Transport and MongoDB persistance layer-->
-        <PackageReference Include="NServiceBus.RabbitMQ" Version="10.1.7" />
-        <PackageReference Include="NServiceBus.Storage.MongoDB" Version="6.0.1" />
+        <PackageReference Include="NServiceBus.RabbitMQ" Version="11.0.0" />
+        <PackageReference Include="NServiceBus.Storage.MongoDB" Version="7.0.0" />
 <!--#endif -->
 
 <!--#if (MassTransit) -->

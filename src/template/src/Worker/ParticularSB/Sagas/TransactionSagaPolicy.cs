@@ -18,28 +18,21 @@ public class TransactionSagaPolicy : Saga<TransactionSagaData>,
 
     protected override void ConfigureHowToFindSaga(SagaPropertyMapper<TransactionSagaData> mapper)
     {
-        mapper.ConfigureMapping<TransactionLoaded>(message => message.RequestId)
-            .ToSaga(sagaData => sagaData.RequestId);
-
-        mapper.ConfigureMapping<TransactionUnloaded>(message => message.RequestId)
-            .ToSaga(sagaData => sagaData.RequestId);
-
-        mapper.ConfigureMapping<RedemptionStarted>(message => message.RequestId)
-            .ToSaga(sagaData => sagaData.RequestId);
-
-        mapper.ConfigureMapping<RedemptionCompleted>(message => message.RequestId)
-            .ToSaga(sagaData => sagaData.RequestId);
-
-        mapper.ConfigureMapping<RedemptionRejected>(message => message.RequestId)
-            .ToSaga(sagaData => sagaData.RequestId);
+        mapper.MapSaga(message => message.RequestId)
+            .ToMessage<TransactionLoaded>(message => message.RequestId)
+            .ToMessage<TransactionUnloaded>(message => message.RequestId)
+            .ToMessage<RedemptionStarted>(message => message.RequestId)
+            .ToMessage<RedemptionCompleted>(message => message.RequestId)
+            .ToMessage<RedemptionRejected>(message => message.RequestId);
     }
 
-    public Task Handle(TransactionLoaded message, IMessageHandlerContext context)
+    public async Task Handle(TransactionLoaded message, IMessageHandlerContext context)
     {
         _log.Info($"TransactionLoaded received message with RequestId: '{message.RequestId}'.");
         Data.TransactionStatus = "TransactionLoaded";
         Data.Property1 = "Property1 Done";
-        return Task.CompletedTask;
+
+        await context.Publish(new TransactionUnloaded { RequestId = message.RequestId, TransactionId = message.TransactionId });
     }
 
     public Task Handle(TransactionUnloaded message, IMessageHandlerContext context)

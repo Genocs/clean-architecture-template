@@ -47,7 +47,7 @@ public class Program
             .ConfigureLogging((context, builder) =>
             {
                 builder.AddConfiguration(context.Configuration.GetSection("Logging"));
-                builder.AddApplicationInsights();
+                //builder.AddApplicationInsights();
 
                 var serilogBuilder = new LoggerConfiguration()
                                                 .ReadFrom

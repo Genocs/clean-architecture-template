@@ -48,7 +48,7 @@
 
 <!--#if (NServiceBus) -->
     <ItemGroup>
-        <PackageReference Include="NServiceBus.Extensions.Hosting" Version="3.0.1" />
+        <PackageReference Include="NServiceBus.Extensions.Hosting" Version="4.0.0" />
         <PackageReference Include="NServiceBus.MicrosoftLogging.Hosting" Version="1.*" />
 
         <ProjectReference Include="..\Contracts.NServiceBus\Contracts.NServiceBus.csproj" />

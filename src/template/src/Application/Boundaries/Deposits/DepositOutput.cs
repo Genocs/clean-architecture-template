@@ -8,9 +8,7 @@ public sealed class DepositOutput
     public Transaction Transaction { get; }
     public decimal UpdatedBalance { get; }
 
-    public DepositOutput(
-        ICredit credit,
-        Money updatedBalance)
+    public DepositOutput(ICredit credit, Money updatedBalance)
     {
         Credit creditEntity = (Credit)credit;
 

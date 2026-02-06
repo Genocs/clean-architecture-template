@@ -2,7 +2,6 @@ using Genocs.CleanArchitecture.Template.Infrastructure.HealthChecks;
 using Genocs.CleanArchitecture.Template.WebApi.ApiClient;
 using Genocs.CleanArchitecture.Template.WebApi.Extensions;
 using Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
-using Microsoft.ApplicationInsights.DependencyCollector;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi;
@@ -25,12 +24,12 @@ builder.Host.UseSerilog((_, lc) => lc
 // Get services and config
 var services = builder.Services;
 
-services.AddApplicationInsightsTelemetry();
+//services.AddApplicationInsightsTelemetry();
 
-services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, _) =>
-{
-    module.IncludeDiagnosticSourceActivities.Add("MassTransit");
-});
+//services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, _) =>
+//{
+//    module.IncludeDiagnosticSourceActivities.Add("MassTransit");
+//});
 
 services.AddControllers().AddControllersAsServices();
 

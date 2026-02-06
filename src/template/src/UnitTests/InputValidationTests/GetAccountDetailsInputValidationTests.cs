@@ -19,9 +19,7 @@ public sealed class GetAccountDetailsInputValidationTests
     [Fact]
     public void GivenValidData_InputCreated()
     {
-        var actual = new GetAccountDetailsInput(
-            Guid.NewGuid()
-        );
+        var actual = new GetAccountDetailsInput(Guid.NewGuid());
         Assert.NotNull(actual);
     }
 }
