@@ -3,11 +3,12 @@ using Genocs.CleanArchitecture.Template.Worker.RebusSB.HostedServices;
 
 namespace Genocs.CleanArchitecture.Template.Worker.Configurator;
 
-public class RebusServiceBusConfigurator
+public static class RebusServiceBusConfigurator
 {
-    public static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
+    public static IServiceCollection ConfigureRebus(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<RebusBusSettings>(context.Configuration.GetSection(RebusBusSettings.Position));
-        services.AddHostedService<RebusService>();
+        services.Configure<RebusBusSettings>(configuration.GetSection(RebusBusSettings.Position));
+        services.AddHostedService<RebusHostedService>();
+        return services;
     }
 }

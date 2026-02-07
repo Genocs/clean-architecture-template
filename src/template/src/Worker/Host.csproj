@@ -30,6 +30,11 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Genocs.Logging" Version="8.0.*" />
+        <PackageReference Include="Genocs.Tracing" Version="8.0.*" />
+    </ItemGroup>
+    
+    <ItemGroup>
         <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
         <ProjectReference Include="..\Contracts\Contracts.csproj" />
     </ItemGroup>

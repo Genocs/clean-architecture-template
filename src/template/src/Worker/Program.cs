@@ -1,63 +1,37 @@
-﻿using Genocs.CleanArchitecture.Template.Worker;
+﻿using Genocs.CleanArchitecture.Template.Worker.Configurator;
+using Genocs.CleanArchitecture.Template.Worker.HealthCheck;
+using Genocs.CleanArchitecture.Template.Worker.WebApi;
+using Genocs.Core.Builders;
+using Genocs.Logging;
+using Genocs.Tracing;
 using Serilog;
-using Serilog.Formatting.Compact;
 
-namespace Genocs.CleanArchitecture.Template.Worker;
+StaticLogger.EnsureInitialized();
 
-public class Program
-{
-    public static async Task Main(string[] args)
+IHost host = Host.CreateDefaultBuilder(args)
+    .UseLogging()
+    .ConfigureServices((hostContext, services) =>
     {
-        IHost? host = null;
+        services
+            .AddGenocs(hostContext.Configuration)
+            .AddOpenTelemetry()
+            .Build();
 
 #if MassTransit
-        host = MassTransitHostBuilder.CreateHostBuilder(args).Build();
-#else
-        host = CreateHostBuilder(args).Build();
+        services.ConfigureMassTransit(hostContext.Configuration);
+#endif
+#if NServiceBus
+        services.ConfigureNServiceBus(hostContext.Configuration);
+#endif
+#if Rebus
+        services.ConfigureRebus(hostContext.Configuration);
 #endif
 
-        var logger = host.Services.GetRequiredService<ILogger<Program>>();
-        logger.LogInformation("Genocs.CleanArchitecture.Template Bus is starting.");
+        services.ConfigureWebApiServices(hostContext.Configuration);
+        services.ConfigureHealthChecks(hostContext.Configuration);
+    })
+    .Build();
 
-        await host.RunAsync();
-    }
+await host.RunAsync();
 
-    private static IHostBuilder CreateHostBuilder(string[] args)
-    {
-        string environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
-        return new HostBuilder()
-            .ConfigureHostConfiguration(configHost => configHost.AddEnvironmentVariables())
-            .ConfigureAppConfiguration((context, builder) =>
-            {
-                builder
-                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                    .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true);
-
-                // Enable the Secret management
-                // Please check out this link to have more info https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-5.0&tabs=windows
-                builder.AddUserSecrets<Program>();
-
-                var buildConfig = builder.Build();
-                if (buildConfig["CONFIGURATION_FOLDER"] is var configurationFolder && !string.IsNullOrEmpty(configurationFolder))
-                {
-                    builder.AddKeyPerFile(Path.Combine(context.HostingEnvironment.ContentRootPath, configurationFolder), false);
-                }
-            })
-            .ConfigureLogging((context, builder) =>
-            {
-                builder.AddConfiguration(context.Configuration.GetSection("Logging"));
-                //builder.AddApplicationInsights();
-
-                var serilogBuilder = new LoggerConfiguration()
-                                                .ReadFrom
-                                                .Configuration(context.Configuration)
-                                                .WriteTo
-                                                .Console(new CompactJsonFormatter());
-
-                builder.AddSerilog(serilogBuilder.CreateLogger(), true);
-            })
-            .ConfigureServices(ServiceStartup.ConfigureServices)
-            .UseConsoleLifetime();
-    }
-}
+await Log.CloseAndFlushAsync();

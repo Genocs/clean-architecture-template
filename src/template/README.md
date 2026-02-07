@@ -71,6 +71,133 @@ Documents and samples are provided for each library.
   - [MassTransit GitHub Repository](https://github.com/MassTransit/MassTransit)
   - [MassTransit Samples](https://github.com/MassTransit/Samples)
 
+
+# Infrastructure
+
+In this section you can find the infrastructure components you need to execute the solution. Infrastructure components are the database, the enterprise service bus, the distributed logging, monitoring, tracing systems and many more.
+You can use **Docker compose** to setup the infrastructure components just by running few commands.
+
+> **NOTE**
+> The solution contains a `.env.example` file with all the environment variables required by the infrastructure components, 
+> copy the file and rename it to `.env` then change the values if you want to customize the configuration.
+>
+> The docker compose files are configured to use the environment variables defined in the `.env` file, 
+> so you can change the configuration without changing the docker compose files.
+
+```bash
+cd ./infrastructure/docker
+
+# Setup the infrastructure.
+# Use this file to setup the basic infrastructure components (RabbitMQ, MongoDB)
+docker compose -f ./infrastructure.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup Redis and PostgreSQL (no need if you use MongoDB)
+docker compose -f ./infrastructure-db.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup monitoring infrastructure components (Prometheus, Grafana, InfluxDB, Jaeger, Seq)
+docker compose -f ./infrastructure-monitoring.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup scaling infrastructure components (Fabio, Consul)
+docker compose -f ./infrastructure-scaling.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup security infrastructure components (Vault)
+docker compose -f ./infrastructure-security.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup sqlserver database (no need if you use PostgreSQL)
+docker compose -f ./infrastructure-sqlserver.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup mySql database (no need if you use PostgreSQL)
+docker compose -f ./infrastructure-mysql.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup oracle database (no need if you use PostgreSQL)
+docker compose -f ./infrastructure-oracle.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup elk stack
+docker compose -f ./infrastructure-elk.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup AI ML components prepared by Genocs
+docker compose -f ./infrastructure-ml.yml --env-file ./.env --project-name genocs up -d
+```
+
+`infrastructure.yml` allows to install the basic infrastructure components. They are:
+
+- [RabbitMQ](https://rabbitmq.com)
+- [MongoDB](https://mongodb.com)
+
+`infrastructure-db.yml` allows to install Redis and PostgreSQL
+
+- [Redis](https://redis.io)
+- [Postgres](https://www.postgresql.org/)
+
+You can check them locally:
+
+- [RabbitMQ](http://localhost:15672): `localhost:15672`
+- Redis: `TCP:localhost:6379`
+- MongoDB: `TCP:localhost:27017`
+- Postgres: `TCP:localhost:5432`
+
+`infrastructure-monitoring.yml` allows to install the monitoring infrastructure components. They are:
+
+- [Aspire](https://learn.microsoft.com/en-us/dotnet/aspire/)
+- [Prometheus](https://prometheus.io/)
+- [Grafana](https://grafana.com/)
+- [InfluxDB](https://www.influxdata.com/)
+- [Jaeger](https://www.jaegertracing.io/)
+- [Seq](https://datalust.co/seq)
+
+You can find the console locally at:
+
+- [Aspire](localhost:18888): `localhost:18888`
+- [Prometheus](localhost:9090): `localhost:9090`
+- [Grafana](localhost:3000): `localhost:3000`
+- [InfluxDB](localhost:8086): `localhost:8086`
+- [Jaeger](localhost:16686): `localhost:16686`
+- [Seq](localhost:5341): `localhost:5341`
+
+`infrastructure-scaling.yml` allows to install the scaling infrastructure components composed by a Fabio (Loadbalancer) Service Discovery (Consul) components. They are:
+
+- [Fabio](https://fabiolb.net/)
+- [Consul](https://www.consul.io/)
+
+`infrastructure-security.yml` allows to install the security infrastructure components.
+
+Inside the file you can find:
+
+- vault (Hashicorp)
+
+> **NOTE**
+>
+> The commands above allows to setup infrastructure components, this means you can find all the containers inside the same network `genocs`.
+>
+> Whenever possible the data are persisted on the host machine by means of volumens, so you can restart the containers without losing data.
+
+```yml
+networks:
+  genocs:
+    name: genocs-network
+    driver: bridge
+
+volumes:
+  rabbitmq-data:
+  mongo-data:
+  redis-data:
+  postgres-data:
+  influx-data:
+  grafana-data:
+  jaeger-data:
+  seq-data:
+  vault-data:
+  elk-data:
+  fabio-data:
+  consul-data:
+  prometheus-data:
+  ml-data:
+```
+
+Remember to add the network configuration inside your docker compose file to setup the network, before running the containers.
+
+
+
 ## Index of Clean Architecture Template
 
 - [Use Cases](#use-cases)

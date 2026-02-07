@@ -11,12 +11,7 @@ public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDi
 
     public NServiceServiceBusClient(IOptions<NServiceServiceBusSettings> settings)
     {
-        _settings = settings.Value;
-
-        if (_settings is null)
-        {
-            throw new NullReferenceException("settings.Value.cannot be null");
-        }
+        _settings = settings.Value ?? throw new NullReferenceException("settings.Value.cannot be null");
     }
 
     private async Task Initialize()
@@ -24,7 +19,6 @@ public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDi
         if (_instance == null)
         {
             #region ConfigureLicense
-
 
             #endregion
 
@@ -47,11 +41,13 @@ public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDi
             #endregion
 
             #region Configure Persistance with MongoDb
-
-            var persistence = endpointConfiguration.UsePersistence<MongoPersistence>();
-            persistence.MongoClient(new MongoClient(_settings.PersistenceConnectionString));
-            persistence.DatabaseName(_settings.PersistenceDatabase);
-            persistence.UseTransactions(false); // Set replicaset and enable it
+            if (_settings.UsePersistence)
+            {
+                var persistence = endpointConfiguration.UsePersistence<MongoPersistence>();
+                persistence.MongoClient(new MongoClient(_settings.PersistenceConnectionString));
+                persistence.DatabaseName(_settings.PersistenceDatabase!);
+                persistence.UseTransactions(false); // Set replicaset and enable it
+            }
             #endregion
 
             #region Register commands
@@ -72,7 +68,7 @@ public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDi
             */
 
             // https://docs.particular.net/nservicebus/serialization/
-            endpointConfiguration.UseSerialization<NewtonsoftJsonSerializer>();
+            endpointConfiguration.UseSerialization<SystemJsonSerializer>();
             endpointConfiguration.EnableInstallers();
 
             _instance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
@@ -117,7 +113,9 @@ public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDi
 
     protected virtual async ValueTask DisposeAsyncCore()
     {
-        await _instance.Stop();
-        await Task.CompletedTask;
+        if (_instance != null)
+        {
+            await _instance.Stop();
+        }
     }
 }

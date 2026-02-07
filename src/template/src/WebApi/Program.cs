@@ -24,12 +24,12 @@ builder.Host.UseSerilog((_, lc) => lc
 // Get services and config
 var services = builder.Services;
 
-//services.AddApplicationInsightsTelemetry();
+// services.AddApplicationInsightsTelemetry();
 
-//services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, _) =>
-//{
-//    module.IncludeDiagnosticSourceActivities.Add("MassTransit");
-//});
+// services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, _) =>
+// {
+//     module.IncludeDiagnosticSourceActivities.Add("MassTransit");
+// });
 
 services.AddControllers().AddControllersAsServices();
 
@@ -40,7 +40,8 @@ services.AddSwaggerGen();
 services.AddBusinessExceptionFilter();
 services.AddFeatureFlags(builder.Configuration);
 services.AddVersioning();
-//services.AddSwagger();
+
+// services.AddSwagger();
 
 services.AddCustomHealthChecks(builder.Configuration);
 
@@ -190,8 +191,8 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-//var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
-//app.UseVersionedSwagger(provider);
+// var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+// app.UseVersionedSwagger(provider);
 
 app.MapControllers();
 

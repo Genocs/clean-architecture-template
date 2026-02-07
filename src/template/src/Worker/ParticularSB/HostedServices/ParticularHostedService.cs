@@ -4,38 +4,40 @@ using MongoDB.Driver;
 
 namespace Genocs.CleanArchitecture.Template.Worker.ParticularSB.HostedServices;
 
-internal class ParticularService : IHostedService
+internal class ParticularHostedService : IHostedService
 {
-
-    private readonly ILogger<ParticularService> _logger;
+    private readonly ILogger<ParticularHostedService> _logger;
     private readonly EndpointConfiguration _configuration;
 
-    private IEndpointInstance _instance;
+    private IEndpointInstance? _instance;
 
-    public ParticularService(IOptions<NServiceServiceBusSettings> settings, ILogger<ParticularService> logger)
+    public ParticularHostedService(IOptions<NServiceServiceBusSettings> settings, ILogger<ParticularHostedService> logger)
     {
+        ArgumentNullException.ThrowIfNull(logger);
         ArgumentNullException.ThrowIfNull(settings);
         ArgumentNullException.ThrowIfNull(settings.Value);
 
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _logger = logger;
+        NServiceServiceBusSettings options = settings.Value;
 
         // Start NServiceBus configuration
         #region ConfigureLicense
         #endregion
 
-        _configuration = new EndpointConfiguration(settings.Value.EndpointName);
+        _configuration = new EndpointConfiguration(options.EndpointName);
 
         // https://docs.particular.net/nservicebus/serialization/
         _configuration.UseSerialization<SystemJsonSerializer>();
+        _configuration.EnableInstallers();
 
-        _logger.LogInformation($"Start endpoint name: '{settings.Value.EndpointName}'");
+        _logger.LogInformation($"Start endpoint name: '{options.EndpointName}'");
 
         #region Configure Transport with Rabbit
 
-        var transport = _configuration.UseTransport<RabbitMQTransport>()
+        _ = _configuration.UseTransport<RabbitMQTransport>()
                                         .UseConventionalRoutingTopology(QueueType.Classic)
                                         .SetHeartbeatInterval(TimeSpan.FromSeconds(30))
-                                        .ConnectionString(settings.Value.TransportConnectionString);
+                                        .ConnectionString(options.TransportConnectionString);
         #endregion
 
         #region Register commands
@@ -43,6 +45,23 @@ internal class ParticularService : IHostedService
         // transport.Routing().RouteToEndpoint(typeof(MyCommand), "Sample.SimpleSender");
 
         #endregion
+
+        #region Configure Persistance with MongoDb
+
+        if (settings.Value.UsePersistence)
+        {
+            var persistence = _configuration.UsePersistence<MongoPersistence>();
+            persistence.MongoClient(new MongoClient(settings.Value.PersistenceConnectionString));
+            persistence.DatabaseName(settings.Value.PersistenceDatabase!);
+            persistence.UseTransactions(false); // Set replicaset and enable it
+        }
+        #endregion
+
+        // Unobtrusive mode.
+        // var conventions = _configuration.Conventions();
+        // conventions.DefiningEventsAs(type => type.Namespace == "Genocs.CleanArchitecture.Template.ContractsNServiceBus.Events");
+
+        _configuration.EnableInstallers();
 
         #region ConfigureMetrics and Monitoring
 
@@ -52,20 +71,6 @@ internal class ParticularService : IHostedService
         // var metrics = _configuration.EnableMetrics();
         // metrics.SendMetricDataToServiceControl("Particular.Monitoring", TimeSpan.FromMilliseconds(500));
         #endregion
-
-        #region Configure Persistance with MongoDb
-
-        var persistence = _configuration.UsePersistence<MongoPersistence>();
-        persistence.MongoClient(new MongoClient(settings.Value.PersistenceConnectionString));
-        persistence.DatabaseName(settings.Value.PersistenceDatabase);
-        persistence.UseTransactions(false); // Set replicaset and enable it
-        #endregion
-
-        // Unobtrusive mode.
-        // var conventions = _configuration.Conventions();
-        // conventions.DefiningEventsAs(type => type.Namespace == "Genocs.CleanArchitecture.Template.ContractsNServiceBus.Events");
-
-        _configuration.EnableInstallers();
     }
 
     public async Task StartAsync(CancellationToken cancellationToken)
@@ -78,7 +83,10 @@ internal class ParticularService : IHostedService
     public async Task StopAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("Stopping...");
-        await _instance.Stop(cancellationToken);
+        if (_instance is not null)
+        {
+            await _instance.Stop(cancellationToken);
+        }
         _logger.LogInformation("Stopped");
     }
 }

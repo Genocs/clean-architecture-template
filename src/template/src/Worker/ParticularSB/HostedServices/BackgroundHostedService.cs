@@ -1,10 +1,10 @@
 using Genocs.CleanArchitecture.Template.ContractsNServiceBus.Commands;
 
-namespace Genocs.CleanArchitecture.Template.Worker.ParticularSB;
+namespace Genocs.CleanArchitecture.Template.Worker.ParticularSB.HostedServices;
 
-public class BackgroundWorker(ILogger<BackgroundWorker> logger, IMessageSession messageSession) : BackgroundService
+public class BackgroundHostedService(ILogger<BackgroundHostedService> logger, IMessageSession messageSession) : BackgroundService
 {
-    private readonly ILogger<BackgroundWorker> _logger = logger;
+    private readonly ILogger<BackgroundHostedService> _logger = logger;
     private readonly IMessageSession _messageSession = messageSession;
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)

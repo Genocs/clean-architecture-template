@@ -15,6 +15,7 @@ public static class SQLServerInfrastructureExtensions
 
         services.AddDbContext<GenocsContext>(
             options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddScoped<IAccountRepository, AccountRepository>();
