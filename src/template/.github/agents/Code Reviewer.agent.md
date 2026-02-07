@@ -1,6 +1,6 @@
 ---
 description: 'Review code for quality and adherence to best practices.'
-tools: ['codebase', 'usages', 'vscodeAPI', 'problems', 'fetch', 'githubRepo', 'search']
+tools: ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'agent', 'todo']
 ---
 # Code Reviewer Mode
 

@@ -1,0 +1,199 @@
+{
+  "info": {
+    "_postman_id": "5752575a-ddf0-432c-bc3d-15cd32bdb6ec",
+    "name": "Genocs.CleanArchitecture.Template",
+    "description": "# Genocs.Microservice.Template home page\n\nThis is the home page",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53972",
+    "_collection_link": "https://go.postman.co/collection/53972-5752575a-ddf0-432c-bc3d-15cd32bdb6ec?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Customer",
+      "item": [
+        {
+          "name": "Registration",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();\r",
+                  "pm.collectionVariables.set(\"token\", jsonData.token);\r",
+                  "pm.collectionVariables.set(\"refreshToken\", jsonData.refreshToken);\r",
+                  "\r",
+                  "pm.test(\"Response time is less than 200ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Successful POST request\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+                  "});\r",
+                  "\r",
+                  "var schema = {\r",
+                  "    \"items\": {\r",
+                  "        \"token\": \"string\",\r",
+                  "        \"refreshToken\": \"string\",\r",
+                  "        \"refreshTokenExpiryTime\": \"datetime\"\r",
+                  "    }\r",
+                  "};\r",
+                  "\r",
+                  "var data1 = [true, true, true];\r",
+                  "\r",
+                  "pm.test('Schema is valid', function () {\r",
+                  "    pm.expect(tv4.validate(data1, schema)).to.be.true;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "function getRandom10DigitNumber() {\r",
+                  "    // From 1000000000 to 9999999999 (inclusive)\r",
+                  "    const min = 1000000000;\r",
+                  "    const max = 9999999999;\r",
+                  "    return Math.floor(Math.random() * (max - min + 1)) + min;\r",
+                  "}\r",
+                  "\r",
+                  "// Example: set it as a variable\r",
+                  "const random10Digits = getRandom10DigitNumber();\r",
+                  "pm.variables.set(\"random10Digits\", random10Digits.toString());"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"ssn\": \"{{random10Digits}}\",\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"initialAmount\": 1000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{root_url}}/v1/Customers",
+              "host": [
+                "{{root_url}}"
+              ],
+              "path": [
+                "v1",
+                "Customers"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Check",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Response time is less than 200ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Successful POST request\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Body matches string\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"Healthy\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{root_url}}/hc",
+              "host": [
+                "{{root_url}}"
+              ],
+              "path": [
+                "hc"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "General",
+      "item": [
+        {
+          "name": "Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{root_url}}/v1/dashboard",
+              "host": [
+                "{{root_url}}"
+              ],
+              "path": [
+                "v1",
+                "dashboard"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "root_url",
+      "value": "https://localhost:5001/api"
+    }
+  ]
+}
