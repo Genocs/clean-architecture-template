@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.EntityFramework;
 
-
 public sealed class ContextFactory : IDesignTimeDbContextFactory<GenocsContext>
 {
     public GenocsContext CreateDbContext(string[] args)

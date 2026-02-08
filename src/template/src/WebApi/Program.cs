@@ -6,20 +6,23 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi;
 using Refit;
+using Genocs.Core.Builders;
+using Genocs.Logging;
+using Genocs.Tracing;
 using Serilog;
-using Serilog.Events;
 
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Debug()
-    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-    .Enrich.FromLogContext()
-    .WriteTo.Console()
-    .CreateLogger();
+StaticLogger.EnsureInitialized();
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog((_, lc) => lc
-    .WriteTo.Console());
+builder.Host
+        .UseLogging();
+
+// Use Genocs Core Builders to register services and build the container
+builder
+    .AddGenocs()
+    .AddOpenTelemetry()
+    .Build();
 
 // Get services and config
 var services = builder.Services;
@@ -150,7 +153,7 @@ services.AddSwaggerGen(c =>
 services.AddInMemoryPersistence();
 #elif MongoDb
 services.AddMongoDBPersistence(builder.Configuration);
-#elif SQLServer
+#elif EFcore
 services.AddSQLServerPersistence(builder.Configuration);
 #endif
 
@@ -204,9 +207,9 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 
-app.Run();
+await app.RunAsync();
 
-Log.CloseAndFlush();
+await Log.CloseAndFlushAsync();
 
 // Make the implicit Program class public so test projects can access it
 public partial class Program;

@@ -101,8 +101,8 @@
           "description": "MongoDB Database (MongoDb)"
         },
         {
-          "choice": "sqlserver",
-          "description": "Microsoft Sql Server Database (SQLServer)"
+          "choice": "efcore",
+          "description": "EF Core"
         },
         {
           "choice": "inmemory",
@@ -142,9 +142,9 @@
       "type": "computed",
       "value": "(database == \"inmemory\")"
     },
-    "SQLServer": {
+    "EFCore": {
       "type": "computed",
-      "value": "(database == \"sqlserver\")"
+      "value": "(database == \"efcore\")"
     },
     "MongoDb": {
       "type": "computed",
@@ -335,10 +335,10 @@
       "path": "src/Infrastructure/Infrastructure.csproj"
     },
     {
-      "path": "src/WebApi/WebApi.csproj"
+      "path": "src/WebApi/Host.csproj"
     },
     {
-      "path": "src/BusWorker/BusWorker.csproj"
+      "path": "src/Worker/Host.csproj"
     },
     {
       "path": "src/Contracts/Contracts.csproj"

@@ -27,7 +27,10 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.ConfigureRebus(hostContext.Configuration);
 #endif
 
+        // Add other services here
         services.ConfigureWebApiServices(hostContext.Configuration);
+
+        // Add health checks
         services.ConfigureHealthChecks(hostContext.Configuration);
     })
     .Build();

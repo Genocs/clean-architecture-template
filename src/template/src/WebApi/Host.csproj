@@ -29,6 +29,11 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Genocs.Logging" Version="8.0.*" />
+        <PackageReference Include="Genocs.Tracing" Version="8.0.*" />
+    </ItemGroup>    
+
+    <ItemGroup>
         <ProjectReference Include="..\Domain\Domain.csproj" />
         <ProjectReference Include="..\Application\Application.csproj" />
         <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />

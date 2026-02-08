@@ -295,6 +295,6 @@ Become a financial contributor and help me sustain the project.
 | Option         | Description         | Values                               | Default       |
 | -------------- | ------------------- | ------------------------------------ | ------------- |
 | `--name`       | Project name        | `{Company.Project.Service}`          | Required      |
-| `--database`   | Database provider   | `inmemory`, `sqlserver`, `mongodb`   | `inmemory`    |
+| `--database`   | Database provider   | `inmemory`, `efcore`, `mongodb`      | `inmemory`    |
 | `--servicebus` | Message broker      | `particular`, `masstransit`, `rebus` | `masstransit` |
 | `--use-cases`  | Use case complexity | `basic`, `full`, `readonly`          | `basic`       |

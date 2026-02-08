@@ -28,7 +28,7 @@ Learning how to design modular applications will help you become a better engine
 
 ## Containers and orchestrators
 
-The example is using Docker Compose for both setup the infrastructure components and to create the application images for both WebApi and BusWorker.
+The example is using Docker Compose for both setup the infrastructure components and to create the application images for both WebApi and Worker.
 The docker-infrastructure folder contains everything required to run the infrastructure components locally.
 
 ## Persistence layer
@@ -36,7 +36,7 @@ The docker-infrastructure folder contains everything required to run the infrast
 This example contains the implementation related to three different storage type:
 
 - InMemory DataAccess (useful only for development)
-- Microsoft SQL Server (Relational database developed by Microsoft)
+- Entity Framework Core with (Tested with MS SQL Server but it should work with any provider)
 - MongoDB (Document DB)
 
 ## Enterprise Service Bus (ESB)
@@ -154,14 +154,12 @@ You can find the console locally at:
 - [Jaeger](localhost:16686): `localhost:16686`
 - [Seq](localhost:5341): `localhost:5341`
 
-`infrastructure-scaling.yml` allows to install the scaling infrastructure components composed by a Fabio (Loadbalancer) Service Discovery (Consul) components. They are:
+`infrastructure-scaling.yml` allows to install the scaling infrastructure components composed by a Load balancer (Fabio) Service Discovery (Consul) components. They are:
 
 - [Fabio](https://fabiolb.net/)
 - [Consul](https://www.consul.io/)
 
-`infrastructure-security.yml` allows to install the security infrastructure components.
-
-Inside the file you can find:
+`infrastructure-security.yml` allows to install the security infrastructure components. Inside the file you can find:
 
 - vault (Hashicorp)
 
@@ -195,7 +193,6 @@ volumes:
 ```
 
 Remember to add the network configuration inside your docker compose file to setup the network, before running the containers.
-
 
 
 ## Index of Clean Architecture Template
@@ -894,27 +891,17 @@ http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd
 
 > Fake it till you make it
 
-## SOLID
+## SOLID Principles
 
-### Single Responsibility Principle
+Principles to write maintainable and extendable software.
 
-> A class should have one, and only one, reason to change.
-
-### Open-Closed Principle
-
-> You should be able to extend a classes behavior, without modifying it.
-
-### Liskov Substitution Principle
-
-> Derived classes must be substitutable for their base classes.
-
-### Interface Segregation Principle
-
-> Make fine grained interfaces that are client specific.
-
-### Dependency Inversion Principle
-
-> Depend on abstractions, not on concretions.
+| SOLID Principles | Description |
+| ---------------- | ----------- |
+| Single Responsibility Principle | A class should have one, and only one, reason to change. |
+| Open-Closed Principle | You should be able to extend a classes behavior, without modifying it. |
+| Liskov Substitution Principle | Derived classes must be substitutable for their base classes. |
+| Interface Segregation Principle | Make fine grained interfaces that are client specific. |
+| Dependency Inversion Principle | Depend on abstractions, not on concretions. |
 
 ## .NET Core Web API
 
@@ -1442,15 +1429,15 @@ image:
   - Ubuntu
 environment:
   DOCKER_USER:
-    secure: YnlezJhfKFUWo+E5/WCikQ==
+    secure: <<DOCKER_USER_SECRET>>
   DOCKER_PASS:
-    secure: iwibHSi3B80XJ3KjT1sAS1c66AsaOP3UFyUKKWrL1jo=
+    secure: <<DOCKER_PASS_SECRET>>
   HEROKU_USERNAME:
-    secure: CUWu9AI7dgCvD7XMGYEDtb7XQlvkcOSuxpdaKdzOu/M=
+    secure: <<HEROKU_USERNAME_SECRET>>
   HEROKU_API_KEY:
-    secure: XEo5yF9x7hReDhlb66Aj6xnk2HOFboVzNW6BLR1+shV7MP1DhRl8J+hHg8Do7OKl
+    secure: <<HEROKU_API_KEY_SECRET>>
   HEROKU_APP_NAME:
-    secure: tKa7ydQJbbA+uovQNa5sBs9OcRWsCj71r4l9wvDG7/I=
+    secure: <<HEROKU_APP_NAME_SECRET>>
 services:
   - docker
 dotnet_csproj:
@@ -1458,8 +1445,8 @@ dotnet_csproj:
   file: '**\*.csproj'
   version: "{version}"
 build_script:
-  - docker pull mcr.microsoft.com/mssql/server:2017-latest || true
-  - docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=<YourStrong!Passw0rd>' -p 1433:1433 --name sql1 -d mcr.microsoft.com/mssql/server:2017-latest || true
+  - docker pull mcr.microsoft.com/mssql/server:2025-latest || true
+  - docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=<YourStrong!Passw0rd>' -p 1433:1433 --name sql1 -d mcr.microsoft.com/mssql/server:2025-latest || true
   - sleep 10
   - docker exec -i sql1 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P '<YourStrong!Passw0rd>' -Q 'ALTER LOGIN SA WITH PASSWORD="<YourNewStrong!Passw0rd>"' || true
   - dotnet ef database update --project src/{MyCompany.MyProject}.Infrastructure --startup-project src/{MyCompany.MyProject}.WebApi
