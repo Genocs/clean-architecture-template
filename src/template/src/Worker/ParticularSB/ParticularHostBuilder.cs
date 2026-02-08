@@ -75,13 +75,18 @@ public static class ParticularHostBuilder
             }
 
             // Unobtrusive mode.
-            // var conventions = endpointConfiguration.Conventions();
-            // conventions.DefiningEventsAs(type => type.Namespace == "Genocs.CleanArchitecture.Template.ContractsNServiceBus.Events");
 
-            // conventions.DefiningEventsAs(type =>
-            //    type.Namespace == "Genocs.CleanArchitecture.Template.ContractsNServiceBus.Events"
-            //    || typeof(IEvent).IsAssignableFrom(typeof(Shared.Events.EventOccurred))
-            // );
+            /*
+            var conventions = endpointConfiguration.Conventions();
+            conventions.DefiningEventsAs(type =>
+                type.Namespace != null &&
+                (type.Namespace.StartsWith("Genocs.CleanArchitecture.Template.ContractsNServiceBus.Events")
+                 || type.Namespace.StartsWith("Genocs.CleanArchitecture.Template.ContractsNServiceBus.TransactionSaga")));
+
+            conventions.DefiningCommandsAs(type =>
+                type.Namespace != null &&
+                type.Namespace.StartsWith("Genocs.CleanArchitecture.Template.ContractsNServiceBus.Commands"));
+            */
 
             // https://docs.particular.net/nservicebus/serialization/
             endpointConfiguration.UseSerialization<SystemJsonSerializer>();

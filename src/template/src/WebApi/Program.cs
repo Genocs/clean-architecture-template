@@ -2,13 +2,11 @@ using Genocs.CleanArchitecture.Template.Infrastructure.HealthChecks;
 using Genocs.CleanArchitecture.Template.WebApi.ApiClient;
 using Genocs.CleanArchitecture.Template.WebApi.Extensions;
 using Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
-using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.OpenApi;
-using Refit;
 using Genocs.Core.Builders;
 using Genocs.Logging;
-using Genocs.Tracing;
+using Genocs.WebApi.Swagger.Docs;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Refit;
 using Serilog;
 
 StaticLogger.EnsureInitialized();
@@ -21,7 +19,8 @@ builder.Host
 // Use Genocs Core Builders to register services and build the container
 builder
     .AddGenocs()
-    .AddOpenTelemetry()
+    //.AddOpenTelemetry()
+    .AddSwaggerDocs()
     .Build();
 
 // Get services and config
@@ -36,15 +35,9 @@ var services = builder.Services;
 
 services.AddControllers().AddControllersAsServices();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-services.AddEndpointsApiExplorer();
-services.AddSwaggerGen();
-
 services.AddBusinessExceptionFilter();
 services.AddFeatureFlags(builder.Configuration);
 services.AddVersioning();
-
-// services.AddSwagger();
 
 services.AddCustomHealthChecks(builder.Configuration);
 
@@ -66,86 +59,6 @@ services.AddCors(options =>
                 .AllowAnyHeader()
                 .AllowCredentials();
     });
-});
-
-// Register the Swagger generator, defining 1 or more Swagger documents
-services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "Genocs.CleanArchitecture.Template",
-        Description = "The Genocs.CleanArchitecture.Template service. The API contains OpenAPI documentation. This useful when used with LangChain tools and agents.",
-        TermsOfService = new Uri("https://www.genocs.com/sections/software.html"),
-        Contact = new OpenApiContact
-        {
-            Name = "Giovanni Emanuele Nocco",
-            Email = "giovanni.nocco@gmail.com",
-            Url = new Uri("https://www.genocs.com"),
-        },
-        License = new OpenApiLicense
-        {
-            Name = "Use under MIT",
-            Url = new Uri("https://opensource.org/license/mit/"),
-        }
-    });
-
-    c.AddServer(new OpenApiServer() { Url = "https://localhost:5001", Description = "Local version for internal test" });
-    c.AddServer(new OpenApiServer() { Url = "http://genocs.cleanarchitecture.template-service", Description = "Docker version to use within docker compose" });
-    c.AddServer(new OpenApiServer() { Url = "https://genocs.cleanarchitecture.template.azurewebsites.net", Description = "Deploy on Azure" });
-
-    c.CustomOperationIds(oid =>
-    {
-        if (!(oid.ActionDescriptor is ControllerActionDescriptor actionDescriptor))
-        {
-            return null; // default behavior
-        }
-
-        return oid.GroupName switch
-        {
-            "v1" => $"{actionDescriptor.ActionName}",
-            _ => $"_{actionDescriptor.ActionName}", // default behavior
-        };
-    });
-
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
-                      Enter 'Bearer' [space] and then your token in the Text input below.
-                      \r\n\r\nExample: 'Bearer 12345abcdef'",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
-    });
-
-    /*
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                },
-                Scheme = "oauth2",
-                Name = "Bearer",
-                In = ParameterLocation.Header
-            },
-            new List<string>()
-        }
-    });
-
-    */
-
-    // Set the comments path for the Swagger JSON and UI.
-    // var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    // var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    // var filePath = Path.Combine(System.AppContext.BaseDirectory, "api-documentation.xml");
-    c.IncludeXmlComments("api-documentation.xml");
-
 });
 
 // Setup Database
@@ -181,21 +94,15 @@ services.AddRefitClient<IOrderApi>()
 
 var app = builder.Build();
 
+app.UseGenocs()
+    .UseSwaggerDocs();
+
 app.UseHttpsRedirection();
 
-app.UseStaticFiles();
 app.UseCookiePolicy();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.UseDeveloperExceptionPage();
-}
-
-// var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
-// app.UseVersionedSwagger(provider);
+//var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+//app.UseVersionedSwagger(provider);
 
 app.MapControllers();
 

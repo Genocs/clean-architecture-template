@@ -28,7 +28,7 @@ public class TransactionSagaPolicy : Saga<TransactionSagaData>,
 
     public async Task Handle(TransactionLoaded message, IMessageHandlerContext context)
     {
-        _log.Info($"TransactionLoaded received message with RequestId: '{message.RequestId}'.");
+        _log.Info($"{nameof(TransactionLoaded)} received message with RequestId: '{message.RequestId}'.");
         Data.TransactionStatus = "TransactionLoaded";
         Data.Property1 = "Property1 Done";
 
@@ -37,12 +37,12 @@ public class TransactionSagaPolicy : Saga<TransactionSagaData>,
 
     public Task Handle(TransactionUnloaded message, IMessageHandlerContext context)
     {
-        _log.Info($"TransactionUnloaded received message with RequestId: '{message.RequestId}'.");
+        _log.Info($"{nameof(TransactionUnloaded)} received message with RequestId: '{message.RequestId}'.");
 
         if (Data.TransactionStatus != "TransactionLoaded")
         {
             Data.Property2 = "INVALID STATUS";
-            _log.Error($"TransactionUnloaded INVALID STATUS, RequestId: '{message.RequestId}'.");
+            _log.Error($"{nameof(TransactionUnloaded)} INVALID STATUS, RequestId: '{message.RequestId}'.");
             return Task.CompletedTask;
         }
 
@@ -52,12 +52,12 @@ public class TransactionSagaPolicy : Saga<TransactionSagaData>,
 
     public Task Handle(RedemptionStarted message, IMessageHandlerContext context)
     {
-        _log.Info($"RedemptionStarted received message with RequestId: '{message.RequestId}'.");
+        _log.Info($"{nameof(RedemptionStarted)} received message with RequestId: '{message.RequestId}'.");
 
         if (Data.TransactionStatus != "TransactionUnloaded")
         {
             Data.Property2 = "INVALID STATUS";
-            _log.Error($"TransactionUnloaded INVALID STATUS, RequestId: '{message.RequestId}'.");
+            _log.Error($"{nameof(RedemptionStarted)} INVALID STATUS, RequestId: '{message.RequestId}'.");
             return Task.CompletedTask;
         }
 
@@ -67,12 +67,12 @@ public class TransactionSagaPolicy : Saga<TransactionSagaData>,
 
     public Task Handle(RedemptionCompleted message, IMessageHandlerContext context)
     {
-        _log.Info($"RedemptionCompleted received message with RequestId: '{message.RequestId}'.");
+        _log.Info($"{nameof(RedemptionCompleted)} received message with RequestId: '{message.RequestId}'.");
 
         if (Data.TransactionStatus != "RedemptionStarted")
         {
             Data.Property2 = "INVALID STATUS";
-            _log.Error($"TransactionUnloaded INVALID STATUS, RequestId: '{message.RequestId}'.");
+            _log.Error($"{nameof(RedemptionCompleted)} INVALID STATUS, RequestId: '{message.RequestId}'.");
             return Task.CompletedTask;
         }
 
@@ -82,8 +82,8 @@ public class TransactionSagaPolicy : Saga<TransactionSagaData>,
 
     public Task Handle(RedemptionRejected message, IMessageHandlerContext context)
     {
-        _log.Info($"RedemptionRejected received message with RequestId: '{message.RequestId}'.");
-        Data.TransactionStatus = "RedemptionRejected";
+        _log.Info($"{nameof(RedemptionRejected)} received message with RequestId: '{message.RequestId}'.");
+        Data.TransactionStatus = nameof(RedemptionRejected);
         return Task.CompletedTask;
     }
 }

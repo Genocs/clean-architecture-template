@@ -8,21 +8,18 @@ public sealed class ContextFactory : IDesignTimeDbContextFactory<GenocsContext>
 {
     public GenocsContext CreateDbContext(string[] args)
     {
-        string connectionString = ReadDefaultConnectionStringFromAppSettings();
+        string? connectionString = ReadDefaultConnectionStringFromAppSettings();
 
         var builder = new DbContextOptionsBuilder<GenocsContext>();
         builder.UseSqlServer(connectionString);
         return new GenocsContext(builder.Options);
     }
 
-    private string ReadDefaultConnectionStringFromAppSettings()
+    private static string? ReadDefaultConnectionStringFromAppSettings()
     {
         var configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json")
             .Build();
 
-        string connectionString = configuration.GetConnectionString("DefaultConnection");
-        return connectionString;
+        return configuration.GetConnectionString("DefaultConnection");
     }
 }

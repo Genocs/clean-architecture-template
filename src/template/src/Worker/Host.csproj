@@ -39,18 +39,6 @@
         <ProjectReference Include="..\Contracts\Contracts.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-        <None Update="appsettings.Development.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Update="appsettings.Docker.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Update="appsettings.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-    </ItemGroup>
-
 <!--#if (NServiceBus) -->
     <ItemGroup>
         <PackageReference Include="NServiceBus.Extensions.Hosting" Version="4.0.0" />
