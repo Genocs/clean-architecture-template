@@ -295,7 +295,7 @@ The flow of control begins in the controller, moves through the use case, and th
 4. The `RegisterPresenter` builds the HTTP Response message.
 5. The `CustomersController` asks the presenter the current response.
 
-![Register Flow of Control](https://github.com/genocs/clean-architecture/blob/master/docs/register-flow-of-control.svg)
+![Register Flow of Control](https://github.com/genocs/clean-architecture-template/blob/main/docs/work)
 
 ### Get Customer Details Flow of Control
 
@@ -323,7 +323,7 @@ Interfaces like `ICustomerRepository`, `IOutputPort` and `IUnitOfWork` are ports
 
 The interface implementations, they are specific to a technology and bring external capabilities. For instance the `CustomerRepository` inside the `EntityFrameworkDataAccess` folder provides capabilities to consume an SQL Server database.
 
-![Ports and Adapters](https://raw.githubusercontent.com/genocs/clean-architecture/master/docs/clean-architecture-ports-and-adapters.png)
+![Ports and Adapters](https://raw.githubusercontent.com/genocs/clean-architecture-template/main/docs/clean-architecture-ports-and-adapters.png)
 
 #### The Left Side
 
@@ -818,7 +818,7 @@ public sealed class Withdraw : IUseCase
 ## Separation of Concerns
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/genocs/clean-architecture-template/master/docs/clean-architecture-template-layers.png" alt="Layers" style="max-width:100%;">
+  <img src="https://raw.githubusercontent.com/genocs/clean-architecture-template/main/docs/clean-architecture-template-layers.png" alt="Layers" style="max-width:100%;">
 </p>
 
 ### Domain
