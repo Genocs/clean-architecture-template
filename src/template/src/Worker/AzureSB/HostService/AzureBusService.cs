@@ -17,7 +17,7 @@ internal class AzureBusService : IHostedService
     private readonly IServiceProvider _serviceProvider;
 
     private IQueueClient _busClient;
-    private Dictionary<string, KeyValuePair<Type, Type>> _handlers = new Dictionary<string, KeyValuePair<Type, Type>>();
+    private readonly Dictionary<string, KeyValuePair<Type, Type>> _handlers = new Dictionary<string, KeyValuePair<Type, Type>>();
 
     public AzureBusService(IOptions<AzureServiceBusSettings> options, ILogger<AzureBusService> logger, IServiceProvider serviceProvider)
         : this(options, logger, CreateQueueClient, serviceProvider)
@@ -30,17 +30,11 @@ internal class AzureBusService : IHostedService
                            Func<AzureServiceBusSettings, IQueueClient> createQueueClient,
                            IServiceProvider serviceProvider)
     {
-        _settings = options.Value;
+        _settings = options.Value ?? throw new NullReferenceException("options cannot be null");
+        _serviceProvider = serviceProvider ?? throw new NullReferenceException("serviceProvider cannot be null");
 
-        if (_settings == null)
-        {
-            throw new NullReferenceException("options cannot be null");
-        }
-
-        _serviceProvider = serviceProvider;
-
-        _logger = logger;
-        _createQueueClient = createQueueClient;
+        _logger = logger ?? throw new NullReferenceException("logger cannot be null");
+        _createQueueClient = createQueueClient ?? throw new NullReferenceException("createQueueClient cannot be null");
     }
 
     protected void RegisterMessage<T, TH>()
@@ -96,7 +90,7 @@ internal class AzureBusService : IHostedService
         _logger.LogInformation("Stopped");
     }
 
-    private async Task ProcessMessageAsync(Message message, CancellationToken ct)
+    private async Task ProcessMessageAsync(Message message, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Processing message {messageId}", message.MessageId);
 
@@ -108,10 +102,10 @@ internal class AzureBusService : IHostedService
             var type = _handlers[eventName];
             if (type.Key != null && type.Value != null)
             {
-                var handler = _serviceProvider.GetService(type.Value);
+                object? handler = _serviceProvider.GetService(type.Value);
                 if (handler != null)
                 {
-                    var evt = TryGenericMessage(message, type.Key);
+                    object? evt = TryGenericMessage(message, type.Key);
                     if (evt is not null)
                     {
                         var concreteType = typeof(IMessageEventHandler<>).MakeGenericType(type.Key);
@@ -161,6 +155,7 @@ internal class AzureBusService : IHostedService
         {
             _logger.LogError(e, "Cannot parse payload from message {messageId}", incomingMessage.MessageId);
         }
+
         return null;
     }
 }

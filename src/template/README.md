@@ -6,11 +6,11 @@ Built with small components that are developed and tested in isolation.
 
 ## Usage
 
-The template contains a virtual Wallet application in which a customer can register an account then manage the balance with `Deposits`, `Withdraws` and `Transfers`.
+The template contains a virtual Wallet application in which a customer can register an account then manage the balance with `Deposits`, `Withdrawals`, `Transfers`, `Refunds`, and `Close Account` operations.
 
 Run the Docker container in less than 2 minutes using Play With Docker:
 
-<a href="https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/genocs/clean-architecture-template/master/docker-compose.yml&amp;stack_name=clean-architecture-template" rel="nofollow"><img src="https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png" alt="Try in PWD" style="max-width:100%;"></a>
+<a href="https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/genocs/clean-architecture-template/main/src/template/infrastructure/docker/docker-compose.yml&stack_name=clean-architecture-template" rel="nofollow"><img src="https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png" alt="Try in PWD" style="max-width:100%;"></a>
 
 ## Motivation
 
@@ -79,7 +79,7 @@ You can use **Docker compose** to setup the infrastructure components just by ru
 
 > **NOTE**
 > The solution contains a `.env.example` file with all the environment variables required by the infrastructure components, 
-> copy the file and rename it to `.env` then change the values if you want to customize the configuration.
+> rename it to `.env` then change the values to match your policy.
 >
 > The docker compose files are configured to use the environment variables defined in the `.env` file, 
 > so you can change the configuration without changing the docker compose files.
@@ -258,6 +258,7 @@ Remember to add the network configuration inside your docker compose file to set
 - [Docker](#docker)
 - [SQL Server](#sql-server)
 - [Related Content and Projects](#related-content-and-projects)
+- [OpenAPI (Web API)](#openapi-web-api)
 
 ## Use Cases
 
@@ -265,7 +266,7 @@ Remember to add the network configuration inside your docker compose file to set
 >
 > Use Cases are algorithms which interpret the input to generate the output data.
 
-Application architecture is about usage, a good architecture screams the business use cases to the developer and framework concerns are implementation details. The user can `Register` an account then manage the balance by `Deposits`, `Withdrawals` and `Transfers`.
+Application architecture is about usage, a good architecture screams the business use cases to the developer and framework concerns are implementation details. The user can `Register` an account then manage the balance by `Deposits`, `Withdrawals`, `Transfers`, and `Refunds`.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/genocs/clean-architecture-template/main/docs/clean-architecture-use-cases.png" alt=Clean Architecture Use Cases" style="max-width:100%;">
@@ -282,6 +283,7 @@ Following the list of Use Cases:
 | Get Customer Details | Get customer details including all related accounts and transactions. |
 | Get Account Details  | Get account details including transactions.                           |
 | Close Account        | Closes an account, requires balance to be zero.                       |
+| Refund               | A customer can refund an amount to an account.                        |
 
 ## Flow of Control
 
@@ -907,208 +909,74 @@ Principles to write maintainable and extendable software.
 
 ### Swagger and API Versioning
 
+The WebApi uses `Asp.Versioning` for API versioning and `Genocs.WebApi.Swagger.Docs` for the swagger UI.
+
 ```c#
-namespace Genocs.WebApi.Extensions
-{
-    using Filters;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Mvc.ApiExplorer;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.DependencyInjection;
-    using Swashbuckle.AspNetCore.Examples;
-    using Swashbuckle.AspNetCore.Swagger;
-    using Swashbuckle.AspNetCore.SwaggerGen;
+var builder = WebApplication.CreateBuilder(args);
 
-    public static class VersionedSwaggerExtensions
-    {
-        public static IServiceCollection AddVersionedSwagger(this IServiceCollection services)
-        {
-            services.AddApiVersioning(o =>
-            {
-                o.AssumeDefaultVersionWhenUnspecified = true;
-                o.DefaultApiVersion = new ApiVersion(1, 0);
-            });
+builder.AddGenocs()
+       .AddSwaggerDocs()
+       .Build();
 
-            services.AddVersionedApiExplorer(o => o.GroupNameFormat = "'V'VVV");
-
-            services.AddSwaggerGen(options =>
-            {
-                var provider = services.BuildServiceProvider()
-                    .GetRequiredService<IApiVersionDescriptionProvider>();
-
-                foreach (var apiVersion in provider.ApiVersionDescriptions)
-                {
-                    ConfigureVersionedDescription(options, apiVersion);
-                }
-
-                var xmlCommentsPath = Assembly.GetExecutingAssembly()
-                    .Location.Replace("dll", "xml");
-                options.IncludeXmlComments(xmlCommentsPath);
-
-                options.OperationFilter<ExamplesOperationFilter>();
-                options.DocumentFilter<SwaggerDocumentFilter>();
-            });
-
-            return services;
-        }
-
-        private static void ConfigureVersionedDescription(
-            SwaggerGenOptions options,
-            ApiVersionDescription apiVersion)
-        {
-            var dictionairy = new Dictionary<string, string>
-                {
-                    { "1.0", "This API features several endpoints showing different API features for API version V1" },
-                    { "2.0", "This API features several endpoints showing different API features for API version V2" }
-                };
-
-            var apiVersionName = apiVersion.ApiVersion.ToString();
-            options.SwaggerDoc(apiVersion.GroupName,
-                new Info()
-                {
-                    Title = "Clean Architecture Genocs",
-                        Contact = new Contact()
-                        {
-                            Name = "@giovanninocco",
-                                Email = "giovanni.nocco@genocs.com",
-                                Url = "https://github.com/genocs"
-                        },
-                        License = new License()
-                        {
-                            Name = "MIT License"
-                        },
-                        Version = apiVersionName,
-                        Description = dictionairy[apiVersionName]
-                });
-        }
-
-        public static IApplicationBuilder UseVersionedSwagger(
-            this IApplicationBuilder app,
-            IApiVersionDescriptionProvider provider)
-        {
-            app.UseSwagger(options =>
-            {
-                options.PreSerializeFilters.Add((swaggerDoc, httpRequest) =>
-                {
-                    if (httpRequest.Path.Value.Contains("/swagger"))
-                    {
-                        swaggerDoc.BasePath = httpRequest.Path.Value.Split("/").FirstOrDefault() ?? "";
-                    }
-
-                    if (httpRequest.Headers.TryGetValue("X-Forwarded-Prefix", out var xForwardedPrefix))
-                    {
-                        swaggerDoc.BasePath = xForwardedPrefix[0];
-                    }
-                });
-            });
-
-            app.UseSwaggerUI(options =>
-            {
-                // Build a swagger endpoint for each discovered API version
-                foreach (var description in provider.ApiVersionDescriptions)
-                {
-                    options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
-                }
-            });
-
-            return app;
-        }
-    }
-}
+var services = builder.Services;
+services.AddControllers().AddControllersAsServices();
+services.AddVersioning();
 ```
 
 ### Microsoft Extensions
 
+The solution uses the minimal hosting model. Service registration is centralized in [Program.cs](http://_vscodecontentref_/2):
+
 ```c#
-public sealed class Startup
-{
-    public Startup(IConfiguration configuration)
-    {
-        Configuration = configuration;
-    }
+StaticLogger.EnsureInitialized();
 
-    public IConfiguration Configuration { get; }
+var builder = WebApplication.CreateBuilder(args);
 
-    // This method gets called by the runtime. Use this method to add services to the container.
-    public void ConfigureDevelopmentServices(IServiceCollection services)
-    {
-        services.AddMvc()
-            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-            .AddControllersAsServices();
+builder.Host.UseLogging();
 
-        services.AddBusinessExceptionFilter();
+builder.AddGenocs()
+       .AddSwaggerDocs()
+       .Build();
 
-        services.AddFeatureFlags(Configuration);
-        services.AddVersionedSwagger();
+var services = builder.Services;
 
-        services.AddUseCases();
+services.AddControllers().AddControllersAsServices();
+services.AddBusinessExceptionFilter();
+services.AddFeatureFlags(builder.Configuration);
+services.AddVersioning();
+services.AddCustomHealthChecks(builder.Configuration);
 
-        services.AddInMemoryPersistence();
+#if InMemory
+services.AddInMemoryPersistence();
+#elif MongoDb
+services.AddMongoDBPersistence(builder.Configuration);
+#elif EFcore
+services.AddSQLServerPersistence(builder.Configuration);
+#endif
 
-        services.AddPresentersV1();
-        services.AddPresentersV2();
-    }
+#if Rebus
+services.AddRebusServiceBus(builder.Configuration);
+#elif MassTransit
+services.AddMassTransitServiceBus(builder.Configuration);
+#elif NServiceBus
+services.AddNServiceBusServiceBus(builder.Configuration);
+#elif AzureServiceBus
+services.AddAzureServiceBus(builder.Configuration);
+#endif
 
-    public void ConfigureProductionServices(IServiceCollection services)
-    {
-        services.AddMvc()
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-            .AddControllersAsServices();
-
-        services.AddBusinessExceptionFilter();
-
-        services.AddFeatureFlags(Configuration);
-        services.AddVersionedSwagger();
-
-        services.AddUseCases();
-
-        services.AddSQLServerPersistence(Configuration);
-
-        services.AddPresentersV1();
-        services.AddPresentersV2();
-    }
-
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(
-        IApplicationBuilder app,
-        IWebHostEnvironment env,
-        IApiVersionDescriptionProvider provider)
-    {
-        if (env.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-        }
-        else
-        {
-            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            app.UseHsts();
-        }
-
-        app.UseVersionedSwagger(provider);
-        app.UseHttpsRedirection();
-        app.UseStaticFiles();
-        app.UseCookiePolicy();
-        app.UseMvc();
-    }
-}
+services.AddUseCases();
+services.AddPresentersV1();
+services.AddPresentersV2();
 ```
 
 ### Feature Flags
 
 ```c#
-public sealed class CustomControllerFeatureProvider : IApplicationFeatureProvider<ControllerFeature>
+public sealed class CustomControllerFeatureProvider(IFeatureManager featureManager) : IApplicationFeatureProvider<ControllerFeature>
 {
-    private readonly IFeatureManager _featureManager;
+    private readonly IFeatureManager _featureManager = featureManager;
 
-    public CustomControllerFeatureProvider(IFeatureManager featureManager)
-    {
-        _featureManager = featureManager;
-    }
-
-    public void PopulateFeature(IEnumerable<ApplicationPart> parts, ControllerFeature feature)
+    public async void PopulateFeature(IEnumerable<ApplicationPart> parts, ControllerFeature feature)
     {
         for (int i = feature.Controllers.Count - 1; i >= 0; i--)
         {
@@ -1118,11 +986,11 @@ public sealed class CustomControllerFeatureProvider : IApplicationFeatureProvide
                 if (customAttribute.AttributeType.FullName == typeof(FeatureGateAttribute).FullName)
                 {
                     var constructorArgument = customAttribute.ConstructorArguments.First();
-                    foreach (var argumentValue in constructorArgument.Value as IEnumerable)
+                    foreach (object? argumentValue in constructorArgument.Value as IEnumerable)
                     {
-                        var typedArgument = (CustomAttributeTypedArgument) argumentValue;
-                        var typedArgumentValue = (Features) (int) typedArgument.Value;
-                        if (!_featureManager.IsEnabled(typedArgumentValue.ToString()))
+                        var typedArgument = (CustomAttributeTypedArgument)argumentValue;
+                        var typedArgumentValue = (Features)(int)typedArgument.Value;
+                        if (!await _featureManager.IsEnabledAsync(typedArgumentValue.ToString()))
                             feature.Controllers.RemoveAt(i);
                     }
                 }
@@ -1176,9 +1044,7 @@ public static class FeatureFlagsExtensions
 
         services.AddMvc()
             .ConfigureApplicationPartManager(apm =>
-                apm.FeatureProviders.Add(
-                    new CustomControllerFeatureProvider(featureManager)
-                ));
+                apm.FeatureProviders.Add(new CustomControllerFeatureProvider(featureManager)));
 
         return services;
     }
@@ -1366,7 +1232,7 @@ public sealed class GenocsContext : DbContext
 Run the EF Tool to add a migration to the `Genocs.Infrastructure` project.
 
 ```sh
-dotnet ef migrations add "InitialCreate" -o "EntityFrameworkDataAccess/Migrations" --project src/{MyCompany.MyProject}.Infrastructure --startup-project src/{MyCompany.MyProject}.WebApi
+dotnet ef migrations add "InitialCreate" -o "EntityFrameworkDataAccess/Migrations" --project src/Infrastructure --startup-project src/WebApi
 ```
 
 ### Update Database
@@ -1374,7 +1240,7 @@ dotnet ef migrations add "InitialCreate" -o "EntityFrameworkDataAccess/Migration
 Generate tables and seed the database via Entity Framework Tool:
 
 ```sh
-dotnet ef database update --project src/{MyCompany.MyProject}.Infrastructure --startup-project src/{MyCompany.MyProject}.WebApi
+dotnet ef database update --project src/Infrastructure --startup-project src/WebApi
 ```
 
 ## Environment Configurations
@@ -1449,15 +1315,15 @@ build_script:
   - docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=<YourStrong!Passw0rd>' -p 1433:1433 --name sql1 -d mcr.microsoft.com/mssql/server:2025-latest || true
   - sleep 10
   - docker exec -i sql1 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P '<YourStrong!Passw0rd>' -Q 'ALTER LOGIN SA WITH PASSWORD="<YourNewStrong!Passw0rd>"' || true
-  - dotnet ef database update --project src/{MyCompany.MyProject}.Infrastructure --startup-project src/{MyCompany.MyProject}.WebApi
+  - dotnet ef database update --project src/Infrastructure --startup-project src/WebApi
   - dotnet build
-  - pushd src/{MyCompany.MyProject}.WebApi/
+  - pushd src/WebApi/
   - dotnet pack --configuration Release
   - popd
 test_script:
-  - dotnet test test/{MyCompany.MyProject}.UnitTests/{MyCompany.MyProject}.UnitTests.csproj
-  - dotnet test test/{MyCompany.MyProject}.IntegrationTests/{MyCompany.MyProject}.IntegrationTests.csproj
-  - dotnet test test/{MyCompany.MyProject}.AcceptanceTests/{MyCompany.MyProject}.AcceptanceTests.csproj
+  - dotnet test test/UnitTests/UnitTests.csproj
+  - dotnet test test/IntegrationTests/IntegrationTests.csproj
+  - dotnet test test/AcceptanceTests/AcceptanceTests.csproj
 deploy_script:
   - docker build -t {mycompany}/clean-architecture:github .
   - docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
@@ -1479,7 +1345,7 @@ WORKDIR /app
 
 # Copy everything else and build
 COPY . .
-RUN dotnet publish src/{MyCompany.MyProject}.WebApi -c release -o out
+RUN dotnet publish src/WebApi -c release -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:10.0

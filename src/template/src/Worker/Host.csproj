@@ -30,8 +30,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Genocs.Logging" Version="8.0.*" />
-        <PackageReference Include="Genocs.Tracing" Version="8.0.*" />
+        <PackageReference Include="Genocs.Logging" Version="8.1.*" />
+        <PackageReference Include="Genocs.Tracing" Version="8.1.*" />
     </ItemGroup>
     
     <ItemGroup>
