@@ -1,8 +1,8 @@
-﻿using Genocs.CleanArchitecture.Template.Contracts.Interfaces;
+﻿using Genocs.Common.CQRS.Events;
 
 namespace Genocs.CleanArchitecture.Template.Contracts.Events;
 
-public class DepositCompleted : IEvent
+public sealed class DepositCompleted : IEvent
 {
     public Guid AccountId { get; set; }
     public decimal Amount { get; set; }

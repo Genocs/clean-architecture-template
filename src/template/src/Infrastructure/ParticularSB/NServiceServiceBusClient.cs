@@ -80,14 +80,14 @@ public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDi
     }
 
     public async Task PublishEventAsync<T>(T evt)
-        where T : Contracts.Interfaces.IEvent
+        where T : Genocs.Common.CQRS.Events.IEvent
     {
         await Initialize();
         await _instance.Publish(evt);
     }
 
     public async Task SendCommandAsync<T>(T cmd)
-        where T : Contracts.Interfaces.ICommand
+        where T : Genocs.Common.CQRS.Commands.ICommand
     {
         await Initialize();
         await _instance.Send(cmd);

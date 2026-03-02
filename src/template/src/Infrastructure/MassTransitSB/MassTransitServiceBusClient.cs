@@ -35,14 +35,14 @@ public class MassTransitServiceBusClient(IPublishEndpoint publishEndpoint) : ISe
     }
 
     public async Task PublishEventAsync<T>(T @event)
-        where T : Contracts.Interfaces.IEvent
+        where T : Genocs.Common.CQRS.Events.IEvent
     {
         await _publishEndpoint.Publish(@event);
 
     }
 
     public async Task SendCommandAsync<T>(T command)
-        where T : Contracts.Interfaces.ICommand
+        where T : Genocs.Common.CQRS.Commands.ICommand
     {
         await _publishEndpoint.Publish(command);
     }

@@ -11,23 +11,8 @@ public sealed class RegisterInput
 
     public RegisterInput(SSN ssn, Name name, PositiveMoney initialAmount)
     {
-        if (ssn == null)
-        {
-            throw new InputValidationException($"{nameof(ssn)} cannot be null.");
-        }
-
-        if (name == null)
-        {
-            throw new InputValidationException($"{nameof(name)} cannot be null.");
-        }
-
-        if (initialAmount == null)
-        {
-            throw new InputValidationException($"{nameof(initialAmount)} cannot be null.");
-        }
-
-        SSN = ssn;
-        Name = name;
-        InitialAmount = initialAmount;
+        SSN = ssn ?? throw new InputValidationException($"{nameof(ssn)} cannot be null.");
+        Name = name ?? throw new InputValidationException($"{nameof(name)} cannot be null.");
+        InitialAmount = initialAmount ?? throw new InputValidationException($"{nameof(initialAmount)} cannot be null.");
     }
 }

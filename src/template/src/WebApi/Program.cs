@@ -4,7 +4,8 @@ using Genocs.CleanArchitecture.Template.WebApi.Extensions;
 using Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
 using Genocs.Core.Builders;
 using Genocs.Logging;
-using Genocs.WebApi.Swagger.Docs;
+using Genocs.Telemetry;
+using Genocs.WebApi.OpenApi.Docs;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Refit;
 using Serilog;
@@ -19,7 +20,7 @@ builder.Host
 // Use Genocs Core Builders to register services and build the container
 builder
     .AddGenocs()
-    //.AddOpenTelemetry()
+    .AddTelemetry()
     .AddSwaggerDocs()
     .Build();
 

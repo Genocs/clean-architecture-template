@@ -10,8 +10,8 @@ public sealed class CloseAccountPresenter : IOutputPort
 
     public CloseAccountPresenter()
     {
-        Errors = new Collection<string>();
-        ClosedAccounts = new Collection<CloseAccountOutput>();
+        Errors = [];
+        ClosedAccounts = [];
     }
 
     public void Error(string message) => Errors.Add(message);

@@ -42,12 +42,7 @@ public sealed class Money : IEquatable<Money>
 
     public override int GetHashCode()
     {
-        unchecked
-        {
-            int hash = 17;
-            hash = (hash * 23) + _money.GetHashCode();
-            return hash;
-        }
+        return HashCode.Combine(_money);
     }
 
     internal bool LessThan(PositiveMoney amount)

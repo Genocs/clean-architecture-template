@@ -24,14 +24,14 @@ public class RebusServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
     }
 
     public async Task SendCommandAsync<T>(T cmd)
-        where T : Contracts.Interfaces.ICommand
+        where T : Genocs.Common.CQRS.Commands.ICommand
     {
         // Check the ContextId Management
         await _activator.Bus.Send(cmd);
     }
 
     public async Task PublishEventAsync<T>(T evt)
-        where T : Contracts.Interfaces.IEvent
+        where T : Genocs.Common.CQRS.Events.IEvent
     {
         await _activator.Bus.Publish(evt);
     }

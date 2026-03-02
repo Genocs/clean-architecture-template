@@ -18,12 +18,12 @@ public sealed class CustomerRepository : ICustomerRepository
         await Task.CompletedTask;
     }
 
-    public async Task<ICustomer> Get(Guid id)
+    public async Task<ICustomer?> Get(Guid id)
     {
         var customer = _context.Customers
             .SingleOrDefault(e => e.Id == id);
 
-        return await Task.FromResult<Customer>(customer);
+        return await Task.FromResult<Customer?>(customer);
     }
 
     public async Task Update(ICustomer customer)

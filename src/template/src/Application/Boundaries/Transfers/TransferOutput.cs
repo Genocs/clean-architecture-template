@@ -3,7 +3,6 @@ using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 
 namespace Genocs.CleanArchitecture.Template.Application.Boundaries.Transfers;
 
-
 public sealed class TransferOutput
 {
     public Transaction Transaction { get; }

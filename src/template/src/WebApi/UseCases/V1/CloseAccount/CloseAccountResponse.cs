@@ -3,14 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.CloseAccount;
 
-
 /// <summary>
-/// Close Account Response
+/// Close Account Response.
 /// </summary>
 public sealed class CloseAccountResponse
 {
     /// <summary>
-    /// Account ID
+    /// Account ID.
     /// </summary>
     [Required]
     public Guid AccountId { get; }

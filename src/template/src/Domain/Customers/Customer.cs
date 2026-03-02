@@ -21,4 +21,9 @@ public class Customer : ICustomer
 
         Accounts.Add(account.Id);
     }
+
+    public bool IsTransient()
+    {
+        throw new NotImplementedException();
+    }
 }

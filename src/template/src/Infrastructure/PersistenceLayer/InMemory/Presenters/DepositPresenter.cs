@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.InMemory.Presenters;
 
-
 public sealed class DepositPresenter : IOutputPort
 {
     public Collection<string> Errors { get; }
@@ -11,8 +10,8 @@ public sealed class DepositPresenter : IOutputPort
 
     public DepositPresenter()
     {
-        Errors = new Collection<string>();
-        Deposits = new Collection<DepositOutput>();
+        Errors = [];
+        Deposits = [];
     }
 
     public void Error(string message)

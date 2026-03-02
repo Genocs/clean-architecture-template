@@ -3,7 +3,6 @@ using Genocs.CleanArchitecture.Template.Domain.Accounts;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.InMemory.Repositories;
 
-
 public sealed class AccountRepository : IAccountRepository
 {
     private readonly GenocsContext _context;
@@ -23,8 +22,7 @@ public sealed class AccountRepository : IAccountRepository
     public async Task Delete(IAccount account)
     {
         var accountOld = _context.Accounts
-            .Where(e => e.Id == account.Id)
-            .SingleOrDefault();
+            .Single(e => e.Id == account.Id);
 
         _context.Accounts.Remove(accountOld);
 
@@ -34,8 +32,7 @@ public sealed class AccountRepository : IAccountRepository
     public async Task<IAccount> Get(Guid id)
     {
         var account = _context.Accounts
-            .Where(e => e.Id == id)
-            .SingleOrDefault();
+            .Single(e => e.Id == id);
 
         return await Task.FromResult<Account>(account);
     }
@@ -43,8 +40,7 @@ public sealed class AccountRepository : IAccountRepository
     public async Task Update(IAccount account, ICredit credit)
     {
         var accountOld = _context.Accounts
-            .Where(e => e.Id == account.Id)
-            .SingleOrDefault();
+            .Single(e => e.Id == account.Id);
 
         accountOld = (Account)account;
         await Task.CompletedTask;
@@ -53,8 +49,7 @@ public sealed class AccountRepository : IAccountRepository
     public async Task Update(IAccount account, IDebit debit)
     {
         var accountOld = _context.Accounts
-            .Where(e => e.Id == account.Id)
-            .SingleOrDefault();
+            .Single(e => e.Id == account.Id);
 
         accountOld = (Account)account;
         await Task.CompletedTask;

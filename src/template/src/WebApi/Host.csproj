@@ -26,9 +26,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Genocs.Logging" Version="8.1.*" />
-        <PackageReference Include="Genocs.Tracing" Version="8.1.*" />
-        <PackageReference Include="Genocs.WebApi.Swagger" Version="8.1.*" />
+        <PackageReference Include="Genocs.Logging" Version="9.0.0-beta001" />
+        <PackageReference Include="Genocs.Telemetry" Version="9.0.0-beta001" />
+        <PackageReference Include="Genocs.WebApi.OpenApi" Version="9.0.0-beta001" />
     </ItemGroup>    
 
     <ItemGroup>

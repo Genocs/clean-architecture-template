@@ -11,4 +11,9 @@ public class Credit : ICredit
 
     public PositiveMoney Sum(PositiveMoney amount)
         => Amount.Add(amount);
+
+    public bool IsTransient()
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -16,4 +16,9 @@ public class Debit : IDebit
     {
         return Amount.Add(amount);
     }
+
+    public bool IsTransient()
+    {
+        throw new NotImplementedException();
+    }
 }

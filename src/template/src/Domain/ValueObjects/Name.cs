@@ -47,12 +47,7 @@ public sealed class Name : IEquatable<Name>
 
     public override int GetHashCode()
     {
-        unchecked
-        {
-            int hash = 17;
-            hash = (hash * 23) + _text.GetHashCode();
-            return hash;
-        }
+        return HashCode.Combine(_text);
     }
 
     public bool Equals(Name? other)

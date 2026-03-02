@@ -47,4 +47,9 @@ public class Account : IAccount
         return totalCredits
             .Subtract(totalDebits);
     }
+
+    public bool IsTransient()
+    {
+        throw new NotImplementedException();
+    }
 }

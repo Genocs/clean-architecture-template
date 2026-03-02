@@ -11,9 +11,9 @@ public sealed class GetCustomerDetailsPresenter : IOutputPort
 
     public GetCustomerDetailsPresenter()
     {
-        Errors = new Collection<string>();
-        GetCustomerDetails = new Collection<GetCustomerDetailsOutput>();
-        NotFounds = new Collection<string>();
+        Errors = [];
+        GetCustomerDetails = [];
+        NotFounds = [];
     }
 
     public void Error(string message) => Errors.Add(message);

@@ -10,17 +10,11 @@ public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
 {
     private readonly AzureServiceBusSettings _settings;
 
-    private IQueueClient _queueClient;
+    private readonly IQueueClient _queueClient;
 
     public AzureServiceBusClient(IOptions<AzureServiceBusSettings> settings)
     {
-        _settings = settings.Value;
-
-        if (_settings is null)
-        {
-            throw new NullReferenceException("settings.Value.cannot be null");
-        }
-
+        _settings = settings.Value ?? throw new NullReferenceException("settings.Value.cannot be null");
         var connectionStringBuilder = new ServiceBusConnectionStringBuilder
         {
             Endpoint = _settings.QueueEndpoint,
@@ -72,7 +66,7 @@ public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
     }
 
     public async Task PublishEventAsync<T>(T @event)
-        where T : Contracts.Interfaces.IEvent
+        where T : Genocs.Common.CQRS.Events.IEvent
     {
         var msg = new Message();
         string strMsg = JsonConvert.SerializeObject(@event);
@@ -96,7 +90,7 @@ public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
     }
 
     public async Task SendCommandAsync<T>(T command)
-        where T : Contracts.Interfaces.ICommand
+        where T : Genocs.Common.CQRS.Commands.ICommand
     {
         var msg = new Message();
         string strMsg = JsonConvert.SerializeObject(command);

@@ -1,4 +1,4 @@
-﻿using Genocs.CleanArchitecture.Template.Domain;
+﻿using Genocs.Common.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -78,7 +78,7 @@ public sealed class GenocsContext : IMongoContext
         => _commands.Add(func);
 
     public IMongoCollection<T> GetCollection<T>(string name)
-        where T : IEntity
+        where T : IEntity<Guid>
         => _database.GetCollection<T>(name);
 
     private void Dispose(bool disposing)

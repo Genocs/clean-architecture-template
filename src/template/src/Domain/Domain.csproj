@@ -8,4 +8,8 @@
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
+    <ItemGroup>
+        <PackageReference Include="Genocs.Common" Version="9.0.0-beta001" />
+    </ItemGroup>
+
 </Project>

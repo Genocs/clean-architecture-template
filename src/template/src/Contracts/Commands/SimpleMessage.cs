@@ -1,4 +1,4 @@
-﻿using Genocs.CleanArchitecture.Template.Contracts.Interfaces;
+﻿using Genocs.Common.CQRS.Commands;
 
 namespace Genocs.CleanArchitecture.Template.Contracts.Commands;
 

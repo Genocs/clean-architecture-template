@@ -3,7 +3,7 @@ using Genocs.CleanArchitecture.Template.Worker.HealthCheck;
 using Genocs.CleanArchitecture.Template.Worker.WebApi;
 using Genocs.Core.Builders;
 using Genocs.Logging;
-using Genocs.Tracing;
+using Genocs.Telemetry;
 using Serilog;
 
 StaticLogger.EnsureInitialized();
@@ -14,7 +14,7 @@ IHost host = Host.CreateDefaultBuilder(args)
     {
         services
             .AddGenocs(hostContext.Configuration)
-            .AddOpenTelemetry()
+            .AddTelemetry()
             .Build();
 
 #if MassTransit

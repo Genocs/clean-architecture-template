@@ -11,9 +11,9 @@ public sealed class GetAccountDetailsPresenter : IOutputPort
 
     public GetAccountDetailsPresenter()
     {
-        Errors = new Collection<string>();
-        GetAccountDetails = new Collection<GetAccountDetailsOutput>();
-        NotFounds = new Collection<string>();
+        Errors = [];
+        GetAccountDetails = [];
+        NotFounds = [];
     }
 
     public void Error(string message)

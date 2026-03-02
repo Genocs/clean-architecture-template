@@ -9,8 +9,8 @@ public sealed class RefundPresenter : IOutputPort
 
     public RefundPresenter()
     {
-        Errors = new List<string>();
-        Refunds = new List<RefundOutput>();
+        Errors = [];
+        Refunds = [];
     }
 
     public void Error(string message)

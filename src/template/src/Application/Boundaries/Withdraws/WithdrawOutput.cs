@@ -3,7 +3,6 @@ using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 
 namespace Genocs.CleanArchitecture.Template.Application.Boundaries.Withdraws;
 
-
 public sealed class WithdrawOutput
 {
     public Transaction Transaction { get; }

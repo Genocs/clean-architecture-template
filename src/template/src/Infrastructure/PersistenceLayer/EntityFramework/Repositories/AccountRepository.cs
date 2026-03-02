@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.EntityFramework.Repositories;
 
-
 public sealed class AccountRepository : IAccountRepository
 {
     private readonly GenocsContext _context;
@@ -33,7 +32,7 @@ public sealed class AccountRepository : IAccountRepository
         _ = await _context.Database.ExecuteSqlRawAsync(deleteSQL, id);
     }
 
-    public async Task<IAccount> Get(Guid id)
+    public async Task<IAccount?> Get(Guid id)
     {
         var account = await _context
             .Accounts
