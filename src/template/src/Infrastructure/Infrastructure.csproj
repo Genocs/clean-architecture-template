@@ -45,7 +45,7 @@
 
 <!--#if (MassTransit) -->
         <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.3.1" />
-        <PackageReference Include="Masstransit.RabbitMQ" Version="9.0.0" />
+        <PackageReference Include="Masstransit.RabbitMQ" Version="9.1.0" />
 <!--#endif -->
 
     </ItemGroup>
