@@ -16,7 +16,7 @@ public static class HealthCheckServicesExtensions
                 HealthCheckName,
                 () => HealthCheckResult.Healthy("OK"));
 
-        //services.AddHealthChecks()
+        // services.AddHealthChecks()
         //    .AddCheck<ExternalWebServiceHealthCheck>("External Web Service", tags: new[] { "external" })
         //    .AddCheck<DatabaseHealthCheck>("Database", tags: new[] { "database" })
         //    .AddCheck<MessageQueueHealthCheck>("Message Queue", tags: new[] { "messagequeue" });

@@ -17,13 +17,14 @@ internal static class MassTransitHostBuilder
         services.AddMassTransit(x =>
         {
             // Consumer configuration
-            //x.AddConsumersFromNamespaceContaining<SubmitOrderConsumer>();
+            // x.AddConsumersFromNamespaceContaining<SubmitOrderConsumer>();
+
             x.AddConsumersFromNamespaceContaining<RegistrationCompletedHandler>();
 
             // Set the transport
-            //x.UsingRabbitMq(ConfigureBus);
+            // x.UsingRabbitMq(ConfigureBus);
 
-            //x.AddConsumer<RegistrationCompletedHandler>()
+            // x.AddConsumer<RegistrationCompletedHandler>()
             //        .Endpoint(x =>
             //        {
             //            x.ConcurrentMessageLimit = 5;
@@ -32,23 +33,24 @@ internal static class MassTransitHostBuilder
 
             x.UsingRabbitMq((context, cfg) =>
             {
-                //cfg.ReceiveEndpoint("merchantstatus", e =>
-                //{
-                //    e.PrefetchCount = 5;
-                //    e.ConcurrentMessageLimit = 5;
-                //    //e.UseMessageRetry(r => r.);
-                //    e.Consumer<MerchantStatusChangedConsumer>(context);
-                //});
+                // cfg.ReceiveEndpoint("merchantstatus", e =>
+                // {
+                //     e.PrefetchCount = 5;
+                //     e.ConcurrentMessageLimit = 5;
+                //     //e.UseMessageRetry(r => r.);
+                //     e.Consumer<MerchantStatusChangedConsumer>(context);
+                // });
 
-                //cfg.HealthCheck(context);
+                // cfg.HealthCheck(context);
                 cfg.ConfigureEndpoints(context);
-                cfg.Host(settings.HostName, settings.VirtualHost,
+                cfg.Host(
+                    settings.HostName,
+                    settings.VirtualHost,
                     h =>
                     {
-                        h.Username(settings.UserName);
+                        h.Username(settings.UserName ?? "guest");
                         h.Password(settings.Password);
-                    }
-                );
+                    });
             });
         });
 
@@ -57,20 +59,23 @@ internal static class MassTransitHostBuilder
 
     static void ConfigureBus(IBusRegistrationContext context, IRabbitMqBusFactoryConfigurator configurator)
     {
-        // configurator.UseMessageData(new MongoDbMessageDataRepository("mongodb://127.0.0.1", "attachments"));
+        /*
+        configurator.UseMessageData(new MongoDbMessageDataRepository("mongodb://127.0.0.1", "attachments"));
 
-        //configurator.ReceiveEndpoint(KebabCaseEndpointNameFormatter.Instance.Consumer<RoutingSlipBatchEventConsumer>(), e =>
-        //{
-        //    e.PrefetchCount = 20;
+        configurator.ReceiveEndpoint(KebabCaseEndpointNameFormatter.Instance.Consumer<RoutingSlipBatchEventConsumer>(), e =>
+        {
+            e.PrefetchCount = 20;
 
-        //    e.Batch<RoutingSlipCompleted>(b =>
-        //    {
-        //        b.MessageLimit = 10;
-        //        b.TimeLimit = TimeSpan.FromSeconds(5);
+            e.Batch<RoutingSlipCompleted>(b =>
+            {
+                b.MessageLimit = 10;
+                b.TimeLimit = TimeSpan.FromSeconds(5);
 
-        //        b.Consumer<RoutingSlipBatchEventConsumer, RoutingSlipCompleted>(context);
-        //    });
-        //});
+                b.Consumer<RoutingSlipBatchEventConsumer, RoutingSlipCompleted>(context);
+            });
+        });
+
+        */
 
         // This configuration allow to handle the Scheduling
         configurator.UseMessageScheduler(new Uri("queue:quartz"));

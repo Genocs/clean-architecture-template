@@ -1,35 +1,34 @@
 {
-    "name": "Azure Developer CLI",
-    "image": "mcr.microsoft.com/devcontainers/python:3.10-bullseye",
-    "features": {
-        // See https://containers.dev/features for list of features
-        "ghcr.io/devcontainers/features/dotnet:2": {
-            "version": "10.0",
-            "additionalVersions": "9.0"
-        },
-        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-        "ghcr.io/azure/azure-dev/azd:latest": {}
+  "image": "mcr.microsoft.com/devcontainers/base:jammy",
+  "containerEnv": {
+    "DOTNET_CLI_TELEMETRY_OPTOUT": "true",
+    "DOTNET_NOLOGO": "true",
+    "DOTNET_SKIP_FIRST_TIME_EXPERIENCE": "true",
+    "DOTNET_USE_POLLING_FILE_WATCHER": "true",
+    "NUGET_XMLDOC_MODE": "skip"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/git-lfs:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": true
     },
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                // "GitHub.vscode-github-actions",
-                // "ms-azuretools.azure-dev",
-                // "ms-azuretools.vscode-azurefunctions",
-                // "ms-azuretools.vscode-bicep",
-                // "ms-azuretools.vscode-docker",
-                "ms-dotnettools.csharp"
-                // Include other VSCode language extensions if needed
-                // Right click on an extension inside VSCode to add directly to devcontainer.json, or copy the extension ID
-            ]
-        }
-    },
-    "forwardPorts": [
-        // Forward ports if needed for local development
-    ],
-    "postCreateCommand": "",
-    "remoteUser": "vscode",
-    "hostRequirements": {
-        "memory": "8gb"
+    "ghcr.io/devcontainers/features/dotnet:2.4.0": {
+      "version": "9.0",
+      "installUsingApt": false
     }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "ms-dotnettools.csdevkit"
+      ],
+      "settings": {
+        "dotnet.defaultSolution": "${containerWorkspaceFolder}/genocs.slnx"
+      }
+    }
+  },
+  "postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && git lfs checkout",
+  "postStartCommand": ["dotnet", "build", "${containerWorkspaceFolder}/genocs.slnx", "/consoleLoggerParameters:NoSummary", "/property:GenerateFullPaths=true", "/property:Configuration=Debug", "/property:Platform=Any CPU"]
 }

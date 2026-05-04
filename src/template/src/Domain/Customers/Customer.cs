@@ -1,5 +1,6 @@
 using Genocs.CleanArchitecture.Template.Domain.Accounts;
 using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
+using Genocs.Common.CQRS.Events;
 
 namespace Genocs.CleanArchitecture.Template.Domain.Customers;
 
@@ -9,6 +10,8 @@ public class Customer : ICustomer
     public Name? Name { get; protected set; }
     public SSN? SSN { get; protected set; }
     public AccountCollection Accounts { get; protected set; }
+
+    public IReadOnlyCollection<IEvent> DomainEvents => throw new NotImplementedException();
 
     public Customer()
     {
@@ -23,6 +26,16 @@ public class Customer : ICustomer
     }
 
     public bool IsTransient()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void AddDomainEvent(IEvent @event)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ClearDomainEvents()
     {
         throw new NotImplementedException();
     }

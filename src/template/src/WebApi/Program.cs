@@ -5,7 +5,7 @@ using Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
 using Genocs.Core.Builders;
 using Genocs.Logging;
 using Genocs.Telemetry;
-using Genocs.WebApi.OpenApi.Docs;
+using Genocs.WebApi.OpenApi;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Refit;
 using Serilog;
@@ -18,11 +18,10 @@ builder.Host
         .UseLogging();
 
 // Use Genocs Core Builders to register services and build the container
-builder
+IGenocsBuilder genocsBuilder = builder
     .AddGenocs()
     .AddTelemetry()
-    .AddSwaggerDocs()
-    .Build();
+    .AddOpenApiDocs();
 
 // Get services and config
 var services = builder.Services;
@@ -95,15 +94,17 @@ services.AddRefitClient<IOrderApi>()
 
 var app = builder.Build();
 
+genocsBuilder.Build(app.Services);
+
 app.UseGenocs()
-    .UseSwaggerDocs();
+    .UseOpenApiDocs();
 
 app.UseHttpsRedirection();
 
 app.UseCookiePolicy();
 
-//var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
-//app.UseVersionedSwagger(provider);
+// var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+// app.UseVersionedSwagger(provider);
 
 app.MapControllers();
 

@@ -4,16 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.EntityFramework.Repositories;
 
-
-public sealed class CustomerRepository : ICustomerRepository
+public sealed class CustomerRepository(GenocsContext context) : ICustomerRepository
 {
-    private readonly GenocsContext _context;
-
-    public CustomerRepository(GenocsContext context)
-    {
-        _context = context ??
-            throw new ArgumentNullException(nameof(context));
-    }
+    private readonly GenocsContext _context = context ?? throw new ArgumentNullException(nameof(context));
 
     public async Task Add(ICustomer customer)
     {
@@ -21,7 +14,7 @@ public sealed class CustomerRepository : ICustomerRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<ICustomer> Get(Guid id)
+    public async Task<ICustomer?> Get(Guid id)
     {
         var customer = await _context.Customers
             .Where(c => c.Id == id)
@@ -32,10 +25,9 @@ public sealed class CustomerRepository : ICustomerRepository
             return null;
         }
 
-        List<Guid> accounts = _context.Accounts
+        List<Guid> accounts = [.. _context.Accounts
             .Where(e => e.CustomerId == id)
-            .Select(e => e.Id)
-            .ToList();
+            .Select(e => e.Id)];
 
         customer.LoadAccounts(accounts);
 

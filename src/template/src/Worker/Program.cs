@@ -8,14 +8,15 @@ using Serilog;
 
 StaticLogger.EnsureInitialized();
 
+IGenocsBuilder? gnxBuilder = null;
+
 IHost host = Host.CreateDefaultBuilder(args)
     .UseLogging()
     .ConfigureServices((hostContext, services) =>
     {
-        services
+        gnxBuilder = services
             .AddGenocs(hostContext.Configuration)
-            .AddTelemetry()
-            .Build();
+            .AddTelemetry();
 
 #if MassTransit
         services.ConfigureMassTransit(hostContext.Configuration);
@@ -34,6 +35,8 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.ConfigureHealthChecks(hostContext.Configuration);
     })
     .Build();
+
+gnxBuilder?.Build(host.Services);
 
 await host.RunAsync();
 

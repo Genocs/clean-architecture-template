@@ -9,7 +9,7 @@ services:
       - genocs
     # network_mode: host
     volumes:
-      - consul:/consul/data
+      - consul_data:/consul/data
 
   fabio:
     image: fabiolb/fabio
@@ -30,5 +30,5 @@ networks:
     external: true
 
 volumes:
-  consul:
+  consul_data:
     driver: local

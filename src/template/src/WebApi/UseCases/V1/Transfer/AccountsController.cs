@@ -17,9 +17,7 @@ public sealed class AccountsController : ControllerBase
     private readonly IUseCase _transferUseCase;
     private readonly TransferPresenter _presenter;
 
-    public AccountsController(
-                                IUseCase transferUseCase,
-                                TransferPresenter presenter)
+    public AccountsController(IUseCase transferUseCase, TransferPresenter presenter)
     {
         _transferUseCase = transferUseCase ?? throw new ArgumentNullException(nameof(transferUseCase));
         _presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));

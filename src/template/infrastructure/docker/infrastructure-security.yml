@@ -10,7 +10,7 @@ services:
     # network_mode: host
     environment:
       - VAULT_ADDR=http://127.0.0.1:8200
-      - VAULT_DEV_ROOT_TOKEN_ID=secret
+      - VAULT_DEV_ROOT_TOKEN_ID=${HASHICORP_TOKEN}
     cap_add:
       - IPC_LOCK
 

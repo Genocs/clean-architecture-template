@@ -11,9 +11,10 @@ public class RebusServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
     private BuiltinHandlerActivator _activator;
 
     private bool _disposed;
+
     public RebusServiceBusClient(IOptions<RebusBusSettings> settings)
     {
-        var optionsInstance = settings?.Value;
+        var optionsInstance = settings?.Value ?? throw new ArgumentNullException(nameof(settings));
 
         _activator = new BuiltinHandlerActivator();
 
@@ -24,7 +25,7 @@ public class RebusServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
     }
 
     public async Task SendCommandAsync<T>(T cmd)
-        where T : Genocs.Common.CQRS.Commands.ICommand
+        where T : Common.CQRS.Commands.ICommand
     {
         // Check the ContextId Management
         await _activator.Bus.Send(cmd);

@@ -19,10 +19,10 @@ public sealed class GenocsContext
     public GenocsContext()
     {
         var entityFactory = new EntityFactory();
-        Customers = new Collection<Customer>();
-        Accounts = new Collection<Account>();
-        Credits = new Collection<Credit>();
-        Debits = new Collection<Debit>();
+        Customers = [];
+        Accounts = [];
+        Credits = [];
+        Debits = [];
 
         var customer = new Customer(new SSN("8608179999"), new Name("Nocco Giovanni Emanuele"));
         var account = new Account(customer);

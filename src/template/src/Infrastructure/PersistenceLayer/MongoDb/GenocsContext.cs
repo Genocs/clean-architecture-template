@@ -15,7 +15,7 @@ public sealed class GenocsContext : IMongoContext
     private readonly List<Func<Task>> _commands;
 
     public MongoClient MongoClient { get; set; }
-    public IClientSessionHandle Session { get; set; }
+    public IClientSessionHandle? Session { get; set; }
 
     public GenocsContext(IConfiguration configuration)
     {

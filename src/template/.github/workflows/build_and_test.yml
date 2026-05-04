@@ -1,30 +1,33 @@
-name: Build and test
+name: Build test and pack
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
-    branches: [main]
+    branches: [main, develop]
 
 jobs:
   build:
-    name: Build and test
+    name: Build test and pack
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
+      - name: Checkout repository
+        uses: actions/checkout@v6
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: 10.0.x
 
       - name: Restore dependencies
-        run: dotnet restore ./src/template
+        run: dotnet restore
 
       - name: Build
-        run: dotnet build ./src/template --no-restore
+        run: dotnet build -c Debug --no-restore
 
       - name: Test
-        run: dotnet test ./src/template --no-build --verbosity normal
+        run: dotnet test -c Debug --no-build --verbosity normal
+
+      - name: Pack
+        run: dotnet pack -c Debug --no-build --verbosity normal

@@ -56,44 +56,46 @@ public static class MassTransitInfrastructureExtensions
             {
                 cfg.ConfigureEndpoints(context);
 
-                //cfg.UseHealthCheck(context);
-                cfg.Host(settings.HostName, settings.VirtualHost,
+                // cfg.UseHealthCheck(context);
+                cfg.Host(
+                    settings.HostName,
+                    settings.VirtualHost,
                     h =>
                     {
                         h.Username(settings.UserName);
                         h.Password(settings.Password);
 
-                        //h.UseSsl(s =>
-                        //{
-                        //    s.Protocol = SslProtocols.Tls12;
-                        //});
+                        // h.UseSsl(s =>
+                        // {
+                        //     s.Protocol = SslProtocols.Tls12;
+                        // });
                     });
             });
 
             //// Persistence MongoDB
-            //x.AddSagaStateMachine<CardIssuingSagaStateMachine, CardIssuingSagaState>().MongoDbRepository(c =>
-            //{
-            //    MongoDbOptions databaseSettings = new MongoDbOptions();
-            //    configuration.GetSection(MongoDbOptions.Position).Bind(databaseSettings);
-            //    c.Connection = databaseSettings.ConnectionString;
-            //    c.DatabaseName = "Masstransit";
+            // x.AddSagaStateMachine<CardIssuingSagaStateMachine, CardIssuingSagaState>().MongoDbRepository(c =>
+            // {
+            //     MongoDbOptions databaseSettings = new MongoDbOptions();
+            //     configuration.GetSection(MongoDbOptions.Position).Bind(databaseSettings);
+            //     c.Connection = databaseSettings.ConnectionString;
+            //     c.DatabaseName = "Masstransit";
 
-            //    // c.ClassMap(m => { });
-            //});
+            //// c.ClassMap(m => { });
+            // });
 
-            //x.AddSagaStateMachine<VoucherSagaStateMachine, VoucherSagaState>().MongoDbRepository(c =>
-            //{
-            //    MongoDbOptions databaseSettings = new MongoDbOptions();
-            //    configuration.GetSection(MongoDbOptions.Position).Bind(databaseSettings);
-            //    c.Connection = databaseSettings.ConnectionString;
-            //    c.DatabaseName = "Masstransit";
+            // x.AddSagaStateMachine<VoucherSagaStateMachine, VoucherSagaState>().MongoDbRepository(c =>
+            // {
+            //     MongoDbOptions databaseSettings = new MongoDbOptions();
+            //     configuration.GetSection(MongoDbOptions.Position).Bind(databaseSettings);
+            //     c.Connection = databaseSettings.ConnectionString;
+            //     c.DatabaseName = "Masstransit";
 
-            //    // c.ClassMap(m => { });
-            //});
+            ////c.ClassMap(m => { });
+            // });
         });
 
-        //services.AddScoped<SubmitCardRequestActivity>();
-        //services.AddScoped<SubmitPackageVoucherActivity>();
-        //services.AddScoped<SubmitIssuingVoucherActivity>();
+        // services.AddScoped<SubmitCardRequestActivity>();
+        // services.AddScoped<SubmitPackageVoucherActivity>();
+        // services.AddScoped<SubmitIssuingVoucherActivity>();
     }
 }

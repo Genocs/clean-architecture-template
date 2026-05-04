@@ -1,4 +1,4 @@
-﻿using Genocs.CleanArchitecture.Template.Contracts.Interfaces;
+﻿using Genocs.Common.CQRS.Events;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.AzureSB;
 

@@ -5,7 +5,6 @@ using Xunit;
 
 namespace Genocs.CleanArchitecture.Template.UnitTests.InputValidationTests;
 
-
 public sealed class DepositInputValidationTests
 {
     [Fact]

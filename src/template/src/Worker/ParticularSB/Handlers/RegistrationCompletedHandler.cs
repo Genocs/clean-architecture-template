@@ -1,5 +1,4 @@
-﻿using Genocs.CleanArchitecture.Template.Contracts.Events;
-using Genocs.CleanArchitecture.Template.ContractsNServiceBus.TransactionSaga;
+﻿using Genocs.CleanArchitecture.Template.ContractsNServiceBus.TransactionSaga;
 using NServiceBus.Logging;
 
 namespace Genocs.CleanArchitecture.Template.Worker.ParticularSB.Handlers;
@@ -16,9 +15,9 @@ public class RegistrationCompletedHandler : IHandleMessages<ContractsNServiceBus
         await context.Publish(TransactionLoaded.Fake());
 
         // Remove the comments to simulate some exception
-        //if(counter++ < 10 )
-        //{
-        //    throw new InvalidOperationException($"exception number: '{counter}'");
-        //}
+        // if(counter++ < 10 )
+        // {
+        //     throw new InvalidOperationException($"exception number: '{counter}'");
+        // }
     }
 }

@@ -10,7 +10,7 @@ services:
       - genocs
     # network_mode: host
     volumes:
-      - redis:/data
+      - redis_data:/data
 
   postgres:
     image: postgres
@@ -24,7 +24,7 @@ services:
       - genocs
     # network_mode: host
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
 
 networks:
   genocs:
@@ -33,7 +33,7 @@ networks:
     external: true
 
 volumes:
-  redis:
+  redis_data:
     driver: local
-  postgres:
+  postgres_data:
     driver: local

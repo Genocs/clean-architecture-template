@@ -4,13 +4,9 @@ using Xunit;
 
 namespace Genocs.CleanArchitecture.Template.UnitTests.UseCaseTests.CloseAccounts;
 
-public sealed class CloseAccountTests : IClassFixture<StandardFixture>
+public sealed class CloseAccountTests(StandardFixture fixture) : IClassFixture<StandardFixture>
 {
-    private readonly StandardFixture _fixture;
-    public CloseAccountTests(StandardFixture fixture)
-    {
-        _fixture = fixture;
-    }
+    private readonly StandardFixture _fixture = fixture;
 
     [Theory]
     [ClassData(typeof(PositiveDataSetup))]

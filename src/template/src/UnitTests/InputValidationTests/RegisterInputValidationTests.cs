@@ -5,7 +5,6 @@ using Xunit;
 
 namespace Genocs.CleanArchitecture.Template.UnitTests.InputValidationTests;
 
-
 public sealed class RegisterInputValidationTests
 {
     [Fact]
@@ -39,8 +38,8 @@ public sealed class RegisterInputValidationTests
             () => new RegisterInput(
                 new SSN("19860817999"),
                 new Name("Giovanni"),
-                null
-            ));
+                null));
+
         Assert.Contains("initialAmount", actualEx.Message);
     }
 

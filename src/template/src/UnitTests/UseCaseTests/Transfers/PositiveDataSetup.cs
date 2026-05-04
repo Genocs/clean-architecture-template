@@ -1,12 +1,11 @@
-namespace Genocs.CleanArchitecture.Template.UnitTests.UseCaseTests.Transfers
-{
-    using Xunit;
+using Xunit;
 
-    internal sealed class PositiveDataSetup : TheoryData<decimal, decimal>
+namespace Genocs.CleanArchitecture.Template.UnitTests.UseCaseTests.Transfers;
+
+internal sealed class PositiveDataSetup : TheoryData<decimal, decimal>
+{
+    public PositiveDataSetup()
     {
-        public PositiveDataSetup()
-        {
-            Add(100, 600);
-        }
+        Add(100, 600);
     }
 }

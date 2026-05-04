@@ -4,6 +4,6 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <DefineConstants>TRACE;__Full__;Full;CloseAccount;Deposit;GetAccountDetails;Refund;GetCustomerDetails;Register;Withdraw;Transfer;InMemory;NServiceBus</DefineConstants>
+        <DefineConstants>TRACE;__Full__;Full;CloseAccount;Deposit;GetAccountDetails;Refund;GetCustomerDetails;Register;Withdraw;Transfer;InMemory;Rebus</DefineConstants>
     </PropertyGroup>
 </Project>

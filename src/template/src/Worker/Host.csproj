@@ -12,8 +12,7 @@
 
     <ItemGroup>
         <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.20.1" />
-        <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="3.0.0" />
-        <PackageReference Include="Microsoft.ApplicationInsights.Kubernetes" Version="8.0.0" />
+        <PackageReference Include="Microsoft.ApplicationInsights.Kubernetes" Version="8.0.1" />
         <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
         <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.2.0" />
         <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.6.2" />
@@ -30,8 +29,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Genocs.Logging" Version="9.0.0-beta001" />
-        <PackageReference Include="Genocs.Telemetry" Version="9.0.0-beta001" />
+        <PackageReference Include="Genocs.Logging" Version="9.0.0-beta008" />
+        <PackageReference Include="Genocs.Telemetry" Version="9.0.0-beta008" />
     </ItemGroup>
     
     <ItemGroup>

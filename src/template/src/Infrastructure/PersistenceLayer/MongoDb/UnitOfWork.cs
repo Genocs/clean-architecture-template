@@ -2,18 +2,20 @@
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.MongoDb;
 
-
-public sealed class UnitOfWork : IUnitOfWork, IDisposable
+public sealed class UnitOfWork(IMongoContext context) : IUnitOfWork, IDisposable
 {
-    private readonly IMongoContext _context;
-
-    public UnitOfWork(IMongoContext context)
-        => _context = context;
+    private readonly IMongoContext _context = context ?? throw new ArgumentNullException(nameof(context));
 
     public async Task<int> Save()
         => await _context.SaveChangesAsync();
 
     private bool _disposed = false;
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 
     private void Dispose(bool disposing)
     {
@@ -24,12 +26,6 @@ public sealed class UnitOfWork : IUnitOfWork, IDisposable
             {
                 _context.Dispose();
             }
-        }       
-    }
-
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
+        }
     }
 }

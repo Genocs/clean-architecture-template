@@ -7,7 +7,9 @@ public class Account : Domain.Accounts.Account
 {
     public Guid CustomerId { get; protected set; }
 
-    protected Account() { }
+    protected Account()
+    {
+    }
 
     public Account(ICustomer customer)
     {

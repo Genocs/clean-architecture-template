@@ -8,6 +8,6 @@ namespace Genocs.CleanArchitecture.Template.ContractsNServiceBus.Commands;
 /// </summary>
 public class TimeTriggreredCommand : ICommand
 {
-    public DateTime TriggeredAt { get; set; } = DateTime.UtcNow;
-    public string Payload { get; set; } = string.Empty;
+    public DateTime TriggeredAt { get; init; } = DateTime.UtcNow;
+    public required string Payload { get; init; }
 }

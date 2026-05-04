@@ -1,0 +1,9 @@
+# Sample repositories list for git-migrate-remotes.sh
+# Lines starting with # are comments and ignored.
+# Blank lines are ignored.
+# Use repo names exactly as they exist in Azure DevOps.
+
+genocs-library
+
+# You can add more repositories below:
+# My.NewService

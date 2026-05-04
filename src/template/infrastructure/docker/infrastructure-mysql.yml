@@ -5,11 +5,10 @@ services:
     container_name: mysqldb
     ports:
       - 3306:3306
-
     environment:
-      MYSQL_ROOT_PASSWORD: MySect3tPassw!
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
-      - mysqlsystem:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
     networks:
       - genocs
 
@@ -19,5 +18,5 @@ networks:
     external: true
 
 volumes:
-  mysqlsystem:
+  mysql_data:
     driver: local

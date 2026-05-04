@@ -29,12 +29,12 @@ public sealed class AccountRepository : IAccountRepository
         await Task.CompletedTask;
     }
 
-    public async Task<IAccount> Get(Guid id)
+    public async Task<IAccount?> Get(Guid id)
     {
         var account = _context.Accounts
-            .Single(e => e.Id == id);
+            .SingleOrDefault(e => e.Id == id);
 
-        return await Task.FromResult<Account>(account);
+        return await Task.FromResult<Account?>(account);
     }
 
     public async Task Update(IAccount account, ICredit credit)

@@ -1,12 +1,11 @@
-namespace Genocs.CleanArchitecture.Template.UnitTests.UseCaseTests.Deposits
-{
-    using Xunit;
+using Xunit;
 
-    internal sealed class NegativeDataSetup : TheoryData<decimal>
+namespace Genocs.CleanArchitecture.Template.UnitTests.UseCaseTests.Deposits;
+
+internal sealed class NegativeDataSetup : TheoryData<decimal>
+{
+    public NegativeDataSetup()
     {
-        public NegativeDataSetup()
-        {
-            Add(-100);
-        }
+        Add(-100);
     }
 }

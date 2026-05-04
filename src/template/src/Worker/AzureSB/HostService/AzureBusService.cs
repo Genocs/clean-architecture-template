@@ -1,6 +1,6 @@
 ﻿using System.Text;
-using Genocs.CleanArchitecture.Template.Contracts.Interfaces;
 using Genocs.CleanArchitecture.Template.Infrastructure.AzureSB;
+using Genocs.Common.CQRS.Events;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -16,8 +16,8 @@ internal class AzureBusService : IHostedService
 
     private readonly IServiceProvider _serviceProvider;
 
-    private IQueueClient _busClient;
-    private readonly Dictionary<string, KeyValuePair<Type, Type>> _handlers = new Dictionary<string, KeyValuePair<Type, Type>>();
+    private readonly Dictionary<string, KeyValuePair<Type, Type>> _handlers = [];
+    private IQueueClient? _busClient;
 
     public AzureBusService(IOptions<AzureServiceBusSettings> options, ILogger<AzureBusService> logger, IServiceProvider serviceProvider)
         : this(options, logger, CreateQueueClient, serviceProvider)
@@ -85,7 +85,10 @@ internal class AzureBusService : IHostedService
     public async Task StopAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("Stopping...");
-        await _busClient.CloseAsync();
+        if (_busClient != null)
+        {
+            await _busClient.CloseAsync();
+        }
 
         _logger.LogInformation("Stopped");
     }
@@ -97,8 +100,8 @@ internal class AzureBusService : IHostedService
         string eventName = $"{message.Label}";
         if (_handlers.ContainsKey(eventName) && _serviceProvider != null)
         {
-            //using (var scope = _services.CreateScope())
-            //{
+            // using (var scope = _services.CreateScope())
+            // {
             var type = _handlers[eventName];
             if (type.Key != null && type.Value != null)
             {
@@ -109,27 +112,31 @@ internal class AzureBusService : IHostedService
                     if (evt is not null)
                     {
                         var concreteType = typeof(IMessageEventHandler<>).MakeGenericType(type.Key);
-                        await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { evt });
-                        await _busClient.CompleteAsync(message.SystemProperties.LockToken); // Send the ack 
-                        _logger.LogInformation("Processed message {messageId}", message.MessageId);
-                        return;
+                        if (concreteType != null)
+                        {
+                            await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { evt });
+                            await _busClient.CompleteAsync(message.SystemProperties.LockToken); // Send the ack
+                            _logger.LogInformation("Processed message {messageId}", message.MessageId);
+                            return;
+                        }
                     }
                 }
-            }
-            //}
-        }
-        else
-        {
-            _logger.LogError("handlers do not contains data for message with label: '{Label}', messageId: {MessageId}", message.Label, message.MessageId);
-        }
 
-        try
-        {
-            await _busClient.DeadLetterAsync(message.SystemProperties.LockToken);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, "Error moving message {messageId} to dead letter queue", message.MessageId);
+                // }
+            }
+            else
+            {
+                _logger.LogError("handlers do not contains data for message with label: '{Label}', messageId: {MessageId}", message.Label, message.MessageId);
+            }
+
+            try
+            {
+                await _busClient.DeadLetterAsync(message.SystemProperties.LockToken);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Error moving message {messageId} to dead letter queue", message.MessageId);
+            }
         }
     }
 

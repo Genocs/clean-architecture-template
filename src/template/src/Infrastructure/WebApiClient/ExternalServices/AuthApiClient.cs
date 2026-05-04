@@ -5,11 +5,8 @@ using System.Net;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.WebApiClient.ExternalServices;
 
-
-public class AuthApiClient : ApiClient, IAuthApiClient
+public class AuthApiClient(HttpClient httpClient) : ApiClient(httpClient), IAuthApiClient
 {
-    public AuthApiClient(HttpClient httpClient) : base(httpClient) { }
-
     public async Task<SimpleResult> GetSimpleAuthModelAsync(string id)
     {
         try
@@ -65,7 +62,7 @@ public class AuthApiClient : ApiClient, IAuthApiClient
 
     private ChangeStatusSchedule CreateChangeStatusSchedule(string messageId)
     {
-        // Fake data 
+        // Fake data
         ChangeStatusSchedule changeStatus = new ChangeStatusSchedule
         {
             MessageId = messageId,

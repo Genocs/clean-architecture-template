@@ -1,4 +1,5 @@
 using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
+using Genocs.Common.CQRS.Events;
 
 namespace Genocs.CleanArchitecture.Template.Domain.Accounts;
 
@@ -7,6 +8,8 @@ public class Account : IAccount
     public Guid Id { get; protected set; }
     public CreditsCollection Credits { get; protected set; }
     public DebitsCollection Debits { get; protected set; }
+
+    public IReadOnlyCollection<IEvent> DomainEvents => throw new NotImplementedException();
 
     protected Account()
     {
@@ -49,6 +52,16 @@ public class Account : IAccount
     }
 
     public bool IsTransient()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void AddDomainEvent(IEvent @event)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ClearDomainEvents()
     {
         throw new NotImplementedException();
     }

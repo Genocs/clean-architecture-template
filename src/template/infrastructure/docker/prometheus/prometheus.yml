@@ -6,3 +6,23 @@ scrape_configs:
   - job_name: "prometheus"
     static_configs:
       - targets: ["prometheus:9090"]
+
+  - job_name: "apigateway"
+    static_configs:
+      - targets: ["apigateway"]
+
+  - job_name: "identities-service"
+    static_configs:
+      - targets: ["identities-service"]
+ 
+  - job_name: "products-service"
+    static_configs:
+      - targets: ["products-service"]
+ 
+  - job_name: "orders-service"
+    static_configs:
+      - targets: ["orders-service"]
+ 
+  - job_name: "notifications-service"
+    static_configs:
+      - targets: ["notifications-service"]

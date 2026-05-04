@@ -27,8 +27,7 @@ public sealed class WithdrawlTests : IClassFixture<StandardFixture>
             presenter,
             _fixture.AccountRepository,
             _fixture.UnitOfWork,
-            _fixture.ServiceBus
-        );
+            _fixture.ServiceBus);
 
         await sut.ExecuteAsync(new WithdrawInput(
             _fixture.Context.DefaultAccountId,
