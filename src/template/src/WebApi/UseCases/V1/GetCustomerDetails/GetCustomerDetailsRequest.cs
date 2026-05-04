@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.GetCustomerDetails;
 
 /// <summary>
-/// The Get Customer Details Request.
+/// The GetAsync Customer Details Request.
 /// </summary>
 public sealed class GetCustomerDetailsRequest
 {

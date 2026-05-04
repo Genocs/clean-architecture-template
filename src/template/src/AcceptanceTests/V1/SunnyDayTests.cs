@@ -23,7 +23,7 @@ public sealed class SunnyDayTests(WebApplicationFactory<Program> factory) : ICla
         await GetCustomer(customerId_accountId.Item1);
         await Withdraw(customerId_accountId.Item2, 400);
         await Withdraw(customerId_accountId.Item2, 500);
-        await Close(customerId_accountId.Item2);
+        await CloseAsync(customerId_accountId.Item2);
     }
 
     private async Task GetCustomer(string customerId)
@@ -108,10 +108,10 @@ public sealed class SunnyDayTests(WebApplicationFactory<Program> factory) : ICla
         response.EnsureSuccessStatusCode();
     }
 
-    private async Task Close(string account)
+    private async Task CloseAsync(string account, CancellationToken cancellationToken = default)
     {
         var client = _factory.CreateClient();
-        var response = await client.DeleteAsync($"api/v1/Accounts/{account}?api-version=1");
+        var response = await client.DeleteAsync($"api/v1/Accounts/{account}?api-version=1", cancellationToken);
         response.EnsureSuccessStatusCode();
     }
 #endif

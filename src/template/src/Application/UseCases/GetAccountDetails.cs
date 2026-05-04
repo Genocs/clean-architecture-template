@@ -10,7 +10,7 @@ public sealed class GetAccountDetails(IOutputPort outputHandler, IAccountReposit
 
     public async Task ExecuteAsync(GetAccountDetailsInput input)
     {
-        var account = await _accountRepository.Get(input.AccountId);
+        var account = await _accountRepository.GetAsync(input.AccountId);
 
         if (account == null)
         {

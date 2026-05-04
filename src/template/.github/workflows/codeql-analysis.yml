@@ -1,12 +1,12 @@
-name: CodeQL
+name: CodeQL Analysis
 
 on:
   push:
-    branches: [main_update]
-    paths-ignore: ["docs/**", "examples/**"]
+    branches: [main]
+    paths-ignore: ["assets/**", "docs/**", "examples/**"]
   pull_request:
     branches: [main]
-    paths-ignore: ["docs/**", "examples/**"]
+    paths-ignore: ["assets/**", "docs/**", "examples/**"]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.sha }}
@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   analyze:
-    name: Analyze code with CodeQL
+    name: Analyze Code with CodeQL
     runs-on: ubuntu-latest
 
     strategy:
@@ -26,7 +26,7 @@ jobs:
       security-events: write
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v6
         with:
           lfs: true

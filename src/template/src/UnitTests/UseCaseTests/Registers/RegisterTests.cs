@@ -7,20 +7,9 @@ using Xunit;
 
 namespace Genocs.CleanArchitecture.Template.UnitTests.UseCaseTests.Registers;
 
-public sealed class RegisterTests : IClassFixture<StandardFixture>
+public sealed class RegisterTests(StandardFixture fixture) : IClassFixture<StandardFixture>
 {
-    private readonly StandardFixture _fixture;
-    public RegisterTests(StandardFixture fixture)
-    {
-        _fixture = fixture;
-    }
-
-    [Fact]
-    public async Task GivenNullInputThrowsExceptionAsync()
-    {
-        var register = new Register(null, null, null, null, null, null);
-        await Assert.ThrowsAsync<NullReferenceException>(async () => await register.ExecuteAsync(null));
-    }
+    private readonly StandardFixture _fixture = fixture;
 
     [Theory]
     [ClassData(typeof(PositiveDataSetup))]

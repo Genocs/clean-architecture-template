@@ -1,6 +1,6 @@
 name: Enhancement
 description: Suggest an enhancement
-title: "[Enhancement]: "
+title: "[Enhancement]:"
 labels: ["enhancement"]
 body:
   - type: markdown
@@ -40,7 +40,7 @@ body:
     attributes:
       label: Would you like to help contributing this enhancement?
       options:
-        - 'Yes'
-        - 'No'
+        - "Yes"
+        - "No"
     validations:
       required: true

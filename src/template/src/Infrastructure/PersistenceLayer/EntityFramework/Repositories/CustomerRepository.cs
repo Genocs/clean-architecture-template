@@ -8,17 +8,17 @@ public sealed class CustomerRepository(GenocsContext context) : ICustomerReposit
 {
     private readonly GenocsContext _context = context ?? throw new ArgumentNullException(nameof(context));
 
-    public async Task Add(ICustomer customer)
+    public async Task AddAsync(ICustomer customer, CancellationToken cancellationToken = default)
     {
-        await _context.Customers.AddAsync((Customer)customer);
-        await _context.SaveChangesAsync();
+        await _context.Customers.AddAsync((Customer)customer, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<ICustomer?> Get(Guid id)
+    public async Task<ICustomer?> GetAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var customer = await _context.Customers
             .Where(c => c.Id == id)
-            .SingleOrDefaultAsync();
+            .SingleOrDefaultAsync(cancellationToken);
 
         if (customer == null)
         {
@@ -34,9 +34,9 @@ public sealed class CustomerRepository(GenocsContext context) : ICustomerReposit
         return customer;
     }
 
-    public async Task Update(ICustomer customer)
+    public async Task UpdateAsync(ICustomer customer, CancellationToken cancellationToken = default)
     {
         _context.Customers.Update((Customer)customer);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
     }
 }

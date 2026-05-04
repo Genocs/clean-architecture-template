@@ -49,8 +49,8 @@ public sealed class RegisterInputValidationTests
         var actual = new RegisterInput(
             new SSN("19860817999"),
             new Name("Giovanni"),
-            new PositiveMoney(10)
-        );
+            new PositiveMoney(10));
+
         Assert.NotNull(actual);
     }
 }

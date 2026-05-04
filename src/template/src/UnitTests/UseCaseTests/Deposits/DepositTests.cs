@@ -8,14 +8,9 @@ using Xunit;
 
 namespace Genocs.CleanArchitecture.Template.UnitTests.UseCaseTests.Deposits;
 
-
-public sealed class DepositTests : IClassFixture<StandardFixture>
+public sealed class DepositTests(StandardFixture fixture) : IClassFixture<StandardFixture>
 {
-    private readonly StandardFixture _fixture;
-    public DepositTests(StandardFixture fixture)
-    {
-        _fixture = fixture;
-    }
+    private readonly StandardFixture _fixture = fixture;
 
     [Theory]
     [ClassData(typeof(PositiveDataSetup))]

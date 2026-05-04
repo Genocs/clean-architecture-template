@@ -2,12 +2,11 @@ name: SonarQube Analysis
 
 on:
   push:
-    branches: [main_update]
-    paths-ignore: ["assets/**", "containers/**", "docs/**"]
+    branches: [main]
+    paths-ignore: ["assets/**", "docs/**", "examples/**"]
   pull_request:
-    branches: [main_update]
-    paths-ignore: ["assets/**", "containers/**", "docs/**"]
-  workflow_dispatch:
+    branches: [main]
+    paths-ignore: ["assets/**", "docs/**", "examples/**"]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.sha }}
@@ -23,7 +22,7 @@ jobs:
       pull-requests: read
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0 # Shallow clones should be disabled for better analysis
@@ -33,51 +32,53 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
-      - name: Cache SonarQube packages
-        uses: actions/cache@v4
+      - name: Cache SonarQube Packages
+        uses: actions/cache@v5
         with:
-          path: ~\sonar\cache
+          path: ~/sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - name: Cache SonarQube scanner
+      - name: Cache SonarQube Scanner
         id: cache-sonar-scanner
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ./.sonar/scanner
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
 
-      - name: Install SonarQube scanner
+      - name: Install SonarQube Scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         run: |
           mkdir -p ./.sonar/scanner
           dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
 
-      - name: Restore dependencies
-        run: dotnet restore genocs.slnx
+      - name: Restore Dependencies
+        run: dotnet restore Genocs.CleanArchitecture.Template.slnx
 
-      - name: Begin SonarQube analysis
+      - name: Begin SonarQube Analysis
         env:
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+          SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}          
         run: |
           ./.sonar/scanner/dotnet-sonarscanner begin \
-            /k:"${{ secrets.SONAR_PROJECT_KEY }}" \
-            /o:"${{ secrets.SONAR_ORGANIZATION }}" \
-            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
-            /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" \
+            /k:"${{ env.SONAR_PROJECT_KEY }}" \
+            /o:"${{ env.SONAR_ORGANIZATION }}" \
+            /d:sonar.token="${{ env.SONAR_TOKEN }}" \
+            /d:sonar.host.url="${{ env.SONAR_HOST_URL }}" \
             /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" \
             /d:sonar.cs.vstest.reportsPaths="**/*.trx" \
             /d:sonar.exclusions="**/bin/**,**/obj/**,**/Migrations/**,**/*.css,**/*.js" \
             /d:sonar.coverage.exclusions="**Tests*.cs,**/Program.cs,**/Startup.cs"
 
-      - name: Build solution
-        run: dotnet build genocs.slnx --configuration Release --no-restore
+      - name: Build Solution
+        run: dotnet build Genocs.CleanArchitecture.Template.slnx --configuration Release --no-restore
 
-      - name: Run tests with coverage
+      - name: Run Tests with Coverage
         run: |
-          dotnet test genocs.slnx \
+          dotnet test Genocs.CleanArchitecture.Template.slnx \
             --configuration Release \
             --no-build \
             --verbosity normal \
@@ -86,15 +87,15 @@ jobs:
             --logger "trx" \
             -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
 
-      - name: End SonarQube analysis
+      - name: End SonarQube Analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+        run: ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ env.SONAR_TOKEN }}"
 
-      - name: Upload coverage reports
+      - name: Upload Coverage Reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: coverage-reports
+          name: Coverage Reports
           path: ./coverage/**/*.xml
           retention-days: 7

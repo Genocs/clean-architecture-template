@@ -1,0 +1,16 @@
+apiVersion: 1
+
+# Auto-provisioned datasources. Loaded by Grafana on every restart.
+# Drop additional *.yml files in this directory to register more datasources.
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    uid: prometheus
+    url: http://prometheus:9090
+    isDefault: true
+    editable: false
+    jsonData:
+      timeInterval: 15s
+      httpMethod: POST

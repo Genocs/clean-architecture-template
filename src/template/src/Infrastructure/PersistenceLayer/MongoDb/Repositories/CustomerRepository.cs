@@ -16,15 +16,15 @@ public sealed class CustomerRepository : ICustomerRepository
         _dbSetCustomer = _context.GetCollection<Customer>("Customers");
     }
 
-    public Task Add(ICustomer customer)
+    public Task AddAsync(ICustomer customer, CancellationToken cancellationToken = default)
     {
-        _context.AddCommand(async () => await _dbSetCustomer.InsertOneAsync((Customer)customer));
+        _context.AddCommand(async () => await _dbSetCustomer.InsertOneAsync((Customer)customer, cancellationToken: cancellationToken));
         return Task.CompletedTask;
     }
 
-    public async Task<ICustomer?> Get(Guid id)
+    public async Task<ICustomer?> GetAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        var customers = await _dbSetCustomer.FindAsync(f => f.Id == id);
+        var customers = await _dbSetCustomer.FindAsync(f => f.Id == id, cancellationToken: cancellationToken);
         if (customers != null)
         {
             return customers.FirstOrDefault();
@@ -33,6 +33,6 @@ public sealed class CustomerRepository : ICustomerRepository
         return null;
     }
 
-    public async Task Update(ICustomer customer)
-        => await _dbSetCustomer.FindOneAndReplaceAsync(f => f.Id == customer.Id, (Customer)customer);
+    public async Task UpdateAsync(ICustomer customer, CancellationToken cancellationToken = default)
+        => await _dbSetCustomer.FindOneAndReplaceAsync(f => f.Id == customer.Id, (Customer)customer, cancellationToken: cancellationToken);
 }

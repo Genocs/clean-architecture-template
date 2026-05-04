@@ -1,6 +1,6 @@
 # This is a manually triggered nuget build and deploy
 
-name: Publish on NuGet
+name: Publish to NuGet
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
@@ -13,14 +13,14 @@ on:
         description: "Packages Version"
 
         # Default value if no value is explicitly provided
-        default: "8.0.0"
+        default: "9.0.0"
 
         # Input has to be provided for the workflow to run
         required: true
 
 jobs:
   build:
-    name: Update NuGet packages
+    name: Update NuGet Packages
     runs-on: ubuntu-latest
 
     steps:
@@ -44,5 +44,7 @@ jobs:
       - name: Pack
         run: dotnet pack -c Debug -o out -p:PackageVersion=${{ github.event.inputs.version }} --no-build --verbosity normal
 
-      - name: Push packages to Nuget
-        run: dotnet nuget push ./out/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols
+      - name: Push Packages to NuGet
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: dotnet nuget push ./out/*.nupkg -k ${{ env.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols

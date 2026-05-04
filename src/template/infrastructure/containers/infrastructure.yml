@@ -1,6 +1,6 @@
 services:
   rabbitmq:
-    image: masstransit/rabbitmq
+    image: masstransit/rabbitmq:4.1.3
     hostname: rabbitmq
     container_name: rabbitmq
     ports:
@@ -15,7 +15,7 @@ services:
       - rabbitmq_logs:/var/log/rabbitmq
 
   mongodb:
-    image: mongo
+    image: mongo:8.0
     hostname: mongodb
     container_name: mongodb
     ports:

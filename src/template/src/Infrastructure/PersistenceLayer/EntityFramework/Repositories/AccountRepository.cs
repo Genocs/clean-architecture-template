@@ -5,23 +5,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.EntityFramework.Repositories;
 
-public sealed class AccountRepository : IAccountRepository
+public sealed class AccountRepository(GenocsContext context) : IAccountRepository
 {
-    private readonly GenocsContext _context;
+    private readonly GenocsContext _context = context ?? throw new ArgumentNullException(nameof(context));
 
-    public AccountRepository(GenocsContext context)
+    public async Task AddAsync(IAccount account, ICredit credit, CancellationToken cancellationToken = default)
     {
-        _context = context ??
-            throw new ArgumentNullException(nameof(context));
+        await _context.Accounts.AddAsync((Account)account, cancellationToken);
+        await _context.Credits.AddAsync((Credit)credit, cancellationToken);
     }
 
-    public async Task Add(IAccount account, ICredit credit)
-    {
-        await _context.Accounts.AddAsync((Account)account);
-        await _context.Credits.AddAsync((Credit)credit);
-    }
-
-    public async Task Delete(IAccount account)
+    public async Task DeleteAsync(IAccount account, CancellationToken cancellationToken = default)
     {
         string deleteSQL =
             @"DELETE FROM Credit WHERE AccountId = @Id;
@@ -32,12 +26,12 @@ public sealed class AccountRepository : IAccountRepository
         _ = await _context.Database.ExecuteSqlRawAsync(deleteSQL, id);
     }
 
-    public async Task<IAccount?> Get(Guid id)
+    public async Task<IAccount?> GetAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var account = await _context
             .Accounts
             .Where(a => a.Id == id)
-            .SingleOrDefaultAsync();
+            .SingleOrDefaultAsync(cancellationToken);
 
         if (account == null)
         {
@@ -57,9 +51,9 @@ public sealed class AccountRepository : IAccountRepository
         return account;
     }
 
-    public async Task Update(IAccount account, ICredit credit)
-        => await _context.Credits.AddAsync((Credit)credit);
+    public async Task UpdateAsync(IAccount account, ICredit credit, CancellationToken cancellationToken = default)
+        => await _context.Credits.AddAsync((Credit)credit, cancellationToken);
 
-    public async Task Update(IAccount account, IDebit debit)
-        => await _context.Debits.AddAsync((Debit)debit);
+    public async Task UpdateAsync(IAccount account, IDebit debit, CancellationToken cancellationToken = default)
+        => await _context.Debits.AddAsync((Debit)debit, cancellationToken);
 }

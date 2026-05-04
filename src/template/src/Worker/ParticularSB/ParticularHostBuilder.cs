@@ -50,7 +50,7 @@ public static class ParticularHostBuilder
 
         builder.UseNServiceBus(context =>
         {
-            // Get the configuration
+            // GetAsync the configuration
             NServiceServiceBusSettings settings = new();
             context.Configuration.GetSection(NServiceServiceBusSettings.Position).Bind(settings);
 

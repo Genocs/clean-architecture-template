@@ -25,10 +25,10 @@
         "ms-dotnettools.csdevkit"
       ],
       "settings": {
-        "dotnet.defaultSolution": "${containerWorkspaceFolder}/genocs.slnx"
+        "dotnet.defaultSolution": "${containerWorkspaceFolder}/Genocs.CleanArchitecture.Template.slnx"
       }
     }
   },
   "postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && git lfs checkout",
-  "postStartCommand": ["dotnet", "build", "${containerWorkspaceFolder}/genocs.slnx", "/consoleLoggerParameters:NoSummary", "/property:GenerateFullPaths=true", "/property:Configuration=Debug", "/property:Platform=Any CPU"]
+  "postStartCommand": ["dotnet", "build", "${containerWorkspaceFolder}/Genocs.CleanArchitecture.Template.slnx", "/consoleLoggerParameters:NoSummary", "/property:GenerateFullPaths=true", "/property:Configuration=Debug", "/property:Platform=Any CPU"]
 }

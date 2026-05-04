@@ -20,14 +20,14 @@ public sealed class Transfer(
 
     public async Task ExecuteAsync(TransferInput input)
     {
-        var originAccount = await _accountRepository.Get(input.OriginAccountId);
+        var originAccount = await _accountRepository.GetAsync(input.OriginAccountId);
         if (originAccount == null)
         {
             _outputHandler.Error($"The account {input.OriginAccountId} does not exist or is already closed.");
             return;
         }
 
-        var destinationAccount = await _accountRepository.Get(input.DestinationAccountId);
+        var destinationAccount = await _accountRepository.GetAsync(input.DestinationAccountId);
         if (destinationAccount == null)
         {
             _outputHandler.Error($"The account {input.DestinationAccountId} does not exist or is already closed.");
@@ -37,8 +37,8 @@ public sealed class Transfer(
         var debit = originAccount.Withdraw(_entityFactory, input.Amount);
         var credit = destinationAccount.Deposit(_entityFactory, input.Amount);
 
-        await _accountRepository.Update(originAccount, debit);
-        await _accountRepository.Update(destinationAccount, credit);
+        await _accountRepository.UpdateAsync(originAccount, debit);
+        await _accountRepository.UpdateAsync(destinationAccount, credit);
 
         // Publish the event to the enterprise service bus
         await _serviceBus.PublishEventAsync(new Contracts.Events.TransferCompleted() { OriginalAccountId = originAccount.Id, DestinationAccountId = destinationAccount.Id, Amount = input.Amount.ToMoney().ToDecimal() });

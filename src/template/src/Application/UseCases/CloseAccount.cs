@@ -19,7 +19,7 @@ public sealed class CloseAccount(
 
     public async Task ExecuteAsync(CloseAccountInput closeAccountInput)
     {
-        var account = await _accountRepository.Get(closeAccountInput.AccountId);
+        var account = await _accountRepository.GetAsync(closeAccountInput.AccountId);
         if (account == null)
         {
             _outputHandler.Error($"The account '{closeAccountInput.AccountId}' does not exist or is already closed.");
@@ -28,7 +28,7 @@ public sealed class CloseAccount(
 
         if (account.IsClosingAllowed())
         {
-            await _accountRepository.Delete(account);
+            await _accountRepository.DeleteAsync(account);
 
             // Publish the event to the enterprise service bus
             await _serviceBus.PublishEventAsync(new Contracts.Events.CloseAccountCompleted() { AccountId = account.Id });

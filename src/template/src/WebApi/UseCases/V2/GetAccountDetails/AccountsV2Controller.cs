@@ -17,7 +17,7 @@ public sealed class AccountsV2Controller(IUseCase getAccountDetailsUseCase, GetA
     private readonly GetAccountDetailsPresenterV2 _presenter = presenter;
 
     /// <summary>
-    /// Get an account details.
+    /// GetAsync an account details.
     /// </summary>
     [HttpGet("{AccountId}", Name = "GetAccountV2")]
     [ProducesResponseType(StatusCodes.Status200OK)]

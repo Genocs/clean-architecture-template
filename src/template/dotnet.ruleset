@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name=".Net Rules" Description="These rules enforces consistent code quality guidelines." ToolsVersion="16.0">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name=".Net Rules" Description="These rules enforces consistent code quality guidelines." ToolsVersion="18.0">
   <Include Path="basicdesignguidelinerules.ruleset" Action="Default" />
   <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
     <Rule Id="CA1014" Action="None" />
@@ -16,7 +16,6 @@
     <Rule Id="CA1702" Action="Warning" />
     <Rule Id="CA1703" Action="Warning" />
     <Rule Id="CA1704" Action="Warning" />
-    <Rule Id="CA1707" Action="Warning" />
     <Rule Id="CA1709" Action="Warning" />
     <Rule Id="CA1710" Action="Warning" />
     <Rule Id="CA1711" Action="Info" />
@@ -44,6 +43,7 @@
     <Rule Id="IDE0079" Action="Hidden" />
   </Rules>
   <Rules AnalyzerId="Microsoft.CodeAnalysis.NetAnalyzers" RuleNamespace="Microsoft.CodeAnalysis.NetAnalyzers">
+    <Rule Id="CA1707" Action="None" />
     <Rule Id="CA1711" Action="Info" />
     <Rule Id="CA1725" Action="Info" />
   </Rules>
@@ -71,7 +71,6 @@
     <Rule Id="RCS1067" Action="None" />
     <Rule Id="RCS1075" Action="None" />
     <Rule Id="RCS1076" Action="Hidden" />
-    <Rule Id="RCS1079" Action="None" />
     <Rule Id="RCS1082" Action="Warning" />
     <Rule Id="RCS1083" Action="Warning" />
     <Rule Id="RCS1086" Action="None" />
@@ -82,7 +81,6 @@
     <Rule Id="RCS1102" Action="None" />
     <Rule Id="RCS1109" Action="Info" />
     <Rule Id="RCS1115" Action="Hidden" />
-    <Rule Id="RCS1155" Action="None" />
     <Rule Id="RCS1116" Action="Hidden" />
     <Rule Id="RCS1117" Action="Hidden" />
     <Rule Id="RCS1119" Action="Info" />
@@ -101,6 +99,7 @@
     <Rule Id="RCS1150" Action="Info" />
     <Rule Id="RCS1152" Action="Hidden" />
     <Rule Id="RCS1153" Action="None" />
+    <Rule Id="RCS1155" Action="None" />
     <Rule Id="RCS1167" Action="Hidden" />
     <Rule Id="RCS1168" Action="None" />
     <Rule Id="RCS1178" Action="Info" />
@@ -112,27 +111,19 @@
     <Rule Id="RCS1210" Action="None" />
     <Rule Id="RCS1219" Action="None" />
     <Rule Id="RCS1231" Action="Info" />
-    <Rule Id="RCS1046" Action="None" />
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
-    <Rule Id="SA1649" Action="None"/>
-    <Rule Id="SA1600" Action="None"/>
-    <Rule Id="SA1208" Action="None"/>
-    <Rule Id="SA1616" Action="None"/>
-    <Rule Id="SA1614" Action="None"/>
-    <Rule Id="SA1505" Action="None" />
-    <Rule Id="SA1508" Action="None" />
-    <Rule Id="SA1518" Action="None" />
     <Rule Id="SA1000" Action="Info" />
-    <Rule Id="SA1101" Action="None" />
-    <Rule Id="SA1118" Action="None" />
-    <Rule Id="SA1129" Action="None" />
-    <Rule Id="SA1124" Action="None" />
     <Rule Id="SA1009" Action="None" />
     <Rule Id="SA1013" Action="None" />
+    <Rule Id="SA1101" Action="None" />
+    <Rule Id="SA1118" Action="None" />
+    <Rule Id="SA1124" Action="None" />
+    <Rule Id="SA1129" Action="None" />
     <Rule Id="SA1201" Action="None" />
     <Rule Id="SA1202" Action="Info" />
     <Rule Id="SA1204" Action="None" />
+    <Rule Id="SA1208" Action="None" />
     <Rule Id="SA1210" Action="None" />
     <Rule Id="SA1300" Action="None" />
     <Rule Id="SA1309" Action="None" />
@@ -140,8 +131,14 @@
     <Rule Id="SA1401" Action="None" />
     <Rule Id="SA1402" Action="None" />
     <Rule Id="SA1413" Action="None" />
+    <Rule Id="SA1501" Action="None" />
+    <Rule Id="SA1503" Action="None" />
+    <Rule Id="SA1505" Action="None" />
+    <Rule Id="SA1508" Action="None" />
     <Rule Id="SA1512" Action="None" />
     <Rule Id="SA1516" Action="None" />
+    <Rule Id="SA1518" Action="None" />
+    <Rule Id="SA1600" Action="None" />
     <Rule Id="SA1601" Action="None" />
     <Rule Id="SA1602" Action="None" />
     <Rule Id="SA1604" Action="None" />
@@ -150,15 +147,16 @@
     <Rule Id="SA1607" Action="None" />
     <Rule Id="SA1608" Action="None" />
     <Rule Id="SA1611" Action="None" />
+    <Rule Id="SA1614" Action="None" />
     <Rule Id="SA1615" Action="None" />
+    <Rule Id="SA1616" Action="None" />
     <Rule Id="SA1618" Action="None" />
     <Rule Id="SA1623" Action="None" />
+    <Rule Id="SA1633" Action="None" />
     <Rule Id="SA1642" Action="None" />
     <Rule Id="SA1643" Action="None" />
-    <Rule Id="SA1633" Action="None" />
     <Rule Id="SA1648" Action="None" />
+    <Rule Id="SA1649" Action="None" />
     <Rule Id="SX1309" Action="Warning" />
-    <Rule Id="SA1503" Action="None" />
-    <Rule Id="SA1501" Action="None" />
   </Rules>
 </RuleSet>

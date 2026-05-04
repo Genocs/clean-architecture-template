@@ -12,9 +12,9 @@ public sealed class GetCustomerDetails(
     private readonly ICustomerRepository _customerRepository = customerRepository;
     private readonly IAccountRepository _accountRepository = accountRepository;
 
-    public async Task ExecuteAsync(GetCustomerDetailsInput input)
+    public async Task ExecuteAsync(GetCustomerDetailsInput input, CancellationToken cancellationToken = default)
     {
-        var customer = await _customerRepository.Get(input.CustomerId);
+        var customer = await _customerRepository.GetAsync(input.CustomerId, cancellationToken);
 
         if (customer == null)
         {
@@ -26,7 +26,7 @@ public sealed class GetCustomerDetails(
 
         foreach (var accountId in customer.Accounts.GetAccountIds())
         {
-            var account = await _accountRepository.Get(accountId);
+            var account = await _accountRepository.GetAsync(accountId);
 
             if (account != null)
             {

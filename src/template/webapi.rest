@@ -1,0 +1,87 @@
+###############################################################################
+# Use this file inside Visual Studio code with 'REST Client' plugin 
+# https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+###############################################################################
+
+@web_api_root_url = https://localhost:5001
+
+
+### Register a new customer
+POST {{web_api_root_url}}/api/v1/customers
+Content-Type: application/json
+
+{
+  "SSN": "241019681234",
+  "Name": "Giovanni",
+  "InitialAmount": 1000
+}
+
+### Get Customer details
+GET {{web_api_root_url}}/api/v1/customers/3bba27e0-dc6d-4a77-b0a6-2371b08c493d
+Content-Type: application/json
+
+
+### Get list of users
+GET {{web_api_root_url}}/users?page=1
+
+
+### Revoke the access token
+POST {{web_api_root_url}}/access-tokens/revoke
+
+{
+  "AccessToken" : "eyJhbGciOiJSUzI1NiIsImtpZCI6IjdBMTA3NTQ0N0U3MTQ1MTEzNkQ3ODk2MDQzM0RCQTkwRjg2MTYyMjciLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiI1OWMwMGVmZTY1MDU0YTQ1ODA1YjE1NTA5NWM2NmE2ZCIsInVuaXF1ZV9uYW1lIjoiNTljMDBlZmU2NTA1NGE0NTgwNWIxNTUwOTVjNjZhNmQiLCJqdGkiOiIwYzgzMDE5OC1jNmJiLTRjNGMtODlhMi1jMzRiM2JjMjA5YjUiLCJpYXQiOiIxNjkxNjk4OTU5IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiYWRtaW4iLCJwZXJtaXNzaW9ucyI6WyJyZWFkX29yZGVycyIsImNyZWF0ZV9vcmRlcnMiLCJyZWFkX3Byb2R1Y3RzIiwiY3JlYXRlX3Byb2R1Y3RzIl0sIm5iZiI6MTY5MTY5ODk1OSwiZXhwIjoxNjkxNzAyNTU5LCJpc3MiOiJnZW5vY3MtaWRlbnRpdHktc2VydmljZSJ9.PSrrss26et1jkarRDMQOqzrKn1iS7FjBNvZv1CntMO0yUzEozXwmd500x6Oe-2Rtlh-rGCIrfdktQQdTbTfLBx-radOfQZgKIXzQjNmjYl3CxNM1ybJlUR2lwBeisWslPApK8l8WjozX-O-Bgjkg6gCWStG4BPCmAzHZ7vodxkG6R2wfIHJg7vSbyDtP4ujFfX8R88YjWzcA0cacolo0P5PV-ffh__d6ngOuPxK0PqPtPeCSEw2g0sqSfdZKean9RmwBPSST1nZWCmdkQzGuwYkICxIaADEXLp0ttY-NA26hWiLTmx_3w87PJlkFidBcS_QMtVdMHzgojkF5ZpVldQ"
+}
+
+
+### Use the refresh token to get a new access token
+POST {{web_api_root_url}}/refresh-tokens/use
+
+{
+  "RefreshToken" : "Sh8B7S8A47tcORtiII02jXzFXpOiTuUmhw9mZaHM"
+}
+
+### Revoke the refresh token
+POST {{web_api_root_url}}/refresh-tokens/revoke
+
+{
+  "RefreshToken" : "Sh8B7S8A47tcORtiII02jXzFXpOiTuUmhw9mZaHM"
+}
+
+
+### Lock a user
+PUT {{web_api_root_url}}/users/59c00efe-6505-4a45-805b-155095c66a6d/lock
+
+{
+  "UserId" : "59c00efe-6505-4a45-805b-155095c66a6d"
+}
+
+
+### Unlock a user
+PUT {{web_api_root_url}}/users/59c00efe-6505-4a45-805b-155095c66a6d/unlock
+
+{
+  "UserId" : "59c00efe-6505-4a45-805b-155095c66a6d"
+}
+
+
+### Get list of products using the API Gateway
+GET {{apigateway}}/products-service/products/260f0334-c50f-4414-ba86-c6cef34d58e8
+
+
+### Create new product using the API Gateway
+POST {{apigateway}}/products-service/products
+
+{
+  "unitPrice" : 50.12,
+  "sku": "ABC_123"
+}
+
+
+### Create a new order using the API Gateway
+POST {{apigateway}}/orders-service/orders
+Content-Type: application/json
+
+{
+  "CustomerId": "ec5983de-c667-4ad3-8e0e-d42e653572b9",
+  "productId" : "3be72f8e-0219-4ffc-b10d-2b29e8bd54b6"
+}

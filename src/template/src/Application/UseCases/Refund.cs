@@ -20,7 +20,7 @@ public sealed class Refund(
 
     public async Task ExecuteAsync(RefundInput input)
     {
-        var account = await _accountRepository.Get(input.AccountId);
+        var account = await _accountRepository.GetAsync(input.AccountId);
         if (account == null)
         {
             _outputHandler.Error($"The account {input.AccountId} does not exist or is already closed.");
@@ -35,7 +35,7 @@ public sealed class Refund(
             return;
         }
 
-        await _accountRepository.Update(account, debit);
+        await _accountRepository.UpdateAsync(account, debit);
 
         // Publish the event to the enterprise service bus
         await _serviceBus.PublishEventAsync(new Contracts.Events.WithdrawCompleted() { AccountId = input.AccountId, Amount = input.Amount.ToMoney().ToDecimal() });

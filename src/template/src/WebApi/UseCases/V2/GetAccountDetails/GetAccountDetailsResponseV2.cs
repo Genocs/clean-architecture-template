@@ -4,7 +4,7 @@ using Genocs.CleanArchitecture.Template.WebApi.ViewModels;
 namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V2.GetAccountDetails;
 
 /// <summary>
-/// Get Account Details Response.
+/// GetAsync Account Details Response.
 /// </summary>
 public sealed class GetAccountDetailsResponseV2
 {

@@ -8,10 +8,10 @@ services:
       - 5500:5500
 
     environment:
-      ORACLE_PWD=${ORACLE_PASSWORD}
-      ORACLE_CHARACTERSET=AL32UTF8
-      ENABLE_ARCHIVELOG=true
-      ENABLE_FORCE_LOGGING=true
+      ORACLE_PWD: ${ORACLE_PASSWORD}
+      ORACLE_CHARACTERSET: AL32UTF8
+      ENABLE_ARCHIVELOG: "true"
+      ENABLE_FORCE_LOGGING: "true"
 
     volumes:
       - oracle_data:/opt/oracle/oradata

@@ -1,0 +1,13 @@
+# Docker Desktop on Windows + WSL2 overrides for monitoring stack.
+#
+# Usage:
+#   docker compose -f infrastructure-monitoring.yml -f infrastructure-monitoring.wsl2.yml --env-file .env --project-name genocs up -d
+#
+# The Linux default uses mount propagation (rslave) for node-exporter. Docker Desktop
+# can fail with: "path / is mounted on / but it is not a shared or slave mount".
+# This override removes propagation while preserving read-only host fs access.
+
+services:
+  node-exporter:
+    volumes:
+      - /:/host:ro

@@ -34,9 +34,10 @@ services:
     networks:
       - genocs
 
-  headPlugin:
-    image: 'mobz/elasticsearch-head:5'
-    container_name: head
+  kibana-head:
+    image: mobz/elasticsearch-head:5
+    hostname: kibana-head
+    container_name: kibana-head
     ports:
       - 9100:9100
     networks:
@@ -51,10 +52,6 @@ services:
         target: /usr/share/logstash/pipeline/logstash.conf
       - source: logstash.yml
         target: /usr/share/logstash/config/logstash.yml
-      - source: logstash.keystore
-        target: /usr/share/logstash/config/logstash.keystore
-      - source: ca.crt
-        target: /usr/share/logstash/config/certs/ca/ca.crt
 
     healthcheck:
       test: bin/logstash -t
@@ -72,3 +69,9 @@ networks:
 volumes:
   es_data:
     driver: local
+
+secrets:
+  logstash.conf:
+    file: ./elk/logstash.conf
+  logstash.yml:
+    file: ./elk/logstash.yml

@@ -10,7 +10,7 @@ namespace Genocs.CleanArchitecture.Template.IntegrationTests.EntityFrameworkTest
 public sealed class CustomerRepositoryTests
 {
     [Fact]
-    public async Task Add_ChangesDatabase()
+    public async Task Add_ChangesDatabaseAsync()
     {
         var options = new DbContextOptionsBuilder<GenocsContext>()
             .UseInMemoryDatabase(databaseName: "test_database")
@@ -26,13 +26,13 @@ public sealed class CustomerRepositoryTests
         context.Database.EnsureCreated();
 
         var repository = new CustomerRepository(context);
-        await repository.Add(customer);
+        await repository.AddAsync(customer);
 
         Assert.Equal(2, context.Customers.Count());
     }
 
     [Fact]
-    public async Task Get_ReturnsCustomer()
+    public async Task Get_ReturnsCustomerAsync()
     {
         var options = new DbContextOptionsBuilder<GenocsContext>()
             .UseInMemoryDatabase(databaseName: "test_database")
@@ -42,7 +42,7 @@ public sealed class CustomerRepositoryTests
         context.Database.EnsureCreated();
 
         var repository = new CustomerRepository(context);
-        ICustomer customer = await repository.Get(new Guid("197d0438-e04b-453d-b5de-eca05960c6ae"));
+        ICustomer? customer = await repository.GetAsync(new Guid("197d0438-e04b-453d-b5de-eca05960c6ae"));
 
         Assert.NotNull(customer);
 

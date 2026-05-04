@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.GetAccountDetails;
 
 /// <summary>
-/// Get Account Details.
+/// GetAsync Account Details.
 /// </summary>
 public sealed class GetAccountDetailsResponse
 {

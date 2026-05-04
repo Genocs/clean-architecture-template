@@ -1,0 +1,105 @@
+# Prometheus scrape configuration for the Genocs local stack.
+#
+# Auth model
+# ----------
+# The Genocs.Telemetry Prometheus middleware (PrometheusMiddleware) runs in front
+# of every /metrics endpoint when telemetry.prometheus.enabled = true. It rejects
+# requests (HTTP 404) unless one of the following is true:
+#   - allowedHosts is empty AND apiKey is empty (no restrictions configured), or
+#   - the request Host header (or x-forwarded-for) matches an entry in allowedHosts, or
+#   - the request carries ?apiKey=<value> matching the configured apiKey.
+#
+# In this stack each app container sets telemetry.prometheus.allowedHosts to its
+# own hostname (e.g. apigateway, identities-service, ...). Prometheus scrapes via
+# those exact hostnames inside the genocs network, so the Host header matches
+# and metrics flow. Direct access from the docker host (Host: localhost) returns
+# 404 by design - which prevents accidental external exposure of /metrics.
+#
+# To layer an apiKey on top (e.g. for non-trusted networks), set
+# telemetry.prometheus.apiKey on each app and add the matching apiKey query
+# parameter to the corresponding scrape job:
+#
+#   - job_name: genocs-services
+#     params:
+#       apiKey: ["<shared-secret>"]
+#     ...
+#
+# Service discovery
+# -----------------
+# The static_configs below are intentional for a small (5 service) stack. When
+# the service count grows, prefer Docker SD with a label-based selector. Sketch:
+#
+#   - job_name: genocs-services
+#     docker_sd_configs:
+#       - host: unix:///var/run/docker.sock
+#     relabel_configs:
+#       - source_labels: [__meta_docker_container_label_prometheus_scrape]
+#         regex: "true"
+#         action: keep
+#       - source_labels: [__meta_docker_container_label_prometheus_port]
+#         target_label: __address__
+#         regex: (.+)
+#         replacement: ${__meta_docker_container_name}:${1}
+#
+# Then label scrape-able services in their compose file:
+#
+#   labels:
+#     prometheus.scrape: "true"
+#     prometheus.port: "8080"
+#
+# Switching to Docker SD requires mounting /var/run/docker.sock into the
+# Prometheus container (security trade-off worth a deliberate decision).
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: genocs-local
+    environment: dev
+
+# Alerting and recording rules.
+# Drop *.yml files into the prometheus/rules/ directory and uncomment below.
+# rule_files:
+#   - /etc/prometheus/rules/*.yml
+
+scrape_configs:
+  # Prometheus self-scrape.
+  - job_name: prometheus
+    static_configs:
+      - targets: ["prometheus:9090"]
+
+  # Genocs microservices. All expose OpenTelemetry metrics on /metrics
+  # via Genocs.Telemetry's Prometheus plug-in (telemetry.prometheus).
+  # The middleware accepts the request because each service's
+  # telemetry.prometheus.allowedHosts matches its container hostname.
+  - job_name: genocs-services
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - apigateway:8080
+          - identities-service:8080
+          - products-service:8080
+          - orders-service:8080
+          - notifications-service:8080
+        labels:
+          stack: genocs
+
+  # RabbitMQ metrics from the rabbitmq_prometheus plugin (port 15692).
+  - job_name: rabbitmq
+    static_configs:
+      - targets: ["rabbitmq:15692"]
+
+  # Host-level metrics: CPU, memory, disk, network.
+  - job_name: node-exporter
+    static_configs:
+      - targets: ["node-exporter:9100"]
+
+  # Per-container metrics from cadvisor.
+  - job_name: cadvisor
+    static_configs:
+      - targets: ["cadvisor:8080"]
+
+  # MongoDB metrics from the percona mongodb_exporter sidecar.
+  - job_name: mongodb
+    static_configs:
+      - targets: ["mongodb-exporter:9216"]

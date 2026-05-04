@@ -20,7 +20,7 @@ public sealed class Deposit(
 
     public async Task ExecuteAsync(DepositInput input)
     {
-        var account = await _accountRepository.Get(input.AccountId);
+        var account = await _accountRepository.GetAsync(input.AccountId);
         if (account == null)
         {
             _outputHandler.Error($"The account {input.AccountId} does not exist or is already closed.");
@@ -29,7 +29,7 @@ public sealed class Deposit(
 
         var credit = account.Deposit(_entityFactory, input.Amount);
 
-        await _accountRepository.Update(account, credit);
+        await _accountRepository.UpdateAsync(account, credit);
 
         // Publish the event to the enterprise service bus
         await _serviceBus.PublishEventAsync(new Contracts.Events.DepositCompleted() { AccountId = input.AccountId, Amount = input.Amount.ToMoney().ToDecimal() });

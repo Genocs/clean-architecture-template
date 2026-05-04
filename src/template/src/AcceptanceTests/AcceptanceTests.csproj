@@ -24,6 +24,7 @@
         <ProjectReference Include="..\WebApi\Host.csproj" />
     </ItemGroup>
 
+
     <ItemGroup>
         <None Update="api-documentation.xml">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>

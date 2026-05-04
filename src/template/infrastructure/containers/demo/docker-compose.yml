@@ -1,0 +1,37 @@
+services:
+  webapi-service:
+    image: genocs/webapi:${IMAGE_VERSION}
+    hostname: webapi-service
+    container_name: webapi-service
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ENVIRONMENT}
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - mongodb__connectionString=mongodb://mongodb:27017
+      - seq__url=http://seq
+      - exporter__otlpEndpoint=http://jaeger
+    networks:
+      - genocs
+    ports:
+      - 5700:80
+      - 5701:443
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+
+
+
+  worker-service:
+    image: genocs/servicebus-worker:${IMAGE_VERSION}
+    hostname: worker-service
+    container_name: worker-service
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ENVIRONMENT}
+      - mongodb__connectionString=mongodb://mongodb:27017
+      - seq__url=http://seq
+      - exporter__otlpEndpoint=http://jaeger
+
+networks:
+  genocs:
+    name: genocs-network
+    external: true

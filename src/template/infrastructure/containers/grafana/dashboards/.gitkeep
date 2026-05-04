@@ -1,0 +1,3 @@
+# Drop *.json Grafana dashboard exports in this folder.
+# They will be auto-loaded by the provisioning provider declared in
+# ../provisioning/dashboards/dashboards.yml under the "Genocs" folder.

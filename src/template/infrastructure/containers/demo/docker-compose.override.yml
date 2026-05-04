@@ -1,0 +1,10 @@
+services:
+  webapi-service:
+    build:
+      context: ../../../
+      dockerfile: ./src/demo/WebApi/Dockerfile
+
+  demo-servicebus-worker-service:
+    build:
+      context: ../../../
+      dockerfile: ./src/demo/ServiceBus.Worker/Dockerfile

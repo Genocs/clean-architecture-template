@@ -1,5 +1,4 @@
 services:
-
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2025-latest
     hostname: sqlserver
@@ -21,7 +20,7 @@ networks:
     external: true
 
 volumes:
- mssql_system_data:
-   driver: local
- mssql_user_data:
-   driver: local
+  mssql_system_data:
+    driver: local
+  mssql_user_data:
+    driver: local

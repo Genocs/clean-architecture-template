@@ -1,3 +1,4 @@
+using Asp.Versioning.ApiExplorer;
 using Genocs.CleanArchitecture.Template.Infrastructure.HealthChecks;
 using Genocs.CleanArchitecture.Template.WebApi.ApiClient;
 using Genocs.CleanArchitecture.Template.WebApi.Extensions;
@@ -5,6 +6,7 @@ using Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
 using Genocs.Core.Builders;
 using Genocs.Logging;
 using Genocs.Telemetry;
+using Genocs.WebApi;
 using Genocs.WebApi.OpenApi;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Refit;
@@ -21,9 +23,10 @@ builder.Host
 IGenocsBuilder genocsBuilder = builder
     .AddGenocs()
     .AddTelemetry()
+    .AddWebApi()
     .AddOpenApiDocs();
 
-// Get services and config
+// GetAsync services and config
 var services = builder.Services;
 
 // services.AddApplicationInsightsTelemetry();
@@ -103,8 +106,8 @@ app.UseHttpsRedirection();
 
 app.UseCookiePolicy();
 
-// var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
-// app.UseVersionedSwagger(provider);
+//var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+//app.UseVersionedSwagger(provider);
 
 app.MapControllers();
 

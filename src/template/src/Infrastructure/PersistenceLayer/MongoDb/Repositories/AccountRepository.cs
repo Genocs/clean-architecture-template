@@ -21,18 +21,19 @@ public sealed class AccountRepository : IAccountRepository
         _dbSetDebit = _context.GetCollection<Debit>("Debits");
     }
 
-    public Task Add(IAccount account, ICredit credit)
+    public Task AddAsync(IAccount account, ICredit credit, CancellationToken cancellationToken = default)
     {
-        _context.AddCommand(() => _dbSetAccount.InsertOneAsync((Account)account));
-        _context.AddCommand(() => _dbSetCredit.InsertOneAsync((Credit)credit));
+        _context.AddCommand(() => _dbSetAccount.InsertOneAsync((Account)account, cancellationToken: cancellationToken));
+        _context.AddCommand(() => _dbSetCredit.InsertOneAsync((Credit)credit, cancellationToken: cancellationToken));
         return Task.CompletedTask;
     }
 
-    public async Task Delete(IAccount account) => _ = await _dbSetAccount.DeleteOneAsync(d => d.Id == account.Id);
+    public async Task DeleteAsync(IAccount account, CancellationToken cancellationToken = default)
+        => _ = await _dbSetAccount.DeleteOneAsync(d => d.Id == account.Id, cancellationToken);
 
-    public async Task<IAccount?> Get(Guid id)
+    public async Task<IAccount?> GetAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        var accounts = await _dbSetAccount.FindAsync(f => f.Id == id);
+        var accounts = await _dbSetAccount.FindAsync(f => f.Id == id, cancellationToken: cancellationToken);
         var account = accounts.FirstOrDefault();
 
         if (account == null)
@@ -40,18 +41,17 @@ public sealed class AccountRepository : IAccountRepository
             return null;
         }
 
-        var credits = await _dbSetCredit.FindAsync(f => f.AccountId == account.Id);
-        var debits = await _dbSetDebit.FindAsync(f => f.AccountId == account.Id);
+        var credits = await _dbSetCredit.FindAsync(f => f.AccountId == account.Id, cancellationToken: cancellationToken);
+        var debits = await _dbSetDebit.FindAsync(f => f.AccountId == account.Id, cancellationToken: cancellationToken);
 
         account.Load(credits.ToList(), debits.ToList());
 
         return account;
     }
 
-    public async Task Update(IAccount account, ICredit credit)
-        => await _dbSetCredit.FindOneAndReplaceAsync(f => f.Id == credit.Id, (Credit)credit);
+    public async Task UpdateAsync(IAccount account, ICredit credit, CancellationToken cancellationToken = default)
+        => await _dbSetCredit.FindOneAndReplaceAsync(f => f.Id == credit.Id, (Credit)credit, cancellationToken: cancellationToken);
 
-    public async Task Update(IAccount account, IDebit debit)
-        => await _dbSetDebit.FindOneAndReplaceAsync(f => f.Id == debit.Id, (Debit)debit);
-
+    public async Task UpdateAsync(IAccount account, IDebit debit, CancellationToken cancellationToken = default)
+        => await _dbSetDebit.FindOneAndReplaceAsync(f => f.Id == debit.Id, (Debit)debit, cancellationToken: cancellationToken);
 }

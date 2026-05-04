@@ -3,22 +3,17 @@ using Genocs.CleanArchitecture.Template.Domain.Customers;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.InMemory.Repositories;
 
-public sealed class CustomerRepository : ICustomerRepository
+public sealed class CustomerRepository(GenocsContext context) : ICustomerRepository
 {
-    private readonly GenocsContext _context;
+    private readonly GenocsContext _context = context;
 
-    public CustomerRepository(GenocsContext context)
-    {
-        _context = context;
-    }
-
-    public async Task Add(ICustomer customer)
+    public async Task AddAsync(ICustomer customer, CancellationToken cancellationToken = default)
     {
         _context.Customers.Add((Customer)customer);
         await Task.CompletedTask;
     }
 
-    public async Task<ICustomer?> Get(Guid id)
+    public async Task<ICustomer?> GetAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var customer = _context.Customers
             .SingleOrDefault(e => e.Id == id);
@@ -26,7 +21,7 @@ public sealed class CustomerRepository : ICustomerRepository
         return await Task.FromResult<Customer?>(customer);
     }
 
-    public async Task Update(ICustomer customer)
+    public async Task UpdateAsync(ICustomer customer, CancellationToken cancellationToken = default)
     {
         var customerOld = _context.Customers
             .SingleOrDefault(e => e.Id == customer.Id);

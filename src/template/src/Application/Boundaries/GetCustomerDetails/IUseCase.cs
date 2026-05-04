@@ -2,5 +2,5 @@ namespace Genocs.CleanArchitecture.Template.Application.Boundaries.GetCustomerDe
 
 public interface IUseCase
 {
-    Task ExecuteAsync(GetCustomerDetailsInput getCustomerDetailsInput);
+    Task ExecuteAsync(GetCustomerDetailsInput getCustomerDetailsInput, CancellationToken cancellationToken = default);
 }

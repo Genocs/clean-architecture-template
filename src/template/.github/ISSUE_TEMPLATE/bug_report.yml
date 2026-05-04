@@ -21,8 +21,8 @@ body:
       label: Using the latest Genocs Library version?
       description: If you are not using the latest version, can you update your project and try to reproduce the issue? Is it still happening?
       options:
-        - 'Yes'
-        - 'No'
+        - "Yes"
+        - "No"
     validations:
       required: true
   - type: input

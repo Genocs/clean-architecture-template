@@ -21,19 +21,20 @@ public sealed class CustomersController(IUseCase registerUseCase, RegisterPresen
     /// <response code="400">Bad request.</response>
     /// <response code="500">Error.</response>
     /// <param name="request">The request to register a customer.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>The newly registered customer.</returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RegisterResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult?> Post([FromBody][Required] RegisterRequest request)
+    public async Task<IActionResult?> PostAsync([FromBody][Required] RegisterRequest request, CancellationToken cancellationToken = default)
     {
         var registerInput = new RegisterInput(
                                                 new SSN(request.SSN),
                                                 new Name(request.Name),
                                                 new PositiveMoney(request.InitialAmount));
 
-        await _registerUseCase.ExecuteAsync(registerInput);
+        await _registerUseCase.ExecuteAsync(registerInput, cancellationToken);
 
         return _presenter.ViewModel;
     }

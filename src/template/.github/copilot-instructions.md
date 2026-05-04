@@ -4,17 +4,12 @@ applyTo: '**'
 
 # Copilot Instructions
 
-## 1. Language & Terminology
-- **Technical Terms:** English.
-- **Domain/Business Logic:** Full description in English (specifically in comments and documentation).
-- **Tone:** Professional, clear, and concise.
-
-## 2. Coding Standards
+## 1. Coding Standards
 - Follow standard C# conventions.
 - **Comments:** Strictly "Why" not "What." Do not explain syntax; explain business context and architectural decisions.
 - **Self-Documenting Code:** Prioritize meaningful variable/method names over comments.
 
-## 3. Tech Stack & Architecture
+## 2. Tech Stack & Architecture
 ### Backend (C# .NET)
 - **DI Container:** Microsoft.Extensions.DependencyInjection.
 - **Data Access:** 
@@ -23,10 +18,6 @@ applyTo: '**'
 - **Validation:** FluentValidation.
 - **Testing:** xUnit, Reqnroll.
 
-### Frontend (Angular)
-- **Core:** Angular + TypeScript.
-- **State/Async:** RxJS (Prioritize observables over promises).
-
 ### Infrastructure
-- **DB:** MongoDB.
+- **DB:** MongoDB or SQL Server (depending on the use case).
 - **Caching:** Redis.

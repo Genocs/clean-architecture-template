@@ -4,13 +4,9 @@ namespace Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 
 public sealed class Name : IEquatable<Name>
 {
-    private readonly string _text = string.Empty;
+    private readonly string _text;
 
-    private Name()
-    {
-    }
-
-    public Name(string? text)
+    public Name(string text)
     {
         if (string.IsNullOrWhiteSpace(text))
             throw new NameShouldNotBeEmptyException("The 'Name' field is required");
@@ -27,7 +23,7 @@ public sealed class Name : IEquatable<Name>
     {
         if (obj is null) return false;
 
-        if (ReferenceEquals(null, obj))
+        if (obj is null)
         {
             return false;
         }
