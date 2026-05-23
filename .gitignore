@@ -464,4 +464,5 @@ nuget.exe
 # output folders
 **/out
 
-.env
+# local env files
+**/.env
