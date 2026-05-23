@@ -1,4 +1,5 @@
 using System.Text;
+using Genocs.CleanArchitecture.Template.AcceptanceTests.TestHost;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -6,44 +7,44 @@ using Xunit;
 
 namespace Genocs.CleanArchitecture.Template.AcceptanceTests.V1;
 
-public sealed class SunnyDayTests(WebApplicationFactory<Program> factory) : IClassFixture<WebApplicationFactory<Program>>
+public sealed class SunnyDayTests(AcceptanceWebApplicationFactory factory) : IClassFixture<AcceptanceWebApplicationFactory>
 {
     private readonly WebApplicationFactory<Program> _factory = factory;
 #if Full
     [Fact]
     public async Task RegisterDepositWithdrawCloseAsync()
     {
-        var customerId_accountId = await Register(100);
-        await GetCustomer(customerId_accountId.Item1);
-        await GetAccount(customerId_accountId.Item2);
-        await Withdraw(customerId_accountId.Item2, 100);
-        await GetCustomer(customerId_accountId.Item1);
-        await Deposit(customerId_accountId.Item2, 500);
-        await Deposit(customerId_accountId.Item2, 400);
-        await GetCustomer(customerId_accountId.Item1);
-        await Withdraw(customerId_accountId.Item2, 400);
-        await Withdraw(customerId_accountId.Item2, 500);
+        var customerId_accountId = await RegisterAsync(100);
+        await GetCustomerAsync(customerId_accountId.Item1);
+        await GetAccountAsync(customerId_accountId.Item2);
+        await WithdrawAsync(customerId_accountId.Item2, 100);
+        await GetCustomerAsync(customerId_accountId.Item1);
+        await DepositAsync(customerId_accountId.Item2, 500);
+        await DepositAsync(customerId_accountId.Item2, 400);
+        await GetCustomerAsync(customerId_accountId.Item1);
+        await WithdrawAsync(customerId_accountId.Item2, 400);
+        await WithdrawAsync(customerId_accountId.Item2, 500);
         await CloseAsync(customerId_accountId.Item2);
     }
 
-    private async Task GetCustomer(string customerId)
+    private async Task GetCustomerAsync(string customerId)
     {
         var client = _factory.CreateClient();
         string result = await client.GetStringAsync($"/api/v1/Customers/{customerId}?api-version=1");
     }
 
-    private async Task GetAccount(string accountId)
+    private async Task GetAccountAsync(string accountId)
     {
         var client = _factory.CreateClient();
         string result = await client.GetStringAsync($"/api/v1/Accounts/{accountId}?api-version=1");
     }
 
-    private async Task<Tuple<string, string>> Register(decimal initialAmount)
+    private async Task<Tuple<string, string>> RegisterAsync(decimal initialAmount)
     {
         var client = _factory.CreateClient();
         var register = new
         {
-            ssn = "8608179999",
+            ssn = "8608179990",
             name = "Nocco Giovanni Emanuele",
             initialAmount
         };
@@ -65,14 +66,14 @@ public sealed class SunnyDayTests(WebApplicationFactory<Program> factory) : ICla
 
         if (customer != null)
         {
-            customerId = customer["customerId"]?.Value<string>();
-            accountId = ((JContainer)customer["accounts"])?.First["accountId"]?.Value<string>();
+            customerId = customer?["customerId"]?.Value<string>() ?? string.Empty;
+            accountId = ((JContainer?)customer?["accounts"])?.First?["accountId"]?.Value<string>() ?? string.Empty;
         }
 
         return new Tuple<string, string>(customerId, accountId);
     }
 
-    private async Task Deposit(string account, decimal amount)
+    private async Task DepositAsync(string account, decimal amount)
     {
         var client = _factory.CreateClient();
         var json = new
@@ -90,7 +91,7 @@ public sealed class SunnyDayTests(WebApplicationFactory<Program> factory) : ICla
         response.EnsureSuccessStatusCode();
     }
 
-    private async Task Withdraw(string account, decimal amount)
+    private async Task WithdrawAsync(string account, decimal amount)
     {
         var client = _factory.CreateClient();
         var json = new

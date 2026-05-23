@@ -20,13 +20,8 @@ internal class ParticularHostedService : IHostedService
         _logger = logger;
         NServiceServiceBusSettings options = settings.Value;
 
-        // Start NServiceBus configuration
-        #region ConfigureLicense
-        #endregion
-
         _configuration = new EndpointConfiguration(options.EndpointName);
 
-        // https://docs.particular.net/nservicebus/serialization/
         _configuration.UseSerialization<SystemJsonSerializer>();
         _configuration.EnableInstallers();
 
@@ -46,8 +41,7 @@ internal class ParticularHostedService : IHostedService
 
         #endregion
 
-        #region Configure Persistance with MongoDb
-
+#if MongoDb
         if (settings.Value.UsePersistence)
         {
             var persistence = _configuration.UsePersistence<MongoPersistence>();
@@ -55,7 +49,11 @@ internal class ParticularHostedService : IHostedService
             persistence.DatabaseName(settings.Value.PersistenceDatabase!);
             persistence.UseTransactions(false); // Set replicaset and enable it
         }
-        #endregion
+#else
+        var persistence = _configuration.UsePersistence<LearningPersistence>();
+        //persistence.SagaStorageDirectory(".\");
+        _configuration.DisableFeature<NServiceBus.Features.Sagas>();
+#endif
 
         // Unobtrusive mode.
         // var conventions = _configuration.Conventions();
@@ -87,6 +85,7 @@ internal class ParticularHostedService : IHostedService
         {
             await _instance.Stop(cancellationToken);
         }
+
         _logger.LogInformation("Stopped");
     }
 }

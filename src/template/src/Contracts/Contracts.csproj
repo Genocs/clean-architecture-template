@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Genocs.Common" Version="9.0.0-beta008" />
+        <PackageReference Include="Genocs.Common" Version="9.0.0" />
     </ItemGroup>
 
 </Project>

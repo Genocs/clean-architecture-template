@@ -1,25 +1,24 @@
 using Genocs.CleanArchitecture.Template.Application.Boundaries.CloseAccount;
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Genocs.CleanArchitecture.Template.Application.Repositories;
 using Genocs.CleanArchitecture.Template.Application.Services;
 
 namespace Genocs.CleanArchitecture.Template.Application.UseCases;
 
 public sealed class CloseAccount(
-                IOutputPort outputHandler,
+                IOutputPort<CloseAccountOutput> outputHandler,
                 IAccountRepository accountRepository,
                 IUnitOfWork unitOfWork,
-                IServiceBusClient serviceBus,
-                IApiClient orderApiClient) : IUseCase
+                IServiceBusClient serviceBus) : IUseCase<CloseAccountInput>
 {
-    private readonly IOutputPort _outputHandler = outputHandler;
-    private readonly IAccountRepository _accountRepository = accountRepository;
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
-    private readonly IServiceBusClient _serviceBus = serviceBus;
-    private readonly IApiClient _orderApiClient = orderApiClient;
+    private readonly IOutputPort<CloseAccountOutput> _outputHandler = outputHandler ?? throw new ArgumentNullException(nameof(outputHandler));
+    private readonly IAccountRepository _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
+    private readonly IUnitOfWork _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+    private readonly IServiceBusClient _serviceBus = serviceBus ?? throw new ArgumentNullException(nameof(serviceBus));
 
-    public async Task ExecuteAsync(CloseAccountInput closeAccountInput)
+    public async Task ExecuteAsync(CloseAccountInput closeAccountInput, CancellationToken cancellationToken = default)
     {
-        var account = await _accountRepository.GetAsync(closeAccountInput.AccountId);
+        var account = await _accountRepository.GetAsync(closeAccountInput.AccountId, cancellationToken);
         if (account == null)
         {
             _outputHandler.Error($"The account '{closeAccountInput.AccountId}' does not exist or is already closed.");
@@ -28,12 +27,11 @@ public sealed class CloseAccount(
 
         if (account.IsClosingAllowed())
         {
-            await _accountRepository.DeleteAsync(account);
+            await _accountRepository.DeleteAsync(account, cancellationToken);
 
-            // Publish the event to the enterprise service bus
-            await _serviceBus.PublishEventAsync(new Contracts.Events.CloseAccountCompleted() { AccountId = account.Id });
+            await _serviceBus.PublishEventAsync(new Contracts.Events.CloseAccountCompleted() { AccountId = account.Id }, cancellationToken);
 
-            await _unitOfWork.Save();
+            await _unitOfWork.SaveAsync(cancellationToken);
         }
 
         var closeAccountOutput = new CloseAccountOutput(account);

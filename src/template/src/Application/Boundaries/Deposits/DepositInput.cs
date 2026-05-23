@@ -1,14 +1,15 @@
 using Genocs.CleanArchitecture.Template.Application.Exceptions;
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 
 namespace Genocs.CleanArchitecture.Template.Application.Boundaries.Deposits;
 
-public sealed class DepositInput
+public sealed class DepositInput : IInputType
 {
     public Guid AccountId { get; }
     public PositiveMoney Amount { get; }
 
-    public DepositInput(in Guid accountId, PositiveMoney amount)
+    public DepositInput(in Guid accountId, PositiveMoney? amount)
     {
         if (accountId == Guid.Empty)
         {

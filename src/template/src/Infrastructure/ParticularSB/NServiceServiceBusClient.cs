@@ -1,27 +1,21 @@
 ﻿using Genocs.CleanArchitecture.Template.Application.Services;
 using Microsoft.Extensions.Options;
+using NServiceBus.Features;
+#if MongoDb
 using MongoDB.Driver;
+#endif
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.ParticularSB;
 
-public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
+public class NServiceServiceBusClient(IOptions<NServiceServiceBusSettings> settings) : IServiceBusClient, IDisposable, IAsyncDisposable
 {
-    private readonly NServiceServiceBusSettings _settings;
+    private readonly NServiceServiceBusSettings _settings = settings.Value ?? throw new NullReferenceException("settings.Value.cannot be null");
     private IEndpointInstance? _instance;
-
-    public NServiceServiceBusClient(IOptions<NServiceServiceBusSettings> settings)
-    {
-        _settings = settings.Value ?? throw new NullReferenceException("settings.Value.cannot be null");
-    }
 
     private async Task Initialize()
     {
         if (_instance == null)
         {
-            #region ConfigureLicense
-
-            #endregion
-
             #region ConfigureMetrics and Monitoring
             // endpointConfiguration.SendFailedMessagesTo("error");
             // endpointConfiguration.AuditProcessedMessagesTo("audit");
@@ -40,7 +34,7 @@ public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDi
                                 .ConnectionString(_settings.TransportConnectionString);
             #endregion
 
-            #region Configure Persistance with MongoDb
+#if MongoDb
             if (_settings.UsePersistence)
             {
                 var persistence = endpointConfiguration.UsePersistence<MongoPersistence>();
@@ -48,9 +42,13 @@ public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDi
                 persistence.DatabaseName(_settings.PersistenceDatabase!);
                 persistence.UseTransactions(false); // Set replicaset and enable it
             }
-            #endregion
+#else
+            var persistence = endpointConfiguration.UsePersistence<LearningPersistence>();
+            //persistence.SagaStorageDirectory(".\");
+            endpointConfiguration.DisableFeature<Sagas>();
 
-            #region Register commands
+#endif
+#region Register commands
 
             // transport.Routing().RouteToEndpoint(typeof(MyCommand), "Sample.SimpleSender");
 
@@ -79,18 +77,18 @@ public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDi
         }
     }
 
-    public async Task PublishEventAsync<T>(T evt)
-        where T : Genocs.Common.CQRS.Events.IEvent
+    public async Task PublishEventAsync<T>(T message, CancellationToken cancellationToken = default)
+        where T : Common.CQRS.Events.IEvent
     {
         await Initialize();
-        await _instance.Publish(evt);
+        await _instance.Publish(message, cancellationToken);
     }
 
-    public async Task SendCommandAsync<T>(T cmd)
-        where T : Genocs.Common.CQRS.Commands.ICommand
+    public async Task SendCommandAsync<T>(T command, CancellationToken cancellationToken = default)
+        where T : Common.CQRS.Commands.ICommand
     {
         await Initialize();
-        await _instance.Send(cmd);
+        await _instance.Send(command, cancellationToken);
     }
 
     public void Dispose()

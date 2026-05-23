@@ -14,8 +14,8 @@ public sealed class TransferInputValidationTests
             () => new TransferInput(
                 Guid.Empty,
                 Guid.NewGuid(),
-                new PositiveMoney(10)
-            ));
+                new PositiveMoney(10)));
+
         Assert.Contains("originAccountId", actualEx.Message);
     }
 
@@ -26,8 +26,8 @@ public sealed class TransferInputValidationTests
             () => new TransferInput(
                 Guid.NewGuid(),
                 Guid.Empty,
-                new PositiveMoney(10)
-            ));
+                new PositiveMoney(10)));
+
         Assert.Contains("destinationAccountId", actualEx.Message);
     }
 
@@ -38,8 +38,8 @@ public sealed class TransferInputValidationTests
             () => new TransferInput(
                 Guid.NewGuid(),
                 Guid.NewGuid(),
-                null
-            ));
+                null));
+
         Assert.Contains("amount", actualEx.Message);
     }
 
@@ -49,8 +49,8 @@ public sealed class TransferInputValidationTests
         var actual = new TransferInput(
             Guid.NewGuid(),
             Guid.NewGuid(),
-            new PositiveMoney(10)
-        );
+            new PositiveMoney(10));
+
         Assert.NotNull(actual);
     }
 }

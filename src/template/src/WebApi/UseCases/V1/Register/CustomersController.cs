@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Genocs.CleanArchitecture.Template.Application.Boundaries.Registers;
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -9,9 +10,9 @@ namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Register;
 [ApiVersion("1.0")]
 [Route("api/v1/[controller]")]
 [ApiController]
-public sealed class CustomersController(IUseCase registerUseCase, RegisterPresenter presenter) : ControllerBase
+public sealed class CustomersController(IUseCase<RegisterInput> registerUseCase, RegisterPresenter presenter) : ControllerBase
 {
-    private readonly IUseCase _registerUseCase = registerUseCase ?? throw new ArgumentNullException(nameof(registerUseCase));
+    private readonly IUseCase<RegisterInput> _registerUseCase = registerUseCase ?? throw new ArgumentNullException(nameof(registerUseCase));
     private readonly RegisterPresenter _presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
 
     /// <summary>

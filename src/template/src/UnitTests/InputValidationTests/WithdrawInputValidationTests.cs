@@ -13,8 +13,8 @@ public sealed class WithdrawInputValidationTests
         var actualEx = Assert.Throws<InputValidationException>(
             () => new WithdrawInput(
                 Guid.Empty,
-                new PositiveMoney(10)
-            ));
+                new PositiveMoney(10)));
+
         Assert.Contains("accountId", actualEx.Message);
     }
 
@@ -24,8 +24,8 @@ public sealed class WithdrawInputValidationTests
         var actualEx = Assert.Throws<InputValidationException>(
             () => new WithdrawInput(
                 Guid.NewGuid(),
-                null
-            ));
+                null));
+
         Assert.Contains("amount", actualEx.Message);
     }
 
@@ -34,8 +34,8 @@ public sealed class WithdrawInputValidationTests
     {
         var actual = new WithdrawInput(
             Guid.NewGuid(),
-            new PositiveMoney(10)
-        );
+            new PositiveMoney(10));
+
         Assert.NotNull(actual);
     }
 }

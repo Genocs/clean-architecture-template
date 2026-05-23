@@ -1,17 +1,10 @@
 namespace Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 
-public sealed class Money : IEquatable<Money>
+public sealed class Money(decimal value) : IEquatable<Money>
 {
-    private readonly decimal _money;
+    private readonly decimal _money = value;
 
-    private Money()
-    {
-    }
-
-    public Money(decimal value)
-    {
-        _money = value;
-    }
+    public decimal Value => _money;
 
     public decimal ToDecimal()
     {

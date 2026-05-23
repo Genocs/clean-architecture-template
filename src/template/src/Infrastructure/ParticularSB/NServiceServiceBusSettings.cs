@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-
-namespace Genocs.CleanArchitecture.Template.Infrastructure.ParticularSB;
+﻿namespace Genocs.CleanArchitecture.Template.Infrastructure.ParticularSB;
 
 public class NServiceServiceBusSettings
 {
@@ -11,6 +9,4 @@ public class NServiceServiceBusSettings
     public bool UsePersistence { get; set; }
     public string? PersistenceConnectionString { get; set; }
     public string? PersistenceDatabase { get; set; }
-
-
 }

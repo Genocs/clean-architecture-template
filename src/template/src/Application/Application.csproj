@@ -13,10 +13,4 @@
         <ProjectReference Include="..\Contracts\Contracts.csproj" />
     </ItemGroup>
 
-<!--#if (NServiceBus) -->
-    <ItemGroup>
-        <ProjectReference Include="..\Contracts.NServiceBus\Contracts.NServiceBus.csproj" />
-    </ItemGroup>
-<!--#endif -->   
-
 </Project>

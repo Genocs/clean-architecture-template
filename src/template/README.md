@@ -36,7 +36,7 @@ The docker-infrastructure folder contains everything required to run the infrast
 This example contains the implementation related to three different storage type:
 
 - InMemory DataAccess (useful only for development)
-- Entity Framework Core with (Tested with MS SQL Server but it should work with any provider)
+- Entity Framework Core with MS SQL Server
 - MongoDB (Document DB)
 
 ## Enterprise Service Bus (ESB)
@@ -949,8 +949,8 @@ services.AddCustomHealthChecks(builder.Configuration);
 #if InMemory
 services.AddInMemoryPersistence();
 #elif MongoDb
-services.AddMongoDBPersistence(builder.Configuration);
-#elif EFcore
+services.AddMongoDbPersistence(builder.Configuration);
+#elif SQLServer
 services.AddSQLServerPersistence(builder.Configuration);
 #endif
 
@@ -1193,46 +1193,36 @@ public sealed class GenocsContext : DbContext
             .HasConversion(
                 v => v.ToAmount().ToDecimal(),
                 v => new PositiveAmount(v));
-
-        modelBuilder.Entity<Customer>().HasData(
-            new { Id = new Guid("197d0438-e04b-453d-b5de-eca05960c6ae"), Name = new Name("Test User"), SSN = new SSN("19860817-9999") }
-        );
-
-        modelBuilder.Entity<Account>().HasData(
-            new { Id = new Guid("4c510cfe-5d61-4a46-a3d9-c4313426655f"), CustomerId = new Guid("197d0438-e04b-453d-b5de-eca05960c6ae") }
-        );
-
-        modelBuilder.Entity<Credit>().HasData(
-            new
-            {
-                Id = new Guid("f5117315-e789-491a-b662-958c37237f9b"),
-                    AccountId = new Guid("4c510cfe-5d61-4a46-a3d9-c4313426655f"),
-                    Amount = new PositiveAmount(400),
-                    Description = "Credit",
-                    TransactionDate = DateTime.UtcNow
-            }
-        );
-
-        modelBuilder.Entity<Debit>().HasData(
-            new
-            {
-                Id = new Guid("3d6032df-7a3b-46e6-8706-be971e3d539f"),
-                    AccountId = new Guid("4c510cfe-5d61-4a46-a3d9-c4313426655f"),
-                    Amount = new PositiveAmount(400),
-                    Description = "Debit",
-                    TransactionDate = DateTime.UtcNow
-            }
-        );
     }
 }
 ```
 
 ### Add Migration
 
-Run the EF Tool to add a migration to the `Genocs.Infrastructure` project.
+Prerequisites>
+
+1. Install the latest .NET Core SDK.
+2. Install the Entity Framework Core Tool:
+```sh
+# Install the Entity Framework Core Tool globally
+dotnet tool install --global dotnet-ef
+
+# Check if the tool is installed correctly
+dotnet ef --version
+
+# Uninstall the tool if you want to update it
+dotnet tool uninstall --global dotnet-ef
+```
+
+> NOTE:
+> 
+> At the time of this writing the latest version is `10.0.8`, you can check for updates on the [NuGet Package Manager](https://www.nuget.org/packages/dotnet-ef/).
+
+
+Run the EF Tool to add a migration to the `Migrations.SQLServer` project.
 
 ```sh
-dotnet ef migrations add "InitialCreate" -o "EntityFrameworkDataAccess/Migrations" --project src/Infrastructure --startup-project src/WebApi
+dotnet ef migrations add "InitialCreate" -o "PersistenceLayer/SQLServer/Migrations" --project src/Infrastructure --startup-project src/WebApi
 ```
 
 ### Update Database

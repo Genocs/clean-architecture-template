@@ -1,9 +1,10 @@
 using Genocs.CleanArchitecture.Template.Application.Exceptions;
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 
 namespace Genocs.CleanArchitecture.Template.Application.Boundaries.Withdraws;
 
-public sealed class WithdrawInput
+public sealed class WithdrawInput : IInputType
 {
     public Guid AccountId { get; }
     public PositiveMoney Amount { get; }

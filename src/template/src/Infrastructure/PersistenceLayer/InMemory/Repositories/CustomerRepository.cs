@@ -18,15 +18,24 @@ public sealed class CustomerRepository(GenocsContext context) : ICustomerReposit
         var customer = _context.Customers
             .SingleOrDefault(e => e.Id == id);
 
+        if (customer == null)
+        {
+            return await Task.FromResult<Customer?>(null);
+        }
+
+        var accountIds = _context.Accounts
+            .Where(e => e.CustomerId == id)
+            .Select(e => e.Id)
+            .ToList();
+
+        customer.LoadAccounts(accountIds);
+
         return await Task.FromResult<Customer?>(customer);
     }
 
     public async Task UpdateAsync(ICustomer customer, CancellationToken cancellationToken = default)
     {
-        var customerOld = _context.Customers
-            .SingleOrDefault(e => e.Id == customer.Id);
-
-        customerOld = (Customer)customer;
+        _context.Customers.Update((Customer)customer);
         await Task.CompletedTask;
     }
 }

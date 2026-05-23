@@ -6,7 +6,7 @@ public sealed class UnitOfWork(IMongoContext context) : IUnitOfWork, IDisposable
 {
     private readonly IMongoContext _context = context ?? throw new ArgumentNullException(nameof(context));
 
-    public async Task<int> Save()
+    public async Task<int> SaveAsync(CancellationToken cancellationToken = default)
         => await _context.SaveChangesAsync();
 
     private bool _disposed = false;

@@ -33,6 +33,13 @@ public sealed class CustomerRepository : ICustomerRepository
         return null;
     }
 
-    public async Task UpdateAsync(ICustomer customer, CancellationToken cancellationToken = default)
-        => await _dbSetCustomer.FindOneAndReplaceAsync(f => f.Id == customer.Id, (Customer)customer, cancellationToken: cancellationToken);
+    public Task UpdateAsync(ICustomer customer, CancellationToken cancellationToken = default)
+    {
+        _context.AddCommand(() => _dbSetCustomer.ReplaceOneAsync(
+            f => f.Id == customer.Id,
+            (Customer)customer,
+            cancellationToken: cancellationToken));
+
+        return Task.CompletedTask;
+    }
 }

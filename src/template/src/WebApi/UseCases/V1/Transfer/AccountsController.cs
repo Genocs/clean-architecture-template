@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Genocs.CleanArchitecture.Template.Application.Boundaries.Transfers;
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 using Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +15,10 @@ namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Transfer;
 [ApiController]
 public sealed class AccountsController : ControllerBase
 {
-    private readonly IUseCase _transferUseCase;
+    private readonly IUseCase<TransferInput> _transferUseCase;
     private readonly TransferPresenter _presenter;
 
-    public AccountsController(IUseCase transferUseCase, TransferPresenter presenter)
+    public AccountsController(IUseCase<TransferInput> transferUseCase, TransferPresenter presenter)
     {
         _transferUseCase = transferUseCase ?? throw new ArgumentNullException(nameof(transferUseCase));
         _presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
@@ -30,19 +31,20 @@ public sealed class AccountsController : ControllerBase
     /// <response code="400">Bad request.</response>
     /// <response code="500">Error.</response>
     /// <param name="request">The request to Transfer.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>The updated balance.</returns>
     [HttpPatch("Transfer")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TransferResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Transfer([FromBody][Required] TransferRequest request)
+    public async Task<IActionResult?> TransferAsync([FromBody][Required] TransferRequest request, CancellationToken cancellationToken = default)
     {
         var transferInput = new TransferInput(
                                                 request.OriginAccountId,
                                                 request.DestinationAccountId,
                                                 new PositiveMoney(request.Amount));
 
-        await _transferUseCase.ExecuteAsync(transferInput);
+        await _transferUseCase.ExecuteAsync(transferInput, cancellationToken);
         return _presenter.ViewModel;
     }
 }

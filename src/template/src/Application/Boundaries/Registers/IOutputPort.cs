@@ -1,3 +1,5 @@
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
+
 namespace Genocs.CleanArchitecture.Template.Application.Boundaries.Registers;
 
 /// <summary>

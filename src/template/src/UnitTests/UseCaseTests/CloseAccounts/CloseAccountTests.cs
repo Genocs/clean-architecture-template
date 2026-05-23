@@ -1,25 +1,25 @@
 using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
-using Genocs.CleanArchitecture.Template.UnitTests.TestFixtures;
 using Xunit;
 
 namespace Genocs.CleanArchitecture.Template.UnitTests.UseCaseTests.CloseAccounts;
 
-public sealed class CloseAccountTests(StandardFixture fixture) : IClassFixture<StandardFixture>
+public sealed class CloseAccountTests(TestFixture fixture) : IClassFixture<TestFixture>
 {
-    private readonly StandardFixture _fixture = fixture;
+    private readonly TestFixture _fixture = fixture;
 
     [Theory]
     [ClassData(typeof(PositiveDataSetup))]
     public void PositiveBalance_Should_Not_Allow_Closing(decimal amount)
     {
-        var customer = _fixture.EntityFactory.NewCustomer(
+        var entityFactory = _fixture.EntityFactory;
+
+        var customer = entityFactory.NewCustomer(
             new SSN("198608178899"),
-            new Name("Nocco Giovanni Emanuele")
-        );
+            new Name("Nocco Giovanni Emanuele"));
 
-        var account = _fixture.EntityFactory.NewAccount(customer);
+        var account = entityFactory.NewAccount(customer);
 
-        account.Deposit(_fixture.EntityFactory, new PositiveMoney(amount));
+        account.Deposit(entityFactory, new PositiveMoney(amount));
 
         bool actual = account.IsClosingAllowed();
 
@@ -29,12 +29,13 @@ public sealed class CloseAccountTests(StandardFixture fixture) : IClassFixture<S
     [Fact]
     public void ZeroBalance_Should_Allow_Closing()
     {
-        var customer = _fixture.EntityFactory.NewCustomer(
-            new SSN("198608178899"),
-            new Name("Nocco Giovanni Emanuele")
-        );
+        var entityFactory = _fixture.EntityFactory;
 
-        var account = _fixture.EntityFactory.NewAccount(customer);
+        var customer = entityFactory.NewCustomer(
+            new SSN("198608178899"),
+            new Name("Nocco Giovanni Emanuele"));
+
+        var account = entityFactory.NewAccount(customer);
         bool actual = account.IsClosingAllowed();
 
         Assert.True(actual);

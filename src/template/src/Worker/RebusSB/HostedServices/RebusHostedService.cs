@@ -8,19 +8,13 @@ using Rebus.Config;
 
 namespace Genocs.CleanArchitecture.Template.Worker.RebusSB.HostedServices;
 
-internal class RebusHostedService : IHostedService
+internal class RebusHostedService(IOptions<RebusBusSettings> settings, ILogger<RebusHostedService> logger) : IHostedService
 {
-    private readonly ILogger<RebusHostedService> _logger;
-    private readonly RebusBusSettings _settings;
+    private readonly ILogger<RebusHostedService> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    private readonly RebusBusSettings _settings = settings.Value ?? throw new NullReferenceException("options cannot be null");
 
     private BuiltinHandlerActivator? _activator;
     private IBus? _bus;
-
-    public RebusHostedService(IOptions<RebusBusSettings> settings, ILogger<RebusHostedService> logger)
-    {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _settings = settings.Value ?? throw new NullReferenceException("options cannot be null");
-    }
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {

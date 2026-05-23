@@ -12,6 +12,15 @@ public sealed class CreditsCollection
         _credits = [];
     }
 
+    public CreditsCollection(IEnumerable<ICredit> credits)
+    {
+        _credits = [];
+        Add(credits);
+    }
+
+    public IReadOnlyCollection<ICredit> Credits
+        => new ReadOnlyCollection<ICredit>(_credits);
+
     public void Add<T>(IEnumerable<T> credits)
         where T : ICredit
     {
@@ -25,10 +34,7 @@ public sealed class CreditsCollection
     }
 
     public IReadOnlyCollection<ICredit> GetTransactions()
-    {
-        var transactions = new ReadOnlyCollection<ICredit>(_credits);
-        return transactions;
-    }
+        => new ReadOnlyCollection<ICredit>(_credits);
 
     public PositiveMoney GetTotal()
     {

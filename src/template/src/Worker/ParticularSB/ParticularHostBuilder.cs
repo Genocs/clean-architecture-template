@@ -1,6 +1,5 @@
-﻿using Genocs.CleanArchitecture.Template.ContractsNServiceBus.Events;
+﻿using Genocs.CleanArchitecture.Template.Contracts.Events;
 using Genocs.CleanArchitecture.Template.Infrastructure.ParticularSB;
-using MongoDB.Driver;
 
 namespace Genocs.CleanArchitecture.Template.Worker.ParticularSB;
 
@@ -68,10 +67,10 @@ public static class ParticularHostBuilder
             if (settings.UsePersistence)
             {
                 // Save all the data related to Saga and so on to MongoDB
-                var persistence = endpointConfiguration.UsePersistence<MongoPersistence>();
-                persistence.MongoClient(new MongoClient(settings.PersistenceConnectionString));
-                persistence.DatabaseName(settings.PersistenceDatabase!);
-                persistence.UseTransactions(false);
+                // var persistence = endpointConfiguration.UsePersistence<MongoPersistence>();
+                // persistence.MongoClient(new MongoClient(settings.PersistenceConnectionString));
+                // persistence.DatabaseName(settings.PersistenceDatabase!);
+                // persistence.UseTransactions(false);
             }
 
             // Unobtrusive mode.

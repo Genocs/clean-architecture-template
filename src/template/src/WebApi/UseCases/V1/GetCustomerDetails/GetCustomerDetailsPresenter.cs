@@ -25,7 +25,7 @@ public sealed class GetCustomerDetailsPresenter : IOutputPort
 
         foreach (var account in output.Accounts)
         {
-            List<TransactionModel> transactions = new List<TransactionModel>();
+            List<TransactionModel> transactions = [];
 
             foreach (var item in account.Transactions)
             {

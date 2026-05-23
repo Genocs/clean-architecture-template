@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.CloseAccount;
 
 /// <summary>
-/// Close Account Response.
+/// CloseAsync Account Response.
 /// </summary>
 public sealed class CloseAccountResponse
 {

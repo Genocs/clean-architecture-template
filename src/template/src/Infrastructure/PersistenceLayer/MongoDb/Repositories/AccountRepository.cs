@@ -49,9 +49,31 @@ public sealed class AccountRepository : IAccountRepository
         return account;
     }
 
-    public async Task UpdateAsync(IAccount account, ICredit credit, CancellationToken cancellationToken = default)
-        => await _dbSetCredit.FindOneAndReplaceAsync(f => f.Id == credit.Id, (Credit)credit, cancellationToken: cancellationToken);
+    public Task UpdateAsync(IAccount account, ICredit credit, CancellationToken cancellationToken = default)
+    {
+        _context.AddCommand(() => _dbSetCredit.InsertOneAsync(
+            (Credit)credit,
+            cancellationToken: cancellationToken));
 
-    public async Task UpdateAsync(IAccount account, IDebit debit, CancellationToken cancellationToken = default)
-        => await _dbSetDebit.FindOneAndReplaceAsync(f => f.Id == debit.Id, (Debit)debit, cancellationToken: cancellationToken);
+        _context.AddCommand(() => _dbSetAccount.ReplaceOneAsync(
+            f => f.Id == account.Id,
+            (Account)account,
+            cancellationToken: cancellationToken));
+
+        return Task.CompletedTask;
+    }
+
+    public Task UpdateAsync(IAccount account, IDebit debit, CancellationToken cancellationToken = default)
+    {
+        _context.AddCommand(() => _dbSetDebit.InsertOneAsync(
+            (Debit)debit,
+            cancellationToken: cancellationToken));
+
+        _context.AddCommand(() => _dbSetAccount.ReplaceOneAsync(
+            f => f.Id == account.Id,
+            (Account)account,
+            cancellationToken: cancellationToken));
+
+        return Task.CompletedTask;
+    }
 }

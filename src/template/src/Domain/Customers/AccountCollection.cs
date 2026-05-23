@@ -4,7 +4,7 @@ namespace Genocs.CleanArchitecture.Template.Domain.Customers;
 
 public sealed class AccountCollection
 {
-    private readonly IList<Guid> _accountIds = [];
+    private IList<Guid> _accountIds = [];
 
     public void Add(IEnumerable<Guid> accounts)
     {

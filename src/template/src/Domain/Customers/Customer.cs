@@ -11,7 +11,7 @@ public class Customer : ICustomer
     public SSN? SSN { get; protected set; }
     public AccountCollection Accounts { get; protected set; }
 
-    public IReadOnlyCollection<IEvent> DomainEvents => throw new NotImplementedException();
+    public IReadOnlyCollection<IEvent> DomainEvents => [];
 
     public Customer()
     {

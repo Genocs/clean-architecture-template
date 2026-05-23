@@ -31,7 +31,3 @@ Added comprehensive outputs for both services:
 3. **Security**: Following best practices with secure connection strings and proper authentication
 4. **Scalability**: Resources can easily be scaled up for production use
 5. **Best Practices**: Following Azure naming conventions and Bicep best practices
-
-The template now provides a complete monitoring and logging solution for your web application infrastructure!
-
-Made changes.

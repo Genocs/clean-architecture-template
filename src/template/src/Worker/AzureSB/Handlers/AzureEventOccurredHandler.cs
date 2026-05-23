@@ -10,7 +10,7 @@ public class AzureEventOccurredHandler : IMessageEventHandler<IntegrationEventIs
     public AzureEventOccurredHandler(ILogger<AzureEventOccurredHandler> logger)
         => _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-    public Task Handle(IntegrationEventIssued @event)
+    public Task HandleAsync(IntegrationEventIssued @event)
     {
         _logger.LogDebug("Processed message");
 

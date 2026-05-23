@@ -1,8 +1,9 @@
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Genocs.CleanArchitecture.Template.Domain.Customers;
 
 namespace Genocs.CleanArchitecture.Template.Application.Boundaries.GetCustomerDetails;
 
-public sealed class GetCustomerDetailsOutput
+public sealed class GetCustomerDetailsOutput : IOutputType
 {
     public Guid CustomerId { get; }
     public string SSN { get; }
@@ -14,7 +15,7 @@ public sealed class GetCustomerDetailsOutput
         Customer customerEntity = (Customer)customer ?? throw new ArgumentNullException(nameof(customer));
         Accounts = accounts ?? throw new ArgumentNullException(nameof(accounts));
         CustomerId = customerEntity.Id;
-        SSN = customerEntity.SSN.ToString();
-        Name = customerEntity.Name.ToString();
+        SSN = customerEntity.SSN!.ToString();
+        Name = customerEntity.Name!.ToString();
     }
 }

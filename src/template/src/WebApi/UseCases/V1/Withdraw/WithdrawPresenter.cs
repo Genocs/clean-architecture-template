@@ -1,9 +1,10 @@
 using Genocs.CleanArchitecture.Template.Application.Boundaries.Withdraws;
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Withdraw;
 
-public sealed class WithdrawPresenter : IOutputPort
+public sealed class WithdrawPresenter : IOutputPort<WithdrawOutput>
 {
     public IActionResult? ViewModel { get; private set; }
 
@@ -24,8 +25,8 @@ public sealed class WithdrawPresenter : IOutputPort
             withdrawOutput.Transaction.Amount,
             withdrawOutput.Transaction.Description,
             withdrawOutput.Transaction.TransactionDate,
-            withdrawOutput.UpdatedBalance
-        );
+            withdrawOutput.UpdatedBalance);
+
         ViewModel = new ObjectResult(withdrawResponse);
     }
 }

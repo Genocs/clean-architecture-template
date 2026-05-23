@@ -16,40 +16,27 @@
         <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
         <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.2.0" />
         <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.6.2" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.2" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.KeyPerFile" Version="10.0.2" />
         <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="10.0.2" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.2" />
         <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
         <PackageReference Include="Microsoft.VisualStudio.Azure.Kubernetes.Tools.Targets" Version="1.1.0" />
-        <PackageReference Include="Serilog.Extensions.Logging" Version="10.0.0" />
-        <PackageReference Include="Serilog.Formatting.Compact" Version="3.0.0" />
-        <PackageReference Include="Serilog.Settings.Configuration" Version="10.0.0" />
-        <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Genocs.Logging" Version="9.0.0-beta008" />
-        <PackageReference Include="Genocs.Telemetry" Version="9.0.0-beta008" />
+        <PackageReference Include="Genocs.Logging" Version="9.0.0" />
+        <PackageReference Include="Genocs.Telemetry" Version="9.0.0" />
     </ItemGroup>
-    
+
     <ItemGroup>
         <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-        <ProjectReference Include="..\Contracts\Contracts.csproj" />
     </ItemGroup>
 
-<!--#if (NServiceBus) -->
+    <!--#if (NServiceBus) -->
     <ItemGroup>
-        <PackageReference Include="NServiceBus.Extensions.Hosting" Version="4.0.0" />
+        <PackageReference Include="NServiceBus.Extensions.Hosting" Version="4.0.1" />
         <PackageReference Include="NServiceBus.MicrosoftLogging.Hosting" Version="1.*" />
 
         <ProjectReference Include="..\Contracts.NServiceBus\Contracts.NServiceBus.csproj" />
-
-        <None Update="License.xml">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
     </ItemGroup>
-<!--#endif -->
-
+   <!--#endif -->
 
 </Project>

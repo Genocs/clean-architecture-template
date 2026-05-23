@@ -1,8 +1,9 @@
 using Genocs.CleanArchitecture.Template.Application.Exceptions;
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 
 namespace Genocs.CleanArchitecture.Template.Application.Boundaries.GetAccountDetails;
 
-public sealed class GetAccountDetailsInput
+public sealed class GetAccountDetailsInput : IInputType
 {
     public Guid AccountId { get; }
 

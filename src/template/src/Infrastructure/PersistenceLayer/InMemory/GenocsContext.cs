@@ -1,50 +1,56 @@
-using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 using System.Collections.ObjectModel;
+using Microsoft.EntityFrameworkCore;
+using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.InMemory;
 
-public sealed class GenocsContext
+public sealed class GenocsContext(DbContextOptions options) : DbContext(options)
 {
-    public Collection<Customer> Customers { get; set; }
-    public Collection<Account> Accounts { get; set; }
-    public Collection<Credit> Credits { get; set; }
-    public Collection<Debit> Debits { get; set; }
+    public DbSet<Account> Accounts => Set<Account>();
+    public DbSet<Customer> Customers => Set<Customer>();
+    public DbSet<Credit> Credits => Set<Credit>();
+    public DbSet<Debit> Debits => Set<Debit>();
 
-    public Guid DefaultCustomerId { get; }
-    public Guid DefaultAccountId { get; }
-
-    public Guid SecondCustomerId { get; }
-    public Guid SecondAccountId { get; }
-
-    public GenocsContext()
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        var entityFactory = new EntityFactory();
-        Customers = [];
-        Accounts = [];
-        Credits = [];
-        Debits = [];
+        base.OnModelCreating(modelBuilder);
 
-        var customer = new Customer(new SSN("8608179999"), new Name("Nocco Giovanni Emanuele"));
-        var account = new Account(customer);
-        var credit = account.Deposit(entityFactory, new PositiveMoney(800));
-        var debit = account.Withdraw(entityFactory, new PositiveMoney(100));
-        customer.Register(account);
+        modelBuilder.Entity<Account>()
+            .ToTable("Account");
 
-        Customers.Add(customer);
-        Accounts.Add(account);
-        Credits.Add((Credit)credit);
-        Debits.Add((Debit)debit);
+        modelBuilder.Entity<Account>()
+            .Ignore(p => p.Credits)
+            .Ignore(p => p.Debits);
 
-        DefaultCustomerId = customer.Id;
-        DefaultAccountId = account.Id;
+        modelBuilder.Entity<Customer>()
+            .ToTable("Customer")
+            .Property(b => b.SSN)
+            .HasConversion(
+                v => v.ToString(),
+                v => new SSN(v));
 
-        var secondCustomer = new Customer(new SSN("8408319999"), new Name("Nocco Antonio"));
-        var secondAccount = new Account(secondCustomer);
+        modelBuilder.Entity<Customer>()
+            .ToTable("Customer")
+            .Property(b => b.Name)
+            .HasConversion(
+                v => v.ToString(),
+                v => new Name(v));
 
-        Customers.Add(secondCustomer);
-        Accounts.Add(secondAccount);
+        modelBuilder.Entity<Customer>()
+            .Ignore(p => p.Accounts);
 
-        SecondCustomerId = secondCustomer.Id;
-        SecondAccountId = secondAccount.Id;
+        modelBuilder.Entity<Debit>()
+            .ToTable("Debit")
+            .Property(b => b.Amount)
+            .HasConversion(
+                v => v.ToMoney().ToDecimal(),
+                v => new PositiveMoney(v));
+
+        modelBuilder.Entity<Credit>()
+            .ToTable("Credit")
+            .Property(b => b.Amount)
+            .HasConversion(
+                v => v.ToMoney().ToDecimal(),
+                v => new PositiveMoney(v));
     }
 }

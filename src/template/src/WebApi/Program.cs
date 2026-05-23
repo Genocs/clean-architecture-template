@@ -1,8 +1,17 @@
-using Asp.Versioning.ApiExplorer;
 using Genocs.CleanArchitecture.Template.Infrastructure.HealthChecks;
 using Genocs.CleanArchitecture.Template.WebApi.ApiClient;
 using Genocs.CleanArchitecture.Template.WebApi.Extensions;
 using Genocs.CleanArchitecture.Template.WebApi.Extensions.FeatureFlags;
+#if InMemory
+using Genocs.CleanArchitecture.Template.WebApi.Extensions.InMemory;
+#endif
+#if MongoDb
+using Genocs.CleanArchitecture.Template.WebApi.Extensions.MongoDb;
+#endif
+#if SQLServer
+using Genocs.CleanArchitecture.Template.WebApi.Extensions.SQLServer;
+#endif
+
 using Genocs.Core.Builders;
 using Genocs.Logging;
 using Genocs.Telemetry;
@@ -26,10 +35,7 @@ IGenocsBuilder genocsBuilder = builder
     .AddWebApi()
     .AddOpenApiDocs();
 
-// GetAsync services and config
 var services = builder.Services;
-
-// services.AddApplicationInsightsTelemetry();
 
 // services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, _) =>
 // {
@@ -67,13 +73,15 @@ services.AddCors(options =>
 // Setup Database
 #if InMemory
 services.AddInMemoryPersistence();
-#elif MongoDb
-services.AddMongoDBPersistence(builder.Configuration);
-#elif EFcore
+#endif
+#if MongoDb
+services.AddMongoDbPersistence(builder.Configuration);
+#endif
+#if SQLServer
 services.AddSQLServerPersistence(builder.Configuration);
 #endif
 
-// Setup your Enterprise service bus library
+// Setup the enterprise service bus library
 #if Rebus
 services.AddRebusServiceBus(builder.Configuration);
 #elif MassTransit
@@ -82,6 +90,8 @@ services.AddMassTransitServiceBus(builder.Configuration);
 services.AddNServiceBusServiceBus(builder.Configuration);
 #elif AzureServiceBus
 services.AddAzureServiceBus(builder.Configuration);
+#else
+services.AddRebusServiceBus(builder.Configuration);
 #endif
 
 services.AddUseCases();
@@ -97,6 +107,17 @@ services.AddRefitClient<IOrderApi>()
 
 var app = builder.Build();
 
+// Setup Database
+#if InMemory
+app.Services.UseInMemoryPersistence();
+#endif
+#if MongoDb
+app.Services.UseMongoDbPersistence();
+#endif
+#if SQLServer
+app.Services.UseSqlServerPersistence();
+#endif
+
 genocsBuilder.Build(app.Services);
 
 app.UseGenocs()
@@ -106,8 +127,8 @@ app.UseHttpsRedirection();
 
 app.UseCookiePolicy();
 
-//var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
-//app.UseVersionedSwagger(provider);
+// var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+// app.UseVersionedSwagger(provider);
 
 app.MapControllers();
 

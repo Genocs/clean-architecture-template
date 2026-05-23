@@ -6,10 +6,7 @@ public sealed class PositiveMoney : IEquatable<PositiveMoney>
 {
     private readonly Money _value;
 
-    private PositiveMoney()
-    {
-        _value = new Money(0);
-    }
+    public decimal Value => _value.Value;
 
     public PositiveMoney(decimal value)
     {

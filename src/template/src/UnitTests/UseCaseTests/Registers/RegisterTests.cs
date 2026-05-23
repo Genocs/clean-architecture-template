@@ -1,15 +1,14 @@
 using Genocs.CleanArchitecture.Template.Application.Boundaries.Registers;
 using Genocs.CleanArchitecture.Template.Application.UseCases;
 using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
-using Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.InMemory.Presenters;
-using Genocs.CleanArchitecture.Template.UnitTests.TestFixtures;
+using Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.Presenters;
 using Xunit;
 
 namespace Genocs.CleanArchitecture.Template.UnitTests.UseCaseTests.Registers;
 
-public sealed class RegisterTests(StandardFixture fixture) : IClassFixture<StandardFixture>
+public sealed class RegisterTests(TestFixture fixture) : IClassFixture<TestFixture>
 {
-    private readonly StandardFixture _fixture = fixture;
+    private readonly TestFixture _fixture = fixture;
 
     [Theory]
     [ClassData(typeof(PositiveDataSetup))]
@@ -33,6 +32,7 @@ public sealed class RegisterTests(StandardFixture fixture) : IClassFixture<Stand
             new PositiveMoney(amount)));
 
         var actual = presenter.Registers.Last();
+
         Assert.NotNull(actual);
         Assert.Equal(ssn.ToString(), actual.Customer.SSN);
         Assert.Equal(name.ToString(), actual.Customer.Name);

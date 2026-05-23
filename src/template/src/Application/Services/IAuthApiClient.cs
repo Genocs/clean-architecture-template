@@ -4,5 +4,5 @@ namespace Genocs.CleanArchitecture.Template.Application.Services;
 
 public interface IAuthApiClient : IApiClient
 {
-    Task<SimpleResult> GetSimpleAuthModelAsync(string id);
+    Task<SimpleResult> GetSimpleAuthModelAsync(string id, CancellationToken cancellationToken = default);
 }

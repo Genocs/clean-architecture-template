@@ -1,9 +1,10 @@
 using Genocs.CleanArchitecture.Template.Application.Boundaries.Deposits;
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Deposit;
 
-public sealed class DepositPresenter : IOutputPort
+public sealed class DepositPresenter : IOutputPort<DepositOutput>
 {
     public IActionResult? ViewModel { get; private set; }
 

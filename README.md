@@ -19,7 +19,7 @@
 [license-url]: https://github.com/Genocs/clean-architecture-template/blob/main/LICENSE
 [build-shield]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml/badge.svg?branch=main
 [build-url]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml
-[package-shield]: https://img.shields.io/badge/nuget-v.5.0.0-blue?&label=latest&logo=nuget
+[package-shield]: https://img.shields.io/badge/nuget-v.5.1.0-blue?&label=latest&logo=nuget
 [package-url]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml
 [downloads-prev-shield]: https://img.shields.io/nuget/dt/Genocs.CleanArchitectureTemplate.svg?color=2da44e&label=downloads%20prev&logo=nuget
 [downloads-prev-url]: https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate
@@ -71,6 +71,7 @@ A comprehensive .NET 10 project template that follows Clean Architecture princip
 - [Quick Start](#quick-start)
 - [Template Options](#template-options)
 - [Architecture Overview](#architecture-overview)
+- [Development Workflow](#development-workflow)
 - [Troubleshooting](#troubleshooting)
 - [Community & Support](#community--support)
 - [Contributing](#contributing)
@@ -85,8 +86,8 @@ A comprehensive .NET 10 project template that follows Clean Architecture princip
   - [JetBrains Rider](https://www.jetbrains.com/rider/)
 - **Optional for local infrastructure** (depends on selected template options):
   - [Docker Desktop](https://www.docker.com/products/docker-desktop)
-  - MongoDB for `--database mongodb` (default)
-  - SQL Server for `--database efcore`
+  - MongoDB for `--database mongodb`
+  - SQL Server for `--database sqlserver` (default)
   - RabbitMQ for `--service-bus masstransit|rebus|nservicebus`
   - Azure Service Bus namespace for `--service-bus azureservicebus`
 
@@ -99,18 +100,18 @@ A comprehensive .NET 10 project template that follows Clean Architecture princip
 dotnet new install Genocs.CleanArchitecture.Template
 
 # Or install a specific version
-dotnet new install Genocs.CleanArchitecture.Template::5.0.0
+dotnet new install Genocs.CleanArchitecture.Template::5.1.0
 
 # View all available options
-dotnet new cleanarchitecture --help
+dotnet new gnx-cleanarchitecture --help
 
 # Create a project using template defaults
-dotnet new cleanarchitecture --name "CompanyName.ServiceName"
+dotnet new gnx-cleanarchitecture --name "CompanyName.ServiceName"
 
 # Create a project with explicit options
-dotnet new cleanarchitecture \
+dotnet new gnx-cleanarchitecture \
   --name "CompanyName.ServiceName" \
-  --database efcore \
+  --database inmemory \
   --service-bus nservicebus \
   --use-cases basic
 ```
@@ -151,18 +152,18 @@ git clone https://github.com/Genocs/clean-architecture-template
 cd clean-architecture-template
 
 # To pack and install the template
-dotnet pack ./src/Package.Template.csproj -p:PackageVersion=5.0.0 --configuration Release --output ./out
+dotnet pack ./src/Package.Template.csproj -p:PackageVersion=5.1.0 --configuration Release --output ./out
 
-dotnet new install ./out/Genocs.CleanArchitecture.Template.5.0.0.nupkg
+dotnet new install ./out/Genocs.CleanArchitecture.Template.5.1.0.nupkg
 
 # To verify the installation and see available options
-dotnet new cleanarchitecture --help
+dotnet new gnx-cleanarchitecture --help
 
 # To uninstall the template
 dotnet new uninstall Genocs.CleanArchitecture.Template
 
-# Example of creating a new project with InMemory database and Rebus as service bus
-dotnet new cleanarchitecture --name CompanyName.ServiceName --database inmemory --service-bus rebus
+# Example of creating a new project with InMemory database and Masstransit as service bus
+dotnet new gnx-cleanarchitecture --name CompanyName.ServiceName --database inmemory --service-bus masstransit
 ```
 
 Official Documentation:
@@ -242,6 +243,6 @@ Become a financial contributor and help me sustain the project.
 | Option         | Description         | Values                               | Default       |
 | -------------- | ------------------- | ------------------------------------ | ------------- |
 | `--name`       | Project name        | `{Company.Project.Service}`          | Required      |
-| `--database`   | Database provider   | `mongodb`, `efcore`, `inmemory`      | `mongodb`     |
-| `--service-bus`| Message broker      | `azureservicebus`, `masstransit`, `nservicebus`, `rebus` | `masstransit` |
+| `--database`   | Database provider   | `mongodb`, `sqlserver`, `inmemory`   | `sqlserver`     |
+| `--service-bus`| Message broker      | `azureservicebus`, `masstransit`, `nservicebus`, `rebus` | `rebus` |
 | `--use-cases`  | Use case complexity | `full`, `basic`, `readonly`          | `full`        |

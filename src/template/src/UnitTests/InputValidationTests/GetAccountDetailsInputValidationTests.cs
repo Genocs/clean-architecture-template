@@ -11,8 +11,8 @@ public sealed class GetAccountDetailsInputValidationTests
     {
         var actualEx = Assert.Throws<InputValidationException>(
             () => new GetAccountDetailsInput(
-                Guid.Empty
-            ));
+                Guid.Empty));
+
         Assert.Contains("accountId", actualEx.Message);
     }
 

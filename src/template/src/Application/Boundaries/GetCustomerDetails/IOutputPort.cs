@@ -1,7 +1,8 @@
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
+
 namespace Genocs.CleanArchitecture.Template.Application.Boundaries.GetCustomerDetails;
 
-public interface IOutputPort : IErrorHandler
+public interface IOutputPort : IOutputPort<GetCustomerDetailsOutput>
 {
-    void Default(GetCustomerDetailsOutput getCustomerDetailsOutput);
     void NotFound(string message);
 }

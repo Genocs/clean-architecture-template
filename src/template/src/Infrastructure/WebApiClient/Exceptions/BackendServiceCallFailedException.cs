@@ -6,12 +6,12 @@ public class BackendServiceCallFailedException : Exception
     {
     }
 
-    public BackendServiceCallFailedException(string message)
+    public BackendServiceCallFailedException(string? message)
         : base(message)
     {
     }
 
-    public BackendServiceCallFailedException(string message, Exception innerException)
+    public BackendServiceCallFailedException(string? message, Exception? innerException)
         : base(message, innerException)
     {
     }

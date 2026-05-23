@@ -114,7 +114,7 @@ internal class AzureBusService : IHostedService
                         var concreteType = typeof(IMessageEventHandler<>).MakeGenericType(type.Key);
                         if (concreteType != null)
                         {
-                            await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { evt });
+                            await (Task)concreteType.GetMethod("HandleAsync").Invoke(handler, new object[] { evt });
                             await _busClient.CompleteAsync(message.SystemProperties.LockToken); // Send the ack
                             _logger.LogInformation("Processed message {messageId}", message.MessageId);
                             return;

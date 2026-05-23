@@ -10,8 +10,8 @@ public sealed class CloseAccountInputValidationTests
     {
         var actualEx = Assert.Throws<InputValidationException>(
             () => new CloseAccountInput(
-                Guid.Empty
-            ));
+                Guid.Empty));
+
         Assert.Contains("accountId", actualEx.Message);
     }
 

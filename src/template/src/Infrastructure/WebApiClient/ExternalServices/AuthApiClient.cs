@@ -7,20 +7,20 @@ namespace Genocs.CleanArchitecture.Template.Infrastructure.WebApiClient.External
 
 public class AuthApiClient(HttpClient httpClient) : ApiClient(httpClient), IAuthApiClient
 {
-    public async Task<SimpleResult> GetSimpleAuthModelAsync(string id)
+    public async Task<SimpleResult> GetSimpleAuthModelAsync(string id, CancellationToken cancellationToken = default)
     {
         try
         {
             var request = CreateChangeStatusSchedule(id);
             var content = PackageContent(request);
-            var response = await _httpClient.PostAsync($"Authorized/{id}", content);
+            var response = await _httpClient.PostAsync($"Authorized/{id}", content, cancellationToken);
             if (response.StatusCode == HttpStatusCode.Created)
             {
-                return await response.Content.ReadAsAsync<SimpleResult>();
+                return await response.Content.ReadAsAsync<SimpleResult>(cancellationToken);
             }
             else if (response.StatusCode == HttpStatusCode.NoContent)
             {
-                return await GetPackageAsync(id);
+                return await GetPackageAsync(id, cancellationToken);
             }
 
             throw new BackendServiceCallFailedException(response.ReasonPhrase);
@@ -35,7 +35,7 @@ public class AuthApiClient(HttpClient httpClient) : ApiClient(httpClient), IAuth
         }
     }
 
-    private async Task<SimpleResult> GetPackageAsync(string messageId)
+    private async Task<SimpleResult> GetPackageAsync(string messageId, CancellationToken cancellationToken = default)
     {
         try
         {

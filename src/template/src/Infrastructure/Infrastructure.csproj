@@ -13,33 +13,19 @@
         <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="10.0.7" />
         <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
 
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.7" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.7">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.8" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.8" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.8">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
             <TreatAsUsed>true</TreatAsUsed>
         </PackageReference>
+    </ItemGroup>
 
-<!--#if (AzureServiceBus) -->
-        <!-- Azure Service Bus -->
-        <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.2.0" />
-<!--#endif -->
-<!--#if (Rebus) -->
-        <PackageReference Include="Rebus.RabbitMq" Version="10.1.1" />
-<!--#endif -->
-<!--#if (NServiceBus) -->
-        <ProjectReference Include="..\Contracts.NServiceBus\Contracts.NServiceBus.csproj" />
-
-        <!-- Particular NService Bus - RabbitMQ Transport and MongoDB persistance layer-->
-        <PackageReference Include="NServiceBus.RabbitMQ" Version="11.2.0" />
-        <PackageReference Include="NServiceBus.Storage.MongoDB" Version="7.0.1" />
-<!--#endif -->
-
-<!--#if (MassTransit) -->
-        <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="[7.3.1]" />
-        <PackageReference Include="Masstransit.RabbitMQ" Version="[8.5.8]" />
-<!--#endif -->
-
+    <ItemGroup>
+        <ProjectReference Include="..\Contracts\Contracts.csproj" />
+        <ProjectReference Include="..\Domain\Domain.csproj" />
+        <ProjectReference Include="..\Application\Application.csproj" />
     </ItemGroup>
 
     <!-- HealthChecks -->
@@ -49,9 +35,28 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Contracts\Contracts.csproj" />
-        <ProjectReference Include="..\Domain\Domain.csproj" />
-        <ProjectReference Include="..\Application\Application.csproj" />
+        <!--#if (AzureServiceBus) -->
+        <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.2.0" />
+        <!--#endif -->
+        <!--#if (Rebus) -->
+        <PackageReference Include="Rebus.RabbitMq" Version="10.1.1" />
+        <!--#endif -->
+        <!--#if (NServiceBus) -->
+        <ProjectReference Include="..\Contracts.NServiceBus\Contracts.NServiceBus.csproj" />
+
+        <!-- Particular NService Bus - RabbitMQ Transport and MongoDB persistance layer-->
+        <PackageReference Include="NServiceBus.RabbitMQ" Version="11.2.1" />
+        <!--#endif -->
+
+        <!--#if (MassTransit) -->
+        <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="[7.3.1]" />
+        <PackageReference Include="Masstransit.RabbitMQ" Version="[8.5.8]" />
+        <!--#endif -->
+
+        <!--#if (MongoDb)    -->
+        <PackageReference Include="MongoDB.Driver" Version="3.9.0" />
+        <!--#endif -->
+
     </ItemGroup>
 
 </Project>

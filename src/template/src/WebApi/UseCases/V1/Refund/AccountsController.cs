@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Genocs.CleanArchitecture.Template.Application.Boundaries.Refunds;
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -9,18 +10,10 @@ namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Refund;
 [ApiVersion("1.0")]
 [Route("api/v1/[controller]")]
 [ApiController]
-public sealed class AccountsController : ControllerBase
+public sealed class AccountsController(IUseCase<RefundInput> refundUseCase, RefundPresenter presenter) : ControllerBase
 {
-    private readonly IUseCase _refundUseCase;
-    private readonly RefundPresenter _presenter;
-
-    public AccountsController(
-                                IUseCase refundUseCase,
-                                RefundPresenter presenter)
-    {
-        _refundUseCase = refundUseCase ?? throw new ArgumentNullException(nameof(refundUseCase));
-        _presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
-    }
+    private readonly IUseCase<RefundInput> _refundUseCase = refundUseCase ?? throw new ArgumentNullException(nameof(refundUseCase));
+    private readonly RefundPresenter _presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
 
     /// <summary>
     /// Refund on an account.
@@ -34,11 +27,9 @@ public sealed class AccountsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RefundResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult?> Refund([FromBody][Required] RefundRequest request)
+    public async Task<IActionResult?> RefundAsync([FromBody][Required] RefundRequest request)
     {
-        RefundInput refundInput = new RefundInput(
-                                                    request.AccountId,
-                                                    new PositiveMoney(request.Amount));
+        RefundInput refundInput = new RefundInput(request.AccountId, new PositiveMoney(request.Amount));
 
         await _refundUseCase.ExecuteAsync(refundInput);
         return _presenter.ViewModel;

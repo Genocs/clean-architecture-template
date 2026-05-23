@@ -6,6 +6,8 @@ public sealed class Name : IEquatable<Name>
 {
     private readonly string _text;
 
+    public string Value => _text;
+
     public Name(string text)
     {
         if (string.IsNullOrWhiteSpace(text))

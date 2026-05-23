@@ -46,7 +46,7 @@ body:
     attributes:
       label: .NET version
       description: Which .NET version are you using?
-      placeholder: e.g. 8.0.100
+      placeholder: e.g. 10.0.7
     validations:
       required: true
   - type: textarea

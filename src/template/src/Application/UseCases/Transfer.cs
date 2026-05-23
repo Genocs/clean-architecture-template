@@ -1,4 +1,5 @@
 using Genocs.CleanArchitecture.Template.Application.Boundaries.Transfers;
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Genocs.CleanArchitecture.Template.Application.Repositories;
 using Genocs.CleanArchitecture.Template.Application.Services;
 using Genocs.CleanArchitecture.Template.Domain;
@@ -7,18 +8,18 @@ namespace Genocs.CleanArchitecture.Template.Application.UseCases;
 
 public sealed class Transfer(
             IEntityFactory entityFactory,
-            IOutputPort outputHandler,
+            IOutputPort<TransferOutput> outputHandler,
             IAccountRepository accountRepository,
             IUnitOfWork unitOfWork,
-            IServiceBusClient serviceBus) : IUseCase
+            IServiceBusClient serviceBus) : IUseCase<TransferInput>
 {
-    private readonly IEntityFactory _entityFactory = entityFactory;
-    private readonly IOutputPort _outputHandler = outputHandler;
-    private readonly IAccountRepository _accountRepository = accountRepository;
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
-    private readonly IServiceBusClient _serviceBus = serviceBus;
+    private readonly IEntityFactory _entityFactory = entityFactory ?? throw new ArgumentNullException(nameof(entityFactory));
+    private readonly IOutputPort<TransferOutput> _outputHandler = outputHandler ?? throw new ArgumentNullException(nameof(outputHandler));
+    private readonly IAccountRepository _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
+    private readonly IUnitOfWork _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+    private readonly IServiceBusClient _serviceBus = serviceBus ?? throw new ArgumentNullException(nameof(serviceBus));
 
-    public async Task ExecuteAsync(TransferInput input)
+    public async Task ExecuteAsync(TransferInput input, CancellationToken cancellationToken = default)
     {
         var originAccount = await _accountRepository.GetAsync(input.OriginAccountId);
         if (originAccount == null)
@@ -37,13 +38,19 @@ public sealed class Transfer(
         var debit = originAccount.Withdraw(_entityFactory, input.Amount);
         var credit = destinationAccount.Deposit(_entityFactory, input.Amount);
 
-        await _accountRepository.UpdateAsync(originAccount, debit);
-        await _accountRepository.UpdateAsync(destinationAccount, credit);
+        if(debit == null)
+        {
+            _outputHandler.Error("debit.Error");
+            return;
+        }
+
+        await _accountRepository.UpdateAsync(originAccount, debit, cancellationToken);
+        await _accountRepository.UpdateAsync(destinationAccount, credit, cancellationToken);
 
         // Publish the event to the enterprise service bus
-        await _serviceBus.PublishEventAsync(new Contracts.Events.TransferCompleted() { OriginalAccountId = originAccount.Id, DestinationAccountId = destinationAccount.Id, Amount = input.Amount.ToMoney().ToDecimal() });
+        await _serviceBus.PublishEventAsync(new Contracts.Events.TransferCompleted() { OriginalAccountId = originAccount.Id, DestinationAccountId = destinationAccount.Id, Amount = input.Amount.ToMoney().ToDecimal() }, cancellationToken);
 
-        await _unitOfWork.Save();
+        await _unitOfWork.SaveAsync(cancellationToken);
 
         TransferOutput output = new TransferOutput(
                                                    debit,

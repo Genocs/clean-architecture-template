@@ -1,8 +1,9 @@
 using Genocs.CleanArchitecture.Template.Application.Exceptions;
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 
 namespace Genocs.CleanArchitecture.Template.Application.Boundaries.CloseAccount;
 
-public sealed class CloseAccountInput
+public sealed class CloseAccountInput : IInputType
 {
     public Guid AccountId { get; }
 

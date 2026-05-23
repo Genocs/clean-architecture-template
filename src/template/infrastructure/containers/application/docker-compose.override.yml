@@ -1,0 +1,10 @@
+services:
+  webapi-service:
+    build:
+      context: ../../../
+      dockerfile: ./src/WebApi/Dockerfile
+
+  worker-service:
+    build:
+      context: ../../../
+      dockerfile: ./src/Worker/Dockerfile

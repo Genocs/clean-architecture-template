@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Genocs.CleanArchitecture.Template.Application.Boundaries.Deposits;
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -9,9 +10,9 @@ namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Deposit;
 [ApiVersion("1.0")]
 [Route("api/v1/[controller]")]
 [ApiController]
-public sealed class AccountsController(IUseCase depositUseCase, DepositPresenter presenter) : ControllerBase
+public sealed class AccountsController(IUseCase<DepositInput> depositUseCase, DepositPresenter presenter) : ControllerBase
 {
-    private readonly IUseCase _depositUseCase = depositUseCase;
+    private readonly IUseCase<DepositInput> _depositUseCase = depositUseCase;
     private readonly DepositPresenter _presenter = presenter;
 
     /// <summary>
@@ -26,7 +27,7 @@ public sealed class AccountsController(IUseCase depositUseCase, DepositPresenter
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DepositResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult?> Deposit([FromBody][Required] DepositRequest request)
+    public async Task<IActionResult?> DepositAsync([FromBody][Required] DepositRequest request)
     {
         var depositInput = new DepositInput(request.AccountId, new PositiveMoney(request.Amount));
 

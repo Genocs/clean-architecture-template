@@ -7,6 +7,19 @@ public class MassTransitServiceBusClient(IPublishEndpoint publishEndpoint) : ISe
 {
     private readonly IPublishEndpoint _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
 
+    public async Task PublishEventAsync<T>(T message, CancellationToken cancellationToken = default)
+    where T : Genocs.Common.CQRS.Events.IEvent
+    {
+        await _publishEndpoint.Publish(message, cancellationToken);
+
+    }
+
+    public async Task SendCommandAsync<T>(T command, CancellationToken cancellationToken = default)
+        where T : Genocs.Common.CQRS.Commands.ICommand
+    {
+        await _publishEndpoint.Publish(command, cancellationToken);
+    }
+
     public void Dispose()
     {
         Dispose(disposing: true);
@@ -15,7 +28,7 @@ public class MassTransitServiceBusClient(IPublishEndpoint publishEndpoint) : ISe
 
     public async ValueTask DisposeAsync()
     {
-        await DisposeAsyncCore();
+        await DisposeCoreAsync();
 
         Dispose(disposing: false);
         GC.SuppressFinalize(this);
@@ -29,21 +42,8 @@ public class MassTransitServiceBusClient(IPublishEndpoint publishEndpoint) : ISe
         }
     }
 
-    protected virtual async ValueTask DisposeAsyncCore()
+    protected virtual async ValueTask DisposeCoreAsync()
     {
         await Task.CompletedTask;
-    }
-
-    public async Task PublishEventAsync<T>(T @event)
-        where T : Genocs.Common.CQRS.Events.IEvent
-    {
-        await _publishEndpoint.Publish(@event);
-
-    }
-
-    public async Task SendCommandAsync<T>(T command)
-        where T : Genocs.Common.CQRS.Commands.ICommand
-    {
-        await _publishEndpoint.Publish(command);
     }
 }

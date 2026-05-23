@@ -44,7 +44,7 @@ public static class MassTransitInfrastructureExtensions
                 options.Tags.Add("masstransit");
             });
 
-            //x.AddRequestClient<SubmitIssuingCardRequest>();
+            // x.AddRequestClient<SubmitIssuingCardRequest>();
 
             // Consumer
             x.AddConsumers(Assembly.GetExecutingAssembly());
@@ -94,8 +94,7 @@ public static class MassTransitInfrastructureExtensions
             // });
         });
 
-        // services.AddScoped<SubmitCardRequestActivity>();
-        // services.AddScoped<SubmitPackageVoucherActivity>();
-        // services.AddScoped<SubmitIssuingVoucherActivity>();
+        // TODO: Add here your activities, if you have any. Otherwise, MassTransit will automatically register them when it finds them in the assembly scanning.
+        // services.AddScoped<YOUR_Activity>();
     }
 }

@@ -8,10 +8,7 @@ public sealed class Account
     public decimal CurrentBalance { get; }
     public List<Transaction> Transactions { get; }
 
-    public Account(
-        Guid accountId,
-        decimal currentBalance,
-        List<Transaction> transactions)
+    public Account(Guid accountId, decimal currentBalance, List<Transaction> transactions)
     {
         AccountId = accountId;
         CurrentBalance = currentBalance;

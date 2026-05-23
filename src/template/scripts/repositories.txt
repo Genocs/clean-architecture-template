@@ -3,7 +3,7 @@
 # Blank lines are ignored.
 # Use repo names exactly as they exist in Azure DevOps.
 
-genocs-library
+clean.architecture.template
 
 # You can add more repositories below:
 # My.NewService
