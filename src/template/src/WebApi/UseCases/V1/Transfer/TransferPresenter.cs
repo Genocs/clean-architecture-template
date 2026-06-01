@@ -1,9 +1,10 @@
 using Genocs.CleanArchitecture.Template.Application.Boundaries.Transfers;
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Transfer;
 
-public sealed class TransferPresenter : IOutputPort
+public sealed class TransferPresenter : IOutputPort<TransferOutput>
 {
     public IActionResult? ViewModel { get; private set; }
 

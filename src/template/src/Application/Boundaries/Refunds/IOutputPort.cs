@@ -1,3 +1,5 @@
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
+
 namespace Genocs.CleanArchitecture.Template.Application.Boundaries.Refunds;
 
 public interface IOutputPort : IErrorHandler

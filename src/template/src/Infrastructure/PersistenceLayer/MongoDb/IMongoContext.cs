@@ -1,4 +1,4 @@
-﻿using Genocs.CleanArchitecture.Template.Domain;
+﻿using Genocs.Common.Domain.Entities;
 using MongoDB.Driver;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.MongoDb;
@@ -6,9 +6,8 @@ namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.Mong
 public interface IMongoContext : IDisposable
 {
     MongoClient MongoClient { get; set; }
-    IClientSessionHandle Session { get; set; }
     Task<int> SaveChangesAsync();
     void AddCommand(Func<Task> func);
     IMongoCollection<T> GetCollection<T>(string name)
-        where T : IEntity;
+        where T : IEntity<Guid>;
 }

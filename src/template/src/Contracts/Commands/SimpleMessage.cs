@@ -1,10 +1,10 @@
-﻿using Genocs.CleanArchitecture.Template.Contracts.Interfaces;
+﻿using Genocs.Common.CQRS.Commands;
 
 namespace Genocs.CleanArchitecture.Template.Contracts.Commands;
 
 public class SimpleMessage : ICommand
 {
-    public string? MessageId { get; set; }
+    public required string MessageId { get; init; }
 
-    public string? MessageBody { get; set; }
+    public required string MessageBody { get; init; }
 }

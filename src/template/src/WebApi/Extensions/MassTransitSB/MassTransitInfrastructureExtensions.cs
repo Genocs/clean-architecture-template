@@ -44,7 +44,7 @@ public static class MassTransitInfrastructureExtensions
                 options.Tags.Add("masstransit");
             });
 
-            //x.AddRequestClient<SubmitIssuingCardRequest>();
+            // x.AddRequestClient<SubmitIssuingCardRequest>();
 
             // Consumer
             x.AddConsumers(Assembly.GetExecutingAssembly());
@@ -56,44 +56,45 @@ public static class MassTransitInfrastructureExtensions
             {
                 cfg.ConfigureEndpoints(context);
 
-                //cfg.UseHealthCheck(context);
-                cfg.Host(settings.HostName, settings.VirtualHost,
+                // cfg.UseHealthCheck(context);
+                cfg.Host(
+                    settings.HostName,
+                    settings.VirtualHost,
                     h =>
                     {
                         h.Username(settings.UserName);
                         h.Password(settings.Password);
 
-                        //h.UseSsl(s =>
-                        //{
-                        //    s.Protocol = SslProtocols.Tls12;
-                        //});
+                        // h.UseSsl(s =>
+                        // {
+                        //     s.Protocol = SslProtocols.Tls12;
+                        // });
                     });
             });
 
             //// Persistence MongoDB
-            //x.AddSagaStateMachine<CardIssuingSagaStateMachine, CardIssuingSagaState>().MongoDbRepository(c =>
-            //{
-            //    MongoDbOptions databaseSettings = new MongoDbOptions();
-            //    configuration.GetSection(MongoDbOptions.Position).Bind(databaseSettings);
-            //    c.Connection = databaseSettings.ConnectionString;
-            //    c.DatabaseName = "Masstransit";
+            // x.AddSagaStateMachine<CardIssuingSagaStateMachine, CardIssuingSagaState>().MongoDbRepository(c =>
+            // {
+            //     MongoDbOptions databaseSettings = new MongoDbOptions();
+            //     configuration.GetSection(MongoDbOptions.Position).Bind(databaseSettings);
+            //     c.Connection = databaseSettings.ConnectionString;
+            //     c.DatabaseName = "Masstransit";
 
-            //    // c.ClassMap(m => { });
-            //});
+            //// c.ClassMap(m => { });
+            // });
 
-            //x.AddSagaStateMachine<VoucherSagaStateMachine, VoucherSagaState>().MongoDbRepository(c =>
-            //{
-            //    MongoDbOptions databaseSettings = new MongoDbOptions();
-            //    configuration.GetSection(MongoDbOptions.Position).Bind(databaseSettings);
-            //    c.Connection = databaseSettings.ConnectionString;
-            //    c.DatabaseName = "Masstransit";
+            // x.AddSagaStateMachine<VoucherSagaStateMachine, VoucherSagaState>().MongoDbRepository(c =>
+            // {
+            //     MongoDbOptions databaseSettings = new MongoDbOptions();
+            //     configuration.GetSection(MongoDbOptions.Position).Bind(databaseSettings);
+            //     c.Connection = databaseSettings.ConnectionString;
+            //     c.DatabaseName = "Masstransit";
 
-            //    // c.ClassMap(m => { });
-            //});
+            ////c.ClassMap(m => { });
+            // });
         });
 
-        //services.AddScoped<SubmitCardRequestActivity>();
-        //services.AddScoped<SubmitPackageVoucherActivity>();
-        //services.AddScoped<SubmitIssuingVoucherActivity>();
+        // TODO: Add here your activities, if you have any. Otherwise, MassTransit will automatically register them when it finds them in the assembly scanning.
+        // services.AddScoped<YOUR_Activity>();
     }
 }

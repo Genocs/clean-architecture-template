@@ -5,7 +5,6 @@ using Xunit;
 
 namespace Genocs.CleanArchitecture.Template.UnitTests.InputValidationTests;
 
-
 public sealed class DepositInputValidationTests
 {
     [Fact]
@@ -14,8 +13,8 @@ public sealed class DepositInputValidationTests
         var actualEx = Assert.Throws<InputValidationException>(
             () => new DepositInput(
                 Guid.Empty,
-                new PositiveMoney(10)
-            ));
+                new PositiveMoney(10)));
+
         Assert.Contains("accountId", actualEx.Message);
     }
 
@@ -25,8 +24,8 @@ public sealed class DepositInputValidationTests
         var actualEx = Assert.Throws<InputValidationException>(
             () => new DepositInput(
                 Guid.NewGuid(),
-                null
-            ));
+                null));
+
         Assert.Contains("amount", actualEx.Message);
     }
 
@@ -35,8 +34,8 @@ public sealed class DepositInputValidationTests
     {
         var actual = new DepositInput(
             Guid.NewGuid(),
-            new PositiveMoney(10)
-        );
+            new PositiveMoney(10));
+
         Assert.NotNull(actual);
     }
 }

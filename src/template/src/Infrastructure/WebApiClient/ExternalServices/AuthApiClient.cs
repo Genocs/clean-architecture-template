@@ -5,25 +5,22 @@ using System.Net;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.WebApiClient.ExternalServices;
 
-
-public class AuthApiClient : ApiClient, IAuthApiClient
+public class AuthApiClient(HttpClient httpClient) : ApiClient(httpClient), IAuthApiClient
 {
-    public AuthApiClient(HttpClient httpClient) : base(httpClient) { }
-
-    public async Task<SimpleResult> GetSimpleAuthModelAsync(string id)
+    public async Task<SimpleResult> GetSimpleAuthModelAsync(string id, CancellationToken cancellationToken = default)
     {
         try
         {
             var request = CreateChangeStatusSchedule(id);
             var content = PackageContent(request);
-            var response = await _httpClient.PostAsync($"Authorized/{id}", content);
+            var response = await _httpClient.PostAsync($"Authorized/{id}", content, cancellationToken);
             if (response.StatusCode == HttpStatusCode.Created)
             {
-                return await response.Content.ReadAsAsync<SimpleResult>();
+                return await response.Content.ReadAsAsync<SimpleResult>(cancellationToken);
             }
             else if (response.StatusCode == HttpStatusCode.NoContent)
             {
-                return await GetPackageAsync(id);
+                return await GetPackageAsync(id, cancellationToken);
             }
 
             throw new BackendServiceCallFailedException(response.ReasonPhrase);
@@ -38,7 +35,7 @@ public class AuthApiClient : ApiClient, IAuthApiClient
         }
     }
 
-    private async Task<SimpleResult> GetPackageAsync(string messageId)
+    private async Task<SimpleResult> GetPackageAsync(string messageId, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -65,7 +62,7 @@ public class AuthApiClient : ApiClient, IAuthApiClient
 
     private ChangeStatusSchedule CreateChangeStatusSchedule(string messageId)
     {
-        // Fake data 
+        // Fake data
         ChangeStatusSchedule changeStatus = new ChangeStatusSchedule
         {
             MessageId = messageId,

@@ -1,20 +1,18 @@
 using Genocs.CleanArchitecture.Template.Application.Boundaries.GetCustomerDetails;
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Genocs.CleanArchitecture.Template.Application.Repositories;
 
 namespace Genocs.CleanArchitecture.Template.Application.UseCases;
 
-public sealed class GetCustomerDetails(
-                          IOutputPort outputHandler,
-                          ICustomerRepository customerRepository,
-                          IAccountRepository accountRepository) : IUseCase
+public sealed class GetCustomerDetails(IOutputPort outputHandler, ICustomerRepository customerRepository, IAccountRepository accountRepository) : IUseCase<GetCustomerDetailsInput>
 {
-    private readonly IOutputPort _outputHandler = outputHandler;
-    private readonly ICustomerRepository _customerRepository = customerRepository;
-    private readonly IAccountRepository _accountRepository = accountRepository;
+    private readonly IOutputPort _outputHandler = outputHandler ?? throw new ArgumentNullException(nameof(outputHandler));
+    private readonly ICustomerRepository _customerRepository = customerRepository ?? throw new ArgumentNullException(nameof(customerRepository));
+    private readonly IAccountRepository _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
 
-    public async Task ExecuteAsync(GetCustomerDetailsInput input)
+    public async Task ExecuteAsync(GetCustomerDetailsInput input, CancellationToken cancellationToken = default)
     {
-        var customer = await _customerRepository.Get(input.CustomerId);
+        var customer = await _customerRepository.GetAsync(input.CustomerId, cancellationToken);
 
         if (customer == null)
         {
@@ -22,11 +20,11 @@ public sealed class GetCustomerDetails(
             return;
         }
 
-        List<Account> accounts = new List<Account>();
+        List<Account> accounts = [];
 
         foreach (var accountId in customer.Accounts.GetAccountIds())
         {
-            var account = await _accountRepository.Get(accountId);
+            var account = await _accountRepository.GetAsync(accountId);
 
             if (account != null)
             {

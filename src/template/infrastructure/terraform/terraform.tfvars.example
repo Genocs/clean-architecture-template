@@ -1,0 +1,70 @@
+# Example Terraform Variables File
+# Copy this file to create your own environment-specific configuration:
+# cp terraform.tfvars.example dev.tfvars
+
+# Required: Environment name
+environment = "dev"
+
+# Azure Configuration
+location     = "East US"      # Azure region
+project_name = "genocs-ca"    # Project name prefix for resources
+
+# Tags
+tags = {
+  Environment = "Development"
+  CostCenter  = "Engineering"
+  Project     = "Clean Architecture"
+  Owner       = "your-team@example.com"
+}
+
+# Container Registry Configuration
+acr_sku           = "Standard"   # Basic, Standard, or Premium
+acr_admin_enabled = true         # Enable admin user (disable in production)
+
+# App Service Plan Configuration
+app_service_plan_sku = {
+  tier = "Standard"              # Basic, Standard, Premium, PremiumV2, PremiumV3
+  size = "S1"                    # B1, S1, P1v2, P2v3, etc.
+}
+
+app_service_plan_kind = "Linux"  # Linux or Windows
+
+# App Services Configuration
+app1_name = "webapi"
+app2_name = "worker"
+
+# Docker Images (update with your ACR images after initial deployment)
+app1_docker_image = "mcr.microsoft.com/appsvc/staticsite:latest"
+app2_docker_image = "mcr.microsoft.com/appsvc/staticsite:latest"
+
+# Application Ports
+app1_port = 8080
+app2_port = 8080
+
+# Performance Settings
+always_on         = true         # Keep app loaded (recommended for production)
+health_check_path = "/health"    # Health check endpoint
+
+# Application Insights Configuration
+app_insights_retention_days     = 90     # Data retention in days
+app_insights_disable_ip_masking = false   # Enable IP masking for privacy
+
+# Auto-scaling Configuration
+app1_min_instances = 1           # Minimum instances for app1
+app1_max_instances = 3           # Maximum instances for app1
+app2_min_instances = 1           # Minimum instances for app2
+app2_max_instances = 3           # Maximum instances for app2
+
+# Custom Application Settings
+app1_custom_settings = {
+  ASPNETCORE_DETAILEDERRORS      = "false"
+  Logging__LogLevel__Default     = "Information"
+  Logging__LogLevel__Microsoft   = "Warning"
+  CustomSetting1                 = "value1"
+}
+
+app2_custom_settings = {
+  ASPNETCORE_DETAILEDERRORS      = "false"
+  Logging__LogLevel__Default     = "Information"
+  CustomSetting2                 = "value2"
+}

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.GetAccountDetails;
 
 /// <summary>
-/// The Get Account Details Request.
+/// The GetAsync Account Details Request.
 /// </summary>
 public sealed class GetAccountDetailsRequest
 {

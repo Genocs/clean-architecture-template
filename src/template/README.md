@@ -6,11 +6,11 @@ Built with small components that are developed and tested in isolation.
 
 ## Usage
 
-The template contains a virtual Wallet application in which a customer can register an account then manage the balance with `Deposits`, `Withdraws` and `Transfers`.
+The template contains a virtual Wallet application in which a customer can register an account then manage the balance with `Deposits`, `Withdrawals`, `Transfers`, `Refunds`, and `Close Account` operations.
 
 Run the Docker container in less than 2 minutes using Play With Docker:
 
-<a href="https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/genocs/clean-architecture-template/master/docker-compose.yml&amp;stack_name=clean-architecture-template" rel="nofollow"><img src="https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png" alt="Try in PWD" style="max-width:100%;"></a>
+<a href="https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/genocs/clean-architecture-template/main/src/template/infrastructure/docker/docker-compose.yml&stack_name=clean-architecture-template" rel="nofollow"><img src="https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png" alt="Try in PWD" style="max-width:100%;"></a>
 
 ## Motivation
 
@@ -28,7 +28,7 @@ Learning how to design modular applications will help you become a better engine
 
 ## Containers and orchestrators
 
-The example is using Docker Compose for both setup the infrastructure components and to create the application images for both WebApi and BusWorker.
+The example is using Docker Compose for both setup the infrastructure components and to create the application images for both WebApi and Worker.
 The docker-infrastructure folder contains everything required to run the infrastructure components locally.
 
 ## Persistence layer
@@ -36,7 +36,7 @@ The docker-infrastructure folder contains everything required to run the infrast
 This example contains the implementation related to three different storage type:
 
 - InMemory DataAccess (useful only for development)
-- Microsoft SQL Server (Relational database developed by Microsoft)
+- Entity Framework Core with MS SQL Server
 - MongoDB (Document DB)
 
 ## Enterprise Service Bus (ESB)
@@ -70,6 +70,130 @@ Documents and samples are provided for each library.
   - [MassTransit Documentation](https://masstransit-project.com/)
   - [MassTransit GitHub Repository](https://github.com/MassTransit/MassTransit)
   - [MassTransit Samples](https://github.com/MassTransit/Samples)
+
+
+# Infrastructure
+
+In this section you can find the infrastructure components you need to execute the solution. Infrastructure components are the database, the enterprise service bus, the distributed logging, monitoring, tracing systems and many more.
+You can use **Docker compose** to setup the infrastructure components just by running few commands.
+
+> **NOTE**
+> The solution contains a `.env.example` file with all the environment variables required by the infrastructure components, 
+> rename it to `.env` then change the values to match your policy.
+>
+> The docker compose files are configured to use the environment variables defined in the `.env` file, 
+> so you can change the configuration without changing the docker compose files.
+
+```bash
+cd ./infrastructure/docker
+
+# Setup the infrastructure.
+# Use this file to setup the basic infrastructure components (RabbitMQ, MongoDB)
+docker compose -f ./infrastructure.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup Redis and PostgreSQL (no need if you use MongoDB)
+docker compose -f ./infrastructure-db.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup monitoring infrastructure components (Prometheus, Grafana, InfluxDB, Jaeger, Seq)
+docker compose -f ./infrastructure-monitoring.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup scaling infrastructure components (Fabio, Consul)
+docker compose -f ./infrastructure-scaling.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup security infrastructure components (Vault)
+docker compose -f ./infrastructure-security.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup sqlserver database (no need if you use PostgreSQL)
+docker compose -f ./infrastructure-sqlserver.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup mySql database (no need if you use PostgreSQL)
+docker compose -f ./infrastructure-mysql.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup oracle database (no need if you use PostgreSQL)
+docker compose -f ./infrastructure-oracle.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup elk stack
+docker compose -f ./infrastructure-elk.yml --env-file ./.env --project-name genocs up -d
+
+# Use this file only in case you want to setup AI ML components prepared by Genocs
+docker compose -f ./infrastructure-ml.yml --env-file ./.env --project-name genocs up -d
+```
+
+`infrastructure.yml` allows to install the basic infrastructure components. They are:
+
+- [RabbitMQ](https://rabbitmq.com)
+- [MongoDB](https://mongodb.com)
+
+`infrastructure-db.yml` allows to install Redis and PostgreSQL
+
+- [Redis](https://redis.io)
+- [Postgres](https://www.postgresql.org/)
+
+You can check them locally:
+
+- [RabbitMQ](http://localhost:15672): `localhost:15672`
+- Redis: `TCP:localhost:6379`
+- MongoDB: `TCP:localhost:27017`
+- Postgres: `TCP:localhost:5432`
+
+`infrastructure-monitoring.yml` allows to install the monitoring infrastructure components. They are:
+
+- [Aspire](https://learn.microsoft.com/en-us/dotnet/aspire/)
+- [Prometheus](https://prometheus.io/)
+- [Grafana](https://grafana.com/)
+- [InfluxDB](https://www.influxdata.com/)
+- [Jaeger](https://www.jaegertracing.io/)
+- [Seq](https://datalust.co/seq)
+
+You can find the console locally at:
+
+- [Aspire](localhost:18888): `localhost:18888`
+- [Prometheus](localhost:9090): `localhost:9090`
+- [Grafana](localhost:3000): `localhost:3000`
+- [InfluxDB](localhost:8086): `localhost:8086`
+- [Jaeger](localhost:16686): `localhost:16686`
+- [Seq](localhost:5341): `localhost:5341`
+
+`infrastructure-scaling.yml` allows to install the scaling infrastructure components composed by a Load balancer (Fabio) Service Discovery (Consul) components. They are:
+
+- [Fabio](https://fabiolb.net/)
+- [Consul](https://www.consul.io/)
+
+`infrastructure-security.yml` allows to install the security infrastructure components. Inside the file you can find:
+
+- vault (Hashicorp)
+
+> **NOTE**
+>
+> The commands above allows to setup infrastructure components, this means you can find all the containers inside the same network `genocs`.
+>
+> Whenever possible the data are persisted on the host machine by means of volumens, so you can restart the containers without losing data.
+
+```yml
+networks:
+  genocs:
+    name: genocs-network
+    driver: bridge
+
+volumes:
+  rabbitmq-data:
+  mongo-data:
+  redis-data:
+  postgres-data:
+  influx-data:
+  grafana-data:
+  jaeger-data:
+  seq-data:
+  vault-data:
+  elk-data:
+  fabio-data:
+  consul-data:
+  prometheus-data:
+  ml-data:
+```
+
+Remember to add the network configuration inside your docker compose file to setup the network, before running the containers.
+
 
 ## Index of Clean Architecture Template
 
@@ -134,6 +258,7 @@ Documents and samples are provided for each library.
 - [Docker](#docker)
 - [SQL Server](#sql-server)
 - [Related Content and Projects](#related-content-and-projects)
+- [OpenAPI (Web API)](#openapi-web-api)
 
 ## Use Cases
 
@@ -141,7 +266,7 @@ Documents and samples are provided for each library.
 >
 > Use Cases are algorithms which interpret the input to generate the output data.
 
-Application architecture is about usage, a good architecture screams the business use cases to the developer and framework concerns are implementation details. The user can `Register` an account then manage the balance by `Deposits`, `Withdrawals` and `Transfers`.
+Application architecture is about usage, a good architecture screams the business use cases to the developer and framework concerns are implementation details. The user can `Register` an account then manage the balance by `Deposits`, `Withdrawals`, `Transfers`, and `Refunds`.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/genocs/clean-architecture-template/main/docs/clean-architecture-use-cases.png" alt=Clean Architecture Use Cases" style="max-width:100%;">
@@ -158,6 +283,7 @@ Following the list of Use Cases:
 | Get Customer Details | Get customer details including all related accounts and transactions. |
 | Get Account Details  | Get account details including transactions.                           |
 | Close Account        | Closes an account, requires balance to be zero.                       |
+| Refund               | A customer can refund an amount to an account.                        |
 
 ## Flow of Control
 
@@ -171,7 +297,7 @@ The flow of control begins in the controller, moves through the use case, and th
 4. The `RegisterPresenter` builds the HTTP Response message.
 5. The `CustomersController` asks the presenter the current response.
 
-![Register Flow of Control](https://github.com/genocs/clean-architecture/blob/master/docs/register-flow-of-control.svg)
+![Register Flow of Control](https://github.com/genocs/clean-architecture-template/blob/main/docs/work)
 
 ### Get Customer Details Flow of Control
 
@@ -199,7 +325,7 @@ Interfaces like `ICustomerRepository`, `IOutputPort` and `IUnitOfWork` are ports
 
 The interface implementations, they are specific to a technology and bring external capabilities. For instance the `CustomerRepository` inside the `EntityFrameworkDataAccess` folder provides capabilities to consume an SQL Server database.
 
-![Ports and Adapters](https://raw.githubusercontent.com/genocs/clean-architecture/master/docs/clean-architecture-ports-and-adapters.png)
+![Ports and Adapters](https://raw.githubusercontent.com/genocs/clean-architecture-template/main/docs/clean-architecture-ports-and-adapters.png)
 
 #### The Left Side
 
@@ -694,7 +820,7 @@ public sealed class Withdraw : IUseCase
 ## Separation of Concerns
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/genocs/clean-architecture-template/master/docs/clean-architecture-template-layers.png" alt="Layers" style="max-width:100%;">
+  <img src="https://raw.githubusercontent.com/genocs/clean-architecture-template/main/docs/clean-architecture-template-layers.png" alt="Layers" style="max-width:100%;">
 </p>
 
 ### Domain
@@ -767,234 +893,90 @@ http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd
 
 > Fake it till you make it
 
-## SOLID
+## SOLID Principles
 
-### Single Responsibility Principle
+Principles to write maintainable and extendable software.
 
-> A class should have one, and only one, reason to change.
-
-### Open-Closed Principle
-
-> You should be able to extend a classes behavior, without modifying it.
-
-### Liskov Substitution Principle
-
-> Derived classes must be substitutable for their base classes.
-
-### Interface Segregation Principle
-
-> Make fine grained interfaces that are client specific.
-
-### Dependency Inversion Principle
-
-> Depend on abstractions, not on concretions.
+| SOLID Principles | Description |
+| ---------------- | ----------- |
+| Single Responsibility Principle | A class should have one, and only one, reason to change. |
+| Open-Closed Principle | You should be able to extend a classes behavior, without modifying it. |
+| Liskov Substitution Principle | Derived classes must be substitutable for their base classes. |
+| Interface Segregation Principle | Make fine grained interfaces that are client specific. |
+| Dependency Inversion Principle | Depend on abstractions, not on concretions. |
 
 ## .NET Core Web API
 
 ### Swagger and API Versioning
 
+The WebApi uses `Asp.Versioning` for API versioning and `Genocs.WebApi.Swagger.Docs` for the swagger UI.
+
 ```c#
-namespace Genocs.WebApi.Extensions
-{
-    using Filters;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Mvc.ApiExplorer;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.DependencyInjection;
-    using Swashbuckle.AspNetCore.Examples;
-    using Swashbuckle.AspNetCore.Swagger;
-    using Swashbuckle.AspNetCore.SwaggerGen;
+var builder = WebApplication.CreateBuilder(args);
 
-    public static class VersionedSwaggerExtensions
-    {
-        public static IServiceCollection AddVersionedSwagger(this IServiceCollection services)
-        {
-            services.AddApiVersioning(o =>
-            {
-                o.AssumeDefaultVersionWhenUnspecified = true;
-                o.DefaultApiVersion = new ApiVersion(1, 0);
-            });
+builder.AddGenocs()
+       .AddSwaggerDocs()
+       .Build();
 
-            services.AddVersionedApiExplorer(o => o.GroupNameFormat = "'V'VVV");
-
-            services.AddSwaggerGen(options =>
-            {
-                var provider = services.BuildServiceProvider()
-                    .GetRequiredService<IApiVersionDescriptionProvider>();
-
-                foreach (var apiVersion in provider.ApiVersionDescriptions)
-                {
-                    ConfigureVersionedDescription(options, apiVersion);
-                }
-
-                var xmlCommentsPath = Assembly.GetExecutingAssembly()
-                    .Location.Replace("dll", "xml");
-                options.IncludeXmlComments(xmlCommentsPath);
-
-                options.OperationFilter<ExamplesOperationFilter>();
-                options.DocumentFilter<SwaggerDocumentFilter>();
-            });
-
-            return services;
-        }
-
-        private static void ConfigureVersionedDescription(
-            SwaggerGenOptions options,
-            ApiVersionDescription apiVersion)
-        {
-            var dictionairy = new Dictionary<string, string>
-                {
-                    { "1.0", "This API features several endpoints showing different API features for API version V1" },
-                    { "2.0", "This API features several endpoints showing different API features for API version V2" }
-                };
-
-            var apiVersionName = apiVersion.ApiVersion.ToString();
-            options.SwaggerDoc(apiVersion.GroupName,
-                new Info()
-                {
-                    Title = "Clean Architecture Genocs",
-                        Contact = new Contact()
-                        {
-                            Name = "@giovanninocco",
-                                Email = "giovanni.nocco@genocs.com",
-                                Url = "https://github.com/genocs"
-                        },
-                        License = new License()
-                        {
-                            Name = "MIT License"
-                        },
-                        Version = apiVersionName,
-                        Description = dictionairy[apiVersionName]
-                });
-        }
-
-        public static IApplicationBuilder UseVersionedSwagger(
-            this IApplicationBuilder app,
-            IApiVersionDescriptionProvider provider)
-        {
-            app.UseSwagger(options =>
-            {
-                options.PreSerializeFilters.Add((swaggerDoc, httpRequest) =>
-                {
-                    if (httpRequest.Path.Value.Contains("/swagger"))
-                    {
-                        swaggerDoc.BasePath = httpRequest.Path.Value.Split("/").FirstOrDefault() ?? "";
-                    }
-
-                    if (httpRequest.Headers.TryGetValue("X-Forwarded-Prefix", out var xForwardedPrefix))
-                    {
-                        swaggerDoc.BasePath = xForwardedPrefix[0];
-                    }
-                });
-            });
-
-            app.UseSwaggerUI(options =>
-            {
-                // Build a swagger endpoint for each discovered API version
-                foreach (var description in provider.ApiVersionDescriptions)
-                {
-                    options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
-                }
-            });
-
-            return app;
-        }
-    }
-}
+var services = builder.Services;
+services.AddControllers().AddControllersAsServices();
+services.AddVersioning();
 ```
 
 ### Microsoft Extensions
 
+The solution uses the minimal hosting model. Service registration is centralized in [Program.cs](http://_vscodecontentref_/2):
+
 ```c#
-public sealed class Startup
-{
-    public Startup(IConfiguration configuration)
-    {
-        Configuration = configuration;
-    }
+StaticLogger.EnsureInitialized();
 
-    public IConfiguration Configuration { get; }
+var builder = WebApplication.CreateBuilder(args);
 
-    // This method gets called by the runtime. Use this method to add services to the container.
-    public void ConfigureDevelopmentServices(IServiceCollection services)
-    {
-        services.AddMvc()
-            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-            .AddControllersAsServices();
+builder.Host.UseLogging();
 
-        services.AddBusinessExceptionFilter();
+builder.AddGenocs()
+       .AddSwaggerDocs()
+       .Build();
 
-        services.AddFeatureFlags(Configuration);
-        services.AddVersionedSwagger();
+var services = builder.Services;
 
-        services.AddUseCases();
+services.AddControllers().AddControllersAsServices();
+services.AddBusinessExceptionFilter();
+services.AddFeatureFlags(builder.Configuration);
+services.AddVersioning();
+services.AddCustomHealthChecks(builder.Configuration);
 
-        services.AddInMemoryPersistence();
+#if InMemory
+services.AddInMemoryPersistence();
+#elif MongoDb
+services.AddMongoDbPersistence(builder.Configuration);
+#elif SQLServer
+services.AddSQLServerPersistence(builder.Configuration);
+#endif
 
-        services.AddPresentersV1();
-        services.AddPresentersV2();
-    }
+#if Rebus
+services.AddRebusServiceBus(builder.Configuration);
+#elif MassTransit
+services.AddMassTransitServiceBus(builder.Configuration);
+#elif NServiceBus
+services.AddNServiceBusServiceBus(builder.Configuration);
+#elif AzureServiceBus
+services.AddAzureServiceBus(builder.Configuration);
+#endif
 
-    public void ConfigureProductionServices(IServiceCollection services)
-    {
-        services.AddMvc()
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-            .AddControllersAsServices();
-
-        services.AddBusinessExceptionFilter();
-
-        services.AddFeatureFlags(Configuration);
-        services.AddVersionedSwagger();
-
-        services.AddUseCases();
-
-        services.AddSQLServerPersistence(Configuration);
-
-        services.AddPresentersV1();
-        services.AddPresentersV2();
-    }
-
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(
-        IApplicationBuilder app,
-        IWebHostEnvironment env,
-        IApiVersionDescriptionProvider provider)
-    {
-        if (env.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-        }
-        else
-        {
-            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            app.UseHsts();
-        }
-
-        app.UseVersionedSwagger(provider);
-        app.UseHttpsRedirection();
-        app.UseStaticFiles();
-        app.UseCookiePolicy();
-        app.UseMvc();
-    }
-}
+services.AddUseCases();
+services.AddPresentersV1();
+services.AddPresentersV2();
 ```
 
 ### Feature Flags
 
 ```c#
-public sealed class CustomControllerFeatureProvider : IApplicationFeatureProvider<ControllerFeature>
+public sealed class CustomControllerFeatureProvider(IFeatureManager featureManager) : IApplicationFeatureProvider<ControllerFeature>
 {
-    private readonly IFeatureManager _featureManager;
+    private readonly IFeatureManager _featureManager = featureManager;
 
-    public CustomControllerFeatureProvider(IFeatureManager featureManager)
-    {
-        _featureManager = featureManager;
-    }
-
-    public void PopulateFeature(IEnumerable<ApplicationPart> parts, ControllerFeature feature)
+    public async void PopulateFeature(IEnumerable<ApplicationPart> parts, ControllerFeature feature)
     {
         for (int i = feature.Controllers.Count - 1; i >= 0; i--)
         {
@@ -1004,11 +986,11 @@ public sealed class CustomControllerFeatureProvider : IApplicationFeatureProvide
                 if (customAttribute.AttributeType.FullName == typeof(FeatureGateAttribute).FullName)
                 {
                     var constructorArgument = customAttribute.ConstructorArguments.First();
-                    foreach (var argumentValue in constructorArgument.Value as IEnumerable)
+                    foreach (object? argumentValue in constructorArgument.Value as IEnumerable)
                     {
-                        var typedArgument = (CustomAttributeTypedArgument) argumentValue;
-                        var typedArgumentValue = (Features) (int) typedArgument.Value;
-                        if (!_featureManager.IsEnabled(typedArgumentValue.ToString()))
+                        var typedArgument = (CustomAttributeTypedArgument)argumentValue;
+                        var typedArgumentValue = (Features)(int)typedArgument.Value;
+                        if (!await _featureManager.IsEnabledAsync(typedArgumentValue.ToString()))
                             feature.Controllers.RemoveAt(i);
                     }
                 }
@@ -1062,9 +1044,7 @@ public static class FeatureFlagsExtensions
 
         services.AddMvc()
             .ConfigureApplicationPartManager(apm =>
-                apm.FeatureProviders.Add(
-                    new CustomControllerFeatureProvider(featureManager)
-                ));
+                apm.FeatureProviders.Add(new CustomControllerFeatureProvider(featureManager)));
 
         return services;
     }
@@ -1213,46 +1193,36 @@ public sealed class GenocsContext : DbContext
             .HasConversion(
                 v => v.ToAmount().ToDecimal(),
                 v => new PositiveAmount(v));
-
-        modelBuilder.Entity<Customer>().HasData(
-            new { Id = new Guid("197d0438-e04b-453d-b5de-eca05960c6ae"), Name = new Name("Test User"), SSN = new SSN("19860817-9999") }
-        );
-
-        modelBuilder.Entity<Account>().HasData(
-            new { Id = new Guid("4c510cfe-5d61-4a46-a3d9-c4313426655f"), CustomerId = new Guid("197d0438-e04b-453d-b5de-eca05960c6ae") }
-        );
-
-        modelBuilder.Entity<Credit>().HasData(
-            new
-            {
-                Id = new Guid("f5117315-e789-491a-b662-958c37237f9b"),
-                    AccountId = new Guid("4c510cfe-5d61-4a46-a3d9-c4313426655f"),
-                    Amount = new PositiveAmount(400),
-                    Description = "Credit",
-                    TransactionDate = DateTime.UtcNow
-            }
-        );
-
-        modelBuilder.Entity<Debit>().HasData(
-            new
-            {
-                Id = new Guid("3d6032df-7a3b-46e6-8706-be971e3d539f"),
-                    AccountId = new Guid("4c510cfe-5d61-4a46-a3d9-c4313426655f"),
-                    Amount = new PositiveAmount(400),
-                    Description = "Debit",
-                    TransactionDate = DateTime.UtcNow
-            }
-        );
     }
 }
 ```
 
 ### Add Migration
 
-Run the EF Tool to add a migration to the `Genocs.Infrastructure` project.
+Prerequisites>
+
+1. Install the latest .NET Core SDK.
+2. Install the Entity Framework Core Tool:
+```sh
+# Install the Entity Framework Core Tool globally
+dotnet tool install --global dotnet-ef
+
+# Check if the tool is installed correctly
+dotnet ef --version
+
+# Uninstall the tool if you want to update it
+dotnet tool uninstall --global dotnet-ef
+```
+
+> NOTE:
+> 
+> At the time of this writing the latest version is `10.0.8`, you can check for updates on the [NuGet Package Manager](https://www.nuget.org/packages/dotnet-ef/).
+
+
+Run the EF Tool to add a migration to the `Migrations.SQLServer` project.
 
 ```sh
-dotnet ef migrations add "InitialCreate" -o "EntityFrameworkDataAccess/Migrations" --project src/{MyCompany.MyProject}.Infrastructure --startup-project src/{MyCompany.MyProject}.WebApi
+dotnet ef migrations add "InitialCreate" -o "PersistenceLayer/SQLServer/Migrations" --project src/Infrastructure --startup-project src/WebApi
 ```
 
 ### Update Database
@@ -1260,7 +1230,7 @@ dotnet ef migrations add "InitialCreate" -o "EntityFrameworkDataAccess/Migration
 Generate tables and seed the database via Entity Framework Tool:
 
 ```sh
-dotnet ef database update --project src/{MyCompany.MyProject}.Infrastructure --startup-project src/{MyCompany.MyProject}.WebApi
+dotnet ef database update --project src/Infrastructure --startup-project src/WebApi
 ```
 
 ## Environment Configurations
@@ -1315,15 +1285,15 @@ image:
   - Ubuntu
 environment:
   DOCKER_USER:
-    secure: YnlezJhfKFUWo+E5/WCikQ==
+    secure: <<DOCKER_USER_SECRET>>
   DOCKER_PASS:
-    secure: iwibHSi3B80XJ3KjT1sAS1c66AsaOP3UFyUKKWrL1jo=
+    secure: <<DOCKER_PASS_SECRET>>
   HEROKU_USERNAME:
-    secure: CUWu9AI7dgCvD7XMGYEDtb7XQlvkcOSuxpdaKdzOu/M=
+    secure: <<HEROKU_USERNAME_SECRET>>
   HEROKU_API_KEY:
-    secure: XEo5yF9x7hReDhlb66Aj6xnk2HOFboVzNW6BLR1+shV7MP1DhRl8J+hHg8Do7OKl
+    secure: <<HEROKU_API_KEY_SECRET>>
   HEROKU_APP_NAME:
-    secure: tKa7ydQJbbA+uovQNa5sBs9OcRWsCj71r4l9wvDG7/I=
+    secure: <<HEROKU_APP_NAME_SECRET>>
 services:
   - docker
 dotnet_csproj:
@@ -1331,19 +1301,19 @@ dotnet_csproj:
   file: '**\*.csproj'
   version: "{version}"
 build_script:
-  - docker pull mcr.microsoft.com/mssql/server:2017-latest || true
-  - docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=<YourStrong!Passw0rd>' -p 1433:1433 --name sql1 -d mcr.microsoft.com/mssql/server:2017-latest || true
+  - docker pull mcr.microsoft.com/mssql/server:2025-latest || true
+  - docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=<YourStrong!Passw0rd>' -p 1433:1433 --name sql1 -d mcr.microsoft.com/mssql/server:2025-latest || true
   - sleep 10
   - docker exec -i sql1 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P '<YourStrong!Passw0rd>' -Q 'ALTER LOGIN SA WITH PASSWORD="<YourNewStrong!Passw0rd>"' || true
-  - dotnet ef database update --project src/{MyCompany.MyProject}.Infrastructure --startup-project src/{MyCompany.MyProject}.WebApi
+  - dotnet ef database update --project src/Infrastructure --startup-project src/WebApi
   - dotnet build
-  - pushd src/{MyCompany.MyProject}.WebApi/
+  - pushd src/WebApi/
   - dotnet pack --configuration Release
   - popd
 test_script:
-  - dotnet test test/{MyCompany.MyProject}.UnitTests/{MyCompany.MyProject}.UnitTests.csproj
-  - dotnet test test/{MyCompany.MyProject}.IntegrationTests/{MyCompany.MyProject}.IntegrationTests.csproj
-  - dotnet test test/{MyCompany.MyProject}.AcceptanceTests/{MyCompany.MyProject}.AcceptanceTests.csproj
+  - dotnet test test/UnitTests/UnitTests.csproj
+  - dotnet test test/IntegrationTests/IntegrationTests.csproj
+  - dotnet test test/AcceptanceTests/AcceptanceTests.csproj
 deploy_script:
   - docker build -t {mycompany}/clean-architecture:github .
   - docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
@@ -1365,7 +1335,7 @@ WORKDIR /app
 
 # Copy everything else and build
 COPY . .
-RUN dotnet publish src/{MyCompany.MyProject}.WebApi -c release -o out
+RUN dotnet publish src/WebApi -c release -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:10.0

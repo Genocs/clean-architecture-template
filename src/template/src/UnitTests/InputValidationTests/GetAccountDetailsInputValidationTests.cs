@@ -11,17 +11,15 @@ public sealed class GetAccountDetailsInputValidationTests
     {
         var actualEx = Assert.Throws<InputValidationException>(
             () => new GetAccountDetailsInput(
-                Guid.Empty
-            ));
+                Guid.Empty));
+
         Assert.Contains("accountId", actualEx.Message);
     }
 
     [Fact]
     public void GivenValidData_InputCreated()
     {
-        var actual = new GetAccountDetailsInput(
-            Guid.NewGuid()
-        );
+        var actual = new GetAccountDetailsInput(Guid.NewGuid());
         Assert.NotNull(actual);
     }
 }

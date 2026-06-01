@@ -4,37 +4,36 @@ using MongoDB.Driver;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.MongoDb.Repositories;
 
-
-
 public sealed class AccountRepository : IAccountRepository
 {
     private readonly IMongoContext _context;
-    private readonly IMongoCollection<Account> _DbSetAccount;
-    private readonly IMongoCollection<Credit> _DbSetCredit;
-    private readonly IMongoCollection<Debit> _DbSetDebit;
+    private readonly IMongoCollection<Account> _dbSetAccount;
+    private readonly IMongoCollection<Credit> _dbSetCredit;
+    private readonly IMongoCollection<Debit> _dbSetDebit;
 
     public AccountRepository(IMongoContext context)
     {
         _context = context ??
             throw new ArgumentNullException(nameof(context));
 
-        _DbSetAccount = _context.GetCollection<Account>("Accounts");
-        _DbSetCredit = _context.GetCollection<Credit>("Credits");
-        _DbSetDebit = _context.GetCollection<Debit>("Debits");
+        _dbSetAccount = _context.GetCollection<Account>("Accounts");
+        _dbSetCredit = _context.GetCollection<Credit>("Credits");
+        _dbSetDebit = _context.GetCollection<Debit>("Debits");
     }
 
-    public Task Add(IAccount account, ICredit credit)
+    public Task AddAsync(IAccount account, ICredit credit, CancellationToken cancellationToken = default)
     {
-        _context.AddCommand(() => _DbSetAccount.InsertOneAsync((Account)account));
-        _context.AddCommand(() => _DbSetCredit.InsertOneAsync((Credit)credit));
+        _context.AddCommand(() => _dbSetAccount.InsertOneAsync((Account)account, cancellationToken: cancellationToken));
+        _context.AddCommand(() => _dbSetCredit.InsertOneAsync((Credit)credit, cancellationToken: cancellationToken));
         return Task.CompletedTask;
     }
 
-    public async Task Delete(IAccount account) => _ = await _DbSetAccount.DeleteOneAsync(d => d.Id == account.Id);
+    public async Task DeleteAsync(IAccount account, CancellationToken cancellationToken = default)
+        => _ = await _dbSetAccount.DeleteOneAsync(d => d.Id == account.Id, cancellationToken);
 
-    public async Task<IAccount> Get(Guid id)
+    public async Task<IAccount?> GetAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        var accounts = await _DbSetAccount.FindAsync(f => f.Id == id);
+        var accounts = await _dbSetAccount.FindAsync(f => f.Id == id, cancellationToken: cancellationToken);
         var account = accounts.FirstOrDefault();
 
         if (account == null)
@@ -42,18 +41,39 @@ public sealed class AccountRepository : IAccountRepository
             return null;
         }
 
-        var credits = await _DbSetCredit.FindAsync(f => f.AccountId == account.Id);
-        var debits = await _DbSetDebit.FindAsync(f => f.AccountId == account.Id);
+        var credits = await _dbSetCredit.FindAsync(f => f.AccountId == account.Id, cancellationToken: cancellationToken);
+        var debits = await _dbSetDebit.FindAsync(f => f.AccountId == account.Id, cancellationToken: cancellationToken);
 
         account.Load(credits.ToList(), debits.ToList());
 
         return account;
     }
 
-    public async Task Update(IAccount account, ICredit credit)
-        => await _DbSetCredit.FindOneAndReplaceAsync(f => f.Id == credit.Id, (Credit)credit);
+    public Task UpdateAsync(IAccount account, ICredit credit, CancellationToken cancellationToken = default)
+    {
+        _context.AddCommand(() => _dbSetCredit.InsertOneAsync(
+            (Credit)credit,
+            cancellationToken: cancellationToken));
 
-    public async Task Update(IAccount account, IDebit debit)
-        => await _DbSetDebit.FindOneAndReplaceAsync(f => f.Id == debit.Id, (Debit)debit);
+        _context.AddCommand(() => _dbSetAccount.ReplaceOneAsync(
+            f => f.Id == account.Id,
+            (Account)account,
+            cancellationToken: cancellationToken));
 
+        return Task.CompletedTask;
+    }
+
+    public Task UpdateAsync(IAccount account, IDebit debit, CancellationToken cancellationToken = default)
+    {
+        _context.AddCommand(() => _dbSetDebit.InsertOneAsync(
+            (Debit)debit,
+            cancellationToken: cancellationToken));
+
+        _context.AddCommand(() => _dbSetAccount.ReplaceOneAsync(
+            f => f.Id == account.Id,
+            (Account)account,
+            cancellationToken: cancellationToken));
+
+        return Task.CompletedTask;
+    }
 }

@@ -1,11 +1,12 @@
 using Genocs.CleanArchitecture.Template.Application.Boundaries.CloseAccount;
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.CloseAccount;
 
-public sealed class CloseAccountPresenter : IOutputPort
+public sealed class CloseAccountPresenter : IOutputPort<CloseAccountOutput>
 {
-    public IActionResult ViewModel { get; private set; }
+    public IActionResult? ViewModel { get; private set; }
 
     public void Error(string message)
     {

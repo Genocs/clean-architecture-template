@@ -1,0 +1,27 @@
+###############################################################################
+# Use this file inside Visual Studio code with 'REST Client' plugin 
+# https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+###############################################################################
+
+@web_api_root_url = https://localhost:5001
+
+@apiVersion = v1
+
+@refreshToken = YOUR_REFRESH_TOKEN_HERE
+
+
+### Register a new customer
+# @name createCustomer
+POST {{web_api_root_url}}/api/{{apiVersion}}/customers
+Content-Type: application/json
+
+{
+  "SSN": "241019681234",
+  "Name": "Giovanni",
+  "InitialAmount": 1000
+}
+
+### Get Customer details
+@customerId = {{createCustomer.response.body.$.customerId}}
+GET {{web_api_root_url}}/api/{{apiVersion}}/customers/{{customerId}}
+Content-Type: application/json

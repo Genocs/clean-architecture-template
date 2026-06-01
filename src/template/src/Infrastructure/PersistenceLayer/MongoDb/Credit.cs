@@ -7,7 +7,10 @@ public class Credit : Domain.Accounts.Credit
 {
     public Guid AccountId { get; protected set; }
 
-    protected Credit() { }
+    protected Credit()
+    {
+
+    }
 
     public Credit(IAccount account, PositiveMoney amountToDeposit, DateTime transactionDate)
     {

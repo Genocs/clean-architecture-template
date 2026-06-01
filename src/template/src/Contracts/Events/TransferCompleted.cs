@@ -1,8 +1,10 @@
-﻿namespace Genocs.CleanArchitecture.Template.Contracts.Events;
+﻿using Genocs.Common.CQRS.Events;
 
-public class TransferCompleted : Interfaces.IEvent
+namespace Genocs.CleanArchitecture.Template.Contracts.Events;
+
+public sealed class TransferCompleted : IEvent
 {
-    public Guid OriginalAccountId { get; set; }
-    public Guid DestinationAccountId { get; set; }
-    public decimal Amount { get; set; }
+    public Guid OriginalAccountId { get; init; }
+    public Guid DestinationAccountId { get; init; }
+    public decimal Amount { get; init; }
 }

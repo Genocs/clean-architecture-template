@@ -4,7 +4,7 @@ namespace Genocs.CleanArchitecture.Template.Application.Repositories;
 
 public interface ICustomerRepository
 {
-    Task<ICustomer> Get(Guid id);
-    Task Add(ICustomer customer);
-    Task Update(ICustomer customer);
+    Task<ICustomer?> GetAsync(Guid id, CancellationToken cancellationToken = default);
+    Task AddAsync(ICustomer customer, CancellationToken cancellationToken = default);
+    Task UpdateAsync(ICustomer customer, CancellationToken cancellationToken = default);
 }

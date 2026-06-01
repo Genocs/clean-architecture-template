@@ -463,3 +463,9 @@ nuget.exe
 
 # output folders
 **/out
+
+# local env files
+**/.env
+
+
+cat.sh

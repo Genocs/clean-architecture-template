@@ -1,8 +1,9 @@
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Genocs.CleanArchitecture.Template.Domain.Accounts;
 
 namespace Genocs.CleanArchitecture.Template.Application.Boundaries.GetAccountDetails;
 
-public sealed class GetAccountDetailsOutput
+public sealed class GetAccountDetailsOutput : IOutputType
 {
     public Guid AccountId { get; }
     public decimal CurrentBalance { get; }
@@ -24,7 +25,7 @@ public sealed class GetAccountDetailsOutput
             .GetCurrentBalance()
             .ToDecimal();
 
-        List<Transaction> transactionResults = new List<Transaction>();
+        List<Transaction> transactionResults = [];
         foreach (var credit in accountEntity.Credits
                 .GetTransactions())
         {

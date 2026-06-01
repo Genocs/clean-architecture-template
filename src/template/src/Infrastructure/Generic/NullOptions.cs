@@ -2,9 +2,6 @@
 
 /// <summary>
 /// NullOptions is a placeholder for options
-/// Please override it based on your requirements
+/// Please override it based on your requirements.
 /// </summary>
-public class NullOptions
-{
-
-}
+public class NullOptions;

@@ -1,3 +1,4 @@
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Genocs.CleanArchitecture.Template.Application.Services;
 using Genocs.CleanArchitecture.Template.Application.UseCases;
 using Genocs.CleanArchitecture.Template.Infrastructure.WebApiClient.ExternalServices;
@@ -12,28 +13,28 @@ public static class ApplicationExtensions
         services.AddScoped<IApiClient, AuthApiClient>();
 
 #if CloseAccount
-        services.AddScoped<Application.Boundaries.CloseAccount.IUseCase, CloseAccount>();
+        services.AddScoped<IUseCase<Application.Boundaries.CloseAccount.CloseAccountInput>, CloseAccount>();
 #endif
 #if Deposit
-        services.AddScoped<Application.Boundaries.Deposits.IUseCase, Deposit>();
+        services.AddScoped<IUseCase<Application.Boundaries.Deposits.DepositInput>, Deposit>();
 #endif
 #if GetAccountDetails
-        services.AddScoped<Application.Boundaries.GetAccountDetails.IUseCase, GetAccountDetails>();
+        services.AddScoped<IUseCase<Application.Boundaries.GetAccountDetails.GetAccountDetailsInput>, GetAccountDetails>();
 #endif
 #if Refund
-        services.AddScoped<Application.Boundaries.Refunds.IUseCase, Refund>();
+        services.AddScoped<IUseCase<Application.Boundaries.Refunds.RefundInput>, Refund>();
 #endif
 #if GetCustomerDetails
-        services.AddScoped<Application.Boundaries.GetCustomerDetails.IUseCase, GetCustomerDetails>();
+        services.AddScoped<IUseCase<Application.Boundaries.GetCustomerDetails.GetCustomerDetailsInput>, GetCustomerDetails>();
 #endif
 #if Register
-        services.AddScoped<Application.Boundaries.Registers.IUseCase, Register>();
+        services.AddScoped<IUseCase<Application.Boundaries.Registers.RegisterInput>, Register>();
 #endif
 #if Withdraw
-        services.AddScoped<Application.Boundaries.Withdraws.IUseCase, Withdraw>();
+        services.AddScoped<IUseCase<Application.Boundaries.Withdraws.WithdrawInput>, Withdraw>();
 #endif
 #if Transfer
-        services.AddScoped<Application.Boundaries.Transfers.IUseCase, Transfer>();
+        services.AddScoped<IUseCase<Application.Boundaries.Transfers.TransferInput>, Transfer>();
 #endif
         return services;
     }

@@ -4,12 +4,7 @@ namespace Genocs.CleanArchitecture.Template.Domain.Customers;
 
 public sealed class AccountCollection
 {
-    private readonly IList<Guid> _accountIds;
-
-    public AccountCollection()
-    {
-        _accountIds = [];
-    }
+    private IList<Guid> _accountIds = [];
 
     public void Add(IEnumerable<Guid> accounts)
     {
@@ -18,13 +13,8 @@ public sealed class AccountCollection
     }
 
     public IReadOnlyCollection<Guid> GetAccountIds()
-    {
-        IReadOnlyCollection<Guid> accountIds = new ReadOnlyCollection<Guid>(_accountIds);
-        return accountIds;
-    }
+        => new ReadOnlyCollection<Guid>(_accountIds);
 
     public void Add(in Guid accountId)
-    {
-        _accountIds.Add(accountId);
-    }
+        => _accountIds.Add(accountId);
 }

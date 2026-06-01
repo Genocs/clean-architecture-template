@@ -2,41 +2,44 @@
 using Genocs.CleanArchitecture.Template.Domain.Customers;
 using MongoDB.Driver;
 
-namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.MongoDb.Repositories
+namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.MongoDb.Repositories;
+
+public sealed class CustomerRepository : ICustomerRepository
 {
+    private readonly IMongoContext _context;
+    private readonly IMongoCollection<Customer> _dbSetCustomer;
 
-
-    public sealed class CustomerRepository : ICustomerRepository
+    public CustomerRepository(IMongoContext context)
     {
-        private readonly IMongoContext _context;
-        private readonly IMongoCollection<Customer> _DbSetCustomer;
+        _context = context ?? throw new ArgumentNullException(nameof(context));
 
-        public CustomerRepository(IMongoContext context)
+        _dbSetCustomer = _context.GetCollection<Customer>("Customers");
+    }
+
+    public Task AddAsync(ICustomer customer, CancellationToken cancellationToken = default)
+    {
+        _context.AddCommand(async () => await _dbSetCustomer.InsertOneAsync((Customer)customer, cancellationToken: cancellationToken));
+        return Task.CompletedTask;
+    }
+
+    public async Task<ICustomer?> GetAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        var customers = await _dbSetCustomer.FindAsync(f => f.Id == id, cancellationToken: cancellationToken);
+        if (customers != null)
         {
-            _context = context ??
-                throw new ArgumentNullException(nameof(context));
-
-            _DbSetCustomer = _context.GetCollection<Customer>("Customers");
+            return customers.FirstOrDefault();
         }
 
-        public Task Add(ICustomer customer)
-        {
-            _context.AddCommand(async () => await _DbSetCustomer.InsertOneAsync((Customer)customer));
-            return Task.CompletedTask;
-        }
+        return null;
+    }
 
-        public async Task<ICustomer> Get(Guid id)
-        {
-            var customers = await _DbSetCustomer.FindAsync(f => f.Id == id);
-            if (customers != null)
-            {
-                return customers.FirstOrDefault();
-            }
+    public Task UpdateAsync(ICustomer customer, CancellationToken cancellationToken = default)
+    {
+        _context.AddCommand(() => _dbSetCustomer.ReplaceOneAsync(
+            f => f.Id == customer.Id,
+            (Customer)customer,
+            cancellationToken: cancellationToken));
 
-            return null;
-        }
-
-        public async Task Update(ICustomer customer)
-            => await _DbSetCustomer.FindOneAndReplaceAsync(f => f.Id == customer.Id, (Customer)customer);
+        return Task.CompletedTask;
     }
 }

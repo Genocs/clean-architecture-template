@@ -4,13 +4,11 @@ namespace Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 
 public sealed class Name : IEquatable<Name>
 {
-    private readonly string _text = string.Empty;
+    private readonly string _text;
 
-    private Name()
-    {
-    }
+    public string Value => _text;
 
-    public Name(string? text)
+    public Name(string text)
     {
         if (string.IsNullOrWhiteSpace(text))
             throw new NameShouldNotBeEmptyException("The 'Name' field is required");
@@ -27,7 +25,7 @@ public sealed class Name : IEquatable<Name>
     {
         if (obj is null) return false;
 
-        if (ReferenceEquals(null, obj))
+        if (obj is null)
         {
             return false;
         }
@@ -47,12 +45,7 @@ public sealed class Name : IEquatable<Name>
 
     public override int GetHashCode()
     {
-        unchecked
-        {
-            int hash = 17;
-            hash = (hash * 23) + _text.GetHashCode();
-            return hash;
-        }
+        return HashCode.Combine(_text);
     }
 
     public bool Equals(Name? other)

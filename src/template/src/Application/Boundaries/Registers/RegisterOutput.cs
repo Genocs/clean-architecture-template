@@ -1,9 +1,10 @@
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Genocs.CleanArchitecture.Template.Domain.Accounts;
 using Genocs.CleanArchitecture.Template.Domain.Customers;
 
 namespace Genocs.CleanArchitecture.Template.Application.Boundaries.Registers;
 
-public sealed class RegisterOutput
+public sealed class RegisterOutput : IOutputType
 {
     public Customer Customer { get; }
     public Account Account { get; }

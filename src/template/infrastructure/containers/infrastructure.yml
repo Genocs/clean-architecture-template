@@ -1,0 +1,40 @@
+services:
+  rabbitmq:
+    image: masstransit/rabbitmq:4.1.3
+    hostname: rabbitmq
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+      - 15692:15692
+    networks:
+      - genocs
+    # network_mode: host
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq/mnesia
+      - rabbitmq_logs:/var/log/rabbitmq
+
+  mongodb:
+    image: mongo:8.0
+    hostname: mongodb
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    networks:
+      - genocs
+    # network_mode: host
+    volumes:
+      - mongodb_data:/data/db
+
+networks:
+  genocs:
+    name: genocs-network
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    driver: local
+  rabbitmq_data:
+    driver: local
+  rabbitmq_logs:
+    driver: local

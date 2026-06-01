@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.CloseAccount;
 
 /// <summary>
-/// The Close Account Request.
+/// The CloseAsync Account Request.
 /// </summary>
 public sealed class CloseAccountRequest
 {

@@ -10,17 +10,11 @@ public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
 {
     private readonly AzureServiceBusSettings _settings;
 
-    private IQueueClient _queueClient;
+    private readonly IQueueClient _queueClient;
 
     public AzureServiceBusClient(IOptions<AzureServiceBusSettings> settings)
     {
-        _settings = settings.Value;
-
-        if (_settings is null)
-        {
-            throw new NullReferenceException("settings.Value.cannot be null");
-        }
-
+        _settings = settings.Value ?? throw new NullReferenceException("settings.Value.cannot be null");
         var connectionStringBuilder = new ServiceBusConnectionStringBuilder
         {
             Endpoint = _settings.QueueEndpoint,
@@ -50,32 +44,11 @@ public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
         GC.SuppressFinalize(this);
     }
 
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-
-        }
-    }
-
-    protected virtual async ValueTask DisposeAsyncCore()
-    {
-        /*
-        if (_bus is not null)
-        {
-            await _bus.DisposeAsync();
-        }
-        _bus = null;
-        */
-
-        await Task.CompletedTask;
-    }
-
-    public async Task PublishEventAsync<T>(T @event)
-        where T : Contracts.Interfaces.IEvent
+    public async Task PublishEventAsync<T>(T message, CancellationToken cancellationToken = default)
+        where T : Genocs.Common.CQRS.Events.IEvent
     {
         var msg = new Message();
-        string strMsg = JsonConvert.SerializeObject(@event);
+        string strMsg = JsonConvert.SerializeObject(message);
 
         /*
          * Please evaluate how ho implement a more efficient way
@@ -95,8 +68,8 @@ public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
         await _queueClient.SendAsync(msg);
     }
 
-    public async Task SendCommandAsync<T>(T command)
-        where T : Contracts.Interfaces.ICommand
+    public async Task SendCommandAsync<T>(T command, CancellationToken cancellationToken = default)
+        where T : Common.CQRS.Commands.ICommand
     {
         var msg = new Message();
         string strMsg = JsonConvert.SerializeObject(command);
@@ -118,5 +91,26 @@ public class AzureServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
 
         msg.Body = Encoding.ASCII.GetBytes(strMsg);
         await _queueClient.SendAsync(msg);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+
+        }
+    }
+
+    protected virtual async ValueTask DisposeAsyncCore()
+    {
+        /*
+        if (_bus is not null)
+        {
+            await _bus.DisposeAsync();
+        }
+        _bus = null;
+        */
+
+        await Task.CompletedTask;
     }
 }

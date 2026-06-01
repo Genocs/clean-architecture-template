@@ -1,8 +1,10 @@
-﻿namespace Genocs.CleanArchitecture.Template.Contracts.Events;
+﻿using Genocs.Common.CQRS.Events;
 
-public class RegistrationCompleted : Interfaces.IEvent
+namespace Genocs.CleanArchitecture.Template.Contracts.Events;
+
+public class RegistrationCompleted : IEvent
 {
-    public Guid CustomerId { get; set; }
-    public Guid AccountId { get; set; }
-    public Guid CreditId { get; set; }
+    public Guid CustomerId { get; init; }
+    public Guid AccountId { get; init; }
+    public Guid CreditId { get; init; }
 }

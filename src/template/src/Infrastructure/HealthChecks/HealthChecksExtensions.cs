@@ -23,7 +23,8 @@ public static class HealthChecksExtensions
             .AddCheck<ConfigurationHealthCheck>("configuration", tags: new[] { "readiness", "startup" })
             .AddCheck<StartupHealthCheck>("startup", tags: new[] { "readiness", "startup" })
             .AddCheck<MemoryHealthCheck>("memory", tags: new[] { "liveness", "system" })
-            //.AddMongoDb(
+
+            // .AddMongoDb(
             //    dbFactory: serviceProvider =>
             //    {
             //        var configuration = serviceProvider.GetRequiredService<IConfiguration>();
@@ -35,6 +36,7 @@ public static class HealthChecksExtensions
             //    failureStatus: HealthStatus.Unhealthy,
             //    tags: new[] { "readiness", "database" },
             //    timeout: TimeSpan.FromSeconds(5))
+
             .AddUrlGroup(
                 new Uri("https://httpbin.org/status/200"),
                 name: "external-api",

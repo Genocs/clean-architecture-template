@@ -9,14 +9,12 @@ public sealed class Customer
     public string Name { get; }
     public IReadOnlyList<Account> Accounts { get; }
 
-    public Customer(
-        ICustomer customer,
-        List<Account> accounts)
+    public Customer(ICustomer customer, List<Account> accounts)
     {
         var customerEntity = (Domain.Customers.Customer)customer;
         CustomerId = customerEntity.Id;
-        SSN = customerEntity.SSN.ToString();
-        Name = customerEntity.Name.ToString();
+        SSN = customerEntity.SSN!.ToString();
+        Name = customerEntity.Name!.ToString();
         Accounts = accounts;
     }
 }

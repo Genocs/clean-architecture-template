@@ -2,19 +2,13 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace Genocs.CleanArchitecture.Template.Worker.ExternalServices;
 
-public class ReadinessLivenessPublisher : IHealthCheckPublisher
+public class ReadinessLivenessPublisher(ILogger<ReadinessLivenessPublisher> logger) : IHealthCheckPublisher
 {
     public const string FilePath = "healthz";
 
-    private readonly ILogger _logger;
+    private readonly ILogger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-    public ReadinessLivenessPublisher(ILogger<ReadinessLivenessPublisher> logger)
-    {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-    }
-
-    public Task PublishAsync(HealthReport report,
-            CancellationToken cancellationToken)
+    public Task PublishAsync(HealthReport report, CancellationToken cancellationToken)
     {
         switch (report.Status)
         {

@@ -11,9 +11,10 @@ public class RebusServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
     private BuiltinHandlerActivator _activator;
 
     private bool _disposed;
+
     public RebusServiceBusClient(IOptions<RebusBusSettings> settings)
     {
-        var optionsInstance = settings?.Value;
+        var optionsInstance = settings?.Value ?? throw new ArgumentNullException(nameof(settings));
 
         _activator = new BuiltinHandlerActivator();
 
@@ -23,17 +24,17 @@ public class RebusServiceBusClient : IServiceBusClient, IDisposable, IAsyncDispo
            .Start();
     }
 
-    public async Task SendCommandAsync<T>(T cmd)
-        where T : Contracts.Interfaces.ICommand
+    public async Task SendCommandAsync<T>(T command, CancellationToken cancellationToken = default)
+        where T : Genocs.Common.CQRS.Commands.ICommand
     {
         // Check the ContextId Management
-        await _activator.Bus.Send(cmd);
+        await _activator.Bus.Send(command);
     }
 
-    public async Task PublishEventAsync<T>(T evt)
-        where T : Contracts.Interfaces.IEvent
+    public async Task PublishEventAsync<T>(T message, CancellationToken cancellationToken = default)
+        where T : Genocs.Common.CQRS.Events.IEvent
     {
-        await _activator.Bus.Publish(evt);
+        await _activator.Bus.Publish(message);
     }
 
     public void Dispose()

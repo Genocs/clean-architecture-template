@@ -11,14 +11,14 @@ public class DummyApiClient : ApiClient, IDummyApiClient
     {
     }
 
-    public async Task<SimpleResult> GetSimpleModelAsync(string id)
+    public async Task<SimpleResult> GetSimpleModelAsync(string id, CancellationToken cancellationToken = default)
     {
         try
         {
-            var response = await _httpClient.GetAsync($"api/Dummy/{id}");
+            var response = await _httpClient.GetAsync($"api/Dummy/{id}", cancellationToken);
             if (response.IsSuccessStatusCode)
             {
-                return await response.Content.ReadAsAsync<SimpleResult>();
+                return await response.Content.ReadAsAsync<SimpleResult>(cancellationToken);
             }
 
             throw new BackendServiceCallFailedException(response.ReasonPhrase);

@@ -11,17 +11,17 @@ public sealed class RegisterRequest
     /// SSN.
     /// </summary>
     [Required]
-    public string? SSN { get; set; }
+    public required string SSN { get; init; }
 
     /// <summary>
     /// Name.
     /// </summary>
     [Required]
-    public string? Name { get; set; }
+    public required string Name { get; init; }
 
     /// <summary>
     /// Initial Amount.
     /// </summary>
     [Required]
-    public decimal InitialAmount { get; set; }
+    public required decimal InitialAmount { get; init; }
 }

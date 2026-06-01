@@ -1,10 +1,10 @@
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Genocs.CleanArchitecture.Template.Domain.Accounts;
 using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 
 namespace Genocs.CleanArchitecture.Template.Application.Boundaries.Withdraws;
 
-
-public sealed class WithdrawOutput
+public sealed class WithdrawOutput : IOutputType
 {
     public Transaction Transaction { get; }
     public decimal UpdatedBalance { get; }

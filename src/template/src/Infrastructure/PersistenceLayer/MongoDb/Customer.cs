@@ -3,10 +3,11 @@ using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.MongoDb;
 
-
 public class Customer : Domain.Customers.Customer
 {
-    public Customer() { }
+    public Customer()
+    {
+    }
 
     public Customer(SSN ssn, Name name)
     {

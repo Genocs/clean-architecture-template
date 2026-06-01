@@ -7,7 +7,9 @@ public sealed class SSN : IEquatable<SSN>
 {
     private readonly string _text = string.Empty;
 
-    private static readonly Regex _regex = new Regex(@"^\d{6,8}[-|(\s)]{0,1}\d{4}$");
+    private static readonly Regex _regex = new(@"^\d{6,8}[-|(\s)]{0,1}\d{4}$");
+
+    public string Value => _text;
 
     public SSN(string text)
     {

@@ -19,7 +19,7 @@
 [license-url]: https://github.com/Genocs/clean-architecture-template/blob/main/LICENSE
 [build-shield]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml/badge.svg?branch=main
 [build-url]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml
-[package-shield]: https://img.shields.io/badge/nuget-v.5.0.0-blue?&label=latests&logo=nuget
+[package-shield]: https://img.shields.io/badge/nuget-v.5.1.0-blue?&label=latest&logo=nuget
 [package-url]: https://github.com/Genocs/clean-architecture-template/actions/workflows/build_and_test.yml
 [downloads-prev-shield]: https://img.shields.io/nuget/dt/Genocs.CleanArchitectureTemplate.svg?color=2da44e&label=downloads%20prev&logo=nuget
 [downloads-prev-url]: https://www.nuget.org/packages/Genocs.CleanArchitectureTemplate
@@ -44,7 +44,7 @@
 [twitterx-shield]: https://img.shields.io/twitter/url/https/twitter.com/genocs.svg?style=social
 [twitterx-url]: https://twitter.com/genocs
 
-[![Exagonal Architecture](https://raw.githubusercontent.com/Genocs/clean-architecture-template/main/assets/exagonal-architecture.png "Exagonal Architecture")](https://github.com/Genocs/clean-architecture-template)
+[![Hexagonal Architecture](https://raw.githubusercontent.com/Genocs/clean-architecture-template/main/assets/exagonal-architecture.png "Hexagonal Architecture")](https://github.com/Genocs/clean-architecture-template)
 
 # Genocs Clean Architecture Template
 
@@ -54,13 +54,15 @@ A comprehensive .NET 10 project template that follows Clean Architecture princip
 
 - 🏗️ **Clean Architecture** - Domain, Application, Infrastructure, and Presentation layers
 - 🎯 **Domain-Driven Design** - Rich domain models with proper separation of concerns
-- 📨 **CQRS Pattern** - Command Query Responsibility Segregation with MediatR
-- 🚌 **Message Brokers** - Support for RabbitMQ, Azure Service Bus, and more
-- 🗃️ **Multiple Databases** - SQL Server, MongoDB, Redis integration
-- 🔍 **Observability** - OpenTelemetry tracing and monitoring
+- 📨 **CQRS Pattern** - Command and event-driven workflows via `Genocs.Common.CQRS`
+- 🚌 **Message Brokers** - Azure Service Bus, MassTransit, NServiceBus, and Rebus options
+- 🗃️ **Multiple Databases** - MongoDB, EF Core (SQL Server), and InMemory options
+- 🔍 **Telemetry and Logging** - Built-in telemetry/logging integration with monitoring stack assets
 - 🐳 **Containerization** - Docker and Kubernetes ready
+- ☁️ **Infrastructure as Code** - Bicep, Terraform, Helm, and Kubernetes manifests included
 - ⚡ **Background Services** - Worker services for async processing
 - 🧪 **Comprehensive Testing** - Unit, Integration, and Acceptance tests
+- 📘 **API Versioning and OpenAPI** - Versioned endpoints and OpenAPI support out of the box
 
 ## 📋 Table of Contents
 
@@ -70,7 +72,6 @@ A comprehensive .NET 10 project template that follows Clean Architecture princip
 - [Template Options](#template-options)
 - [Architecture Overview](#architecture-overview)
 - [Development Workflow](#development-workflow)
-- [Examples](#examples)
 - [Troubleshooting](#troubleshooting)
 - [Community & Support](#community--support)
 - [Contributing](#contributing)
@@ -78,14 +79,17 @@ A comprehensive .NET 10 project template that follows Clean Architecture princip
 
 ## 📋 Prerequisites
 
-- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (latest version)
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
 - **IDE** (choose one):
-  - [Visual Studio 2026](https://visualstudio.microsoft.com/vs/) (recommended)
-  - [Visual Studio Code](https://code.visualstudio.com/) with C# extension
+  - [Visual Studio](https://visualstudio.microsoft.com/vs/) with .NET 10 support
+  - [Visual Studio Code](https://code.visualstudio.com/) with C# tooling
   - [JetBrains Rider](https://www.jetbrains.com/rider/)
-- **Optional for development**:
-  - [Docker Desktop](https://www.docker.com/products/docker-desktop) for containerization
-  - MongoDB, SQL Server
+- **Optional for local infrastructure** (depends on selected template options):
+  - [Docker Desktop](https://www.docker.com/products/docker-desktop)
+  - MongoDB for `--database mongodb`
+  - SQL Server for `--database sqlserver` (default)
+  - RabbitMQ for `--service-bus masstransit|rebus|nservicebus`
+  - Azure Service Bus namespace for `--service-bus azureservicebus`
 
 ## 🚀 Quick Start
 
@@ -96,17 +100,20 @@ A comprehensive .NET 10 project template that follows Clean Architecture princip
 dotnet new install Genocs.CleanArchitecture.Template
 
 # Or install a specific version
-dotnet new install Genocs.CleanArchitecture.Template::5.0.0
+dotnet new install Genocs.CleanArchitecture.Template::5.1.0
 
 # View all available options
-dotnet new cleanarchitecture --help
+dotnet new gnx-cleanarchitecture --help
 
-# Example with custom options
-dotnet new cleanarchitecture \
+# Create a project using template defaults
+dotnet new gnx-cleanarchitecture --name "CompanyName.ServiceName"
+
+# Create a project with explicit options
+dotnet new gnx-cleanarchitecture \
   --name "CompanyName.ServiceName" \
   --database inmemory \
-  --service-bus rebus \
-  --use-cases full
+  --service-bus nservicebus \
+  --use-cases basic
 ```
 
 ## 🏗️ Architecture Overview
@@ -117,15 +124,15 @@ The template generates a solution with the following structure:
 src/
 ├── AcceptanceTests/ # Acceptance Tests
 ├── Application/ # Use cases and application services
-├── Contracts/ # API and ServiceBus contracts and commansd, events and messages
-├── Contracts.NServiceBus/ # API and ServiceBus contracts and commansd, events and messages, used by NServiceBus
+├── Contracts/ # API and message contracts (commands, events, messages)
+├── Contracts.NServiceBus/ # Included when --service-bus nservicebus is selected
 ├── Domain/ # Core business logic and entities
 ├── Infrastructure/ # Data access and external services
 ├── IntegrationTests/ # Integration Tests
 ├── UnitTests/ # Unit Tests
 ├── WebApi/ # REST API controllers and middleware
 ├── Worker/ # Background services and message handlers
-└── Contracts/ # API contracts and events
+└── ...
 ```
 
 ### Key Components
@@ -134,9 +141,6 @@ src/
 - **Application Layer**: CQRS handlers, interfaces, DTOs
 - **Infrastructure Layer**: Repositories, message brokers, databases
 - **Presentation Layer**: Controllers, middleware, API documentation
-
-
-
 
 
 ### Miscellaneous
@@ -158,11 +162,11 @@ dotnet new list
 In order to run the infrastructure components locally using Docker, follow these steps:
 > **NOTE**
 > 1. Make sure you have Docker installed and running on your machine.
-> 2. Adjust the `.env` file in the `./containers` folder to match your configuration needs (you can copy the `.env.example` file as a starting point).
+> 2. Adjust the `.env` file in the `./infrastructure/docker` folder to match your configuration needs (you can copy the `.env.example` file as a starting point).
 
 
 ```bash
-cd ./containers
+cd ./infrastructure/docker
 
 # Setup the infrastructure.
 # Use this file to setup the basic infrastructure components (RabbitMQ, MongoDB)
@@ -260,19 +264,17 @@ For more details on getting started, [read the documentation](https://genocs-blo
 
 Please check the [documentation](https://learn.microsoft.com/en-us/visualstudio/ide/how-to-locate-and-organize-project-and-item-templates?view=visualstudio) for more details.
 
-## Changelogs
+## Contributing
 
-View Complete [Changelogs](https://github.com/Genocs/clean-architecture-template/blob/main/CHANGELOG.md).
+Contributions are welcome. See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines and development workflow.
+
+## Changelog
+
+View complete [Changelog](https://github.com/Genocs/clean-architecture-template/blob/main/CHANGELOG.md).
 
 ## License
 
 This project is licensed with the [MIT license](LICENSE).
-
-## Community
-
-- Discord [@genocs](https://discord.com/invite/fWwArnkV)
-- Facebook Page [@genocs](https://facebook.com/Genocs)
-- Youtube Channel [@genocs](https://youtube.com/c/genocs)
 
 ## Code Contributors
 
@@ -288,13 +290,11 @@ Become a financial contributor and help me sustain the project.
 
 [![Opencollective](https://opencollective.com/genocs/individuals.svg?width=890 "Opencollective")](https://opencollective.com/genocs)
 
-## Acknowledgements
-
 ## ⚙️ Template Options
 
 | Option         | Description         | Values                               | Default       |
 | -------------- | ------------------- | ------------------------------------ | ------------- |
 | `--name`       | Project name        | `{Company.Project.Service}`          | Required      |
-| `--database`   | Database provider   | `inmemory`, `sqlserver`, `mongodb`   | `inmemory`    |
-| `--servicebus` | Message broker      | `particular`, `masstransit`, `rebus` | `masstransit` |
-| `--use-cases`  | Use case complexity | `basic`, `full`, `readonly`          | `basic`       |
+| `--database`   | Database provider   | `mongodb`, `sqlserver`, `inmemory`   | `sqlserver`     |
+| `--service-bus`| Message broker      | `azureservicebus`, `masstransit`, `nservicebus`, `rebus` | `rebus` |
+| `--use-cases`  | Use case complexity | `full`, `basic`, `readonly`          | `full`        |

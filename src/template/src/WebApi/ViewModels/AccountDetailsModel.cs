@@ -1,37 +1,34 @@
-namespace Genocs.CleanArchitecture.Template.WebApi.ViewModels
+using System.ComponentModel.DataAnnotations;
+
+namespace Genocs.CleanArchitecture.Template.WebApi.ViewModels;
+
+/// <summary>
+/// Account Details.
+/// </summary>
+public sealed class AccountDetailsModel
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+    /// <summary>
+    /// Account ID.
+    /// </summary>
+    [Required]
+    public Guid AccountId { get; }
 
     /// <summary>
-    /// Account Details
+    /// Current Balance.
     /// </summary>
-    public sealed class AccountDetailsModel
+    [Required]
+    public decimal CurrentBalance { get; }
+
+    /// <summary>
+    /// Transactions.
+    /// </summary>
+    [Required]
+    public List<TransactionModel> Transactions { get; }
+
+    public AccountDetailsModel(Guid accountId, decimal currentBalance, List<TransactionModel> transactions)
     {
-        /// <summary>
-        /// Account ID
-        /// </summary>
-        [Required]
-        public Guid AccountId { get; }
-
-        /// <summary>
-        /// Current Balance
-        /// </summary>
-        [Required]
-        public decimal CurrentBalance { get; }
-
-        /// <summary>
-        /// Transactions
-        /// </summary>
-        [Required]
-        public List<TransactionModel> Transactions { get; }
-
-        public AccountDetailsModel(Guid accountId, decimal currentBalance, List<TransactionModel> transactions)
-        {
-            AccountId = accountId;
-            CurrentBalance = currentBalance;
-            Transactions = transactions;
-        }
+        AccountId = accountId;
+        CurrentBalance = currentBalance;
+        Transactions = transactions;
     }
 }

@@ -1,3 +1,4 @@
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.CloseAccount;
 using Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Deposit;
 using Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.GetAccountDetails;
@@ -16,19 +17,21 @@ public static class UserInterfaceV1Extensions
 
 #if CloseAccount
         services.AddScoped<CloseAccountPresenter, CloseAccountPresenter>();
-        services.AddScoped<Application.Boundaries.CloseAccount.IOutputPort>(x => x.GetRequiredService<CloseAccountPresenter>());
+        services.AddScoped<IOutputPort<Application.Boundaries.CloseAccount.CloseAccountOutput>>(x => x.GetRequiredService<CloseAccountPresenter>());
 #endif
 #if Deposit
         services.AddScoped<DepositPresenter, DepositPresenter>();
-        services.AddScoped<Application.Boundaries.Deposits.IOutputPort>(x => x.GetRequiredService<DepositPresenter>());
+        services.AddScoped<IOutputPort<Application.Boundaries.Deposits.DepositOutput>>(x => x.GetRequiredService<DepositPresenter>());
 #endif
 #if GetAccountDetails
         services.AddScoped<GetAccountDetailsPresenter, GetAccountDetailsPresenter>();
         services.AddScoped<Application.Boundaries.GetAccountDetails.IOutputPort>(x => x.GetRequiredService<GetAccountDetailsPresenter>());
+        services.AddScoped<IOutputPort<Application.Boundaries.GetAccountDetails.GetAccountDetailsOutput>>(x => x.GetRequiredService<GetAccountDetailsPresenter>());
 #endif
 #if GetCustomerDetails
         services.AddScoped<GetCustomerDetailsPresenter, GetCustomerDetailsPresenter>();
         services.AddScoped<Application.Boundaries.GetCustomerDetails.IOutputPort>(x => x.GetRequiredService<GetCustomerDetailsPresenter>());
+        services.AddScoped<IOutputPort<Application.Boundaries.GetCustomerDetails.GetCustomerDetailsOutput>>(x => x.GetRequiredService<GetCustomerDetailsPresenter>());
 #endif
 #if Register
         services.AddScoped<RegisterPresenter, RegisterPresenter>();
@@ -36,7 +39,7 @@ public static class UserInterfaceV1Extensions
 #endif
 #if Withdraw
         services.AddScoped<WithdrawPresenter, WithdrawPresenter>();
-        services.AddScoped<Application.Boundaries.Withdraws.IOutputPort>(x => x.GetRequiredService<WithdrawPresenter>());
+        services.AddScoped<IOutputPort<Application.Boundaries.Withdraws.WithdrawOutput>>(x => x.GetRequiredService<WithdrawPresenter>());
 #endif
 #if Refund
         services.AddScoped<RefundPresenter, RefundPresenter>();
@@ -44,7 +47,7 @@ public static class UserInterfaceV1Extensions
 #endif
 #if Transfer
         services.AddScoped<TransferPresenter, TransferPresenter>();
-        services.AddScoped<Application.Boundaries.Transfers.IOutputPort>(x => x.GetRequiredService<TransferPresenter>());
+        services.AddScoped<IOutputPort<Application.Boundaries.Transfers.TransferOutput>>(x => x.GetRequiredService<TransferPresenter>());
 #endif
         return services;
     }

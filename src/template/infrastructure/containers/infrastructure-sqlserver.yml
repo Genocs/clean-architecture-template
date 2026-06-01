@@ -1,0 +1,26 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    hostname: sqlserver
+    container_name: sqlserver
+    ports:
+      - 1433:1433
+    environment:
+      SA_PASSWORD: ${MSSQL_PASSWORD}
+      ACCEPT_EULA: "Y"
+    volumes:
+      - mssql_system_data:/var/opt/mssql
+      - mssql_user_data:/var/opt/sqlserver
+    networks:
+      - genocs
+
+networks:
+  genocs:
+    name: genocs-network
+    external: true
+
+volumes:
+  mssql_system_data:
+    driver: local
+  mssql_user_data:
+    driver: local

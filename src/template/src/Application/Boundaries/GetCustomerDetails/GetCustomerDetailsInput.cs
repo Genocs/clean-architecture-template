@@ -1,8 +1,9 @@
 using Genocs.CleanArchitecture.Template.Application.Exceptions;
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 
 namespace Genocs.CleanArchitecture.Template.Application.Boundaries.GetCustomerDetails;
 
-public sealed class GetCustomerDetailsInput
+public sealed class GetCustomerDetailsInput : IInputType
 {
     public Guid CustomerId { get; }
 

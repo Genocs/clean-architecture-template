@@ -4,7 +4,6 @@ using Xunit;
 
 namespace Genocs.CleanArchitecture.Template.UnitTests.InputValidationTests;
 
-
 public sealed class GetCustomerDetailsInputValidationTests
 {
     [Fact]
@@ -12,8 +11,8 @@ public sealed class GetCustomerDetailsInputValidationTests
     {
         var actualEx = Assert.Throws<InputValidationException>(
             () => new GetCustomerDetailsInput(
-                Guid.Empty
-            ));
+                Guid.Empty));
+
         Assert.Contains("customerId", actualEx.Message);
     }
 
@@ -21,8 +20,8 @@ public sealed class GetCustomerDetailsInputValidationTests
     public void GivenValidData_InputCreated()
     {
         var actual = new GetCustomerDetailsInput(
-            Guid.NewGuid()
-        );
+            Guid.NewGuid());
+
         Assert.NotNull(actual);
     }
 }

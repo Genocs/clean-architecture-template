@@ -1,33 +1,21 @@
 ﻿using Genocs.CleanArchitecture.Template.Application.Services;
 using Microsoft.Extensions.Options;
+using NServiceBus.Features;
+#if MongoDb
 using MongoDB.Driver;
+#endif
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.ParticularSB;
 
-public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDisposable
+public class NServiceServiceBusClient(IOptions<NServiceServiceBusSettings> settings) : IServiceBusClient, IDisposable, IAsyncDisposable
 {
-    private readonly NServiceServiceBusSettings _settings;
+    private readonly NServiceServiceBusSettings _settings = settings.Value ?? throw new NullReferenceException("settings.Value.cannot be null");
     private IEndpointInstance? _instance;
-
-    public NServiceServiceBusClient(IOptions<NServiceServiceBusSettings> settings)
-    {
-        _settings = settings.Value;
-
-        if (_settings is null)
-        {
-            throw new NullReferenceException("settings.Value.cannot be null");
-        }
-    }
 
     private async Task Initialize()
     {
         if (_instance == null)
         {
-            #region ConfigureLicense
-
-
-            #endregion
-
             #region ConfigureMetrics and Monitoring
             // endpointConfiguration.SendFailedMessagesTo("error");
             // endpointConfiguration.AuditProcessedMessagesTo("audit");
@@ -46,51 +34,61 @@ public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDi
                                 .ConnectionString(_settings.TransportConnectionString);
             #endregion
 
-            #region Configure Persistance with MongoDb
+#if MongoDb
+            if (_settings.UsePersistence)
+            {
+                var persistence = endpointConfiguration.UsePersistence<MongoPersistence>();
+                persistence.MongoClient(new MongoClient(_settings.PersistenceConnectionString));
+                persistence.DatabaseName(_settings.PersistenceDatabase!);
+                persistence.UseTransactions(false); // Set replicaset and enable it
+            }
+#else
+            var persistence = endpointConfiguration.UsePersistence<LearningPersistence>();
+            //persistence.SagaStorageDirectory(".\");
+            endpointConfiguration.DisableFeature<Sagas>();
 
-            var persistence = endpointConfiguration.UsePersistence<MongoPersistence>();
-            persistence.MongoClient(new MongoClient(_settings.PersistenceConnectionString));
-            persistence.DatabaseName(_settings.PersistenceDatabase);
-            persistence.UseTransactions(false); // Set replicaset and enable it
-            #endregion
-
-            #region Register commands
+#endif
+#region Register commands
 
             // transport.Routing().RouteToEndpoint(typeof(MyCommand), "Sample.SimpleSender");
 
             #endregion
 
             // Unobtrusive mode.
+            /*
             var conventions = endpointConfiguration.Conventions();
 
-            conventions.DefiningEventsAs(type => type.Namespace == "Genocs.CleanArchitecture.Template.ContractsNServiceBus.Events");
-
-            /*
             conventions.DefiningEventsAs(type =>
-                type.Namespace == "Genocs.CleanArchitecture.Template.Shared.Events"
-                || typeof(IEvent).IsAssignableFrom(typeof(Shared.Events.EventOccurred)));
+                type.Namespace != null &&
+                (type.Namespace.StartsWith("Genocs.CleanArchitecture.Template.ContractsNServiceBus.Events")
+                 || type.Namespace.StartsWith("Genocs.CleanArchitecture.Template.ContractsNServiceBus.TransactionSaga")));
+
+            conventions.DefiningCommandsAs(type =>
+                type.Namespace != null &&
+                type.Namespace.StartsWith("Genocs.CleanArchitecture.Template.ContractsNServiceBus.Commands"));
+
             */
 
             // https://docs.particular.net/nservicebus/serialization/
-            endpointConfiguration.UseSerialization<NewtonsoftJsonSerializer>();
+            endpointConfiguration.UseSerialization<SystemJsonSerializer>();
             endpointConfiguration.EnableInstallers();
 
             _instance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
         }
     }
 
-    public async Task PublishEventAsync<T>(T evt)
-        where T : Contracts.Interfaces.IEvent
+    public async Task PublishEventAsync<T>(T message, CancellationToken cancellationToken = default)
+        where T : Common.CQRS.Events.IEvent
     {
         await Initialize();
-        await _instance.Publish(evt);
+        await _instance.Publish(message, cancellationToken);
     }
 
-    public async Task SendCommandAsync<T>(T cmd)
-        where T : Contracts.Interfaces.ICommand
+    public async Task SendCommandAsync<T>(T command, CancellationToken cancellationToken = default)
+        where T : Common.CQRS.Commands.ICommand
     {
         await Initialize();
-        await _instance.Send(cmd);
+        await _instance.Send(command, cancellationToken);
     }
 
     public void Dispose()
@@ -117,7 +115,9 @@ public class NServiceServiceBusClient : IServiceBusClient, IDisposable, IAsyncDi
 
     protected virtual async ValueTask DisposeAsyncCore()
     {
-        await _instance.Stop();
-        await Task.CompletedTask;
+        if (_instance != null)
+        {
+            await _instance.Stop();
+        }
     }
 }

@@ -1,0 +1,96 @@
+---
+description: This rule provides comprehensive best practices for developing dotnet application templates, covering code organization, support tools, performance, testing, and common pitfalls. It aims to speed up the development process and improve code quality, security posture, and overall efficiency when working with the .NET Core framework and application templates.
+globs: *.tf,*.json,*.yml,*.yaml,*.cs,*.csproj,*.sln
+alwaysApply: false
+---
+
+# .NET Core Application Template Best Practices and Coding Standards
+
+This document outlines the recommended best practices for developing application templates using Microsoft .NET Core, support tools and services. It covers various aspects including solution setup, code organization, security, and tooling to ensure robust, scalable, and secure application templates.
+
+## 1. Code Organization and Structure
+
+A well-organized codebase is crucial for maintainability, scalability, and collaboration. The following guidelines provide a structured approach to organizing your .NET application templates.
+
+### Directory Structure Best Practices
+
+Adopt a modular and logical directory structure based on the application's architecture and components.
+
+*   **`.azure/`**: Contains the root folder for DevOps pipelines for your project.
+    *   **`pipelines/`**: Contains the source code of Azure DevOps pipelines for your project.
+*   **`.cursor/`**: Contains the root folder for Cursor rules for your project.
+*   **`.git/`**: Contains the root folder for Git repository for your project.
+*   **`.github/`**: Contains the root folder for GitHub repository for your project.
+*   **`assets/`**: Contains the root folder for assets for your project.
+*   **`docs/`**: Contains the root folder for documentation for your project.
+*   **`scripts/`**: Contains the root folder for scripts for your project.
+*   **`src/`**: Contains the root folder for source code for your project.
+
+
+Example:
+
+
+```plain text
+root-project/
+├── .azure/
+│   └── pipelines/
+│       └── ci-build.yml
+├── .cursor/
+│   └── rules/
+│       └── solution-architect.mdc
+├── .git/
+├── .github/
+│   ├── chatmode
+│   ├── instructions
+│   └── workflows/
+├── assets/
+│   ├── icons/
+│   └── images/
+├── docs/
+├── scripts/
+├── src/
+├── .editorconfig
+├── .gitattributes
+├── .gitignore
+├── CHANGELOG.md
+├── CODE_OF_CONDUCT.md
+├── Directory.Build.props
+├── Directory.Build.targets
+├── dotnet.ruleset
+├── global.json
+├── stylecop.json
+├── nuget.config
+├── project.sln
+└── README.md
+```
+
+### File Naming Conventions
+
+Maintain consistency in file naming to improve readability and searchability.
+
+*   Use descriptive names that reflect the file's purpose.
+*   Use a consistent case (e.g., camelCase or kebab-case).
+*   Use appropriate file extensions (e.g., `.cs`, `.csproj`, `.sln`, `.json`, `.yml`, `.yaml`).
+*   For CSharp components, use `ClassName.cs` or `ComponentName.SubComponent.cs`.
+
+Example:
+
+*   `ApplicationService.cs` (for a user service module)
+*   `UserProfile.cs` (for a user profile class)
+*   `appsettings.json` (for a JSON file defining application settings)
+*   `docker-compose.yml` (for a Docker Compose file defining the application stack)
+
+### Module Organization
+
+Divide the application into independent and reusable modules based on functionality.
+
+*   Each module should have a clear responsibility and a well-defined interface.
+*   Minimize dependencies between modules to promote loose coupling.
+*   Consider using a module bundler (e.g., Webpack, Parcel) to manage dependencies and optimize the build process.
+
+Example:
+
+A `user-management` module could contain components and services related to user authentication, authorization, and profile management.
+
+
+By following these best practices, you can build robust, scalable, secure, and maintainable .NET applications.

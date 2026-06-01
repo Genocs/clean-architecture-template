@@ -32,10 +32,10 @@
   "classifications": [
     "Web/ASP.NET"
   ],
-  "name": "Genocs: .NET Clean Architecture Template",
+  "name": "Genocs: Clean Architecture Template",
   "identity": "Genocs.CleanArchitecture.Template",
   "groupIdentity": "Genocs.CleanArchitecture.Template",
-  "shortName": "cleanarchitecture",
+  "shortName": "gnx-cleanarchitecture",
   "tags": {
     "type": "solution",
     "language": "C#"
@@ -71,7 +71,7 @@
     "service-bus": {
       "type": "parameter",
       "datatype": "choice",
-      "defaultValue": "masstransit",
+      "defaultValue": "rebus",
       "choices": [
         {
           "choice": "azureservicebus",
@@ -94,7 +94,7 @@
     "database": {
       "type": "parameter",
       "datatype": "choice",
-      "defaultValue": "mongodb",
+      "defaultValue": "sqlserver",
       "choices": [
         {
           "choice": "mongodb",
@@ -102,7 +102,7 @@
         },
         {
           "choice": "sqlserver",
-          "description": "Microsoft Sql Server Database (SQLServer)"
+          "description": "SQL Server Database (SQLServer)"
         },
         {
           "choice": "inmemory",
@@ -318,6 +318,45 @@
           ]
         },
         {
+          "condition": "(MongoDb)",
+          "exclude": [
+            "src/Infrastructure/PersistenceLayer/InMemory/**/*.*",
+            "src/Infrastructure/PersistenceLayer/SQLServer/**/*.*",
+            "src/IntegrationTests/InMemory/**/*.*",
+            "src/IntegrationTests/SQLServer/**/*.*",
+            "src/UnitTests/InMemory/**/*.*",
+            "src/UnitTests/SQLServer/**/*.*",
+            "src/WebApi/Extensions/InMemory/**/*.*",
+            "src/WebApi/Extensions/SQLServer/**/*.*"
+          ]
+        },
+        {
+          "condition": "(SQLServer)",
+          "exclude": [
+            "src/Infrastructure/PersistenceLayer/InMemory/**/*.*",
+            "src/Infrastructure/PersistenceLayer/MongoDb/**/*.*",
+            "src/IntegrationTests/InMemory/**/*.*",
+            "src/IntegrationTests/MongoDb/**/*.*",
+            "src/UnitTests/InMemory/**/*.*",
+            "src/UnitTests/MongoDb/**/*.*",
+            "src/WebApi/Extensions/InMemory/**/*.*",
+            "src/WebApi/Extensions/MongoDb/**/*.*"
+          ]
+        },
+        {
+          "condition": "(InMemory)",
+          "exclude": [
+            "src/Infrastructure/PersistenceLayer/SQLServer/**/*.*",
+            "src/Infrastructure/PersistenceLayer/MongoDb/**/*.*",
+            "src/IntegrationTests/SQLServer/**/*.*",
+            "src/IntegrationTests/MongoDb/**/*.*",
+            "src/UnitTests/SQLServer/**/*.*",
+            "src/UnitTests/MongoDb/**/*.*",
+            "src/WebApi/Extensions/SQLServer/**/*.*",
+            "src/WebApi/Extensions/MongoDb/**/*.*"
+          ]
+        },
+        {
           "condition": "(Full)",
           "exclude": []
         }
@@ -335,10 +374,10 @@
       "path": "src/Infrastructure/Infrastructure.csproj"
     },
     {
-      "path": "src/WebApi/WebApi.csproj"
+      "path": "src/WebApi/Host.csproj"
     },
     {
-      "path": "src/BusWorker/BusWorker.csproj"
+      "path": "src/Worker/Host.csproj"
     },
     {
       "path": "src/Contracts/Contracts.csproj"

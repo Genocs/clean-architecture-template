@@ -1,9 +1,10 @@
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Genocs.CleanArchitecture.Template.Domain.Accounts;
 using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 
 namespace Genocs.CleanArchitecture.Template.Application.Boundaries.Refunds;
 
-public sealed class RefundOutput
+public sealed class RefundOutput : IOutputType
 {
     public Transaction Transaction { get; }
     public decimal UpdatedBalance { get; }

@@ -5,7 +5,6 @@ using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 
 namespace Genocs.CleanArchitecture.Template.Infrastructure.PersistenceLayer.MongoDb;
 
-
 public sealed class EntityFactory : IEntityFactory
 {
     public IAccount NewAccount(ICustomer customer)

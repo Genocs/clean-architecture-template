@@ -1,0 +1,22 @@
+services:
+  mysqldb:
+    image: mysql
+    hostname: mysqldb
+    container_name: mysqldb
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - genocs
+
+networks:
+  genocs:
+    name: genocs-network
+    external: true
+
+volumes:
+  mysql_data:
+    driver: local

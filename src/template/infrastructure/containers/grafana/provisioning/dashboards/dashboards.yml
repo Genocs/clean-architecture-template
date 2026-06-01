@@ -1,0 +1,17 @@
+apiVersion: 1
+
+# Auto-provisioned dashboard provider. Grafana scans /var/lib/grafana/dashboards
+# (mounted from ./grafana/dashboards/) and loads any *.json file it finds.
+
+providers:
+  - name: genocs
+    orgId: 1
+    # Keep folder and folderUid unset when foldersFromFilesStructure is true;
+    # Grafana fails to start if both mechanisms are configured together.
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /var/lib/grafana/dashboards
+      foldersFromFilesStructure: true

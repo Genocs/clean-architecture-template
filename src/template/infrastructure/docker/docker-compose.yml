@@ -1,6 +1,0 @@
-services:
-  genocs.cleanarchitecture.template.webapi:
-    image: ${DOCKER_REGISTRY-}genocs.cleanarchitecture.template.webapi
-    build:
-      context: .
-      dockerfile: src/WebApi/Dockerfile

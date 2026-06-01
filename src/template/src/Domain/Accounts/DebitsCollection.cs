@@ -12,6 +12,15 @@ public sealed class DebitsCollection
         _debits = [];
     }
 
+    public DebitsCollection(IEnumerable<IDebit> debits)
+    {
+        _debits = [];
+        Add(debits);
+    }
+
+    public IReadOnlyCollection<IDebit> Debits
+        => new ReadOnlyCollection<IDebit>(_debits);
+
     public void Add<T>(IEnumerable<T> debits)
         where T : IDebit
     {

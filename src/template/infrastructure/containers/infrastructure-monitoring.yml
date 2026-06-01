@@ -1,0 +1,208 @@
+# Genocs monitoring stack.
+#
+# Run order
+# ---------
+# This file declares services on the genocs-network which is created by
+# infrastructure.yml (declared external here). Start the core stack first:
+#
+#   docker compose -f infrastructure.yml --env-file .env --project-name genocs up -d
+#   docker compose -f infrastructure-monitoring.yml --env-file .env --project-name genocs up -d
+#
+# Windows + WSL2 note
+# -------------------
+# For Docker Desktop on Windows with WSL2 integration, include the override file:
+#
+#   docker compose -f infrastructure-monitoring.yml -f infrastructure-monitoring.wsl2.yml --env-file .env --project-name genocs up -d
+#
+# Default stack: Jaeger as the OTLP collector, plus Prometheus / Grafana / Seq
+# and the host/container/MongoDB exporters.
+#
+# Optional Aspire Dashboard
+# -------------------------
+# The aspire service belongs to the "aspire" profile and is therefore NOT started
+# by default. To run it alongside (or instead of) Jaeger:
+#
+#   docker compose -f infrastructure-monitoring.yml --profile aspire --env-file .env --project-name genocs up -d
+#
+# To make the Genocs apps export OTLP traces/metrics to Aspire instead of Jaeger,
+# set in your .env file:
+#
+#   OTLP_URL=http://aspire_dashboard:18889
+#
+# (the env var name `OTLP_URL` points at any OTLP gRPC endpoint.) The Aspire UI is then at [http://localhost:18888](http://localhost:18888).
+
+services:
+  aspire:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:9.0
+    hostname: aspire_dashboard
+    container_name: aspire_dashboard
+    profiles:
+      - aspire
+    ports:
+      - 18888:18888 # UI
+      - 18889:18889 # OTLP gRPC receiver
+    environment:
+      - DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS=true
+    networks:
+      - genocs
+    mem_limit: 512m
+    cpus: 0.5
+
+  grafana:
+    image: grafana/grafana:13.0.1
+    hostname: grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    networks:
+      - genocs
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    mem_limit: 512m
+    cpus: 0.5
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.76.0
+    hostname: jaeger
+    container_name: jaeger
+    ports:
+      - 4317:4317   # OTLP gRPC
+      - 4318:4318   # OTLP HTTP
+      - 16686:16686 # UI
+    networks:
+      - genocs
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:14269/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    mem_limit: 1g
+    cpus: 1.0
+
+  prometheus:
+    image: prom/prometheus:v3.11.3
+    hostname: prometheus
+    container_name: prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=15d
+      - --storage.tsdb.retention.size=5GB
+      - --web.enable-lifecycle
+    ports:
+      - 9090:9090
+    networks:
+      - genocs
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9090/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    mem_limit: 1g
+    cpus: 1.0
+
+  # Host-level metrics (CPU, memory, disk, network).
+  node-exporter:
+    image: prom/node-exporter:v1.11.1
+    hostname: node-exporter
+    container_name: node-exporter
+    command:
+      - --path.rootfs=/host
+    pid: host
+    networks:
+      - genocs
+    volumes:
+      - /:/host:ro,rslave
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9100/metrics"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    mem_limit: 128m
+    cpus: 0.25
+
+  # Per-container metrics (CPU, memory, network, fs) for everything on the docker host.
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor@sha256:771a65c7877817cd9bb4c2d9eecb9fd1ac56f370287617658c51a35061efa71a  # no-new-use-public-image-v0.51.0
+    hostname: cadvisor
+    container_name: cadvisor
+    privileged: true
+    devices:
+      - /dev/kmsg:/dev/kmsg
+    networks:
+      - genocs
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    mem_limit: 256m
+    cpus: 0.5
+
+  # MongoDB metrics exporter. Reads from the mongodb service in infrastructure.yml.
+  mongodb-exporter:
+    image: percona/mongodb_exporter:0.50.0
+    hostname: mongodb-exporter
+    container_name: mongodb-exporter
+    command:
+      - --mongodb.uri=mongodb://mongodb:27017
+      - --collect-all
+      - --compatible-mode
+    networks:
+      - genocs
+    mem_limit: 128m
+    cpus: 0.25
+
+  seq:
+    image: datalust/seq:2025.2
+    hostname: seq
+    container_name: seq
+    ports:
+      - 5341:5341 # ingestion
+      - 5380:80 # UI
+    environment:
+      - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_ADMINPASSWORD=${SEQ_FIRSTRUN_ADMINPASSWORD}
+    networks:
+      - genocs
+    volumes:
+      - seq_data:/data
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    mem_limit: 1g
+    cpus: 1.0
+
+networks:
+  genocs:
+    name: genocs-network
+    external: true
+
+volumes:
+  grafana_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  seq_data:
+    driver: local

@@ -1,0 +1,44 @@
+name: Build Test Report
+
+on:
+  workflow_run:
+    workflows:
+      - Build Test and Pack
+    types:
+      - completed
+
+jobs:
+  test-report:
+    runs-on: ubuntu-latest
+
+    permissions:
+      checks: write
+
+    steps:
+      # https://github.com/dorny/test-reporter/issues/131#issuecomment-2093880211.
+      # https://github.com/dorny/test-reporter/issues/234#issuecomment-1462911162.
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+        with:
+          lfs: true
+
+      - name: Download Test and Coverage Results
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/download-artifact@v7
+        with:
+          github-token: ${{ env.GITHUB_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
+          pattern: Genocs*
+
+      - name: Publish Test Report
+        uses: dorny/test-reporter@a43b3a5f7366b97d083190328d2c652e1a8b6aa2 # v3
+        with:
+          name: Test Report
+          path: "**/*.trx"
+          reporter: dotnet-trx
+          only-summary: true
+          use-actions-summary: false
+          list-suites: failed
+          list-tests: failed
+          fail-on-empty: false

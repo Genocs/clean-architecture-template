@@ -1,0 +1,88 @@
+---
+description: This rule provides comprehensive best practices for developing dotnet applications, covering code organization, security, performance, testing, and common pitfalls. It aims to improve code quality, security posture, and overall efficiency when working with the .NET Core framework.
+globs: *.tf,*.bicep,*.json,*.yml,*.yaml,*.cs,*.csproj,*.sln
+alwaysApply: false
+---
+
+# .NET Core Library Best Practices and Coding Standards
+
+This document outlines the recommended best practices for developing applications and infrastructure using Microsoft .NET Core, Azure DevOps and Azure services. It covers various aspects including solution setup, code organization, security, and tooling to ensure robust, scalable, and secure solutions.
+
+## 1. Code Organization and Structure
+
+A well-organized codebase is crucial for maintainability, scalability, and collaboration. The following guidelines provide a structured approach to organizing your .NET projects.
+
+### Directory Structure Best Practices
+
+Adopt a modular and logical directory structure based on the application's architecture and components.
+
+*   **`devops/`**: Contains the root folder for DevOps pipelines for your application.
+    *   **`azure/`**: Contains the source code of Azure DevOps pipelines for your application.
+*   **`infrastructure/`**: Contains the source code of IaC and platform setup scripts for your application.
+    *   **`bicep/`**: Contains the source code of Bicep templates for your application.
+    *   **`terraform/`**: Contains the source code of Terraform templates for your application.
+*   **`scripts/`**: Automation scripts for deployment, build processes, etc.
+*   **`src/`**: Contains the source code of your application.
+
+
+Example:
+
+root-project/
+├── .cursor/
+│   └── rules/
+├── .git/
+├── .github/
+│   ├── chatmode
+│   ├── instructions
+│   └── workflows/
+├── devops/
+│   └── azure/
+├── infrastructure/
+│   ├── bicep/
+│   └── terraform/
+├── scripts/
+├── src/
+├── .editorconfig
+├── .gitattributes
+├── .gitignore
+├── CHANGELOG.md
+├── CODE_OF_CONDUCT.md
+├── Directory.Build.props
+├── Directory.Build.targets
+├── dotnet.ruleset
+├── global.json
+├── stylecop.json
+├── nuget.config
+├── project.sln
+└── README.md
+
+
+### File Naming Conventions
+
+Maintain consistency in file naming to improve readability and searchability.
+
+*   Use descriptive names that reflect the file's purpose.
+*   Use a consistent case (e.g., camelCase or kebab-case).
+*   Use appropriate file extensions (e.g., `.cs`, `.csproj`, `.tf`, `.bicep`).
+*   For CSharp components, use `ClassName.cs` or `ComponentName.SubComponent.cs`.
+
+Example:
+
+*   `user-service.js` (for a user service module)
+*   `UserProfile.jsx` (for a user profile component)
+*   `storage-account.tf` (for a Terraform file defining a storage account)
+
+### Module Organization
+
+Divide the application into independent and reusable modules based on functionality.
+
+*   Each module should have a clear responsibility and a well-defined interface.
+*   Minimize dependencies between modules to promote loose coupling.
+*   Consider using a module bundler (e.g., Webpack, Parcel) to manage dependencies and optimize the build process.
+
+Example:
+
+A `user-management` module could contain components and services related to user authentication, authorization, and profile management.
+
+
+By following these best practices, you can build robust, scalable, secure, and maintainable .NET applications.

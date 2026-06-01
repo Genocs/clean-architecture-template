@@ -1,6 +1,6 @@
 # This is a manually triggered nuget build and deploy
 
-name: Publish on NuGet
+name: Publish to NuGet
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
@@ -10,42 +10,41 @@ on:
     inputs:
       version:
         # Friendly description to be shown in the UI instead of 'name'
-        description: "Package Version"
+        description: "Packages Version"
 
         # Default value if no value is explicitly provided
-        default: "1.0.0"
+        default: "9.0.0"
 
         # Input has to be provided for the workflow to run
         required: true
 
 jobs:
   build:
-    name: Update NuGet package
+    name: Update NuGet Packages
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
+      - name: Checkout repository
+        uses: actions/checkout@v6
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: 10.0.x
 
       - name: Restore dependencies
-        run: dotnet restore ./src/template
+        run: dotnet restore
 
       - name: Build
-        run: dotnet build ./src/template --no-restore
+        run: dotnet build -c Debug --no-restore
 
       - name: Test
-        run: dotnet test ./src/template --no-build --verbosity normal
-
-      - name: Create output directory
-        run: mkdir -p ./out
+        run: dotnet test --no-build --verbosity normal
 
       - name: Pack
-        run: dotnet pack ./src/Package.Template.csproj -p:PackageVersion=${{ github.event.inputs.version }} --configuration Release --output ./out
+        run: dotnet pack -c Debug -o out -p:PackageVersion=${{ github.event.inputs.version }} --no-build --verbosity normal
 
-      - name: Push package to Nuget
-        run: dotnet nuget push ./out/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols
+      - name: Push Packages to NuGet
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: dotnet nuget push ./out/*.nupkg -k ${{ env.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols

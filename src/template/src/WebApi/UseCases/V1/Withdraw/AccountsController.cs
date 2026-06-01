@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Genocs.CleanArchitecture.Template.Application.Boundaries.Withdraws;
+using Genocs.CleanArchitecture.Template.Application.Interfaces;
 using Genocs.CleanArchitecture.Template.Domain.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -9,9 +10,9 @@ namespace Genocs.CleanArchitecture.Template.WebApi.UseCases.V1.Withdraw;
 [ApiVersion("1.0")]
 [Route("api/v1/[controller]")]
 [ApiController]
-public sealed class AccountsController(IUseCase withdrawUseCase, WithdrawPresenter presenter) : ControllerBase
+public sealed class AccountsController(IUseCase<WithdrawInput> withdrawUseCase, WithdrawPresenter presenter) : ControllerBase
 {
-    private readonly IUseCase _withdrawUseCase = withdrawUseCase;
+    private readonly IUseCase<WithdrawInput> _withdrawUseCase = withdrawUseCase;
     private readonly WithdrawPresenter _presenter = presenter;
 
     /// <summary>
@@ -26,7 +27,7 @@ public sealed class AccountsController(IUseCase withdrawUseCase, WithdrawPresent
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WithdrawResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult?> Withdraw([FromBody][Required] WithdrawRequest request)
+    public async Task<IActionResult?> WithdrawAsync([FromBody][Required] WithdrawRequest request)
     {
         var withdrawInput = new WithdrawInput(request.AccountId, new PositiveMoney(request.Amount));
         await _withdrawUseCase.ExecuteAsync(withdrawInput);

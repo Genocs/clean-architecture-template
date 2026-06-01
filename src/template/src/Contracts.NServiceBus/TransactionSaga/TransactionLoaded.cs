@@ -9,4 +9,12 @@ public class TransactionLoaded : IEvent
 {
     public string? RequestId { get; set; }
     public string? TransactionId { get; set; }
+
+    public static TransactionLoaded Empty()
+        => new()
+        { RequestId = Guid.Empty.ToString(), TransactionId = Guid.Empty.ToString() };
+
+    public static TransactionLoaded Fake()
+        => new()
+        { RequestId = Guid.NewGuid().ToString(), TransactionId = Guid.NewGuid().ToString() };
 }
