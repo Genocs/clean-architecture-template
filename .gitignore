@@ -466,3 +466,6 @@ nuget.exe
 
 # local env files
 **/.env
+
+
+cat.sh
