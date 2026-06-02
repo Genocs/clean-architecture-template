@@ -72,6 +72,7 @@ scrape_configs:
   # via Genocs.Telemetry's Prometheus plug-in (telemetry.prometheus).
   # The middleware accepts the request because each service's
   # telemetry.prometheus.allowedHosts matches its container hostname.
+  # *** PLEASE NOTE: you MUST configure your targets and allowedHosts in sync for this to work! *** 
   - job_name: genocs-services
     metrics_path: /metrics
     static_configs:

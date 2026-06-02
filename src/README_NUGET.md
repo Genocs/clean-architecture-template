@@ -105,15 +105,21 @@ dotnet new install Genocs.CleanArchitecture.Template::5.1.0
 # View all available options
 dotnet new gnx-cleanarchitecture --help
 
+# How to get the list of installed templates (just for information)
+dotnet new -u
+
+# How to get the list of templates (just for information)
+dotnet new list
+
 # Create a project using template defaults
 dotnet new gnx-cleanarchitecture --name "CompanyName.ServiceName"
 
 # Create a project with explicit options
 dotnet new gnx-cleanarchitecture \
   --name "CompanyName.ServiceName" \
-  --database inmemory \
-  --service-bus nservicebus \
-  --use-cases basic
+  --database sqlserver \
+  --service-bus rebus \
+  --use-cases full
 ```
 
 ## 🏗️ Architecture Overview
@@ -143,18 +149,6 @@ src/
 - **Presentation Layer**: Controllers, middleware, API documentation
 
 
-### Miscellaneous
-
-Useful commands:
-
-```bash
-# How to get the list of installed templates
-dotnet new -u
-
-# How to get the list of templates
-dotnet new list
-```
-
 ## 🔧 Development Workflow
 
 ### Local Development
@@ -162,11 +156,11 @@ dotnet new list
 In order to run the infrastructure components locally using Docker, follow these steps:
 > **NOTE**
 > 1. Make sure you have Docker installed and running on your machine.
-> 2. Adjust the `.env` file in the `./infrastructure/docker` folder to match your configuration needs (you can copy the `.env.example` file as a starting point).
+> 2. Adjust the `.env` file in the `./infrastructure/containers` folder to match your configuration needs (you can copy the `.env.example` file as a starting point).
 
 
 ```bash
-cd ./infrastructure/docker
+cd ./infrastructure/containers
 
 # Setup the infrastructure.
 # Use this file to setup the basic infrastructure components (RabbitMQ, MongoDB)
@@ -175,7 +169,7 @@ docker compose -f ./infrastructure.yml --env-file ./.env --project-name genocs u
 # Use this file only in case you want to setup Redis and PostgreSQL (no need if you use MongoDB)
 docker compose -f ./infrastructure-db.yml --env-file ./.env --project-name genocs up -d
 
-# Use this file only in case you want to setup monitoring infrastructure components (Prometheus, Grafana, InfluxDB, Jaeger, Seq)
+# Use this file only in case you want to setup monitoring infrastructure components (Prometheus, Grafana, Jaeger, Seq)
 docker compose -f ./infrastructure-monitoring.yml --env-file ./.env --project-name genocs up -d
 
 # Use this file only in case you want to setup scaling infrastructure components (Fabio, Consul)
@@ -202,15 +196,11 @@ docker compose -f ./infrastructure-ml.yml --env-file ./.env --project-name genoc
 cd ..
 ```
 
-
-Running the application:
+Build Test and Run the application:
 
 ```bash
-# Run the API
-dotnet run --project src/WebApi/Host.csproj
-
-# Run the Worker
-dotnet run --project src/Worker/Host.csproj
+# Build the application
+dotnet build
 
 # Run all tests
 dotnet test
@@ -219,6 +209,12 @@ dotnet test
 dotnet test src/UnitTests
 dotnet test src/IntegrationTests
 dotnet test src/AcceptanceTests
+
+# Run the API
+dotnet run --project src/WebApi/Host.csproj
+
+# Run the Worker
+dotnet run --project src/Worker/Host.csproj
 ```
 
 Building and Running with Docker:
@@ -233,6 +229,9 @@ docker run -d -p 8080:80 --name clean-architecture-template genocs/clean-archite
 # Stop and remove Docker WebApi container
 docker stop clean-architecture-template
 docker rm clean-architecture-template
+
+# Build and run your application inside Docker
+./scripts/build-and-run-app-docker-images.sh
 ```
 
 ## 💬 Community & Support
