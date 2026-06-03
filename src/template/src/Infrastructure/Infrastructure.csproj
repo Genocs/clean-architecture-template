@@ -50,7 +50,7 @@
 
         <!--#if (MassTransit) -->
         <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="[7.3.1]" />
-        <PackageReference Include="Masstransit.RabbitMQ" Version="[8.5.8]" />
+        <PackageReference Include="Masstransit.RabbitMQ" Version="[9.1.2]" />
         <!--#endif -->
 
         <!--#if (MongoDb)    -->
