@@ -39,6 +39,7 @@
         <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.2.0" />
         <!--#endif -->
         <!--#if (Rebus) -->
+        <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="10.0.8" />
         <PackageReference Include="Rebus.RabbitMq" Version="10.1.1" />
         <!--#endif -->
         <!--#if (NServiceBus) -->
