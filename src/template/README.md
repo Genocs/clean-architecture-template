@@ -8,9 +8,6 @@ Built with small components that are developed and tested in isolation.
 
 The template contains a virtual Wallet application in which a customer can register an account then manage the balance with `Deposits`, `Withdrawals`, `Transfers`, `Refunds`, and `Close Account` operations.
 
-Run the Docker container in less than 2 minutes using Play With Docker:
-
-<a href="https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/genocs/clean-architecture-template/main/src/template/infrastructure/docker/docker-compose.yml&stack_name=clean-architecture-template" rel="nofollow"><img src="https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png" alt="Try in PWD" style="max-width:100%;"></a>
 
 ## Motivation
 
@@ -136,7 +133,9 @@ You can check them locally:
 - MongoDB: `TCP:localhost:27017`
 - Postgres: `TCP:localhost:5432`
 
-`infrastructure-monitoring.yml` allows to install the monitoring infrastructure components. They are:
+`infrastructure-monitoring.yml` allows to install the monitoring infrastructure components. 
+
+Find more on:
 
 - [Aspire](https://learn.microsoft.com/en-us/dotnet/aspire/)
 - [Prometheus](https://prometheus.io/)
@@ -154,7 +153,9 @@ You can find the console locally at:
 - [Jaeger](localhost:16686): `localhost:16686`
 - [Seq](localhost:5341): `localhost:5341`
 
-`infrastructure-scaling.yml` allows to install the scaling infrastructure components composed by a Load balancer (Fabio) Service Discovery (Consul) components. They are:
+`infrastructure-scaling.yml` allows to install the scaling infrastructure components composed by a Load balancer (Fabio) Service Discovery (Consul) components.
+
+Find more on:
 
 - [Fabio](https://fabiolb.net/)
 - [Consul](https://www.consul.io/)
@@ -402,11 +403,7 @@ public sealed class RegisterResponse
     [Required]
     public List<AccountDetailsModel> Accounts { get; }
 
-    public RegisterResponse(
-        Guid customerId,
-        string ssn,
-        string name,
-        List<AccountDetailsModel> accounts)
+    public RegisterResponse(Guid customerId, string ssn, string name, List<AccountDetailsModel> accounts)
     {
         CustomerId = customerId;
         SSN = ssn;
@@ -899,11 +896,11 @@ Principles to write maintainable and extendable software.
 
 | SOLID Principles | Description |
 | ---------------- | ----------- |
-| Single Responsibility Principle | A class should have one, and only one, reason to change. |
-| Open-Closed Principle | You should be able to extend a classes behavior, without modifying it. |
-| Liskov Substitution Principle | Derived classes must be substitutable for their base classes. |
-| Interface Segregation Principle | Make fine grained interfaces that are client specific. |
-| Dependency Inversion Principle | Depend on abstractions, not on concretions. |
+| __Single Responsibility Principle__ | A class should have one, and only one, reason to change. |
+| __Open-Closed Principle__ | You should be able to extend a classes behavior, without modifying it. |
+| __Liskov Substitution Principle__ | Derived classes must be substitutable for their base classes. |
+| __Interface Segregation Principle__ | Make fine grained interfaces that are client specific. |
+| __Dependency Inversion Principle__ | Depend on abstractions, not on concretions. |
 
 ## .NET Core Web API
 
@@ -921,52 +918,6 @@ builder.AddGenocs()
 var services = builder.Services;
 services.AddControllers().AddControllersAsServices();
 services.AddVersioning();
-```
-
-### Microsoft Extensions
-
-The solution uses the minimal hosting model. Service registration is centralized in [Program.cs](http://_vscodecontentref_/2):
-
-```c#
-StaticLogger.EnsureInitialized();
-
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Host.UseLogging();
-
-builder.AddGenocs()
-       .AddSwaggerDocs()
-       .Build();
-
-var services = builder.Services;
-
-services.AddControllers().AddControllersAsServices();
-services.AddBusinessExceptionFilter();
-services.AddFeatureFlags(builder.Configuration);
-services.AddVersioning();
-services.AddCustomHealthChecks(builder.Configuration);
-
-#if InMemory
-services.AddInMemoryPersistence();
-#elif MongoDb
-services.AddMongoDbPersistence(builder.Configuration);
-#elif SQLServer
-services.AddSQLServerPersistence(builder.Configuration);
-#endif
-
-#if Rebus
-services.AddRebusServiceBus(builder.Configuration);
-#elif MassTransit
-services.AddMassTransitServiceBus(builder.Configuration);
-#elif NServiceBus
-services.AddNServiceBusServiceBus(builder.Configuration);
-#elif AzureServiceBus
-services.AddAzureServiceBus(builder.Configuration);
-#endif
-
-services.AddUseCases();
-services.AddPresentersV1();
-services.AddPresentersV2();
 ```
 
 ### Feature Flags
@@ -1003,33 +954,15 @@ public sealed class CustomControllerFeatureProvider(IFeatureManager featureManag
 ### Logging
 
 ```c#
-public static IWebHostBuilder CreateWebHostBuilder(string[] args)
-{
-    return WebHost.CreateDefaultBuilder(args)
-        .ConfigureAppConfiguration((hostingContext, config) =>
-        {
-            var env = hostingContext.HostingEnvironment;
+StaticLogger.EnsureInitialized();
 
-            config.AddJsonFile("appsettings.json", optional : true, reloadOnChange : true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional : true, reloadOnChange : true);
+var builder = WebApplication.CreateBuilder(args);
 
-            config.AddEnvironmentVariables();
+builder.Host.UseLogging();
 
-            if (args != null)
-            {
-                config.AddCommandLine(args);
-            }
-        })
-        .ConfigureLogging((hostingContext, logging) =>
-        {
-            // Requires `using Microsoft.Extensions.Logging;`
-            logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-            logging.AddConsole();
-            logging.AddDebug();
-            logging.AddEventSourceLogger();
-        })
-        .UseStartup(typeof(Program).Assembly.FullName);
-}
+
+// End with ..
+await Log.CloseAndFlushAsync();
 ```
 
 ```c#
@@ -1063,7 +996,7 @@ public enum Features
 
 Data Annotations are powerful tool from .NET, it can be interpreted by ASP.NET Core and other frameworks to generate Validation, User Interface and other things. Data Annotations are used to create a complete Swagger UI and HTTP Request validation. Of course following the Clean Architecture Principles we need to keep frameworks under control.
 
-I decided to use Data Annotations on the User Interface layer. Take a look on the `RegisterRequest` class:
+I've decided to use Data Annotations on the User Interface layer. Take a look on the `RegisterRequest` class:
 
 ```c#
 /// <summary>
@@ -1123,11 +1056,7 @@ public sealed class RegisterResponse
     [Required]
     public List<AccountDetailsModel> Accounts { get; }
 
-    public RegisterResponse(
-        Guid customerId,
-        string ssn,
-        string name,
-        List<AccountDetailsModel> accounts)
+    public RegisterResponse(Guid customerId, string ssn, string name, List<AccountDetailsModel> accounts)
     {
         CustomerId = customerId;
         SSN = ssn;
@@ -1137,7 +1066,6 @@ public sealed class RegisterResponse
 }
 ```
 
-References: [Designing and Testing Input Validation in .NET Core: The Clean Architecture way](https://paulovich.net/designing-testing-input-validation-in-dotnet-core-the-clean-architecture-way/)
 
 ## Entity Framework Core
 
@@ -1199,10 +1127,10 @@ public sealed class GenocsContext : DbContext
 
 ### Add Migration
 
-Prerequisites>
 
 1. Install the latest .NET Core SDK.
 2. Install the Entity Framework Core Tool:
+
 ```sh
 # Install the Entity Framework Core Tool globally
 dotnet tool install --global dotnet-ef
@@ -1329,24 +1257,7 @@ deploy_script:
 
 The project build two different images. One for the the Web API and one for the bus worker.
 
-```sh
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
-WORKDIR /app
-
-# Copy everything else and build
-COPY . .
-RUN dotnet publish src/WebApi -c release -o out
-
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:10.0
-WORKDIR /app
-COPY --from=build /app/out .
-ENV ASPNETCORE_URLS http://*:80
-ENV ASPNETCORE_ENVIRONMENT Docker
-ENTRYPOINT dotnet {MyCompany.MyProject}.WebApi.dll
-```
-
-To build the docker images
+To build the docker images:
 
 ```sh
 docker build -t company/project.service.webapi -f ./src/WebApi/Dockerfile .
@@ -1361,24 +1272,10 @@ To spin up a SQL Server in a docker container using the connection string `Serve
 ./src/scripts/sql-docker-up.sh
 ```
 
-## Related Content and Projects
-
-| Video                                                                                                                            | Date         |
-| -------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| [Hexagonal and Clean Architecture styles. Same or Different?](https://www.youtube.com/watch?v=FNQbyZu-NAo)                       | Sep 16, 2019 |
-| [Clean Architecture Essentials](https://www.youtube.com/watch?v=NjPjCxTIf4M)                                                     | Sep 13, 2019 |
-| [Shinning Frameworks and DDD?!](https://www.youtube.com/watch?v=OmxBqmmhoHg)                                                     | Sep 12, 2019 |
-| [Clean Architecture: The User Interface is a detail](https://www.youtube.com/watch?v=lWH_ZDu2zKQ)                                | Sep 11, 2019 |
-| [TDD and Hexagonal Architecture: Clean Tests](https://www.youtube.com/watch?v=j6_XPsqjrhE)                                       | Sep 10, 2019 |
-| [Designing and Testing Input Validation with .NET Core: The Clean Architecture way](https://www.youtube.com/watch?v=hyW4d5OcExw) | Sep 9, 2019  |
-| [Clean Architecture Manga](https://www.youtube.com/watch?v=ivAkdJmSqLQ)                                                          | Aug 6, 2019  |
-| [TDD and TDD with .NET Core and VSCode](https://www.youtube.com/watch?v=ORe0r4bpfac&t=360s)                                      | Nov 3, 2018  |
-| [Introduction to Clean Architecture](https://www.youtube.com/watch?v=6SeoWIIK1NU&t=50s)                                          | Oct 31, 2018 |
 
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
 
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

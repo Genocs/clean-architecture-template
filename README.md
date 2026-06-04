@@ -55,14 +55,14 @@ A comprehensive .NET 10 project template that follows Clean Architecture princip
 - 🏗️ **Clean Architecture** - Domain, Application, Infrastructure, and Presentation layers
 - 🎯 **Domain-Driven Design** - Rich domain models with proper separation of concerns
 - 📨 **CQRS Pattern** - Command and event-driven workflows via `Genocs.Common.CQRS`
-- 🚌 **Message Brokers** - Azure Service Bus, MassTransit, NServiceBus, and Rebus options
+- 🚌 **Message Brokers** - MassTransit, NServiceBus, and Rebus options with `RabbitMQ`
 - 🗃️ **Multiple Databases** - MongoDB, EF Core (SQL Server), and InMemory options
-- 🔍 **Telemetry and Logging** - Built-in telemetry/logging integration with monitoring stack assets
+- 🔍 **Telemetry and Logging** - Built-in telemetry/logging via `Genocs.Logging` and `Genocs.Telemetry` integration with monitoring stack assets
 - 🐳 **Containerization** - Docker and Kubernetes ready
 - ☁️ **Infrastructure as Code** - Bicep, Terraform, Helm, and Kubernetes manifests included
 - ⚡ **Background Services** - Worker services for async processing
 - 🧪 **Comprehensive Testing** - Unit, Integration, and Acceptance tests
-- 📘 **API Versioning and OpenAPI** - Versioned endpoints and OpenAPI support out of the box
+- 📘 **API Versioning and OpenAPI** - Versioned endpoints and OpenAPI `Genocs.WebApi.OpenApi` support out of the box
 
 ## 📋 Table of Contents
 
@@ -90,6 +90,7 @@ A comprehensive .NET 10 project template that follows Clean Architecture princip
   - SQL Server for `--database sqlserver` (default)
   - RabbitMQ for `--service-bus masstransit|rebus|nservicebus`
   - Azure Service Bus namespace for `--service-bus azureservicebus`
+  - [Reqnroll](https://docs.reqnroll.net/latest/installation/setup-ide.html) plugin for Testing
 
 ## 🚀 Quick Start
 
